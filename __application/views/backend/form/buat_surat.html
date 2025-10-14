@@ -1,0 +1,1351 @@
+<style>
+
+	* {
+
+	  box-sizing: border-box;
+
+	}
+
+	
+
+	.myInput {
+
+	  background-image: url('__assets/images/searchicon.png');
+
+	  background-position: 10px 12px;
+
+	  background-repeat: no-repeat;
+
+	  width: 100%;
+
+	  font-size: 16px;
+
+	  padding: 12px 20px 12px 40px;
+
+	  border: 1px solid #ddd;
+
+	  margin-bottom: 12px;
+
+	}
+
+	
+
+	.myUL {
+
+	  list-style-type: none;
+
+	  padding: 0;
+
+	  margin: 0;
+
+	}
+
+	
+
+	.myUL li a {
+
+	  border: 1px solid #ddd;
+
+	  margin-top: -1px; /* Prevent double borders */
+
+	  background-color: #f6f6f6;
+
+	  padding: 12px;
+
+	  text-decoration: none;
+
+	  font-size: 18px;
+
+	  color: black;
+
+	  display: block
+
+	}
+
+	
+
+	.myUL li a:hover:not(.header) {
+
+	  background-color: #eee;
+
+	}
+
+
+
+	.nav-content:not(.active){
+
+		display: none;
+
+	}
+
+</style>
+
+<section class="content">
+
+	<div class="row">
+
+		<div class="col-lg-12">
+
+			<div class="box">
+
+				<div class="box-body">
+
+					<div id="jenis_surat">
+
+						<ul class="nav nav-tabs">
+
+							<li class="active"><a href="#">Form Surat Favorit</a></li>
+
+							<li><a href="#">Semua Form Surat</a></li>
+
+						</ul>
+
+						<div class="row nav-content active">
+
+							<div class="col-lg-12">
+
+								<input type="text" id="myInput1" class="myInput" onkeyup="filter_surat()" placeholder="Ketik nama surat.."
+
+									title="Type in a name">
+
+								<ul class="myUL" id="myUL1">
+
+									{foreach from=$jenis_surat item=rows key=k}
+
+									{if $rows.user_id neq 0}
+
+									<li style="display: inline-flex;width: 100%;">
+
+										<a style="width: 100%;cursor: default;" href="javascript:void(0);" data-id="{$rows.id}">
+
+											{if $rows.stat_green eq '1'}
+
+											<span style="color:green;cursor: pointer;"  onClick="load_surat('{$rows.id}');"><i class="fa fa-envelope-o" aria-hidden="true"></i>
+
+												{$rows.jenis_surat|default:''}</span>
+
+											{else}
+
+											<span style="cursor: pointer;"  onClick="load_surat('{$rows.id}');"><i class="fa fa-envelope" aria-hidden="true"></i> {$rows.jenis_surat|default:''}</span>
+
+											{/if}
+
+											<i class="fa fa-star pull-right text-yellow" onclick="surat_favorit('{$rows.id}',event)" role="button" aria-hidden="true"></i>
+
+											{if $rows.format_nomor_result neq ''}
+
+											<h6>Format Nomor : {$rows.format_nomor_result}</h6>
+
+											{/if}
+
+										</a>
+
+										<button class="btn btn-primary" onclick="edit_format_nomor('{$rows.id}','{$rows.cl_nomor_surat_id}')"><i
+
+												class="fa fa-edit" aria-hidden="true"></i> Edit Kode Surat</button>
+
+									</li>
+
+									{/if}
+
+									{/foreach}
+
+									</ul>
+
+									</div>
+
+									</div>
+
+									<div class="row nav-content">
+
+										<div class="col-lg-12">
+
+											<input type="text" id="myInput2" class="myInput" onkeyup="filter_surat2()" placeholder="Ketik nama surat.."
+
+												title="Type in a name">
+
+											<ul class="myUL" id="myUL2">
+
+												{foreach from=$jenis_surat item=rows key=k}
+
+												<li style="display: inline-flex;width: 100%;">
+
+													<a style="width: 100%;cursor: default;" href="javascript:void(0);" data-id="{$rows.id}">
+
+														{if $rows.stat_green eq '1'}
+
+														<span style="color:green;cursor: pointer;"  onClick="load_surat('{$rows.id}');"><i class="fa fa-envelope-o" aria-hidden="true"></i>
+
+															{$rows.jenis_surat|default:''}</span>
+
+														{else}
+
+														<span style="cursor: pointer;"  onClick="load_surat('{$rows.id}');"><i class="fa fa-envelope" aria-hidden="true"></i> {$rows.jenis_surat|default:''}</span>
+
+														{/if}
+
+														{if $rows.user_id neq 0}
+
+															<i class="fa fa-star pull-right text-yellow" onclick="surat_favorit('{$rows.id}',event)" role="button" aria-hidden="true"></i>
+
+														{else}
+
+															<i class="fa fa-star pull-right" onclick="surat_favorit('{$rows.id}',event)" role="button" aria-hidden="true"></i>
+
+														{/if}
+
+														{if $rows.format_nomor_result neq ''}
+
+														<h6>Format Nomor : {$rows.format_nomor_result}</h6>
+
+														{/if}
+
+													</a>
+
+										<button class="btn btn-primary" onclick="edit_format_nomor('{$rows.id}','{$rows.cl_nomor_surat_id}')"><i
+
+												class="fa fa-edit" aria-hidden="true"></i> Edit Kode Surat</button>
+
+										</li>
+
+										{/foreach}
+
+										</ul>
+
+										</div>
+
+						</div>
+
+						</div>
+
+						<div class="row">
+
+						<div id="form_surat" class="col-lg-12"></div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+
+
+
+<style>
+
+.slist {
+
+  list-style: none;
+
+  padding: 0;
+
+  margin: 0;
+
+}
+
+.slist li {
+
+  margin: 10px;
+
+  padding: 4px;
+
+  border: 1px solid #dfdfdf;
+
+  background: #f5f5f5;
+
+}
+
+
+
+/* (B) DRAG-AND-DROP HINT */
+
+.slist li.hint {
+
+  border: 1px solid #ffc49a;
+
+  background: #feffb4;
+
+}
+
+.slist li.active {
+
+  border: 1px solid #ffa5a5;
+
+  background: #ffe7e7;
+
+}
+
+</style>
+
+
+
+<div class="modal fade" id="modal-kode-surat" role="dialog" aria-hidden="true">
+
+	<div class="modal-dialog modal-lg">
+
+		<div class="modal-content">
+
+			<div class="color-line"></div>
+
+			<div class="modal-header text-center">
+
+				<h4 class="modal-title fw-bold text-uppercase" id="modal_title">
+
+					KODE PENOMORAN SURAT OTOMATIS
+
+				</h4>
+
+				<small class="font-bold"></small>
+
+			</div>
+
+			<form id="fm-kode-surat">
+
+				<input type="hidden" id="fm_cl_jenis_surat_id" name="cl_jenis_surat_id">
+
+				<input type="hidden" id="fm_cl_nomor_surat_id" name="cl_nomor_surat_id">
+
+				<div class="modal-body" style="padding: 20px 29px;">
+
+					<div class="row d-flex align-content-stretch">
+
+						<div class="col-md-6 col-12 p-2" style="border: 1px solid #b7b6b6;">
+
+							<h3 style="margin-top: 0px;">A. Menentukan Kode Nomor Surat</h3>
+
+							<p>Silahkan memasukkan kode-kode yang ada pada nomor surat <b>selain nomor urut, bulan, dan tahun</b>. Kode yang ada pada nomor surat di urutkan dari <b>kiri</b> ke <b>kanan</b> untuk menentukan <b>Kode 1 s/d Kode 2</b><br><br> Silahkan perhatikan contoh nomor surat dibawah:</p>
+
+							<h5>Contoh 1:</h5>
+
+							<img src="{$host}__assets/images/detail_nomor_surat.png" alt="" style="width: 100%;">
+
+							<br>
+
+							<h5>Contoh 2:</h5>
+
+							<img src="{$host}__assets/images/detail_nomor_surat_2.png" alt="" style="width: 100%;">
+
+							<ul class="slist">
+
+								<li>KODE 1: <input type="text" class="form-control" id="slist_p1" name="p1" placeholder="Kode 1" data-target="_p1" oninput="set_list_kode(this.value,event)"></li>
+
+								<li>KODE 2: <input type="text" class="form-control" id="slist_p2" name="p2" placeholder="Kode 2" data-target="_p2" oninput="set_list_kode(this.value,event)"></li>
+
+								<li style="display: none;">KODE 3: <input type="text" class="form-control" id="slist_p3" name="p3" placeholder="Kode 3" data-target="_p3" oninput="set_list_kode(this.value,event)"></li>
+
+								<li style="display: none;">KODE 4: <input type="text" class="form-control" id="slist_p4" name="p4" placeholder="Kode 4" data-target="_p4" oninput="set_list_kode(this.value,event)"></li>
+
+							</ul>
+
+						</div>
+
+						<div class="col-md-6 col-12 p-2" style="border: 1px solid #b7b6b6;">
+
+							<h3 style="margin-top: 0px;">B. Menentukan Format Nomor Surat</h3>
+
+							<ol>
+
+								<li>Silahkan tentukan urutan komponen nomor surat dengan cara <b>klik kiri</b> dan <b>tahan</b> pada icon (<i class="fa fa-arrows-alt text-muted mx-1"></i>), kemudian geser ke <b>bawah</b> atau ke <b>atas</b> untuk menentukan posisi</li>
+
+								<li>Beri centang pada kotak (<input type="checkbox" class="mx-1" onclick="return false;" checked>) jika ingin memasukkan dalam komponen nomor surat dan hapus centang pada kotak (<input type="checkbox" class="mx-1" onclick="return false;">) jika ingin mengeluarkan dari komponen nomor surat </li>
+
+							</ol>
+
+
+
+							<ul id="sortlist">
+
+								<li>
+
+									<input onchange="show_result_format_nomor(event)" type="checkbox" name="format_nomor_aktif[]" value="nomor" checked id="format_nomor_nomor">
+
+									<i class="fa fa-arrows-alt fa-lg mx-3 text-muted" role="button"></i>
+
+									<label id="sortlist_nomor">001</label> (Nomor Urut)
+
+									<input type="hidden" class="form-control" name="format_nomor[]" value="nomor">
+
+								</li>
+
+								<li>
+
+									<input onchange="show_result_format_nomor(event)" type="checkbox" name="format_nomor_aktif[]" value="p1" id="format_nomor_p1">
+
+									<i class="fa fa-arrows-alt fa-lg mx-3 text-muted" role="button"></i>
+
+									<label id="sortlist_p1">...</label> (Kode 1)
+
+									<input type="hidden" class="form-control" name="format_nomor[]" placeholder="Kode 1" value="p1">
+
+								</li>
+
+								<li>
+
+									<input onchange="show_result_format_nomor(event)" type="checkbox" name="format_nomor_aktif[]" value="p2" id="format_nomor_p2">
+
+									<i class="fa fa-arrows-alt fa-lg mx-3 text-muted" role="button"></i>
+
+									<label id="sortlist_p2">...</label> (Kode 2)
+
+									<input type="hidden" class="form-control" name="format_nomor[]" placeholder="Kode 2" value="p2">
+
+								</li>
+
+								<li>
+
+									<input onchange="show_result_format_nomor(event)" type="checkbox" name="format_nomor_aktif[]" value="bulan" checked id="format_nomor_bulan">
+
+									<i class="fa fa-arrows-alt fa-lg mx-3 text-muted" role="button"></i>
+
+									<label id="sortlist_bulan">{romawi(date('m'))}</label> (Bulan)
+
+									<input type="hidden" class="form-control" name="format_nomor[]" value="bulan">
+
+								</li>
+
+								<li>
+
+									<input onchange="show_result_format_nomor(event)" type="checkbox" name="format_nomor_aktif[]" value="tahun" checked id="format_nomor_tahun">
+
+									<i class="fa fa-arrows-alt fa-lg mx-3 text-muted" role="button"></i>
+
+									<label id="sortlist_tahun">{date('Y')}</label> (Tahun)
+
+									<input type="hidden" class="form-control" name="format_nomor[]" value="tahun">
+
+								</li>
+
+							</ul>
+
+
+
+							<h5>Contoh Hasil:</h5>
+
+							<p id="format_nomor_hasil" style="font-weight: bold;"></p>
+
+						</div>
+
+					</div>
+
+					<div class="row d-flex align-content-stretch">
+
+						<div class="col-md-12 col-12 p-2" style="border: 1px solid #b7b6b6;">
+
+							<h3 style="margin-top: 0px;">C. Menentukan Rumus Nomor Urut Surat</h3>
+
+							<ol>
+
+								<li>Jika <b>Nomor Urut</b> diurutkan berdasarkan <b>Tahun</b> dan <b>Bulan</b>, maka beri centang pada kotak (<input type="checkbox" class="mx-1" onclick="return false;" checked>) <b>Tahun</b> dan <b>Bulan</b> saja.</li>
+
+								<li>Jika <b>Nomor Urut</b> diurutkan berdasarkan <b>Tahun</b> dan <b>Kode 1</b> atau <b>Kode 2</b>, maka beri centang pada kotak (<input type="checkbox" class="mx-1" onclick="return false;" checked>) <b>Tahun</b> dan <b>Kode 1</b> atau <b>Kode 2</b> saja.</li>
+
+								<li>Dst.</li>
+
+							</ol>
+
+
+
+							<ul class="slist">
+
+								<li>
+
+									<input type="checkbox" class="me-2" name="param_nomor_aktif[]" value="p1" id="param_nomor_aktif_p1">
+
+									<input type="hidden" class="me-2" name="param_nomor[]" value="p1" id="param_nomor_p1">
+
+									<label for="param_nomor_aktif_p1">Kode 1</label>
+
+								</li>
+
+								<li>
+
+									<input type="checkbox" class="me-2" name="param_nomor_aktif[]" value="p2" id="param_nomor_aktif_p2">
+
+									<input type="hidden" class="me-2" name="param_nomor[]" value="p2" id="param_nomor_p2">
+
+									<label for="param_nomor_aktif_p2">Kode 2</label>
+
+								</li>
+
+								<li>
+
+									<input type="checkbox" class="me-2" name="param_nomor_aktif[]" value="bulan"  id="param_nomor_aktif_bulan">
+
+									<input type="hidden" class="me-2" name="param_nomor[]" value="bulan"  id="param_nomor_bulan">
+
+									<label for="param_nomor_aktif_bulan">Bulan</label>
+
+								</li>
+
+								<li>
+
+									<input type="checkbox" class="me-2" name="param_nomor_aktif[]" value="tahun" onclick="return false;" checked id="param_nomor_aktif_tahun">
+
+									<input type="hidden" class="me-2" name="param_nomor[]" value="tahun" onclick="return false;" checked id="param_nomor_tahun">
+
+									<label for="param_nomor_aktif_tahun">Tahun</label>
+
+								</li>
+								<li>
+
+									<input type="checkbox" class="me-2" name="param_nomor_aktif[]" value="cl_jenis_surat_id" id="param_nomor_aktif_cl_jenis_surat_id">
+
+									<input type="hidden" class="me-2" name="param_nomor[]" value="cl_jenis_surat_id" id="param_nomor_cl_jenis_surat_id">
+
+									<label for="param_nomor_aktif_cl_jenis_surat_id">Jenis Surat</label>
+
+								</li>
+
+							</ul>
+
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="modal-footer">
+
+					<button type="button" style='margin-top:10px;' class="btn btn-default" data-dismiss="modal">Tutup</button>
+					<button type="button" id="btnReset" style='margin-top:10px;' class="btn btn-warning">Reset</button>
+					<button type="submit" style='margin-top:10px;' class="btn btn-primary btn-simpan-esign">Simpan</button>
+
+				</div>
+
+			</form>
+
+		</div>
+
+	</div>
+
+</div> 
+
+
+
+<script>
+
+
+
+	$('#jenis_surat .nav-tabs li').click(function(){
+
+		$('#jenis_surat .nav-tabs li').toggleClass('active');
+
+		$('#jenis_surat .nav-content').toggleClass('active');
+
+	});
+
+
+
+	function surat_favorit(id,e) {
+
+		$this = e.target;
+
+		if ($($this).closest('ul').attr('id')=='myUL1') {
+
+			$($this).attr('class','fa fa-spinner fa-spin pull-right');
+
+
+
+			const formData = new FormData();
+
+			formData.append('id',id);
+
+			formData.append('status','0');
+
+			fetch("{$host}backoffice-simpan-favorit-surat", {
+
+				method: "POST",
+
+				body: formData
+
+			})
+
+			.then(response => response.json())
+
+			.then(data => {
+
+				if (data.stat==true) {
+
+					var this_id = $($this).closest('li').find('a').data('id');
+
+					$('#myUL2 a').each(function(i,v) {
+
+						if (this_id==$(this).data('id')) {
+
+							$($this).closest('li').remove();
+
+							$(this).find('.fa-star').attr('class','fa fa-star pull-right');
+
+						}
+
+					});
+
+					$($this).closest('li').remove();
+
+				}else{
+
+					$($this).attr('class','fa fa-star text-yellow pull-right');
+
+					$.messager.alert(
+
+						'Code '+data.code,
+
+						data.message,
+
+						"warning"
+
+						);
+
+					}
+
+				})
+
+			.catch(error => {
+
+				$($this).attr('class','fa fa-star text-yellow pull-right');
+
+				$.messager.alert(
+
+					error,
+
+					"error"
+
+				);
+
+			});
+
+
+
+		}else{
+
+			if ($($this).hasClass('text-yellow')) {
+
+				$($this).attr('class','fa fa-spinner fa-spin pull-right');
+
+
+
+				const formData = new FormData();
+
+				formData.append('id',id);
+
+				formData.append('status','0');
+
+				fetch("{$host}backoffice-simpan-favorit-surat", {
+
+					method: "POST",
+
+					body: formData
+
+				})
+
+				.then(response => response.json())
+
+				.then(data => {
+
+					if (data.stat==true) {
+
+						var this_id = $($this).closest('li').find('a').data('id');
+
+						$('#myUL1 a').each(function(i,v) {
+
+							if (this_id==$(this).data('id')) {
+
+								$(this).closest('li').remove();
+
+							}
+
+						});
+
+						$($this).attr('class','fa fa-star pull-right');
+
+					}else{
+
+						$.messager.alert(
+
+							'Code '+data.code,
+
+							data.message,
+
+							"warning"
+
+							);
+
+						$($this).attr('class','fa fa-star text-yellow pull-right');
+
+					}
+
+				})
+
+				.catch(error => {
+
+					$($this).attr('class','fa fa-star text-yellow pull-right');
+
+					$.messager.alert(
+
+						error,
+
+						"error"
+
+					);
+
+				});
+
+
+
+
+
+				
+
+			}else{
+
+				$($this).attr('class','fa fa-spinner fa-spin pull-right');
+
+				var this_text = $($this).closest('li').find('a').text();
+
+				var stat_exist = 0;
+
+				$('#myUL1 a').each(function(i,v) {
+
+					if (this_text==$(this).text()) {
+
+						stat_exist=1;
+
+					}
+
+				});
+
+				if (stat_exist==0) {
+
+					const formData = new FormData();
+
+					formData.append('id',id);
+
+					formData.append('status','1');
+
+					fetch("{$host}backoffice-simpan-favorit-surat", {
+
+						method: "POST",
+
+						body: formData
+
+					})
+
+					.then(response => response.json())
+
+					.then(data => {
+
+						if (data.stat==true) {
+
+							$($this).attr('class','fa fa-star text-yellow pull-right');
+
+							$('#myUL1').append($($this).closest('li').clone());
+
+						}else{
+
+							$($this).attr('class','fa fa-star pull-right');
+
+							$.messager.alert(
+
+								'Code '+data.code,
+
+								data.message,
+
+								"warning"
+
+							);
+
+						}
+
+					})
+
+					.catch(error => {
+
+						$($this).attr('class','fa fa-star pull-right');
+
+						$.messager.alert(
+
+							error,
+
+							"error"
+
+						);
+
+					});
+
+					
+
+				}
+
+			}
+
+		}
+
+	}
+
+
+
+	document.getElementById("fm-kode-surat").addEventListener("submit", function(event) {
+
+		event.preventDefault(); // Prevent the form from submitting traditionally
+
+		let text = event.submitter.innerHTML;
+
+		event.submitter.innerHTML = 'Menyimpan...';
+
+		event.submitter.disabled = true;
+
+
+
+		const form = event.target;
+
+		const formData = new FormData(form);
+
+
+
+		// Make a POST request to the server using the Fetch API
+
+		fetch("{$host}backoffice-simpan-format-nomor-surat", {
+
+			method: "POST",
+
+			body: formData
+
+		})
+
+		.then(response => response.json()) // Handle the server response
+
+		.then(data => {
+
+			if (data.stat==true) {
+
+				$('#modal-kode-surat').modal('hide');
+
+				$.messager.alert(
+
+					'Ok!',
+
+					data.message
+
+				);
+
+				setTimeout(() => {
+
+					loadUrl('{$host}backoffice-form/buat_surat');
+
+				}, 500);
+
+			}else{
+
+				$.messager.alert(
+
+					'Code '+data.code,
+
+					data.message,
+
+					"warning"
+
+				);
+
+			}
+
+			event.submitter.innerHTML = text;
+
+			event.submitter.disabled = false;
+
+		})
+
+		.catch(error => {
+
+			console.log(error);
+
+			event.submitter.innerHTML = text;
+
+			event.submitter.disabled = false;
+
+		});
+
+	});
+
+
+	document.getElementById("btnReset").addEventListener("click", function(event) {
+
+		event.preventDefault(); // Prevent the form from submitting traditionally
+		let text = event.target.innerHTML;
+
+		event.target.innerHTML = 'Menyimpan...';
+
+		event.target.disabled = true;
+
+
+
+		const form = document.getElementById('fm-kode-surat');
+
+		const formData = new FormData(form);
+
+
+
+		// Make a POST request to the server using the Fetch API
+
+		fetch("{$host}backoffice-reset-format-nomor-surat", {
+
+			method: "POST",
+
+			body: formData
+
+		})
+
+		.then(response => response.json()) // Handle the server response
+
+		.then(data => {
+
+			if (data.stat==true) {
+
+				$('#modal-kode-surat').modal('hide');
+
+				$.messager.alert(
+
+					'Ok!',
+
+					data.message
+
+				);
+
+				setTimeout(() => {
+
+					loadUrl('{$host}backoffice-form/buat_surat');
+
+				}, 500);
+
+			}else{
+
+				$.messager.alert(
+
+					'Code '+data.code,
+
+					data.message,
+
+					"warning"
+
+				);
+
+			}
+
+			event.target.innerHTML = text;
+
+			event.target.disabled = false;
+
+		})
+
+		.catch(error => {
+
+			console.log(error);
+
+			event.target.innerHTML = text;
+
+			event.target.disabled = false;
+
+		});
+
+	});
+
+
+	function set_list_kode(value,e) {
+
+		e = e.target;
+		document.getElementById('sortlist'+e.dataset.target).innerHTML=value;
+		$('[for=param_nomor_aktif'+e.dataset.target+']').html(value==''?(e.dataset.target=='_p1'?'Kode 1':'Kode 2'):value);
+
+		if (value!='') {
+
+			document.getElementById('format_nomor'+e.dataset.target).checked = true;
+
+		}else{
+
+			document.getElementById('format_nomor'+e.dataset.target).checked = false;
+
+		}
+
+		show_result_format_nomor();
+
+	}
+
+
+
+	function show_result_format_nomor() {
+
+		let sortlist = document.getElementById('sortlist').children;
+
+		// console.log(sortlist);
+
+		let result = '';
+
+		for (let i = 0; i < sortlist.length; i++) {
+
+			// console.log(sortlist[i]);
+
+			// console.log(sortlist[i].children[0]);
+
+			if (sortlist[i].children[0].checked) {
+
+				result +=sortlist[i].children[2].innerHTML;	
+
+				if (i<sortlist.length-1) {
+
+					result +="/";
+
+				}
+
+			}
+
+		}
+
+		// console.log(result);
+
+		document.getElementById('format_nomor_hasil').innerHTML = result;
+
+	}
+
+
+
+	function edit_format_nomor(id,cl_nomor_surat_id){
+
+		// console.log(id);
+
+		if (cl_nomor_surat_id>0) {
+
+			const formData = new FormData();
+
+			formData.append('cl_nomor_surat_id',cl_nomor_surat_id)
+
+			fetch("{$host}backoffice-get-format-nomor-surat", {
+
+				method: "POST",
+
+				body: formData
+
+			})
+
+			.then(response => response.json())
+
+			.then(data => {
+
+				if (data.stat==true) {
+
+					document.getElementById('fm_cl_jenis_surat_id').value = id;
+
+					document.getElementById('fm_cl_nomor_surat_id').value = data.data.id;
+
+					for (let i = 1; i <= 2; i++) {
+
+						document.getElementById('slist_p'+i).value = data.data['p'+i];
+
+						document.getElementById('sortlist_p'+i).innerHTML = data.data['p'+i];
+
+						$('[for=param_nomor_aktif_p'+i+']').html(data.data['p'+i]==''?(i==1?'Kode 1':'Kode 2'):data.data['p'+i]);
+
+					}
+
+					$('#sortlist input').prop('checked',false);
+
+					var sortlist = '';
+
+					data.data.format_nomor.forEach(function(item,index) {
+
+						var sortlist_temp = document.getElementById('sortlist_'+item).parentNode;
+
+						sortlist_temp.firstElementChild.checked = true;
+
+						document.getElementById('sortlist_'+item).parentNode.remove();
+
+						document.getElementById('sortlist').append(sortlist_temp);
+
+					});
+
+					show_result_format_nomor();
+
+					$('[name="param_nomor_aktif[]"]').each(function(i,v) {
+
+						if(data.data.param_nomor.indexOf(this.value.trim()) != -1){
+
+							$('#param_nomor_aktif_'+this.value).prop('checked',true);
+
+						}else{
+
+							$('#param_nomor_aktif_'+this.value).prop('checked',false);
+
+						}
+
+					});
+
+
+
+					$('#modal-kode-surat').modal('show');
+
+				}else{
+
+					$.messager.alert(
+
+						'Code '+data.code,
+
+						data.message,
+
+						"warning"
+
+					);
+
+				}
+
+			})
+
+			.catch(error => {
+
+				console.log(error);
+
+			});
+
+		}else{
+
+			document.getElementById('fm_cl_jenis_surat_id').value = id;
+
+			document.getElementById('fm_cl_nomor_surat_id').value = '';
+
+			for (let i = 1; i <= 4; i++) {
+
+				document.getElementById('slist_p'+i).value='';
+
+			}
+
+			document.getElementById('format_nomor_nomor').checked=true;
+
+			document.getElementById('format_nomor_p1').checked=false;
+
+			document.getElementById('format_nomor_p2').checked=false;
+
+			document.getElementById('format_nomor_bulan').checked=true;
+
+			document.getElementById('format_nomor_tahun').checked=true;
+
+			document.getElementById('format_nomor_hasil').innerHTML='';
+
+			document.getElementById('param_nomor_aktif_p1').checked=false;
+
+			document.getElementById('param_nomor_aktif_p2').checked=false;
+
+			document.getElementById('param_nomor_aktif_bulan').checked=false;
+
+			document.getElementById('param_nomor_aktif_tahun').checked=true;
+
+			$('#modal-kode-surat').modal('show');
+
+		}
+
+	}
+
+	function load_surat(idx){ 
+
+		$.LoadingOverlay("show");
+
+		$.post(host+'backoffice-form/form_surat', { 'idx': idx }, function(resp){
+
+			$('#jenis_surat').hide();
+
+			$('#form_surat').show().html(resp).removeClass("loading");
+
+			$.LoadingOverlay("hide", true);
+
+		});
+
+	}
+
+
+
+	function filter_surat() {
+
+		var input, filter, ul, li, a, i, txtValue;
+
+		input = document.getElementById("myInput1");
+
+		filter = input.value.toUpperCase();
+
+		ul = document.getElementById("myUL1");
+
+		li = ul.getElementsByTagName("li");
+
+		for (i = 0; i < li.length; i++) {
+
+			a = li[i].getElementsByTagName("a")[0];
+
+			txtValue = a.textContent || a.innerText;
+
+			if (txtValue.toUpperCase().indexOf(filter) > -1) {
+
+				li[i].style.display = "inline-flex";
+
+			} else {
+
+				li[i].style.display = "none";
+
+			}
+
+		}
+
+	}
+
+
+
+	function filter_surat2() {
+
+		var input, filter, ul, li, a, i, txtValue;
+
+		input = document.getElementById("myInput2");
+
+		filter = input.value.toUpperCase();
+
+		ul = document.getElementById("myUL2");
+
+		li = ul.getElementsByTagName("li");
+
+		for (i = 0; i < li.length; i++) {
+
+			a = li[i].getElementsByTagName("a")[0];
+
+			txtValue = a.textContent || a.innerText;
+
+			if (txtValue.toUpperCase().indexOf(filter) > -1) {
+
+				li[i].style.display = "inline-flex";
+
+			} else {
+
+				li[i].style.display = "none";
+
+			}
+
+		}
+
+	}
+
+
+
+	slist(document.getElementById("sortlist"));
+
+
+
+function slist (target) {
+
+// (A) SET CSS + GET ALL LIST ITEMS
+
+target.classList.add("slist");
+
+let items = target.getElementsByTagName("li"), current = null;
+
+
+
+// (B) MAKE ITEMS DRAGGABLE + SORTABLE
+
+for (let i of items) {
+
+// (B1) ATTACH DRAGGABLE
+
+i.draggable = true;
+
+
+
+// (B2) DRAG START - YELLOW HIGHLIGHT DROPZONES
+
+i.ondragstart = e => {
+
+current = i;
+
+for (let it of items) {
+
+if (it != current) { it.classList.add("hint"); }
+
+}
+
+};
+
+
+
+// (B3) DRAG ENTER - RED HIGHLIGHT DROPZONE
+
+i.ondragenter = e => {
+
+if (i != current) { i.classList.add("active"); }
+
+};
+
+
+
+// (B4) DRAG LEAVE - REMOVE RED HIGHLIGHT
+
+i.ondragleave = () => i.classList.remove("active");
+
+
+
+// (B5) DRAG END - REMOVE ALL HIGHLIGHTS
+
+i.ondragend = () => { 
+
+	for (let it of items) {
+
+it.classList.remove("hint");
+
+it.classList.remove("active");
+
+}
+
+show_result_format_nomor();
+
+};
+
+
+
+// (B6) DRAG OVER - PREVENT THE DEFAULT "DROP", SO WE CAN DO OUR OWN
+
+i.ondragover = e => e.preventDefault();
+
+
+
+// (B7) ON DROP - DO SOMETHING
+
+i.ondrop = e => {
+
+e.preventDefault();
+
+if (i != current) {
+
+let currentpos = 0, droppedpos = 0;
+
+for (let it=0; it<items.length; it++) {
+
+if (current == items[it]) { currentpos = it; }
+
+if (i == items[it]) { droppedpos = it; }
+
+}
+
+if (currentpos < droppedpos) {
+
+i.parentNode.insertBefore(current, i.nextSibling);
+
+} else {
+
+i.parentNode.insertBefore(current, i);
+
+}
+
+}
+
+};
+
+}
+
+}
+
+</script>

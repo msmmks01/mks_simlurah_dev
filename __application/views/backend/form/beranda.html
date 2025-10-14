@@ -1,0 +1,816 @@
+<style>
+	a.info-box {
+		display: block;
+  min-height: 90px;
+  background: #fff;
+  width: 100%;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  margin-bottom: 15px;
+	}
+	.icn-dash {
+  font-size: 4rem;
+  top: -12px;
+  position: relative;
+}
+
+.box-dash {
+  position: absolute;
+
+  margin-top: -2.5rem;
+
+  margin-left: 1.4rem;
+
+  border-radius: 12px;
+  height: 69px;
+  width: 69px;
+  box-shadow: 0 4px 20px 0 rgba(0,0,0,.14),0 7px 10px -5px rgba(64,64,64,.4) !important;
+
+}
+
+hr.horizontal.dark {
+  background-image: linear-gradient(90deg,transparent,rgba(111, 106, 106, 0.4),transparent)
+}
+hr.horizontal {
+  background-color: transparent;
+  border-top: none;
+  height: 1px;
+}
+.card > hr {
+  margin-right: 0;
+  margin-left: 0;
+}
+.biru {
+    box-shadow: 3px 3px 6px #00c0ef40;
+}
+.merah {
+    box-shadow: 3px 3px 6px #dd4b3940;
+}
+.hijau {
+    box-shadow: 3px 3px 6px #00a55940;
+}
+.kuning {
+    box-shadow: 3px 3px 6px #f19a1140;
+}
+</style>
+<section class="content">
+	<div class="row">
+		<div class="col-lg-12">
+			{if $auth.cl_user_group_id eq 4 && $auth.cl_user_group_id eq 5}
+				{if $auth.nip_pegawai eq null}
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="bg-danger text-white p-3">
+								Anda belum mendaftarkan Nomor Identitas Pegawai Negeri Sipil. Anda tidak akan bisa menggunakan tanda tangan elektronik
+							</div>
+						</div>
+					</div>
+				{/if}
+			{/if}
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="box">
+						<div class="box-body">
+							<div class="row">
+								<div class="col-md-3 col-sm-6 col-xs-12" style="padding-top: 29px;">
+								<div class="info-box biru">
+								<span class="info-box-icon bg-aqua box-dash"><i class="fa fa-users icn-dash"></i></span>
+								<div class="info-box-content">
+								<span class="info-box-text">Jumlah Penduduk Aktif</span>
+								<span class="info-box-number">{$data.jumlah_penduduk|number_format:0:",":"."|default:'-'} <small>Orang</small></span>
+							</div>
+							<hr class="dark horizontal my-0 mt-3 mx-2">
+								
+								</div>
+								
+								</div>
+								
+								<div class="col-md-3 col-sm-6 col-xs-12" style="padding-top: 29px;">
+								<div class="info-box merah">
+								<span class="info-box-icon bg-red box-dash"><i class="fa fa-file-text-o icn-dash"></i></span>
+								<div class="info-box-content">
+								<span class="info-box-text">Jumlah Kartu Keluarga</span>
+								<span class="info-box-number">{$data.jumlah_kk|number_format:0:",":"."|default:'-'} <small>Kartu Keluarga</small></span>
+								</div>
+								<hr class="dark horizontal my-0 mt-3 mx-2">
+								</div>
+								
+								</div>
+								
+								
+								<div class="clearfix visible-sm-block"></div>
+								<div class="col-md-3 col-sm-6 col-xs-12" style="padding-top: 29px;">
+								<div class="info-box hijau">
+								<span class="info-box-icon bg-green box-dash"><i class="fa fa-envelope-o icn-dash"></i></span>
+								<div class="info-box-content">
+								<span class="info-box-text">Jumlah Surat Keluar</span>
+								<span class="info-box-number">{$data.jumlah_surat|number_format:0:",":"."|default:'-'} <small>Surat</small></span>
+								</div>
+								<hr class="dark horizontal my-0 mt-3 mx-2">
+								</div>
+								
+								</div>
+
+								<div class="clearfix visible-sm-block"></div>
+								<div class="col-md-3 col-sm-6 col-xs-12" style="padding-top: 29px;">
+								<div class="info-box kuning">
+								<span class="info-box-icon bg-yellow box-dash"><i class="fa fa-envelope-o icn-dash"></i></span>
+								<div class="info-box-content">
+								<span class="info-box-text">Jumlah Surat Masuk</span>
+								<span class="info-box-number">{$data.jumlah_surat_masuk|number_format:0:",":"."|default:'-'} <small>Surat</small></span>
+								</div>
+								<hr class="dark horizontal my-0 mt-3 mx-2">
+								</div>
+								
+								</div>
+								
+								</div>
+								
+								</div>
+							
+							<br>
+							<div class="box-body">
+								<div class="row">
+									<div class="col-md-8">
+
+										<div class="box box-success">
+										<div class="box-header with-border">
+										<h3 class="box-title">Statistik Berdasarkan Agama</h3>
+										<div class="box-tools pull-right">
+										<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+										</button>
+										<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+										</div>
+										</div>
+										
+											<div class="box-body no-padding">
+												<div class="row">
+													<div id="chart_agama"></div>
+												</div>
+											</div>
+										</div>
+										</div>
+											<div class="col-md-4">
+												{foreach from=$data.jenis_kelamin item=rows key=k}
+												<a href="#" class="info-box bg-muted" onclick="cetak_kelamin('{$rows.keterangan}')">
+													<span class="info-box-icon bg-aqua">
+														{if $rows.keterangan eq 'PEREMPUAN'}
+														<i class="fa fa-female"></i>
+														{else}
+														<i class="fa fa-male"></i>
+														{/if}
+														</span>
+													<div class="info-box-content">
+													<span class="info-box-text">{$rows.keterangan|upper|default:''}</span>
+													<span class="info-box-number">{$rows.total|number_format:0:",":"."|default:''} <small>Orang</small></span>
+													<hr class="dark horizontal my-0 mt-3 mx-2">
+													<span class="progress-description">
+													</span>
+													</div>
+												</a>
+												{/foreach}
+												<a href="{$host}survei-kepuasan/{$auth.cl_user_group_id}/{$auth.cl_kecamatan_id}/{$auth.cl_kelurahan_desa_id}" 
+													class="card-survei"
+													target="_blank">
+													<h3>SURVEI KEPUASAN MASYARAKAT</h3>  
+													<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={$host}survei-kepuasan/{$auth.cl_user_group_id}/{$auth.cl_kecamatan_id}/{$auth.cl_kelurahan_desa_id}" 
+															alt="QR Code Survei" />
+													<p>Klik atau Scan QR untuk Mengisi Survei</p>
+												</a>
+
+													{literal}
+													<style>
+													.card-survei {
+													display: block;
+													text-align: center;
+													padding: 25px;
+													background: linear-gradient(135deg, #00bcd4, #2196f3); /* default: biru aqua */
+													border-radius: 20px;
+													color: white;
+													text-decoration: none;
+													font-family: 'Segoe UI', sans-serif;
+													box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+													transition: all 0.4s ease-in-out;
+													}
+													.card-survei:hover {
+													background: linear-gradient(135deg, #00ffff, #00c1ff); /* saat hover: biru terang */
+													transform: scale(1.03);
+													box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+													}
+													.card-survei img {
+													height: 180px;
+													border-radius: 12px;
+													border: 4px solid rgba(255,255,255,0.6);
+													}
+													.card-survei h3 {
+													margin: 0 0 15px 0;
+													font-weight: 600;
+													font-size: 20px;
+													}
+													.card-survei p {
+													margin-top: 15px;
+													font-size: 14px;
+													}
+													</style>
+													{/literal}
+
+											</div>
+											</div>
+											
+											</div>
+										
+										</div>
+								</div>
+							</div>
+							<br>
+							<div class="box">
+								<div class="box-header with-border">
+								<h3 class="box-title">Statistik Kependudukan</h3>
+								</div>
+								
+								<div class="box-body">
+								<div class="row">
+								<div class="col-md-12">
+								<p class="text-center">
+									<strong> Statistik Berdasarkan Pendidikan</strong>
+									</p>
+									{foreach from=$data.pendidikan item=rows key=x}
+									<div class="progress-group">
+										<span class="progress-text">{$rows.keterangan|upper|default:''}</span>
+										<span class="progress-number"><b>{$rows.total|number_format:0:",":"."|default:''}</b></span>
+										<div class="progress sm">
+										<div class="progress-bar progress-bar-aqua" style="width: 100%"></div>
+									</div>
+									</div>
+									{/foreach}
+									
+									
+								
+								</div>
+								
+								</div>
+								
+								</div>
+								
+								<div class="box-footer">
+									<p class="text-center">
+										<strong>Statistik Berdasarkan Status Kawin</strong>
+									</p>
+								<div class="row">
+								{foreach from=$data.status_kawin item=rows key=x}
+								<div class="col-lg-3 col-xs-6">
+										
+										<a class="small-box bg-green" href="#" onclick="cetak_kawin('{$rows.keterangan}')">
+										<div class="inner">
+										<h3>{$rows.total|number_format:0:",":"."|default:''} <sup style="font-size: 20px">Orang</sup></h3>
+										<p>{$rows.keterangan|upper|default:''}</p>
+										</div>
+										<div class="icon">
+										<i class="ion ion-person"></i>
+										</div>
+										</a>
+										</div>
+										
+								{/foreach}		
+								<!-- {foreach from=$data.status_kawin item=rows key=x}
+									<div class="col-sm-3 col-xs-6">
+										<div class="description-block border-right">
+											<span class="description-percentage text-green"><i class="fa fa-caret-up"></i></span>
+											<h5 class="description-header">{$rows.keterangan|upper|default:''}</h5>
+											<span class="description-text">{$rows.total|number_format:0:",":"."|default:''} <smal>Orang</smal></span>
+										</div>
+									</div>
+								{/foreach} -->
+								</div>
+								
+								</div>
+								<div class="box-footer">
+									<p class="text-center">
+										<strong>Statistik Berdasarkan Status Penduduk</strong>
+									</p>
+								<div class="row">
+								<div id="chart_status_data"></div>
+								<!-- {foreach from=$data.status_data item=rows key=x}
+									<div class="col-sm-3 col-xs-6">
+										<div class="description-block border-right">
+											<span class="description-percentage text-green"><i class="fa fa-caret-up"></i></span>
+											<h5 class="description-header">{$rows.keterangan|upper|default:''}</h5>
+											<span class="description-text">{$rows.total|number_format:0:",":"."|default:''} <smal>Orang</smal></span>
+										</div>
+									</div>
+								{/foreach} -->
+								</div>
+								<div class="box-footer">
+									<div class="box-header with-border">
+										<h1 class="box-title"><strong>Statistik Berdasarkan Usia Penduduk</strong></h1>
+										</div>
+								<div class="row">
+								{$no=0}
+								{foreach from=$data.range_umur item=rows key=x}
+								{$no++}
+									<div id='{$no}' class="col-sm-3 col-xs-6 cetak_usia" onclick="cetak_usia('{$no}')">
+										<div class="description-block border-right cetak_usia">
+											<span class="description-percentage text-green"><i class="fa fa-caret-up"></i></span>
+											<h5 class="description-header">{$rows.keterangan|upper|default:''} <small>Tahun</small></h5>
+											<span class="description-text">{$rows.total|number_format:0:",":"."|default:''} <smal>Orang</smal></span>
+										</div>
+									</div>
+								{/foreach}
+								</div>
+								
+								</div>
+								
+								</div>
+								<br>
+							<div class="row" style="margin-bottom:20px;display: none;">
+								<div class="col-lg-6">
+									<div class="box box-success">
+										<section class="content-header">
+										<small>Statistik Berdasarkan Jenis Kelamin</small>
+										</section>
+										<div class="box-body">
+											<div class="row">
+												<div class="col-lg-6">
+													<div id="chart_jenis_kelamin"></div>
+												</div>
+												<div class="col-lg-6">
+													<table class="table table-bordered table-striped">
+														<tbody>
+															{foreach from=$data.jenis_kelamin item=rows key=x}
+																{if $x eq '0'}
+																	<tr>
+																		<td width="70%">{$rows.keterangan|upper|default:''}</td>
+																		<td width="30%" class="text-center">{$rows.total|number_format:0:",":"."|default:''}</td>
+																	</tr>
+																{else}
+																	<tr>
+																		<td>{$rows.keterangan|upper|default:''}</td>
+																		<td class="text-center">{$rows.total|number_format:0:",":"."|default:''}</td>
+																	</tr>
+																{/if}
+															{/foreach}
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="box box-danger">
+										<section class="content-header">
+											<small>Statistik Berdasarkan Agama</small>
+										</section>
+										<div class="box-body">
+											<div class="row">
+												<div class="col-lg-6">
+													<div id="chart_agama"></div>
+												</div>
+												<div class="col-lg-6">
+													<table class="table table-bordered table-striped">
+														<tbody>
+															{foreach from=$data.agama item=rows key=x}
+																{if $x eq '0'}
+																	<tr>
+																		<td width="60%">{$rows.keterangan|upper|default:''}</td>
+																		<td width="40%" class="text-center">{$rows.total|number_format:0:",":"."|default:''}</td>
+																	</tr>
+																{else}
+																	<tr>
+																		<td>{$rows.keterangan|upper|default:''}</td>
+																		<td class="text-center">{$rows.total|number_format:0:",":"."|default:''}</td>
+																	</tr>
+																{/if}
+															{/foreach}
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							
+							<div class="row" style="margin-bottom:20px;display: none;">
+								<div class="col-lg-6">
+									<div class="box box-danger">
+										<div class="box-header with-border">
+											<h3 class="box-title">Statistik Berdasarkan Status Data</h3>
+										</div>
+										<div class="box-body">
+											<div class="row">
+												<div class="col-lg-6">
+													<div id="chart_status_data"></div>
+												</div>
+												<div class="col-lg-6">
+													<table class="table table-bordered table-striped">
+														<tbody>
+															{foreach from=$data.status_data item=rows key=x}
+																{if $x eq '0'}
+																	<tr>
+																		<td width="70%">{$rows.keterangan|upper|default:''}</td>
+																		<td width="30%" class="text-center">{$rows.total|number_format:0:",":"."|default:''}</td>
+																	</tr>
+																{else}
+																	<tr>
+																		<td>{$rows.keterangan|upper|default:''}</td>
+																		<td class="text-center">{$rows.total|number_format:0:",":"."|default:''}</td>
+																	</tr>
+																{/if}
+															{/foreach}
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="box box-success">
+										<div class="box-header with-border">
+											<h3 class="box-title">Statistik Berdasarkan Status Kawin</h3>
+										</div>
+										<div class="box-body">
+											<div class="row">
+												<div class="col-lg-6">
+													<div id="chart_status_kawin"></div>
+												</div>
+												<div class="col-lg-6">
+													<table class="table table-bordered table-striped">
+														<tbody>
+															{foreach from=$data.status_kawin item=rows key=x}
+																{if $x eq '0'}
+																	<tr>
+																		<td width="70%">{$rows.keterangan|upper|default:''}</td>
+																		<td width="30%" class="text-center">{$rows.total|number_format:0:",":"."|default:''}</td>
+																	</tr>
+																{else}
+																	<tr>
+																		<td>{$rows.keterangan|upper|default:''}</td>
+																		<td class="text-center">{$rows.total|number_format:0:",":"."|default:''}</td>
+																	</tr>
+																{/if}
+															{/foreach}
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+							
+							<div class="row" style="margin-bottom:20px;display: none;">
+								<div class="col-lg-12">
+									<div class="box box-info">
+										<div class="box-header with-border">
+											<h3 class="box-title">Statistik Berdasarkan Pendidikan</h3>
+										</div>
+										<div class="box-body">
+											<div class="row">
+												<div class="col-lg-9">
+													<div id="chart_pendidikan"></div>
+												</div>
+												<div class="col-lg-3">
+													<table class="table table-bordered table-striped">
+														<tbody>
+															{foreach from=$data.pendidikan item=rows key=x}
+																{if $x eq '0'}
+																	<tr>
+																		<td width="60%">{$rows.keterangan|upper|default:''}</td>
+																		<td width="40%" class="text-center">{$rows.total|number_format:0:",":"."|default:''}</td>
+																	</tr>
+																{else}
+																	<tr>
+																		<td>{$rows.keterangan|upper|default:''}</td>
+																		<td class="text-center">{$rows.total|number_format:0:",":"."|default:''}</td>
+																	</tr>
+																{/if}
+															{/foreach}
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row" style="margin-bottom:20px;display: none;">
+								<div class="col-lg-12">
+									<div class="box box-info">
+										<div class="box-header with-border">
+											<h3 class="box-title">Statistik Berdasarkan Range Umur Penduduk</h3>
+										</div>
+										<div class="box-body">
+											<div class="row">
+												<div class="col-lg-9">
+													<div id="chart_range_umur"></div>
+												</div>
+												<div class="col-lg-3">
+													<table class="table table-bordered table-striped">
+														<tbody>
+															{foreach from=$data.range_umur item=rows key=x}
+																{if $x eq '0'}
+																	<tr>
+																		<td width="60%">{$rows.keterangan|upper|default:''}</td>
+																		<td width="40%" class="text-center">{$rows.total|number_format:0:",":"."|default:''}</td>
+																	</tr>
+																{else}
+																	<tr>
+																		<td>{$rows.keterangan|upper|default:''}</td>
+																		<td class="text-center">{$rows.total|number_format:0:",":"."|default:''}</td>
+																	</tr>
+																{/if}
+															{/foreach}
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>	
+						</div>
+						<br>
+						<div class="box box-success">
+								<div class="box-header with-border">
+									<h3 class="box-title">Statistik Data Input Persuratan</h3>
+								<div class="box-tools pull-right">
+									<button type="button" class="btn btn-box-tool" onclick="(() => {
+										exportTableToExcel('statistik_data_input_persuratan', 'statistik_data_input_persuratan');
+									})()"><i class="fa fa-print"></i></button>
+									<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+									<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+								</div>
+							</div>
+							
+							<div class="box-body">
+								<style>
+									.table-bordered-custom > thead > tr > th, .table-bordered-custom > tbody > tr > th, .table-bordered-custom > tbody > tr > td, .table-bordered-custom > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+										border: 1px solid #bfbebe;
+									}
+								</style>
+								<div class="table-responsive">
+									<table id="statistik_data_input_persuratan" border="1" class="table table-bordered-custom table-hover"
+										style="border: 1px solid black;width:100%;">
+										<thead>
+											<tr>
+												<th>Jenis Surat</th>
+												<th>Jumlah</th>
+												<th>Januari</th>
+												<th>Februari</th>
+												<th>Maret</th>
+												<th>April</th>
+												<th>Mei</th>
+												<th>Juni</th>
+												<th>Juli</th>
+												<th>Agustus</th>
+												<th>September</th>
+												<th>Oktober</th>
+												<th>November</th>
+												<th>Desember</th>
+											</tr>
+										</thead>
+										<tbody>
+											
+												{$t_total = 0}
+												{$t_januari = 0}
+												{$t_februari = 0}
+												{$t_maret = 0}
+												{$t_april = 0}
+												{$t_mei = 0}
+												{$t_juni = 0}
+												{$t_juli = 0}
+												{$t_agustus = 0}
+												{$t_september = 0}
+												{$t_oktober = 0}
+												{$t_november = 0}
+												{$t_desember = 0}
+											
+
+											{foreach from=$data.summary_persuratan item=rows key=k}
+											
+												{$t_total = $t_total + $rows.total}
+												{$t_januari = $t_januari + $rows.januari}
+												{$t_februari = $t_februari + $rows.februari}
+												{$t_maret = $t_maret + $rows.maret}
+												{$t_april = $t_april + $rows.april}
+												{$t_mei = $t_mei + $rows.mei}
+												{$t_juni = $t_juni + $rows.juni}
+												{$t_juli = $t_juli + $rows.juli}
+												{$t_agustus = $t_agustus + $rows.agustus}
+												{$t_september = $t_september + $rows.september}
+												{$t_oktober = $t_oktober + $rows.oktober}
+												{$t_november = $t_november + $rows.november}
+												{$t_desember = $t_desember + $rows.desember}
+											
+											<tr>
+												<td><h5 class="description-header" align="center"></h5>{$rows.jenis_surat|upper|default:''}</h5></td>
+												<td><h5 class="description-text" align="center">{$rows.total|number_format:0:",":"."|default:''}</h5></td>
+												<td><h5 class="description-text" align="center">{$rows.januari|number_format:0:",":"."|default:''}</h5></td>
+												<td><h5 class="description-text" align="center">{$rows.februari|number_format:0:",":"."|default:''}</h5></td>
+												<td><h5 class="description-text" align="center">{$rows.maret|number_format:0:",":"."|default:''}</h5></td>
+												<td><h5 class="description-text" align="center">{$rows.april|number_format:0:",":"."|default:''}</h5></td>
+												<td><h5 class="description-text" align="center">{$rows.mei|number_format:0:",":"."|default:''}</h5></td>
+												<td><h5 class="description-text" align="center">{$rows.juni|number_format:0:",":"."|default:''}</h5></td>
+												<td><h5 class="description-text" align="center">{$rows.juli|number_format:0:",":"."|default:''}</h5></td>
+												<td><h5 class="description-text" align="center">{$rows.agustus|number_format:0:",":"."|default:''}</h5></td>
+												<td><h5 class="description-text" align="center">{$rows.september|number_format:0:",":"."|default:''}</h5></td>
+												<td><h5 class="description-text" align="center">{$rows.oktober|number_format:0:",":"."|default:''}</h5></td>
+												<td><h5 class="description-text" align="center">{$rows.november|number_format:0:",":"."|default:''}</h5></td>
+												<td><h5 class="description-text" align="center">{$rows.desember|number_format:0:",":"."|default:''}</h5></td>
+											</tr>
+											{/foreach}
+											
+											
+												{$t1 = $t_total}
+												{$t2 = $t_januari}
+												{$t3 = $t_februari}
+												{$t4 = $t_maret}
+												{$t5 = $t_april}
+												{$t6 = $t_mei}
+												{$t7 = $t_juni}
+												{$t8 = $t_juli}
+												{$t9 = $t_agustus}
+												{$t10 = $t_september}
+												{$t11 = $t_oktober}
+												{$t12 = $t_november}
+												{$t13 = $t_desember}
+											
+											<tr>
+												<td><h5 class="description-header" align="right"></h5><b>TOTAL</b></h5></td>
+												<td><h5 class="description-text" align="center"><b>{$t1|number_format:0:",":"."|default:''}</b></h5></td>
+												<td><h5 class="description-text" align="center"><b>{$t2|number_format:0:",":"."|default:''}</b></h5></td>
+												<td><h5 class="description-text" align="center"><b>{$t3|number_format:0:",":"."|default:''}</b></h5></td>
+												<td><h5 class="description-text" align="center"><b>{$t4|number_format:0:",":"."|default:''}</b></h5></td>
+												<td><h5 class="description-text" align="center"><b>{$t5|number_format:0:",":"."|default:''}</b></h5></td>
+												<td><h5 class="description-text" align="center"><b>{$t6|number_format:0:",":"."|default:''}</b></h5></td>
+												<td><h5 class="description-text" align="center"><b>{$t7|number_format:0:",":"."|default:''}</b></h5></td>
+												<td><h5 class="description-text" align="center"><b>{$t8|number_format:0:",":"."|default:''}</b></h5></td>
+												<td><h5 class="description-text" align="center"><b>{$t9|number_format:0:",":"."|default:''}</b></h5></td>
+												<td><h5 class="description-text" align="center"><b>{$t10|number_format:0:",":"."|default:''}</b></h5></td>
+												<td><h5 class="description-text" align="center"><b>{$t11|number_format:0:",":"."|default:''}</b></h5></td>
+												<td><h5 class="description-text" align="center"><b>{$t12|number_format:0:",":"."|default:''}</b></h5></td>
+												<td><h5 class="description-text" align="center"><b>{$t13|number_format:0:",":"."|default:''}</b></h5></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>		
+		</div>
+	</div>
+</section>
+
+
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+<script type="text/javascript">
+	localStorage.setItem('cl_user_group_id',"{$cl_user_group_id}");
+	
+	
+	var chartStatusKawin =  [{
+        name: 'STATUS KAWIN',
+        colorByPoint: true,
+        data: 
+        [
+			{foreach from=$data.status_kawin item=rows}
+				{
+					name: '{$rows.keterangan}',
+					y: {$rows.total},
+					color: '{$rows.color}',
+				},
+			{/foreach}
+		]
+    }];
+	genPieChart("chart_status_kawin", "status_kawin", "", chartStatusKawin);
+	
+	var chartStatusData =  [{
+        name: 'STATUS DATA',
+        colorByPoint: true,
+        data: 
+        [
+			{foreach from=$data.status_data item=rows}
+				{
+					name: '{$rows.keterangan}',
+					y: {$rows.total},
+					color: '{$rows.color}',
+				},
+			{/foreach}
+		]
+    }];
+	
+	genPieChart("chart_status_data", "status_data", "", chartStatusData);
+	
+	
+	var chartJenisKelamin =  [{
+        name: 'JENIS KELAMIN',
+        colorByPoint: true,
+        data: 
+        [
+			{foreach from=$data.jenis_kelamin item=rows}
+				{
+					name: '{$rows.keterangan}',
+					y: {$rows.total},
+					color: '{$rows.color}',
+				},
+			{/foreach}
+		]
+    }];
+	
+	genPieChart("chart_jenis_kelamin", "jenis_kelamin", "", chartJenisKelamin);
+	
+	var chartAgama =  [{
+        name: 'Berdasarkan AGAMA',
+        colorByPoint: true,
+        data: 
+        [
+			{foreach from=$data.agama item=rows}
+				{
+					name: '{$rows.keterangan} = {$rows.total}',
+					y: {$rows.total},
+					color: '{$rows.color}',
+				},
+			{/foreach}
+		]
+    }];
+	
+	genLineChart("chart_agama", "agama", "", chartAgama);
+	
+	var chartXXPendidikan = [
+		{foreach from=$data.pendidikan item=rows}
+			'{$rows.keterangan}',
+		{/foreach}
+	];
+	var chartPendidikan = [
+		{
+			name : 'GRAFIK PENDIDIKAN',
+			color : '#FFAA00',
+			data : [
+				{foreach from=$data.pendidikan item=rows}
+					{$rows.total},
+				{/foreach}
+			]
+		}
+	];
+	genColumnChart("chart_pendidikan", "pendidikan", chartXXPendidikan, chartPendidikan);
+	
+	
+	var chartXXUmur = [
+		{foreach from=$data.range_umur item=rows}
+			'{$rows.keterangan}',
+		{/foreach}
+	];
+	var chartUmur = [
+		{
+			name : 'GRAFIK RANGE UMUR',
+			color : '#D30102',
+			data : [
+				{foreach from=$data.range_umur item=rows}
+					{$rows.total},
+				{/foreach}
+			]
+		}
+	];
+	genColumnChart("chart_range_umur", "range_umur", chartXXUmur, chartUmur);
+
+
+	function exportTableToExcel(tableID, filename) {
+		var downloadLink;
+		var dataType = 'application/vnd.ms-excel';
+		var tableSelect = document.getElementById(tableID);
+		var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+
+		// Specify file name
+		filename = filename?filename+'.xls':'excel_data.xls';
+
+		// Create download link element
+		downloadLink = document.createElement("a");
+
+		document.body.appendChild(downloadLink);
+
+		if (navigator.msSaveOrOpenBlob) {
+			var blob = new Blob(['\ufeff', tableHTML], {
+				type: dataType
+			});
+			navigator.msSaveOrOpenBlob(blob, filename);
+		} else {
+			// Create a link to the file
+			downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+
+			// Setting the file name
+			downloadLink.download = filename;
+
+			//triggering the function
+			downloadLink.click();
+		}
+	}
+
+	
+
+</script>

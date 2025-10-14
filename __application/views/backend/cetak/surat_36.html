@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SIMLURAH ADMINISTRASI</title>
+    <style>
+		table { width:100%; } 
+		body { font-family: 'arial'; }
+	</style>
+</head>
+<body>
+	<div id='content'>
+		<div style="padding-bottom: 5mm;">
+			<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;">
+				<!-- <tr>
+					<td align="center" rowspan=4 valign="middle" style="width: 150px;">
+						<img src="{$host}__assets/images/logo-makassar.png" style="height:100px" />
+					</td>
+					<td align="center" valign="bottom" style="font-size:22.6px;padding:0px">PEMERINTAH {$setting.nama_kab_kota|upper|default:'.......'}</td>
+					{if $setting.status_logo_lainnya eq '1'}
+					<td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+						<img src="{$host}__assets/images/logo-camat.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';"  style="height:100px"/>
+					</td>
+					{else} 
+					<td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+						<img src="{$host}__assets/images/logo-blank.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';"  style="height:100px"/>
+					</td>
+					{/if}
+				</tr>
+				<tr>
+					<td align="center" style="font-size:22.6px;padding:0px">KECAMATAN {$setting.nama_kecamatan|upper|default:'.......'}</td>
+				</tr>
+				<tr>
+					<td align="center" valign="top" style="font-size:18.6px;padding:0px"><b>{$setting.nama_desa|upper|default:'.......'}</b></td>
+				</tr>
+				<tr>
+					<td align="center" valign="top" style="font-size:10.6px;padding:0px">
+						<i>
+							{if strlen($setting.alamat)>1}
+							{$setting.alamat|default:'...'}
+							{/if}
+							{if strlen($setting.telp)>1}
+							Telp. {$setting.telp|default:'...'}
+							{/if}
+							{if strlen($setting.faks)>1}
+							Fax. {$setting.faks|default:'...'}
+							{/if}
+							{if strlen($setting.email)>1}
+							Email : {$setting.email|default:'...'}
+							{/if}
+							{if strlen($setting.nama_kab_kota)>1}
+							{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'...'}
+							{/if}
+							{if strlen($setting.kode_pos)>1}
+							Kode Pos {$setting.kode_pos|default:'...'}
+							{/if}
+							{if strlen($setting.website)>1}
+							<br>Website : {str_replace('-','',$setting.website|default:'')}
+							{/if}
+						</i>
+					</td>
+				</tr>
+				<tr>
+					<td align="center" colspan="3" align="center">
+						<hr style="color: black;height: 4px; margin-bottom:0px">
+						<hr style="color: black;height: 1px; margin-top:3px">
+					</td>
+				</tr> -->
+				{include file="backend/template/kop_surat_kelurahan.html"}
+				<tr>
+					<td colspan=3 align="center"><b><u>SURAT PENGANTAR SKCK</u></b></td>
+				</tr>
+				<br>
+				<tr>
+					<td><br></td>
+				</tr>
+			</table>
+		</div>
+		
+		<table width="100%" style="margin-bottom: 10px; font-size: 14px;padding-top: -25px">
+			<tr>
+				<td align="justify" style="padding-left:70px;padding-bottom: 5px;">
+					Yang bertanda tangan di bawah ini :
+				</td>
+			</tr>
+			<tr>
+				<td style="padding-left:100px;">
+					
+					<table width="100%" style="font-weight: none; font-size: 14px;padding-left: -10px;">
+						<tr>
+							<td valign="top">Nama</td>
+							<td valign="top" style="padding-left: 20px;padding-right: 20px;" align="center">:</td>
+							<td valign="top" style="padding-bottom: 2px;"><b>{$data.pemohon.nama_lengkap|default:'.....................'}</b></td>
+						</tr>
+						<tr>
+							<td valign="top">NIK</td>
+							<td valign="top" align="center">:</td>
+							<td valign="top" style="padding-bottom: 2px;">{$data.pemohon.nik|default:'.....................'}</td>
+						</tr>
+						<tr>
+							<td valign="top">Tempat/Tanggal Lahir</td>
+							<td valign="top" align="center">:</td>
+							<td valign="top" style="padding-bottom: 2px;">{$data.pemohon.tempat_lahir|default:''}, {tgl_indo({$data.pemohon.tgl_lahir|default:''})}</td>
+						</tr> 
+						<tr>
+							<td valign="top">Kewarganegaraan</td>
+							<td valign="top" align="center">:</td>
+							<td valign="top" style="padding-bottom: 2px;">{$data.surat.info_tambahan.kewarganegaraan|default:'.....................'}</td>
+						</tr>
+						<tr>
+							<td valign="top">Suku</td>
+							<td valign="top" align="center">:</td>
+							<td valign="top" style="padding-bottom: 2px;">{$data.surat.info_tambahan.suku_bangsa|default:'.....................'}</td>
+						</tr>
+						<tr>
+							<td valign="top">Agama</td>
+							<td valign="top" align="center">:</td>
+							<td valign="top" style="padding-bottom: 2px;">{$data.pemohon.agama|default:'.....................'}</td>
+						</tr>
+						<tr>
+							<td valign="top">Pekerjaan</td>
+							<td valign="top" align="center">:</td>
+							<td valign="top" style="padding-bottom: 2px;">{$data.pemohon.nama_pekerjaan|default:'.....................'}</td>
+						</tr>
+						<tr>
+							<td valign="top">Alamat</td>
+							<td valign="top" align="center">:</td>
+							<td valign="top">{$data.pemohon.alamat|default:'.....................'}, RT {$data.pemohon.rt|default:'...'}/RW {$data.pemohon.rw|default:'...'}</td>
+						</tr>
+						<tr>
+							<td>&emsp;</td>
+						</tr>
+					</table>
+				<td>
+			</tr>
+			<tr>
+				<td align="justify" style="padding-left:70px;padding-bottom: 5px;padding-top: -20px;">
+					Menerangkan dengan sesungguhnya bahwa saya / pemohon selama ini, belum atau tidak pernah terlibat langsung / tidak langsung dalam urusan KEPOLISIAN tidak menyangkut perkara kejahatan maupun pelanggaran atau penyalahgunaan obat-obat terlarang (Narkotik).<br>
+					Demikian Surat Keterangan ini saya buat dengan sebenarnya untuk mendapatkan Surat Keterangan Catatan Kepolisian dari POLRI guna Kelengkapan Berkas.
+				</td>
+			</tr>
+		</table>
+		
+	<table width="100%" style="margin-bottom: 20px;font-size: 14px;padding-top: -15px">
+		<tr>
+			<td width="55%">
+				&nbsp;
+			</td>
+			<td align="left" width="40%">
+				
+				{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'.......'}, {$data.surat.tanggal_surat|default:'............................'} <br/>
+				<span style="font-size:2px">&nbsp;</span><br/>
+				Pemohon, 
+				<br/>
+				<br/>
+				<br/>
+				
+				<b><u>{$data.pemohon.nama_lengkap|default:'...............................'}</u></b>
+			</td>
+		</tr>
+	</table>
+	<br/>
+	<p style="line-height: 1.2;text-align: justify;margin-left: 67px;margin-right: 10px;padding-top: -60px;font-size: 14px;"><b>SURAT KETERANGAN CATATAN KEPOLISIAN</b><br>
+		Atas nama {$data.pemohon.jabatan|default:'............................'} menyatakan dengan sebenarnya bahwa pemohon tersebut sepanjang pengetahuan kami selama bertempat tinggal / berdomisili di kelurahan kami, 
+		berkelakuan baik menyangkut perkara kejahatan maupun pelanggaran dan penyalahgunaan obat-obatan terlarang (NARKOTIK), 
+		serta tidak terlibat dalam organisasi terlarang G.30.S.PKI.{if $data.surat.info_tambahan.surat_pengantar1 != ''} Berdasarkan surat pengantar Nomor {$data.surat.info_tambahan.surat_pengantar1|default:'.....................'} Tanggal {tgl_indo({$data.surat.info_tambahan.tgl_pengantar1|default:'.....................'})}.{/if}</p>	
+		<table width="100%" style="margin-bottom: 50px;font-size: 13px;padding-top: -15px">
+			<tr>
+				<td width="55%">
+					&nbsp;
+				</td>
+				<td align="left" width="40%">
+					
+					Nomor: {$data.surat.no_surat|default:'...................'} <br/>
+					
+					<span style="font-size:2px">&nbsp;</span><br/>
+					<b>
+						{if count($data.ttd)==1}
+						{$data.ttd[0]['center']}
+						{else}
+						{$data.ttd[0]['center']}<br>{$data.ttd[1]['center']}
+						{/if}
+					 </b>  
+					<br/>  
+					<br/>
+					<br/>
+			
+					<b><u>{$data.pemohon.nama|default:'...............................'}</u></b>
+					<br/>
+					Pangkat : {$data.pemohon.pangkat|default:'............................'}
+					<br/>
+					NIP : {$data.pemohon.nip|default:'...............................'}
+				</td>
+			</tr>
+		</table>
+	
+	<p style="line-height: 1.2;text-align: justify;margin-left: 67px;margin-right: 10px;padding-top: -65px;font-size: 13px;"><b>REKOMENDASI : </b><br>
+		Oknum tersebut di atas tidak terlibat<br/> Sebagai wajib lapor pada KEPOLISIAN<br/> SEKTOR KOTA BESAR MAKASSAR dan KEPOLISIAN SEKTOR KOTA {$setting.nama_kecamatan|upper|default:'.......'}<br/>KEPALA KEPOLISIAN SEKTOR KOTA {$setting.nama_kecamatan|upper|default:'.......'}</p>	
+
+	<table width="100%" style="font-weight: none; font-size: 13px;">
+		<tr>
+			<td width="55%">
+				&nbsp;
+			</td>
+			<td align="left" width="40%">
+				KEPALA KEPOLISIAN SEKTOR KECAMATAN {$setting.nama_kecamatan|upper|default:'.......'}<br/>
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+				<tr>	
+					<td colspan="3" style="padding-top: -5px;padding-left: 300px;">
+						<hr style="color:#000;" width="50%" />
+					</td>
+				</tr>
+			</td>
+		</tr>
+	</table>
+</div>
+</body>
+</html>

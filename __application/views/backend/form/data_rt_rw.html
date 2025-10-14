@@ -1,0 +1,208 @@
+<form
+  id="form_{$acak}"
+  method="post"
+  url="{$host}backoffice-simpan/data_rt_rw"
+  enctype="multipart/form-data"
+>
+  <input type="hidden" name="id" value="{$data.id|default:''}" />
+  <input type="hidden" name="editstatus" value="{$sts|default:'add'}" />
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">Form Isian</h3>
+        </div>
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row" style="margin-bottom: 10px">
+                <div class="col-md-6">
+                  {include file="backend/template/input_form.html" required="true" label="Kelurahan" class_width="col-lg-12"
+                  type="baca_aja" name="cl_kelurahan_desa_id" id="cl_kelurahan_desa_id" value="{$kel.nama|default:''}"}
+                </div>
+              </div>
+
+              <div class="row" style="margin-bottom: 10px">
+                <div class="col-md-4">
+                  {include file="backend/template/input_form.html"  required="true" label="NIK" class_width="col-lg-12" type="text" name="nik"
+                  id="nik" value="{$data.nik|default:''}"}
+                </div>
+                <div class="col-md-4">
+                  {include file="backend/template/input_form.html"  required="true" label="Nama Lengkap" class_width="col-lg-12" type="text" name="nama_lengkap"
+                  id="nama_lengkap" value="{$data.nama_lengkap|default:''}"}
+                </div>
+                <!-- <div class="col-md-2">
+                  {include file="backend/template/input_form.html" required="true" label="Agama" class_width="col-lg-12"
+                  type="select" name="agama" id="agama" option={$agama|default:''} }
+                </div>
+                <div class="col-md-6">
+                  {include file="backend/template/input_form.html" label="Alamat" class_width="col-lg-12" type="text"
+                  name="alamat" id="alamat" value="{$data.alamat|default:''}"}
+                </div> -->
+                <div class="col-md-4">
+                  {include file="backend/template/input_form.html" label="Jabatan RT/RW" class_width="col-lg-12" type="select"
+                  name="jab_rt_rw" id="jab_rt_rw" option={$jab_rt_rw|default:''} }
+                </div>
+              </div>
+              
+              <div class="row" id="div_rt_rw" style="display: none;">
+                <div class="col-md-1" id="wrapper_rt">
+                  {include file="backend/template/input_form.html" label="RT" class_width="col-lg-12" type="pnj_rt" name="rt" id="rt"
+                  value="{$data.rt|default:''}"}
+                </div>
+                <div class="col-md-1" id="wrapper_rw">
+                  {include file="backend/template/input_form.html" label="RW" class_width="col-lg-12" type="pnj_rt" name="rw" id="rw"
+                  value="{$data.rw|default:''}"}
+                </div>
+              </div>
+
+              <div class="row" style="margin-bottom: 10px">
+                <div class="col-md-3">
+                  {include file="backend/template/input_form.html"
+                  required="true" label="Tanggal Mulai Menjabat" placeholder="dd-mm-yyyy" class_width="col-lg-12"
+                  type="date" name="tgl_mulai_jabat" id="tgl_mulai_jabat"
+                  value="{tgl_indo_format($data.tgl_mulai_jabat)|default:''}"}
+                </div>
+                <div class="col-md-3">
+									{include file="backend/template/input_form.html" required="true" label="Status" class_width="col-lg-12" type="select" name="status" id="status" option={$pilih_status|default:''} }
+								</div>
+              </div>
+              <div class="row" style="margin-bottom: 10px">
+                <div class="col-md-4">
+                  {include file="backend/template/input_form.html" label="No. Telp" class_width="col-lg-12" type="pnj_karakter" name="no_hp"
+                  id="no_hp" value="{$data.no_hp|default:''}"}
+                </div>
+                <div class="col-md-4">
+                  {include file="backend/template/input_form.html" label="No. Rekening" class_width="col-lg-12" type="text"
+                  name="no_rekening" id="no_rekening" value="{$data.no_rekening|default:''}"}
+                </div>
+                <div class="col-md-4">
+                  {include file="backend/template/input_form.html" label="No. NPWP" class_width="col-lg-12" type="text" name="no_npwp"
+                  id="no_npwp" value="{$data.no_npwp|default:''}"}
+                </div>
+                <div class="col-md-6">
+                  {include file="backend/template/input_form.html" label="Alamat" class_width="col-lg-12" type="text" name="alamat"
+                  id="alamat" value="{$data.alamat|default:''}"}
+                </div>
+                
+                <!-- <div class="col-md-4">
+                  {include file="backend/template/input_form.html" label=" Lokasi Koordinat (Ambil Dari Google Map)" 
+                  class_width="col-lg-12" type="text" required="false" placeholder="contoh: -5.13935799930719, 119.45180916240452"
+                  name="koordinat" id="koordinat"
+                  value="{$kor|default:''}"}
+                </div> -->
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <hr />
+                  {include file="backend/template/input_form.html" label="Upload
+                  File *jpg|jpeg|png|pdf" class_width="col-lg-12" type="file"
+                  name="file" id="file" value="{$data.file|default:''}"}
+                  <br />
+                  {include file="backend/template/button_save.html"
+                  text="Simpan" id_na="save" style_btn="btn-success"
+                  btn_goyz="false"} {include
+                  file="backend/template/button_save.html" text="Kembali"
+                  click="$('#grid_nya_{$mod}').show();$('#detil_nya_{$mod}').hide();"
+                  id_na="cancel" style_btn="btn-danger" btn_goyz="true"}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<script>
+
+  $('#div_rt_rw').hide();
+
+  $('#jab_rt_rw').change(function () {
+    var v = $(this).val();
+
+    if (v === 'Ketua RT') {
+      $('#div_rt_rw').show();
+      $('#wrapper_rt').show();
+      $('#wrapper_rw').show();
+    } else if (v === 'Ketua RW') {
+      $('#div_rt_rw').show();
+      $('#wrapper_rt').hide(); // Sembunyikan kolom RT
+      $('#rt').val('');        // Kosongkan isinya
+      $('#wrapper_rw').show();
+    } else if (v === 'PJ RT'){
+      $('#div_rt_rw').show();
+      $('#wrapper_rt').show();
+      $('#wrapper_rw').show();
+    } else if (v === 'PJ RW'){
+      $('#div_rt_rw').show();
+      $('#wrapper_rt').hide(); // Sembunyikan kolom RT
+      $('#rt').val('');        // Kosongkan isinya
+      $('#wrapper_rw').show();
+    } else {
+      $('#div_rt_rw').hide();
+      $('#rt').val('');
+      $('#rw').val('');
+    }
+  });
+
+  $('#jab_rt_rw').trigger('change');
+
+  var rulesnya = {
+    cl_kelurahan_desa_id: "required",
+    nik: "required",
+    nama_lengkap: "required",
+    tgl_mulai_jabat: "required",
+    jab_rt_rw: "required",
+    nama_ibu_kandung: "required",
+    no_hp: "required",
+    status: "required",
+  };
+
+  var messagesnya = {
+    cl_kelurahan_desa_id: "<i style='color:red'>Harus Diisi</i>",
+    nik: "<i style='color:red'>Harus Diisi</i>",
+    nama_lengkap: "<i style='color:red'>Harus Diisi</i>",
+    tgl_mulai_jabat: "<i style='color:red'>Harus Diisi</i>",
+    jab_rt_rw: "<i style='color:red'>Harus Diisi</i>",
+    nama_ibu_kandung: "<i style='color:red'>Harus Diisi</i>",
+    no_hp: "<i style='color:red'>Harus Diisi</i>",
+    status: "<i style='color:red'>Harus Diisi</i>",
+  };
+
+  $("#form_{$acak}").validate({
+    rules: rulesnya,
+    messages: messagesnya,
+    submitHandler: function (form) {
+      $.LoadingOverlay("show");
+      submit_form("form_{$acak}", function (r) {
+        if (r == 1) {
+          $.messager.alert(nama_apps, "Data Tersimpan", "info");
+          $("#cancel_{$acak}").trigger("click");
+          $("#grid_data_rt_rw").datagrid("reload");
+        } else {
+          $.messager.alert(
+            nama_apps,
+            "Proses Simpan Data Gagal " + r,
+            "warning"
+          );
+        }
+        $.LoadingOverlay("hide", true);
+      });
+      //*/
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr("name");
+      var errorSelector = '.validation_error_message[for="' + name + '"]';
+      var $element = $(errorSelector);
+      if ($element.length) {
+        $(errorSelector).html(error.html());
+      } else {
+        error.insertAfter(element);
+      }
+    },
+  });
+</script>

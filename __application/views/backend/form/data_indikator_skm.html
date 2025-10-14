@@ -1,0 +1,114 @@
+<form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/data_indikator_skm" enctype="multipart/form-data" >
+    <input type="hidden" name="id" value="{$data.id|default:''}">
+	<input type="hidden" name="editstatus" value="{$sts|default:'add'}">
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<h3 class="box-title"><b>Form Isian DATA MASTER INDIKATOR SKM</b></h3>
+				</div>
+				<div class="box-body">
+					<div class="row">
+						<div class="col-md-12" style="margin-bottom:10px;"> 
+							<div class="row" >
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="true" label="Tahun" class_width="col-lg-12" type="select2" name="tahun" id="tahun" option={$pilih_tahun|default:''} }
+								</div>
+							</div>
+							<div class="row" style="margin-bottom:10px;"> 
+								<div class="col-md-12">
+									{include file="backend/template/input_form.html" required="true" label="Uraian" class_width="col-lg-12" type="textarea" name="uraian" id="uraian" value="{$data.uraian|default:''}"}
+								</div>	
+							</div>
+							<div class="row" style="margin-bottom:10px;">
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="true" label="Skala 1" class_width="col-lg-12" type="text" name="p1" id="p1" value="{$data.p1|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="true" label="Skala 2" class_width="col-lg-12" type="text" name="p2" id="p2" value="{$data.p2|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="true" label="Skala 3" class_width="col-lg-12" type="text" name="p3" id="p3" value="{$data.p3|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="true" label="Skala 4" class_width="col-lg-12" type="text" name="p4" id="p4" value="{$data.p4|default:''}"}
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-md-12">
+									<hr />
+									{include file="backend/template/button_save.html" text="Simpan" id_na="save" style_btn="btn-success"  btn_goyz="false"}
+									{include file="backend/template/button_save.html" text="Kembali" click="$('#grid_nya_{$mod}').show();$('#detil_nya_{$mod}').hide();" id_na="cancel" style_btn="btn-danger"  btn_goyz="true"}	
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</form>
+
+<script>
+
+	$(document).ready(function(e) {
+		$('.angka').keypress(function() {
+			return(currencyFormat(this,',','.',event));
+		});
+	});
+
+	var rulesnya = {
+		uraian : "required",
+		tahun : "required",
+		cl_kelurahan_desa_id : "required",
+		jenis_barang : "required",
+		detail_barang : "required",
+		kode_barang : "required",
+		
+	};
+
+	var messagesnya = {
+		nama_sopir : "<i style='color:red'>Harus Diisi</i>",
+		asal_kelurahan : "<i style='color:red'>Harus Diisi</i>",
+		cl_kelurahan_desa_id : "<i style='color:red'>Harus Diisi</i>",
+		jenis_barang : "<i style='color:red'>Harus Diisi</i>",
+		detail_barang : "<i style='color:red'>Harus Diisi</i>",
+		kode_barang : "<i style='color:red'>Harus Diisi</i>",
+		
+	}
+
+	$( "#form_{$acak}" ).validate( {
+		rules: rulesnya,
+		messages: messagesnya,
+		submitHandler: function(form) {
+		$.LoadingOverlay("show");
+		submit_form('form_{$acak}',function(r){
+			if(r == 1 ){ 
+				$.messager.alert(nama_apps,'Data Tersimpan','info'); 
+				$('#cancel_{$acak}').trigger('click');
+				$('#grid_data_kendaraan').datagrid('reload');
+			}else if(r == 2){ 
+				$.messager.alert(nama_apps,'Nomor Polisi sudah digunakan!','warning'); 
+			}else{ 
+				$.messager.alert(nama_apps,'Proses Simpan Data Gagal '+r,'error'); 
+			}
+			$.LoadingOverlay("hide", true);
+		});
+			//*/
+		},
+		errorPlacement: function(error, element) {
+	        var name = element.attr('name');
+	        var errorSelector = '.validation_error_message[for="' + name + '"]';
+	        var $element = $(errorSelector);
+	        if ($element.length) { 
+	            $(errorSelector).html(error.html());
+	        } else {
+	            error.insertAfter(element);
+	        }
+	    }
+	} );
+</script>

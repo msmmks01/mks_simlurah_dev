@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SIMLURAH</title>
+    <style>
+      table {
+        width: 100%;
+      }
+      body {
+        font-family: "arial";
+      }
+      .td-container {
+        width: 1%;
+        white-space: nowrap;
+      }
+      .table-wrapper {
+        display: inline-block;
+      }
+      .table-wrapper table {
+        width: 100%;
+        table-layout: fixed;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="content">
+      <table
+        width="100%"
+        style="margin-bottom: 20px; font-size: 17px; padding-top: 10px"
+      >
+        <tr>
+          <td align="center">
+            <b><u>SURAT PERNYATAAN HIBAH</u></b>
+          </td>
+        </tr>
+      </table>
+
+      <table width="100%" style="padding-top: 12px;padding-left: 60px;padding-top: 14px;padding-top: -15px;font-size: 12px;" cellpadding="3">
+        <tr>
+          <td colspan="6" align="left" valign="top">
+            Kami yang bertandatangan / Cap Jempol di bawah ini :
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" style="width: 42px"></td>
+          <td align="left" valign="top" style="width: 160px">Nama</td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td align="left" valign="top">
+            <b>{$data.pemohon.nama_lengkap|default:'.....................'}</b>
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"></td>
+          <td align="left" valign="top">NIK</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">
+            {$data.pemohon.nik|default:'.....................'}
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"></td>
+          <td align="left" valign="top">Tempat/ Tanggal Lahir</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">
+            {ucwords(strtolower($data.pemohon.tempat_lahir))|default:'...'},
+            {tgl_indo({$data.pemohon.tgl_lahir|default:''})}
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"></td>
+          <td align="left" valign="top">Pekerjaan</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">
+            {$data.pemohon.nama_pekerjaan|default:'.....................'}
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"></td>
+          <td align="left" valign="top">Alamat</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">
+            {$data.pemohon.alamat|default:'.....................'}, RT
+            {$data.pemohon.rt|default:'...'}/RW {$data.pemohon.rw|default:'...'}
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"></td>
+          <td align="left" valign="top"></td>
+          <td align="center" valign="top"></td>
+          <td align="left" valign="top">
+            Selaku Pemberi Hibah disebut <b>Pihak Pertama</b>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4" align="center" valign="top" style="padding-top: 5px"></td>
+        </tr>
+      </table>
+    {if count($data.surat.info_tambahan.data_dokumen) >2}
+      <table width="100%" style="line-height: 1.0;padding-top: 12px;padding-left: 60px;padding-top: 14px;padding-top: -15px;font-size: 12px;">
+        {foreach from=$data.surat.info_tambahan.data_dokumen item}
+        <tr>
+          <td align="left" valign="top" style="width: 42px"></td>
+          <td align="left" valign="top" style="width: 160px">Nama</td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td align="left" valign="top">
+            <b>{$item.nama_hibah|default:'.....................'}</b>
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"></td>
+          <td align="left" valign="top">NIK</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">
+            {$item.nik_hibah|default:'.....................'}
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"></td>
+          <td align="left" valign="top">Tempat/ Tanggal Lahir</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">
+            {ucwords(strtolower($item.tempat_lahir_hibah))|default:'...'},
+            {tgl_indo({$item.ttl_hibah|default:''})}
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"></td>
+          <td align="left" valign="top">Alamat</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">
+            {$item.alamat_hibah|default:'.....................'}
+          </td>
+        </tr>
+        
+        </tr>
+        <tr>
+          <td colspan="4" align="center" valign="top" style="padding-top: 5px"></td>
+        </tr>
+        {/foreach}
+        <tr>
+          <td align="left" valign="top"></td>
+          <td align="left" valign="top"></td>
+          <td align="center" valign="top"></td>
+          <td align="left" valign="top">
+            Selaku Penerima Hibah disebut <b>Pihak Kedua</b>
+          </td>
+        </tr>
+      </table>
+    {else} 
+    <table width="100%" style="line-height: 1.3;padding-top: 12px;padding-left: 60px;padding-top: 14px;padding-top: -15px;font-size: 12px;">
+      {foreach from=$data.surat.info_tambahan.data_dokumen item}
+      <tr>
+        <td align="left" valign="top" style="width: 42px"></td>
+        <td align="left" valign="top" style="width: 160px">Nama</td>
+        <td align="center" valign="top" style="width: 15px">:</td>
+        <td align="left" valign="top">
+          <b>{$item.nama_hibah|default:'.....................'}</b>
+        </td>
+      </tr>
+      <tr>
+        <td align="left" valign="top"></td>
+        <td align="left" valign="top">NIK</td>
+        <td align="center" valign="top">:</td>
+        <td align="left" valign="top">
+          {$item.nik_hibah|default:'.....................'}
+        </td>
+      </tr>
+      <tr>
+        <td align="left" valign="top"></td>
+        <td align="left" valign="top">Tempat/ Tanggal Lahir</td>
+        <td align="center" valign="top">:</td>
+        <td align="left" valign="top">
+          {ucwords(strtolower($item.tempat_lahir_hibah))|default:'...'},
+          {tgl_indo({$item.ttl_hibah|default:''})}
+        </td>
+      </tr>
+      <tr>
+        <td align="left" valign="top"></td>
+        <td align="left" valign="top">Alamat</td>
+        <td align="center" valign="top">:</td>
+        <td align="left" valign="top">
+          {$item.alamat_hibah|default:'.....................'}
+        </td>
+      </tr>
+      
+      </tr>
+      <tr>
+        <td colspan="4" align="center" valign="top" style="padding-top: 5px"></td>
+      </tr>
+      {/foreach}
+      <tr>
+        <td align="left" valign="top"></td>
+        <td align="left" valign="top"></td>
+        <td align="center" valign="top"></td>
+        <td align="left" valign="top">
+          Selaku Penerima Hibah disebut <b>Pihak Kedua</b>
+        </td>
+      </tr>
+    </table>
+    {/if}
+
+      <p style="line-height: 1.3;text-align: justify;margin-left: 65px;margin-right: 10px;padding-top: 12px;padding-top: -10px;font-size: 12px;">
+        Bahwa Pihak Pertama menghibahkan {$data.surat.info_tambahan.jenis_hibah|default:'....'} 
+        {if $data.surat.info_tambahan.luas_hibah !=''}luas {$data.surat.info_tambahan.luas_hibah|default:'....'}{/if} 
+        {if $data.surat.info_tambahan.alamat_tempat_hibah !=''}yang terletak di {$data.surat.info_tambahan.alamat_tempat_hibah|default:'....'} {$setting.nama_desa|default:'........'} Kecamatan {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kecamatan)))|default:''} Kota {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:''}{/if}
+        kepada Pihak Kedua {if $data.surat.info_tambahan.no_pernyataan !=''}berdasarkan Surat Pernyataan Nomor : {$data.surat.info_tambahan.no_pernyataan|default:'....'} Atas Nama {$data.surat.info_tambahan.pernyataan_dari|default:'....'}{/if} dan 
+        {if $data.surat.info_tambahan.no_pengantar_pernyataan !=''}sesuai surat pengantar Nomor : {$data.surat.info_tambahan.no_pengantar_pernyataan|default:'....'} Tanggal {tgl_indo($data.surat.info_tambahan.tgl_pengantar_pernyataan)|default:'....'}{/if} 
+        batas-batas sebagai berikut :
+      </p>
+
+      <table width="100%" style="padding-top: 12px;padding-left: 60px;padding-top: 14px;padding-top: -15px;font-size: 12px;" cellpadding="3">
+        <tr>
+          <td colspan="6" align="left" valign="top"></td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" style="width: 42px"></td>
+          <td align="left" valign="top" style="width: 160px">Sebelah Utara</td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td align="left" valign="top">
+            {$data.surat.info_tambahan.batas_utara_hibah|default:'....'}
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" style="width: 42px"></td>
+          <td align="left" valign="top" style="width: 160px">Sebelah Timur</td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td align="left" valign="top">
+            {$data.surat.info_tambahan.batas_timur_hibah|default:'....'}
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" style="width: 42px"></td>
+          <td align="left" valign="top" style="width: 160px">Sebelah Selatan</td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td align="left" valign="top">
+            {$data.surat.info_tambahan.batas_selatan_hibah|default:'....'}
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" style="width: 42px"></td>
+          <td align="left" valign="top" style="width: 160px">Sebelah Barat</td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td align="left" valign="top">
+            {$data.surat.info_tambahan.batas_barat_hibah|default:'....'}
+          </td>
+        </tr>
+      </table>
+
+      <p style="line-height: 1.3;text-align: justify;margin-left: 65px;margin-right: 10px;padding-top: 12px;padding-top: -10px;font-size: 12px;">
+        Demikian Surat Pernyataan hibah ini saya buat dengan sebenar-benarnya dan apabila dikemudian hari surat pernyataan ini saya ingkari maka saya
+        bersedia dituntut baik Pidana maupun Perdata tanpa melibatkan para saksi dan Pemerintah {$setting.nama_desa|default:'........'}.
+      </p>
+      <table width="100%" style="margin-left: -100px;font-size: 12px;">
+        <tr>
+          <td width="60%">&nbsp;</td>
+          <td align="center" width="40%">
+            {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:''},
+            {$data.surat.tanggal_surat|default:'............................'}
+          </td>
+        </tr>
+      </table>
+      
+      <table width="100%" style="padding-top: 12px;padding-left: 60px;padding-top: 14px;font-size: 12px;">
+        <tr>
+          <td width="50%" valign="top">
+            <table>
+              <tr>
+                <td></td>
+                <td colspan="3" align="center">Pihak Kedua</td>
+              </tr>
+              <tr>
+                <td colspan="4" align="center">&nbsp;</td>
+              </tr>
+              {$no=1} {$nox=1} {foreach
+              from=$data.surat.info_tambahan.data_dokumen item}
+              <tr>
+                <td width="3%"><b>{$no++}.</b></td>
+                <td width="78%">
+                  <b>{$item.nama_hibah|default:'.....................'}</b>
+                </td>
+                <td width="19%"><b>{$nox++}. .....................</b></td>
+              </tr>
+
+              {/foreach}
+            </table>
+          </td>
+          <td width="50%" valign="top" class="td-container">
+            <div class="table-wrapper">
+              <table width="360px">
+                <tr>
+                  <td width="50%">
+                    &nbsp;
+                  </td>
+                  <td align="left" width="50%">
+                    {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'.....'}, {$data.surat.tanggal_surat|default:'............................'} <br/>
+                    <span style="font-size:2px">&nbsp;</span><br/>
+                    Pihak Pertama
+                    <br/><br/>
+                    <table style="border:1px dashed #666;width: 80px;margin-left:-70px;font-size: 10px;padding-top: 8px;padding-bottom: 8px;">
+                      <tr>
+                        <td align="center">Materai<br/>Rp. 10.000,-</td>
+                      </tr>
+                    </table>
+                    <br/>
+                    <b><u>{$data.pemohon.nama_lengkap|default:'.....................'}</u></b>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+
+          <td></td>
+        </tr>
+      </table>
+    {if count($data.surat.info_tambahan.data_saksi)>0}
+      <table width="100%" style="margin-bottom: 20px;padding-top: 12px;padding-top: -10px;font-size: 12px;">
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="center">
+            <b>Saksi - saksi</b>
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+      <table width="100%" style="padding-top: 12px;padding-center: 58px;padding-top: -40px;font-size: 12px;">
+        <tr>
+          {foreach from=$data.surat.info_tambahan.data_saksi item=pen}
+          <td align="center">
+            {ucwords($pen.pekerjaan)|default:'.....................'}
+          </td>
+          <td>&nbsp;</td>
+          {/foreach}
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          {foreach from=$data.surat.info_tambahan.data_saksi item=pen}
+          <td align="center">
+            <u><b>{$pen.nama|default:'.....................'}</b></u>
+          </td>
+          <td></td>
+          {/foreach}
+        </tr>
+      </table>
+    {/if}
+      <table width="100%" style="margin-bottom: 20px;padding-top: 12px;padding-top: 10px;font-size: 12px;">
+        <tr>
+          <td align="center">
+            <b>Teregister Oleh :</b>
+          </td>
+        </tr>
+      </table>
+
+      <table width="100%" style="padding-top: 12px;padding-left: 250px;padding-top: -20px;font-size: 12px;">
+        <tr>
+          <td style="padding-left: 50px;">
+            Nomor : {$data.surat.info_tambahan.no_reg_lurah|default:'....'}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding-left: 50px;">
+            Tanggal : {tgl_indo({$data.surat.info_tambahan.tgl_reg_lurah|default:'....'})}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding-left: 50px;" valign="bottom" align="left">
+            <b>
+              {if count($data.ttd)==1}
+              {$data.ttd[0]['center']}
+              {else}
+              {$data.ttd[0]['center']}<br>{$data.ttd[1]['center']}
+              {/if}
+             </b>
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td style="padding-left: 50px;">
+            <u><b>{$data.pemohon.nama|default:'...............................'}</b></u>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding-left: 50px;">
+            Nip. {$data.pemohon.nip|default:'...............................'}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding-left: 50px;">
+            Pangkat/Gol.
+            {$data.pemohon.pangkat|default:'............................'}
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

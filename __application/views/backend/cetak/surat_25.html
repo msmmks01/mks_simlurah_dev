@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SIMLURAH ADMINISTRASI</title>
+    <style>
+		table { width:100%; } 
+		body { font-family: 'arial'; }
+	</style>
+</head>
+<body>
+	<div id='content'>
+		<div style="padding-bottom: 5mm;">
+			<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;">
+				<!-- <tr>
+					<td align="center" rowspan=4 valign="middle" style="width: 150px;">
+						<img src="{$host}__assets/images/logo-makassar.png" style="height:100px" />
+					</td>
+					<td align="center" valign="bottom" style="font-size:22.6px;padding:0px">PEMERINTAH {$setting.nama_kab_kota|upper|default:'.......'}</td>
+					{if $setting.status_logo_lainnya eq '1'}
+					<td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+						<img src="{$host}__assets/images/logo-camat.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';"  style="height:100px"/>
+					</td>
+					{else} 
+					<td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+						<img src="{$host}__assets/images/logo-blank.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';"  style="height:100px"/>
+					</td>
+					{/if}
+				</tr>
+				<tr>
+					<td align="center" style="font-size:22.6px;padding:0px">KECAMATAN {$setting.nama_kecamatan|upper|default:'.......'}</td>
+				</tr>
+				<tr>
+					<td align="center" valign="top" style="font-size:18.6px;padding:0px"><b>{$setting.nama_desa|upper|default:'.......'}</b></td>
+				</tr>
+				<tr>
+					<td align="center" valign="top" style="font-size:10.6px;padding:0px">
+						<i>
+							{if strlen($setting.alamat)>1}
+							{$setting.alamat|default:'...'}
+							{/if}
+							{if strlen($setting.telp)>1}
+							Telp. {$setting.telp|default:'...'}
+							{/if}
+							{if strlen($setting.faks)>1}
+							Fax. {$setting.faks|default:'...'}
+							{/if}
+							{if strlen($setting.email)>1}
+							Email : {$setting.email|default:'...'}
+							{/if}
+							{if strlen($setting.nama_kab_kota)>1}
+							{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'...'}
+							{/if}
+							{if strlen($setting.kode_pos)>1}
+							Kode Pos {$setting.kode_pos|default:'...'}
+							{/if}
+							{if strlen($setting.website)>1}
+							<br>Website : {str_replace('-','',$setting.website|default:'')}
+							{/if}
+						</i>
+					</td>
+				</tr>
+				<tr>
+					<td align="center" colspan="3" align="center">
+						<hr style="color: black;height: 4px; margin-bottom:0px">
+						<hr style="color: black;height: 1px; margin-top:3px">
+					</td>
+				</tr> -->
+				{include file="backend/template/kop_surat_kelurahan.html"}
+				<tr>
+					<td colspan=3 align="center"><b><u>SURAT KETERANGAN IDENTITAS</u></b></td>
+				</tr>
+				<tr>
+					<td colspan=3 align="center" style="font-size:13.3px">NOMOR: {$data.surat.no_surat|default:'..................................................'}</td>
+				</tr>
+			</table>
+		</div>
+		
+		<table width="100%" style="margin-bottom: 20px; font-weight: none; font-size: 15px;" cellspacing="2">
+			<tr>
+				<td align="justify" style="padding-left:70px;padding-bottom: 10px;">
+					Yang bertanda tangan di bawah ini :
+				</td>
+			</tr>
+			<tr>
+				<td style="padding-left:100px;">
+					
+					<table width="100%" style="font-weight: none; font-size: 15px;padding-left: -10px;" cellspacing="5">
+						<tr>
+							<td>Nama</td>
+							<td>:</td>
+							<td>{$data.pemohon.nama|default:'.....................'}</td>
+						</tr>
+					<span style="font-size:50px">&nbsp;</span>
+						<tr>
+							<td>Jabatan</td>
+							<td>:</td>
+							<td>{$data.pemohon.jabatan|default:'.....................'}</td>
+						</tr>
+					</table>
+			<br>
+			<table width="100%" style="margin-bottom: 20px; font-weight: none; font-size: 15px;">
+				<tr>
+					<td align="justify" style="padding-left:-34px;padding-right:50px;padding-bottom: 10px;">
+						Dengan ini menerangkan bahwa :
+					</td>
+				</tr>		
+				<tr>
+					<td>
+						<table width="100%" style="font-weight: none; font-size: 15px;padding-left: -10px;">
+							<tr>
+								<td valign="top">Nama</td>
+								<td valign="top" style="padding-left: 20px;padding-right: 20px;" align="center">:</td>
+								<td valign="top" style="padding-bottom: 7px;"><b>{$data.pemohon.nama_lengkap|default:'.....................'}</b></td>
+							</tr>
+							<tr>
+								<td valign="top">No. KTP / NIK</td>
+								<td valign="top" align="center">:</td>
+								<td valign="top" style="padding-bottom: 7px;">{$data.pemohon.nik|default:'.....................'}</td>
+							</tr>
+							<tr>
+								<td valign="top">Tempat/Tanggal Lahir</td>
+								<td valign="top" align="center">:</td>
+								<td valign="top" style="padding-bottom: 7px;">{$data.pemohon.tempat_lahir|default:''}, {tgl_indo({$data.pemohon.tgl_lahir|default:''})}</td>
+							</tr>
+							<tr>
+								<td valign="top">Agama</td>
+								<td valign="top" align="center">:</td>
+								<td valign="top" style="padding-bottom: 7px;">{$data.pemohon.agama|default:'.....................'}</td>
+							</tr>
+							<tr>
+								<td valign="top">Jenis Kelamin</td>
+								<td valign="top" align="center">:</td>
+								<td valign="top" style="padding-bottom: 7px;">{$data.pemohon.jenis_kelamin|default:'.....................'}</td>
+							</tr>
+							<tr>
+								<td valign="top">Pekerjaan</td>
+								<td valign="top" align="center">:</td>
+								<td valign="top" style="padding-bottom: 7px;">{$data.pemohon.nama_pekerjaan|default:'.....................'}</td>
+							</tr>
+							<tr>
+								<td valign="top">Alamat</td>
+								<td valign="top" align="center">:</td>
+								<td valign="top" style="padding-bottom: 7px;">{$data.pemohon.alamat|default:'.....................'}, RT {$data.pemohon.rt|default:'...'}/RW {$data.pemohon.rw|default:'...'}</td>
+							</tr>
+						</table> 
+					<td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td align="justify" style="padding-left:70px;padding-bottom: 10px;padding-top: -30px;">
+			Benar yang bersangkutan tersebut di atas adalah penduduk {$data.pemohon.nama_kelurahan|default:'........'} Kecamatan {ucwords(strtolower(str_replace('KOTA','',$data.pemohon.nama_kecamatan)))|default:''} Kota {ucwords(strtolower(str_replace('KOTA','',$data.pemohon.nama_kota)))|default:''} dan berdomisili pada alamat tersebut di atas sesuai surat pengantar Nomor {$data.surat.info_tambahan.no_pengantar|default:'.....................'} Tanggal {tgl_indo({$data.surat.info_tambahan.tgl_pengantar|default:'.....................'})}, <b>adalah orang yang sama</b> dengan {$data.surat.info_tambahan.nama_dalam_dokumen|default:'.....................'} yang tertera pada {$data.surat.info_tambahan.dokumen_pendukung|default:'.....................'} Nomor {$data.surat.info_tambahan.no_dokumen|default:'.....................'}.<br>
+			Demikian surat keterangan ini dibuat dan dipergunakan <b>{$data.surat.info_tambahan.peruntukan_surat|default:'sebagaimana mestinya'}</b>.
+		</td>
+	</tr>
+</table>
+
+			{ttd_1($data,$setting)}
+	
+</div>
+</body>
+</html>

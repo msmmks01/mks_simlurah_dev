@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+  <head>
+    <title>SURAT KETERANGAN BEKERJA</title>
+
+    <style type="text/css">
+      table {
+        width: 100%;
+      }
+      body {
+        font-family: "arial";
+      }
+    </style>
+  </head>
+  <body>
+    <div style="padding-bottom: 5mm">
+      <table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;">
+				
+        {include file="backend/template/kop_surat_kecamatan.html"}
+        <br>
+        <tr>
+          <td colspan="3" align="center">
+            <b><u>SURAT PERMOHONAN IZIN/PEMBERITAHUAN<br>DI LINGKUP PEMERINTAH KOTA MAKASSAR</u></b>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div style="padding-right: 5.82mm;padding-left: 15.44mm;padding-bottom: 2mm;font-size: 16px;padding-top: -10px;">
+      <table cellspacing="0" border="0" width="100%" style="border-collapse: collapse; line-height: 1.5">
+        <tr>
+          <td colspan="6" align="left" valign="top">
+            Yang bertanda tangan di bawah ini :
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" style="width: 42px"><br /></td>
+          <td align="left" valign="top" style="width: 80px">Nama</td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td colspan="3" align="left" valign="top">
+            {$data.surat.info_tambahan.nama_pegawai|default:'.....................'}
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" style="width: 42px"><br /></td>
+          <td align="left" valign="top" style="width: 80px">Pangkat/Gol.</td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td colspan="3" align="left" valign="top">
+            {$data.surat.info_tambahan.pangkat|default:'.....................'}
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" style="width: 42px"><br /></td>
+          <td align="left" valign="top" style="width: 80px">NIP</td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td colspan="3" align="left" valign="top">
+            {$data.surat.info_tambahan.nip_pegawai|default:'.....................'}
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"><br /></td>
+          <td align="left" valign="top">Jabatan</td>
+          <td align="center" valign="top">:</td>
+          <td colspan="3" align="left" valign="top">
+            {$data.surat.info_tambahan.jabatan_pegawai|default:'.....................'}
+          </td>
+        </tr>
+      </table>
+      <br />
+      <table cellspacing="0" border="0" width="100%" style="border-collapse: collapse; line-height: 1.5">
+        <tr>
+          <td colspan="6" align="left" valign="top">
+            Dengan ini menerangkan bahwa pada hari {$data.surat.info_tambahan.hari_kejadian_izin|default:'........'}, {$data.surat.info_tambahan.alasan_izin_pegawai|default:'........'}. {$data.surat.info_tambahan.uraian_izin_pegawai|default:'........'}.
+          </td>
+        </tr>
+      </table>
+    </div>
+    <br/>
+   	<table width="100%" style="font-size: 14px;padding-left: 58px;padding-top: -5px;font-family: arial;display : no-wrap">
+		<tr>
+			<td valign="bottom" width="55%"></td>
+			<td valign="bottom" width="5%">&nbsp;</td>
+			<td valign="top" width="40%">
+			{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'.......'},
+			{$data.surat.tanggal_surat|default:'............................'}
+			</td>
+		</tr>
+		<tr>
+			<td valign="top">Mengetahui,</td>
+			<td>&nbsp;</td>
+			<td valign="top" align="left">Pemohon,</td>
+		</tr>
+		<tr>
+			<td valign="top">{$data.ttd[0]['center']}</td>
+			<td>&nbsp;</td>
+			<td valign="top" align="left">
+             <b>{$data.surat.info_tambahan.jabatan_pegawai|default:'............................'}</b>
+			</td>
+		</tr>
+		<!-- <tr>
+			<td valign="top">&nbsp;</td>
+			<td>&nbsp;</td>
+			<td align="left" width="40%">	
+				<br/>
+				<table style="border:1px dashed #666;width: 80px;margin-left:-70px;font-size: 10px;padding-top: 8px;padding-bottom: 8px;">
+					<tr>
+						<td align="center">Materai<br/>Rp. 10.000,-</td>
+					</tr>
+				</table>
+			</td>
+		</tr> -->
+		<tr>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+			<b><u>{$data.surat.info_tambahan.nama_camat|default:'.....................'}</u></b>
+			</td>
+			<td><br/></td>
+			<td>
+			<b><u>{$data.pemohon.nama|default:'...............................'}</u></b>
+			</td>
+		</tr>
+		<tr>
+			<td align="left">
+				Pangkat : {$data.surat.info_tambahan.pangkat_camat|default:'.....................'}
+			</td>
+			<td>&nbsp;</td>
+			<td align="left">
+				Pangkat : {$data.pemohon.pangkat|default:'............................'}
+			</td>
+		</tr>
+		<tr>
+			<td align="left">
+				NIP : {$data.surat.info_tambahan.nip_camat|default:'.....................'}
+			</td>
+			<td>&nbsp;</td>
+			<td align="left">
+				NIP : {$data.pemohon.nip|default:'...............................'}
+			</td>
+		</tr>
+	</table>
+</html>

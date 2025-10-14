@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+    <title></title>
+
+    <style type="text/css">
+      table {
+        width: 100%;
+      }
+      body {
+        font-family: "arial";
+      }
+    </style>
+  </head>
+  <body>
+    <div style="padding-bottom: 5mm;">
+      <table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;">
+        {include file="backend/template/kop_surat_kecamatan.html"}
+        <tr>
+          <td colspan="3" align="center" style="padding-top: 5mm;"> 
+            <b><u>SURAT KETERANGAN PENGALAMAN BEKERJA</u></b>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3" align="center" style="font-size: 13.3px">
+            NOMOR: 
+						{if isset($data.surat.info_tambahan.ttd_srikandi) and $data.surat.info_tambahan.ttd_srikandi neq ''}
+						{'${nomor_naskah}'}
+						{else}
+						{$data.surat.no_surat|default:'..................................................'}
+						{/if}
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div
+      style="padding-right: 5.82mm;padding-left: 15.44mm;padding-bottom: 2mm;font-size: 16px;padding-top: -10px;">
+      <table cellspacing="0" border="0" width="100%" style="border-collapse: collapse; line-height: 1.5">
+        <tr>
+          <td colspan="6" align="left" valign="top">
+            Yang bertanda tangan di bawah ini :
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" style="width: 42px"><br /></td>
+          <td align="left" valign="top" style="width: 80px">Nama</td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td colspan="3" align="left" valign="top">
+            {$data.pemohon.nama|default:'.....................'}
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" style="width: 42px"><br /></td>
+          <td align="left" valign="top" style="width: 80px">NIP</td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td colspan="3" align="left" valign="top">
+            {$data.pemohon.nip|default:'.....................'}
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" style="width: 42px"><br /></td>
+          <td align="left" valign="top" style="width: 80px">Pangkat/Gol.</td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td colspan="3" align="left" valign="top">
+            {$data.pemohon.pangkat|default:'.....................'}
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" style="width: 42px"><br /></td>
+          <td align="left" valign="top" style="width: 80px">Jabatan</td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td colspan="3" align="left" valign="top">
+            {$data.pemohon.jabatan|default:'.....................'}
+          </td>
+        </tr>
+      </table>
+      <table cellspacing="0" border="0" width="100%" style="border-collapse: collapse; line-height: 1.5">
+        <tr>
+          <td colspan="6" align="left" valign="top">
+            Menerangkan bahwa {$data.surat.info_tambahan.unit_kerja|default:''} pada Kecamatan {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kecamatan)))|default:''}
+            Kota {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:''} di bawah ini :
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" style="width: 42px"><br /></td>
+          <td align="left" valign="top" style="width: 160px">Nama</td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td align="left" valign="top">
+            <b>{$data.surat.info_tambahan.nama_dalam_surat|default:'.....................'}</b>
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"><br /></td>
+          <td align="left" valign="top">Tempat/Tanggal Lahir</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">{$data.surat.info_tambahan.tempat_lahir_pemohon|default:'.....................'}/{$data.surat.info_tambahan.tgl_lahir_pemohon|default:'.....................'}</td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"><br /></td>
+          <td align="left" valign="top">Pendidikan</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">{$data.surat.info_tambahan.pendidikan_pemohon|default:'.....................'}</td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"><br /></td>
+          <td align="left" valign="top">Alamat</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">
+            {$data.surat.info_tambahan.alamat_pegawai|default:'.....................'}
+          </td>
+        </tr>
+        <tr>
+          <td colspan="6" align="center" valign="bottom"><br /></td>
+        </tr>
+        <tr>
+          <td colspan="6" width="100%" valign="top" align="justify" style="padding-top: -20px">
+            Terhitung mulai Tanggal {tgl_indo($data.surat.info_tambahan.tgl_awal_bekerja)|default:'..........'} berdasarkan Surat Keputusan Walikota Makassar Nomor : {$data.surat.info_tambahan.no_sk|default:'..........'} Tanggal {tgl_indo($data.surat.info_tambahan.tgl_sk)|default:'..........'} 
+            sampai dengan Tanggal {tgl_indo($data.surat.info_tambahan.tgl_akhir_bekerja)|default:'..........'} bekerja di Kantor Kecamatan {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kecamatan)))|default:''}
+            Kota {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:''}.
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="6" align="left" valign="top">
+            Demikian Surat Keterangan ini dibuat untuk menjadi bahan pertimbangan.
+          </td>
+        </tr>
+      </table>
+    </div>
+    <br/>
+   {ttd_1($data,$setting)}
+</html>

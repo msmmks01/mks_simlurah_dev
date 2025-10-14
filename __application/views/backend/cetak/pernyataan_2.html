@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SIMLURAH ADMINISTRASI</title>
+    <style>
+		table { width:100%; } 
+		body { font-family: 'Bookman Old Style, Helvetica, sans-serif'; }
+	</style>
+</head>
+<body>
+	<div id='content'>
+		
+		<table width="100%" style="margin-bottom: 20px; font-size: 17px;padding-top: -20px">
+			<tr>
+				<td align="center">
+						<b><u>SURAT PERNYATAAN DOMISILI</u></b><br/>
+						
+				</td>
+			</tr>
+		</table>
+		
+		<table width="100%" style="margin-bottom: 20px; font-weight: none; font-size: 15px;" cellspacing="2">
+			<tr>
+				<td align="justify" style="padding-left:70px;padding-bottom: 10px;">
+					Saya yang bertanda tangan di bawah ini :
+				</td>
+			</tr>
+			<tr>
+				<td style="padding-left:100px;">
+					
+					<table width="100%" style="font-weight: none; font-size: 15px;padding-left: -10px;" cellspacing="5">
+						<tr>
+							<td valign="top">Nama</td>
+							<td valign="top" style="padding-left: 20px;padding-right: 20px;" align="center">:</td>
+							<td valign="top" style="padding-bottom: 10px;">{$data.surat.info_tambahan.nama_pemberi_pernyataan|default:'...........'}</td>
+						</tr> 
+						<tr>
+							<td valign="top">NIK</td>
+							<td valign="top" align="center">:</td>
+							<td valign="top" style="padding-bottom: 10px;">{$data.surat.info_tambahan.ktp_pernyataan|default:'...........'}</td>
+						</tr>
+						<tr>
+							<td valign="top">Tempat / Tgl Lahir</td>
+							<td valign="top" align="center">:</td>
+							<td valign="top" style="padding-bottom: 10px;">{$data.surat.info_tambahan.lahir_pernyataan|default:'...........'}</td>
+						</tr>
+						<tr>
+							<td valign="top">Agama</td>
+							<td valign="top" align="center">:</td>
+							<td valign="top" style="padding-bottom: 10px;">{$data.surat.info_tambahan.agama_pernyataan|default:'...........'}</td>
+						</tr>
+						<tr>
+							<td valign="top">Status Perkawinan</td>
+							<td valign="top" align="center">:</td>
+							<td valign="top" style="padding-bottom: 10px;">{$data.surat.info_tambahan.status_kawin_pernyataan|default:'...........'}</td> 
+						</tr>
+						<tr>
+							<td valign="top">Jenis Kelamin</td>
+							<td valign="top" align="center">:</td>
+							<td valign="top" style="padding-bottom: 10px;">{$data.surat.info_tambahan.jenis_kelamin_pernyataan|default:'...........'}</td>
+						</tr>
+						<tr>
+							<td valign="top">Pekerjaan</td>
+							<td valign="top" align="center">:</td>
+							<td valign="top" style="padding-bottom: 10px;">{$data.surat.info_tambahan.jenis_kelamin_pernyataan|default:'...........'}</td>
+						</tr>
+						<tr>
+							<td valign="top">Alamat</td>
+							<td valign="top" align="center">:</td>
+							<td valign="top" style="padding-bottom: 10px;">{$data.surat.info_tambahan.alamat_pernyataan|default:'...........'}</td>
+						</tr>
+					</table>
+			<td>
+		</tr>
+	</table>
+</table>
+	
+		<p style="line-height: 2.0;text-align: justify;margin-left: 67px;margin-right: 10px;padding-top: -60px;font-size: 15px;">Menyatakan dengan benar bahwa anak saya yang bernama {$data.pemohon.nama_lengkap|default:'.....................'} benar sampai saat ini masih berdomisili di {$data.pemohon.alamat|default:'.....................'}, RT {$data.pemohon.rt|default:'...'}/RW {$data.pemohon.rw|default:'...'} {$setting.nama_desa|default:'........'} Kecamatan {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kecamatan)))|default:''} Kota {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:''}.<br>
+				Demikian surat pernyataan ini saya buat dan apabila dikemudian hari pernyataan ini tidak benar maka saya bersedia menerima sanksi sesuai hukum yang berlaku.</p>
+				
+	<br/>
+	<table width="100%" style="margin-bottom: 20px; font-weight: none; font-size: 14px;">
+		<tr>
+			<td width="55%">
+				&nbsp;
+			</td>
+			<td align="left" width="40%">
+				
+				{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'.....'}, {$data.surat.tanggal_surat|default:'............................'} <br/>
+				<span style="font-size:2px">&nbsp;</span><br/>
+				Yang Membuat Pernyataan 
+				<br/>
+				<br/>
+				<br/>
+				<br/> 
+				<br/>
+				
+				<b><u>{$data.surat.info_tambahan.nama_pemberi_pernyataan|default:'...........'}</u></b>
+				
+			</td>
+		</tr>
+	</table>
+	
+</div>
+</body>
+</html>

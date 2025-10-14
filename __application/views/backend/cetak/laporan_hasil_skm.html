@@ -1,0 +1,352 @@
+
+{assign var="jml_header_u" value=COUNT($data.laporan_hasil_skm[0])-3}
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Laporan Hasil Survei Kepuasan Masyarakat</title>
+</head>
+
+<body>
+	<table style="width: 100%;border-collapse: collapse;font-size: 12px;" cellspacing="0" border="0">
+		<tr>
+			<td style="font-family: Arial; font-size: 12pt; color: #000000;" align="center" valign="top">
+			<b>LAPORAN HASIL SURVEI KEPUASAN MASYARAKAT</b>
+			</td>
+		</tr>
+	</table>
+	<br>
+
+	<!-- <table style="width: 100%;border-collapse: collapse;font-size: 12px;" cellspacing="0" border="1">
+		
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" rowspan=2 align="center" valign=middle data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;No RESP&quot;}">No RESP</td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="{$jml_header_u+1}" align="center" valign=bottom data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;NILAI UNSUR PELAYANAN&quot;}">NILAI UNSUR PELAYANAN</td>
+		</tr>
+	
+		<tr>
+				{for $h=1 to $jml_header_u}
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle>U{$h}</td>
+				{/for}
+
+				{assign var="jml_data" value=0}
+				{foreach from=$data.laporan_hasil_skm item=jml}
+					{assign var="jml_data" value=$jml_data+1}
+				{/foreach}]
+			<td style="border-top: none; border-bottom: none; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" rowspan="{$jml_data}" valign=bottom ></td>
+		</tr> 
+
+		<tr>
+			{for $h=1 to $jml_header_u+1}
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="1" sdnum="1033;"><i>{$h}</i></td>
+			{/for}
+		</tr>
+
+			{$no=1}
+				{foreach from=$data.laporan_hasil_skm item=row}
+			{if $row.nor eq '1'}
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="1" sdnum="1033;">{$no++}</td>
+			{for $i=1 to count($row)-3}
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom >{$row["u$i"]}</td>
+		{/for}
+		</tr>
+		{$jumlah_nor_1= count($row)}
+		{/if}
+		{if $row.nor eq '2' || $row.nor eq '3' || $row.nor eq '4'}
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" width="25%" align="left" valign=bottom data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;Jumlah Nilai\/Unsur&quot;}">{$row.urai}</td>
+			{for $i=1 to count($row)-3}
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom >{$row["u$i"]}</td>
+			{/for}
+		</tr>
+	{/if}
+		
+	{if $row.nor eq '5' || $row.nor eq '6'}
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="{count($row)-2}" align="left" valign=bottom data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;Hasil Konversi IKM Unit Pelayanan&quot;}">{$row.urai}</td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom >{$row.sc}</td>
+		</tr>
+	{/if}
+	{/foreach}
+	</table> -->
+	
+	{assign var="baris" value=0}
+	{assign var="maks_baris" value=45}
+	{assign var="no" value=1}
+
+	<!-- TABEL PERTAMA -->
+	<table style="width: 100%; border-collapse: collapse; font-size: 12px;" cellspacing="0" border="1">
+		<!-- HEADER -->
+		<tr>
+			<td style="border:1px solid #000000;" rowspan="2" align="center" valign="middle">No RESP</td>
+			<td style="border:1px solid #000000;" colspan="{$jml_header_u+1}" align="center" valign="bottom">
+				NILAI UNSUR PELAYANAN
+			</td>
+		</tr>
+		<tr>
+			{for $h=1 to $jml_header_u}
+			<td style="border:1px solid #000000;" align="center" valign="middle">U{$h}</td>
+			{/for}
+			<td style="border:1px solid #000000;" align="center" valign="bottom"></td>
+		</tr>
+		<tr>
+			{for $h=1 to $jml_header_u+1}
+			<td style="border:1px solid #000000;" align="center" valign="middle"><i>{$h}</i></td>
+			{/for}
+		</tr>
+
+		<!-- ISI DATA -->
+		{foreach from=$data.laporan_hasil_skm item=row name=loop}
+			{assign var="baris" value=$baris+1}
+
+			{if $row.nor eq '1'}
+			<tr>
+				<td style="border:1px solid #000000;" align="center" valign="middle">{$no++}</td>
+				{for $i=1 to count($row)-3}
+				<td style="border:1px solid #000000;" align="center" valign="bottom">{$row["u$i"]}</td>
+				{/for}
+			</tr>
+			{/if}
+
+			{if $row.nor eq '2' || $row.nor eq '3' || $row.nor eq '4'}
+			<tr>
+				<td style="border:1px solid #000000;" width="25%" align="left" valign="bottom">{$row.urai}</td>
+				{for $i=1 to count($row)-3}
+				<td style="border:1px solid #000000;" align="center" valign="bottom">{$row["u$i"]}</td>
+				{/for}
+			</tr>
+			{/if}
+
+			{if $row.nor eq '5' || $row.nor eq '6'}
+			<tr>
+				<td style="border:1px solid #000000;" colspan="{count($row)-2}" align="left" valign="bottom">{$row.urai}</td>
+				<td style="border:1px solid #000000;" align="left" valign="bottom">{$row.sc}</td>
+			</tr>
+			{/if}
+
+			{* Jika sudah mencapai batas 45 baris, mulai halaman baru *}
+			{if $baris == $maks_baris && !$smarty.foreach.loop.last}
+				</table>
+				<div style="page-break-after: always;"></div>
+
+				<!-- BUKA ULANG HEADER UNTUK HALAMAN BARU -->
+				<table style="width: 100%; border-collapse: collapse; font-size: 12px;" cellspacing="0" border="1">
+					<tr>
+						<td style="border:1px solid #000000;" rowspan="2" align="center" valign="middle">No RESP</td>
+						<td style="border:1px solid #000000;" colspan="{$jml_header_u+1}" align="center" valign="bottom">
+							NILAI UNSUR PELAYANAN
+						</td>
+					</tr>
+					<tr>
+						{for $h=1 to $jml_header_u}
+						<td style="border:1px solid #000000;" align="center" valign="middle">U{$h}</td>
+						{/for}
+						<td style="border:1px solid #000000;" align="center" valign="bottom"></td>
+					</tr>
+					<tr>
+						{for $h=1 to $jml_header_u+1}
+						<td style="border:1px solid #000000;" align="center" valign="middle"><i>{$h}</i></td>
+						{/for}
+					</tr>
+				{assign var="baris" value=0}
+			{/if}
+		{/foreach}
+	</table>
+
+	<br>
+
+	<table cellspacing="0" cellpadding="1" width="85%" border="0">
+
+		<tr>
+			<td style="border: none;" align="left" valign=bottom >Keterangan</td>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border:1px solid #000" align="center" valign=middle >No</td>
+			<td style="border:1px solid #000" colspan=2 align="center" valign=bottom >Unsur Pelayanan</td>
+		</tr>
+	{foreach from=$data.laporan_hasil_skm item=row}
+	{if $row.nor eq '3'}
+		<tr>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border:1px solid #000" align="center" valign=middle >U1</td>
+			<td style="border:1px solid #000" align="left" valign=bottom >Persyaratan</td>
+			<td style="border:1px solid #000" align="right" valign=bottom>{$row.u1}</td>
+		</tr>
+		<tr>
+			<td style="border: none;" align="left" valign=bottom >U1 s.d U14</td>
+			<td style="border: none;" align="left" valign=bottom >Unsur-Unsur Pelayanan</td>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border:1px solid #000" align="center" valign=middle >U2</td>
+			<td style="border:1px solid #000" align="left" valign=bottom >Prosedure</td>
+			<td style="border:1px solid #000" align="right" valign=bottom>{$row.u2}</td>
+		</tr>
+		<tr>
+			<td style="border: none;" align="left" valign=bottom >NRR</td>
+			<td style="border: none;" align="left" valign=bottom >Nilai rata-rata</td>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border:1px solid #000" align="center" valign=middle >U3</td>
+			<td style="border:1px solid #000" align="left" valign=bottom >Waktu Pelayanan</td>
+			<td style="border:1px solid #000" align="right" valign=bottom>{$row.u3}</td>
+		</tr>
+		<tr>
+			<td style="border: none;" align="left" valign=bottom >IKM</td>
+			<td style="border: none;" align="left" valign=middle >Indeks Kepuasan Masyarakat</td>
+			<td style="border: none;" align="left" valign=middle ><br></td>
+			<td style="border: none;" align="left" valign=middle ><br></td>
+			<td style="border:1px solid #000" align="center" valign=middle data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;U4&quot;}">U4</td>
+			<td style="border:1px solid #000" align="left" valign=bottom data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;Biaya\/Tarif&quot;}">Biaya/Tarif</td>
+			<td style="border:1px solid #000" align="right" valign=bottom>{$row.u4}</td>
+		</tr>
+		<tr>
+			<td style="border: none;" align="left" valign=bottom >*)</td>
+			<td style="border: none;" align="left" valign=bottom >Jumlah NRR IKM tertimbang</td>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border:1px solid #000" align="center" valign=middle data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;U5&quot;}">U5</td>
+			<td style="border:1px solid #000" align="left" valign=bottom data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;Produk Layanan&quot;}">Produk Layanan</td>
+			<td style="border:1px solid #000" align="right" valign=bottom>{$row.u5}</td>
+		</tr>
+		<tr>
+			<td style="border: none;" align="left" valign=bottom >**)</td>
+			<td style="border: none;" align="left" valign=bottom >Jumlah NRR Tertimbang x 25</td>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border:1px solid #000" align="center" valign=middle data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;U6&quot;}">U6</td>
+			<td style="border:1px solid #000" align="left" valign=bottom data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;Kompetensi Pelaksana&quot;}">Kompetensi Pelaksana</td>
+			<td style="border:1px solid #000" align="right" valign=bottom>{$row.u6}</td>
+		</tr>
+		<tr>
+			<td style="border: none;" align="left" valign=middle >NRR Per Unsur</td>
+			<td style="border: none;" align="left" valign=bottom >Jumlah nilai per Unsur / Jumlah kuesioner yang terisi</td>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border:1px solid #000" align="center" valign=middle >U7</td>
+			<td style="border:1px solid #000" align="left" valign=bottom >Perilaku Pelaksana</td>
+			<td style="border:1px solid #000" align="right" valign=bottom>{$row.u7}</td>
+		</tr>
+		<tr>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border:1px solid #000" align="center" valign=middle >U8</td>
+			<td style="border:1px solid #000" align="left" valign=bottom >Sarana dan Prasarana</td>
+			<td style="border:1px solid #000" align="right" valign=bottom>{$row.u8}</td>
+		</tr>
+		<tr>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border:1px solid #000" align="center" valign=middle >U9</td>
+			<td style="border:1px solid #000" align="left" valign=bottom >Penanganan Pengaduan</td>
+			<td style="border:1px solid #000" align="right" valign=bottom>{$row.u9}</td>
+		</tr>
+	{/if} 
+	{/foreach}
+		<tr>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+			<td style="border: none;" align="left" valign=bottom ><br></td>
+		</tr>
+		{assign var="rata_nilai_nor6" value=0}
+		{foreach from=$data.laporan_hasil_skm item=row}
+		{if $row.nor eq '6'}
+			{assign var="rata_nilai_nor6" value=$row.sc}
+		{/if}
+		{/foreach}
+
+		{assign var="kategori_mutu" value=""}
+		{if $rata_nilai_nor6 >= 88.31}
+		{assign var="kategori_mutu" value="A (Sangat Baik)"}
+		{elseif $rata_nilai_nor6 >= 76.61}
+		{assign var="kategori_mutu" value="B (Baik)"}
+		{elseif $rata_nilai_nor6 >= 65}
+		{assign var="kategori_mutu" value="C (Kurang Baik)"}
+		{elseif $rata_nilai_nor6 >= 25}
+		{assign var="kategori_mutu" value="D (Tidak Baik)"}
+		{else}
+		{assign var="kategori_mutu" value="Tidak Diketahui"}
+		{/if}
+
+
+		{foreach from=$data.laporan_hasil_skm item=row}
+		{if $row.nor eq '6'}
+		<tr>
+			<td align="left" valign=bottom ><br></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;IKM UNIT PELAYANAN (Hasil Konversi) :&quot;}"><b>IKM UNIT PELAYANAN (Hasil Konversi) :</b></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="90.063" sdnum="1033;"><b>{$row.sc}</b></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;:&quot;}"><b>:</b></td>
+			<td colspan="2" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle ><b>&emsp;&emsp;<strong>{$kategori_mutu}</strong></b></td>
+			<td align="left" valign=bottom ><br></td>
+		</tr>
+		{/if} 
+		{/foreach}
+		<tr>
+			<td align="left" valign=bottom ><br></td>
+			<td align="left" valign=bottom ><br></td>
+			<td align="left" valign=bottom ><br></td>
+			<td align="left" valign=bottom ><br></td>
+			<td align="left" valign=bottom ><br></td>
+			<td align="left" valign=bottom ><br></td>
+			<td align="left" valign=bottom ><br></td>
+		</tr>
+		<tr>
+			<td align="left" valign=bottom data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;Mutu Pelayanan :&quot;}">Mutu Pelayanan :</td>
+			<td align="left" valign=bottom ><br></td>
+			<td align="left" valign=bottom ><br></td>
+			<td align="left" valign=bottom ><br></td>
+			<td align="left" valign=bottom ><br></td>
+			<td align="left" valign=bottom ><br></td>
+			<td align="left" valign=bottom ><br></td>
+		</tr>
+		<tr>
+			<td align="left" valign=bottom >A (Sangat Baik)</td>
+			<td align="left" valign=bottom data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;88,31 - 100&quot;}">88,31 - 100</td>
+			<td align="left" valign=bottom ><br></td>
+			<td align="left" valign=bottom ><br></td>
+			<td align="left" valign=bottom ><br></td>
+			<td align="left" valign=bottom ><br></td>
+			<td align="left" valign=bottom ><br></td>
+		</tr>
+		<tr>
+			<td align="left" valign=bottom data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;B (Baik)&quot;}">B (Baik)</td>
+			<td align="left" valign=bottom data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;76,61 - 88,30&quot;}">76,61 - 88,30</td>
+			<td align="left" valign=bottom ><br></td>
+			<td align="left" valign=bottom ><br></td>
+			<td align="left" valign=bottom ><br></td>
+			<td align="left" valign=bottom ><br></td>
+			<td align="left" valign=bottom ><br></td>
+		</tr>
+		<tr>
+			<td align="left" valign=bottom data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;C (Kurang Baik)&quot;}">C (Kurang Baik)</td>
+			<td align="left" valign=bottom data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;65 - 76,60&quot;}">65 - 76,60</td>
+			<td align="left" valign=bottom ><br></td>
+			<td align="left" valign=bottom ><br></td>
+			<td align="left" valign=bottom ><br></td>
+			<td align="left" valign=bottom ><br></td>
+			<td align="left" valign=bottom ><br></td>
+		</tr>
+		<tr>
+			<td align="left" valign=bottom data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;D (Tidak Baik)&quot;}">D (Tidak Baik)</td>
+			<td align="left" valign=bottom data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;25 - 64,99&quot;}">25 - 64,99</td>
+			<td align="left" valign=bottom ><br></td>
+			<td align="left" valign=bottom ><br></td>
+			<td align="left" valign=bottom ><br></td>
+			<td align="left" valign=bottom ><br></td>
+			<td align="left" valign=bottom ><br></td>
+		</tr>
+	</table>
+</body>
+</html>

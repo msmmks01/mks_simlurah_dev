@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SIMLURAH ADMINISTRASI</title>
+    <style>
+		table { width:100%; } 
+		body { font-family: 'arial'; }
+	</style>
+</head>
+<body>
+	<div id='content'>
+		<div style="padding-bottom: 5mm;"> 
+			<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;">
+				<tr>
+					<td align="center" rowspan=4 valign="middle" style="width: 150px;">
+						<img src="{$host}__assets/images/logo-makassar.png" style="height:100px" />
+					</td>
+					<td align="center" valign="bottom" style="font-size:22.6px;padding:0px">PEMERINTAH {$setting.nama_kab_kota|upper|default:'.......'}</td>
+					<td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+						<img src="{$host}__assets/images/logo-camat.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';"  style="height:100px"/>
+					</td>
+				</tr>
+				<tr>
+					<td align="center" style="font-size:22.6px;padding:0px">KECAMATAN {$setting.nama_kecamatan|upper|default:'.......'}</td>
+				</tr>
+				<tr>
+					<td align="center" valign="top" style="font-size:18.6px;padding:0px"><b>{$setting.nama_desa|upper|default:'.......'}</b></td>
+				</tr>
+				<tr>
+					<td align="center" valign="top" style="font-size:10.6px;padding:0px">{$setting.alamat|default:'ALAMAT .......'}
+					{if str_replace('-','',$setting.telp) neq ''}
+					Telp. {str_replace('-','',$setting.telp|default:'')} 
+					{/if}
+					{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'.....'} {$setting.kode_pos|default:''}</td>
+				</tr>
+				<tr>
+					<td align="center" colspan="3" align="center">
+						<hr style="color: black;height: 4px; margin-bottom:0px">
+						<hr style="color: black;height: 1px; margin-top:3px">
+					</td>
+				</tr>
+			</table>
+		</div> 
+		
+		<table width="100%" style="margin-bottom: 20px; font-size: 17px;padding-top: -20px">
+			<!-- <tr>
+				<td align="center">
+						<b>SURAT HIMBAUAN ATAU SURAT PENGUMUMAN</b><br/>
+				</td>
+			</tr> -->
+		</table>
+		
+		<!-- <table width="100%" style="font-weight: none; font-size: 15px;padding-left: -10px;">
+
+			<tr>
+				<td valign="top">Nomor</td>
+				<td valign="top" style="padding-left: 20px;padding-right: 20px;" align="left">:</td>
+				<td valign="top" style="padding-bottom: 1px;">{$data.surat.no_surat|default:'..................................................'}</td>
+			</tr>
+			<tr>
+				<td valign="top">Sifat</td>
+				<td valign="top" style="padding-left: 20px;padding-right: 20px;" align="center">:</td>
+				<td valign="top" style="padding-bottom: 1px;">{$data.surat.sifat_surat|default:'.....................'}</td>
+			</tr>
+			<tr>
+				<td valign="top">Tgl. Surat</td>
+				<td valign="top" style="padding-left: 20px;padding-right: 20px;" align="center">:</td>
+				<td valign="top" style="padding-bottom: 1px;">{$data.surat.tgl_surat|default:'.....................'}</td>
+			</tr>
+			<tr>
+				<td valign="top">Perihal</td>
+				<td valign="top" style="padding-left: 20px;padding-right: 20px;" align="center">:</td>
+				<td valign="top" style="padding-bottom: 1px;">{$data.surat.perihal|default:'.....................'}</td>
+			</tr>
+			<tr>
+				<td valign="top">Dari</td>
+				<td valign="top" style="padding-left: 20px;padding-right: 20px;" align="center">:</td>
+				<td valign="top" style="padding-bottom: 1px;">{$data.surat.asal_surat|default:'.....................'}</td>
+			</tr>
+			<tr>
+				<td valign="top">Tujuan Surat</td>
+				<td valign="top" style="padding-left: 20px;padding-right: 20px;" align="center">:</td>
+				<td valign="top" style="padding-bottom: 1px;">{$data.surat.tujuan|default:'.....................'}</td>
+			</tr>
+		</table> -->
+	<br/>
+		<p style="line-height: 2.0;text-align: justify;margin-left: 67px;margin-right: 10px;padding-top: -60px;font-size: 16px;">{$data.surat.uraian|default:'.....................'}</p>
+	
+	<br/>
+	<br/>
+	<br/>
+	<table width="100%" style="margin-bottom: 20px; font-weight: none; font-size: 15px;">
+		<tr>
+			<td width="55%">
+				&nbsp;
+			</td>
+			<td align="left" width="40%">
+				
+				{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'SIL ONLINE'}, {$data.surat.tanggal_surat|default:'............................'} <br/>
+				<span style="font-size:2px">&nbsp;</span><br/>
+				<b>{$data.ttd.jabatan|default:'............................'}</b> 
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+				
+				<b><u>{$data.ttd.nama|default:'...............................'}</u></b>
+				<br/>
+				NIP : {$data.ttd.nip|default:'...............................'}
+				<br/>
+				Pangkat : {$data.ttd.pangkat|default:'............................'}
+			</td>
+		</tr>
+	</table>
+	
+</div>
+</body>
+</html>

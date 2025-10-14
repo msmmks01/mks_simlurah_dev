@@ -1,0 +1,164 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+	
+
+	<title>SURAT PENGANTAR PEREKAMAN E-KTP</title>
+	
+</head>
+
+<body>
+	<div style="padding-bottom: 5mm;">
+		<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;font-family: arial;">
+			<!-- <tr>
+				<td align="center" rowspan=4 valign="middle" style="width: 150px;">
+					<img src="{$host}__assets/images/logo-makassar.png" style="height:100px" />
+				</td>
+				<td align="center" valign="bottom" style="font-size:22.6px;padding:0px">PEMERINTAH {$setting.nama_kab_kota|upper|default:'.......'}</td>
+				{if $setting.status_logo_lainnya eq '1'}
+				<td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+					<img src="{$host}__assets/images/logo-camat.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';"  style="height:100px"/>
+				</td>
+				{else} 
+				<td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+					<img src="{$host}__assets/images/logo-blank.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';"  style="height:100px"/>
+				</td>
+				{/if}
+			</tr>
+			<tr>
+				<td align="center" style="font-size:22.6px;padding:0px">KECAMATAN {$setting.nama_kecamatan|upper|default:'.......'}</td>
+			</tr>
+			<tr>
+				<td align="center" valign="top" style="font-size:18.6px;padding:0px"><b>{$setting.nama_desa|upper|default:'.......'}</b></td>
+			</tr>
+			<tr>
+				<td align="center" valign="top" style="font-size:10.6px;padding:0px">
+					<i>
+						{if strlen($setting.alamat)>1}
+						{$setting.alamat|default:'...'}
+						{/if}
+						{if strlen($setting.telp)>1}
+						Telp. {$setting.telp|default:'...'}
+						{/if}
+						{if strlen($setting.faks)>1}
+						Fax. {$setting.faks|default:'...'}
+						{/if}
+						{if strlen($setting.email)>1}
+						Email : {$setting.email|default:'...'}
+						{/if}
+						{if strlen($setting.nama_kab_kota)>1}
+						{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'...'}
+						{/if}
+						{if strlen($setting.kode_pos)>1}
+						Kode Pos {$setting.kode_pos|default:'...'}
+						{/if}
+						{if strlen($setting.website)>1}
+						<br>Website : {str_replace('-','',$setting.website|default:'')}
+						{/if}
+					</i>
+				</td>
+			</tr>
+			<tr>
+				<td align="center" colspan="3" align="center">
+					<hr style="color: black;height: 4px; margin-bottom:0px">
+					<hr style="color: black;height: 1px; margin-top:3px">
+				</td>
+			</tr> -->
+			{include file="backend/template/kop_surat_kelurahan.html"}
+			<tr>
+				<td colspan=3 align="center"><b><u>SURAT PENGANTAR PEREKAMAN E-KTP</u></b></td>
+			</tr>
+			<tr>
+				<td colspan=3 align="center" style="font-size:13.3px">NOMOR: 
+						{if isset($data.surat.info_tambahan.ttd_srikandi) and $data.surat.info_tambahan.ttd_srikandi neq ''}
+						{'${nomor_naskah}'}
+						{else}
+						{$data.surat.no_surat|default:'..................................................'}
+						{/if}</td>
+			</tr>
+		</table>
+	</div>
+	<div style="padding-right: 5.82mm;padding-left: 15.44mm; padding-bottom: 2mm; font-size: 16px;padding-top: -10px;">
+		<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse; line-height: 1.5;font-family: arial;">
+			<tr>
+				<td colspan=6 align="left" valign=top>Yang bertanda tangan di bawah ini :</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top style="width:42px;"><br></td>
+				<td align="left" valign=top style="width: 80px;">Nama</td>
+				<td align="center" valign=top style="width: 15px;">:</td>
+				<td colspan=3 align="left" valign=top>{$data.pemohon.nama|default:'.....................'}</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Jabatan</td>
+				<td align="center" valign=top>:</td>
+				<td colspan=3 align="left" valign=top>{$data.pemohon.jabatan|default:'.....................'}</td>
+			</tr>
+		</table><br>
+		<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse; line-height: 1.5;font-family: arial;">
+			<tr>
+				<td colspan=6 align="left" valign=top>Dengan ini menerangkan bahwa :</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top style="width:42px;"><br></td>
+				<td align="left" valign=top style="width: 160px;">Nama</td>
+				<td align="center" valign=top style="width: 15px;">:</td>
+				<td align="left" valign=top><b>{$data.pemohon.nama_lengkap|default:'.....................'}</b></td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>NIK</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{$data.pemohon.nik|default:'.....................'}</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Jenis Kelamin</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{$data.pemohon.jenis_kelamin|default:'.....................'}</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Tempat/ Tanggal Lahir</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{ucwords(strtolower($data.pemohon.tempat_lahir))|default:'...'}, {tgl_indo({$data.pemohon.tgl_lahir|default:''})}</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Pekerjaan</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{ucwords(strtolower($data.pemohon.nama_pekerjaan))|default:'.....................'}</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Agama</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{$data.pemohon.agama|default:'.....................'}</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Alamat</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{$data.pemohon.alamat|default:'.....................'}, RT {$data.pemohon.rt|default:'...'}/RW {$data.pemohon.rw|default:'...'}</td>
+			</tr>
+			
+			<tr>
+				<td colspan=4 align="center" valign=bottom><br></td>
+			</tr>
+			<tr>
+				<td colspan=4 valign=top align="justify" style="padding-top: -20px">Nama tersebut di atas adalah penduduk {$data.pemohon.nama_kelurahan|default:'........'} Kecamatan {ucwords(strtolower(str_replace('KOTA','',$data.pemohon.nama_kecamatan)))|default:''} Kota {ucwords(strtolower(str_replace('KOTA','',$data.pemohon.nama_kota)))|default:''} yang telah memenuhi syarat sesuai surat pengantar Nomor {$data.surat.info_tambahan.no_pengantar|default:'.....................'} Tanggal {tgl_indo({$data.surat.info_tambahan.tgl_pengantar|default:'.....................'})} dan ketentuan untuk melakukan perekaman E-KTP.
+				</td>
+			</tr>
+			
+			
+			<tr>
+				<td colspan=4 align="justify" valign=top>Demikian surat pengantar ini dibuat dengan sebenarnya dan dapat dipergunakan <b>{$data.surat.info_tambahan.keperluan_surat|default:'sebagaimana mestinya'}</b>. Atas kerjasamanya diucapkan terimakasih.</td>
+			</tr>
+		</table>
+	</div>
+	
+	{ttd_1($data,$setting)}
+</body>
+</html>

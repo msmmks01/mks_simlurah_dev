@@ -1,0 +1,533 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
+	<title></title>
+	
+	<style type="text/css">
+		table { width:100%; } 
+		body { font-family: 'arial'; }
+	
+	</style>
+	
+</head>
+
+<body>
+	
+
+	<table cellspacing="0" border="0" style="border-collapse: collapse; width: 100%;">
+		
+		<tr>
+			<td style="border-right: 1px solid black;border-style: dashed; padding-right: 10px;">
+				<!-- Tabel Pertama -->
+				<table border="0" style="border-collapse: collapse;">
+					<thead>
+						<tr>
+							<td colspan="2">
+							<div style="padding-top: 5mm;">
+								<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;font-family: arial;">
+									<!-- <tr>
+										<td align="center" rowspan=4 valign="middle" style="width: 150px;">
+											<img src="{$host}__assets/images/logo-makassar.png" style="height:100px" />
+										</td>
+										<td align="center" valign="top" style="font-size:22.6px;padding:0px">PEMERINTAH {$setting.nama_kab_kota|upper|default:'.......'}</td>
+										{if $setting.status_logo_lainnya eq '1'}
+										<td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+											<img src="{$host}__assets/images/logo-camat.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';"  style="height:100px"/>
+										</td>
+										{else} 
+										<td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+											<img src="{$host}__assets/images/logo-blank.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';"  style="height:100px"/>
+										</td>
+										{/if}
+									</tr>
+									<tr>
+										<td align="center" style="font-size:22.6px;padding:0px">KECAMATAN {$setting.nama_kecamatan|upper|default:'.......'}</td>
+									</tr>
+									<tr>
+										<td align="center" valign="top" style="font-size:18.6px;padding:0px"><b>{$setting.nama_desa|upper|default:'.......'}</b></td>
+									</tr>
+									<tr>
+										<td align="center" valign="top" style="font-size:10.6px;padding:0px">
+											<i>
+												{if strlen($setting.alamat)>1}
+												{$setting.alamat|default:'...'}
+												{/if}
+												{if strlen($setting.telp)>1}
+												Telp. {$setting.telp|default:'...'}
+												{/if}
+												{if strlen($setting.faks)>1}
+												Fax. {$setting.faks|default:'...'}
+												{/if}
+												{if strlen($setting.email)>1}
+												Email : {$setting.email|default:'...'}
+												{/if}
+												{if strlen($setting.nama_kab_kota)>1}
+												{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'...'}
+												{/if}
+												{if strlen($setting.kode_pos)>1}
+												Kode Pos {$setting.kode_pos|default:'...'}
+												{/if}
+												{if strlen($setting.website)>1}
+												<br>Website : {str_replace('-','',$setting.website|default:'')}
+												{/if}
+											</i>
+										</td>
+									</tr>
+									<tr>
+										<td align="center" colspan="3" align="center">
+											<hr style="color: black;height: 4px; margin-top:0px">
+											<hr style="color: black;height: 1px; margin-top:3px">
+										</td>
+									</tr> -->
+									{include file="backend/template/kop_surat_kecamatan.html"}
+								</table>
+							</div>
+						</td>
+						</tr>
+					</thead>
+					<tr>
+						<td colspan="2" align="center"  style="height: 50px;padding-top: 5px;padding-left: 5px;border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;font-size: 16px;"><b>L E M B A R &nbsp; D I S P O S I S I<br>
+						</td>
+					</tr>
+				</table>
+				<table border="1" style="border-collapse: collapse; width: 100%;">
+					<colgroup width="151"></colgroup>
+					<colgroup width="10"></colgroup>
+					<colgroup width="232"></colgroup>
+					<colgroup width="110"></colgroup>
+					<colgroup width="10"></colgroup>
+					<colgroup width="81"></colgroup>
+					<tr>
+						<td style="border-top: 1px solid #000000; border-left: 1px solid #000000"  align="left" valign=top width="10%"><font color="#000000">Surat dari </font></td>
+						<td style="border-top: 1px solid #000000" align="center" valign=top width="5px"><font color="#000000">:</font></td>
+						<td style="border-top: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=top><font color="#000000">{$data.surat.info_tambahan.surat_dari|default:'.....................'}</font></td>
+						<td style="border-top: 1px solid #000000; border-left: 1px solid #000000;" align="left" valign=top width="110px"><font color="#000000">Diterima Tanggal</font></td>
+						<td style="border-top: 1px solid #000000" align="center" valign=top width="5px"><font color="#000000">:</font></td>
+						<td style="border-top: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=top><font color="#000000">{tgl_indo($data.surat.info_tambahan.tgl_diterima)|default:'.....................'}</font></td>
+					</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000"  align="left" valign=top><font color="#000000" width="10%">No. Surat</font></td>
+						<td align="center" valign=top width="5px"><font color="#000000">:</font></td>
+						<td style="border-right: 1px solid #000000" align="left" valign=top><font color="#000000">
+						{if isset($data.surat.info_tambahan.ttd_srikandi) and $data.surat.info_tambahan.ttd_srikandi neq ''}
+						{'${nomor_naskah}'}
+						{else}
+						{$data.surat.no_surat|default:'..................................................'}
+						{/if}</font></td>
+						<td style="border-left: 1px solid #000000" align="left" valign=top><font color="#000000" width="110px">No. Agenda</font></td>
+						<td align="center" valign=top width="5px"><font color="#000000">:</font></td>
+						<td style="border-right: 1px solid #000000" align="left" valign=top sdval="472" sdnum="1033;"><font color="#000000">{$data.surat.info_tambahan.no_agenda|default:'.....................'}</font></td>
+					</tr>
+					<tr>
+						<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000"  align="left" valign=top width="10%"><font color="#000000">Tgl. Surat</font></td>
+						<td style="border-bottom: 1px solid #000000" align="center" valign=top width="5px"><font color="#000000">:</font></td>
+						<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=top><font color="#000000">{tgl_indo($data.surat.tgl_surat)|default:'.....................'}</font></td>
+						<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left" valign=top width="110px"><font color="#000000">Sifat Surat</font></td>
+						<td style="border-bottom: 1px solid #000000"align="center" valign=top width="5px"><font color="#000000">:</font></td>
+						<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=top><font color="#000000">{$data.surat.info_tambahan.cl_sifat_surat|default:'.....................'}</font></td>
+					</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=6  align="left" valign=top><font color="#000000">Perihal                                       : </font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=6 height="50" align="center" valign=middle><font color="#000000"><b>{nl2br($data.surat.info_tambahan.perihal_disposisi)}</b></font></td>
+						</tr>
+					<tr>
+						<td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000">Diteruskan Kepada Sdr.</font></td>
+						<td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="left" valign=top><font color="#000000">Dengan Hormat Harap :</font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Sekcam</font></td>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Target dan Saran</font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Kasi Pemerintahan, Kinerja Lurah dan RT/RW</font></td>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Proses Lebih Lanjut</font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Kasi Ketentraman, Ketertiban dan Penegakan Peraturan Daerah</font></td>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Koordinasi/Konfirmasi</font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Kasi Perekonomian, Pembangunan dan Pengembangan Sistem Manajemen Informasi</font></td>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> &hellip;.................</font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Kasi Pemberdayaan Masyarakat dan Kesejahteraan Sosial</font></td>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> &hellip;.................</font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Kasi Pengelolaan Kebersihan dan Pertamanan</font></td>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><br></font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Kepala Subbagian Umum dan Kepegawaian</font></td>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><br></font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Kepala Subbagian Perencanaan dan Keuangan</font></td>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><br></font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Pengurus Barang</font></td>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><br></font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> &hellip;.................</font></td>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><br></font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> &hellip;.................</font></td>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><br></font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> &hellip;.................</font></td>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><br></font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> &hellip;.................</font></td>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><br></font></td>
+						</tr>
+					<tr>
+						<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"></font></td>
+						<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><br></font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000" colspan=3 align="left" valign=top><font color="#000000">Catatan                               :</font></td>
+						<td style="border-right: 1px solid #000000" colspan=3 align="center" valign=middle><font color="#000000"></font></td>
+						</tr>
+					<tr>
+						<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" colspan=3 rowspan=2 height="33" align="center" valign=top><font color="#000000"><br></font></td>
+						<td style="border-right: 1px solid #000000" colspan=3 align="center" valign=middle><font color="#000000"><br></font></td>
+						</tr>
+					<tr>
+						<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><b>{if count($data.ttd)==1}
+							{ttd_fullkanan($data,setting)}
+							{else}
+							{ttd_fullkanan($data,setting)}
+							{/if}</b></font></td>
+						</tr>
+				</table>
+			</td>
+			<td style="padding-left: 10px;">
+				<!-- Tabel Kedua -->
+				<table border="0" style="border-collapse: collapse;">
+					<thead>
+						<tr>
+							<td colspan="2">
+								<div style="padding-top: 5mm;">
+									<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;font-family: arial;">
+										<!-- <tr>
+											<td align="center" rowspan=4 valign="middle" style="width: 150px;">
+												<img src="{$host}__assets/images/logo-makassar.png" style="height:100px" />
+											</td>
+											<td align="center" valign="top" style="font-size:22.6px;padding:0px">PEMERINTAH {$setting.nama_kab_kota|upper|default:'.......'}</td>
+											{if $setting.status_logo_lainnya eq '1'}
+											<td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+												<img src="{$host}__assets/images/logo-camat.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';"  style="height:100px"/>
+											</td>
+											{else} 
+											<td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+												<img src="{$host}__assets/images/logo-blank.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';"  style="height:100px"/>
+											</td>
+											{/if}
+										</tr>
+										<tr>
+											<td align="center" style="font-size:22.6px;padding:0px">KECAMATAN {$setting.nama_kecamatan|upper|default:'.......'}</td>
+										</tr>
+										<tr>
+											<td align="center" valign="top" style="font-size:18.6px;padding:0px"><b>{$setting.nama_desa|upper|default:'.......'}</b></td>
+										</tr>
+										<tr>
+											<td align="center" valign="top" style="font-size:10.6px;padding:0px">
+												<i>
+													{if strlen($setting.alamat)>1}
+													{$setting.alamat|default:'...'}
+													{/if}
+													{if strlen($setting.telp)>1}
+													Telp. {$setting.telp|default:'...'}
+													{/if}
+													{if strlen($setting.faks)>1}
+													Fax. {$setting.faks|default:'...'}
+													{/if}
+													{if strlen($setting.email)>1}
+													Email : {$setting.email|default:'...'}
+													{/if}
+													{if strlen($setting.nama_kab_kota)>1}
+													{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'...'}
+													{/if}
+													{if strlen($setting.kode_pos)>1}
+													Kode Pos {$setting.kode_pos|default:'...'}
+													{/if}
+													{if strlen($setting.website)>1}
+													<br>Website : {str_replace('-','',$setting.website|default:'')}
+													{/if}
+												</i>
+											</td>
+										</tr>
+										<tr>
+											<td align="center" colspan="3" align="center">
+												<hr style="color: black;height: 4px; margin-top:0px">
+												<hr style="color: black;height: 1px; margin-top:3px">
+											</td>
+										</tr> -->
+										{include file="backend/template/kop_surat_kecamatan.html"}
+									</table>
+								</div>
+							</td>
+						</tr>
+					</thead>
+					<tr>
+						<td colspan="2" align="center"  style="height: 50px;padding-top: 5px;padding-left: 5px;border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;font-size: 16px;"><b>L E M B A R &nbsp; D I S P O S I S I<br>
+						</td>
+					</tr>
+				</table>
+				<table border="1" style="border-collapse: collapse; width: 100%;">
+					<colgroup width="151"></colgroup>
+					<colgroup width="10"></colgroup>
+					<colgroup width="232"></colgroup>
+					<colgroup width="110"></colgroup>
+					<colgroup width="10"></colgroup>
+					<colgroup width="81"></colgroup>
+					<tr>
+						<td style="border-top: 1px solid #000000; border-left: 1px solid #000000"  align="left" valign=top width="10%"><font color="#000000">Surat dari </font></td>
+						<td style="border-top: 1px solid #000000" align="center" valign=top width="5px"><font color="#000000">:</font></td>
+						<td style="border-top: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=top><font color="#000000">{$data.surat.info_tambahan.surat_dari|default:'.....................'}</font></td>
+						<td style="border-top: 1px solid #000000; border-left: 1px solid #000000;" align="left" valign=top width="110px"><font color="#000000">Diterima Tanggal</font></td>
+						<td style="border-top: 1px solid #000000" align="center" valign=top width="5px"><font color="#000000">:</font></td>
+						<td style="border-top: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=top><font color="#000000">{tgl_indo($data.surat.info_tambahan.tgl_diterima)|default:'.....................'}</font></td>
+					</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000"  align="left" valign=top><font color="#000000" width="10%">No. Surat</font></td>
+						<td align="center" valign=top width="5px"><font color="#000000">:</font></td>
+						<td style="border-right: 1px solid #000000" align="left" valign=top><font color="#000000">
+						{if isset($data.surat.info_tambahan.ttd_srikandi) and $data.surat.info_tambahan.ttd_srikandi neq ''}
+						{'${nomor_naskah}'}
+						{else}
+						{$data.surat.no_surat|default:'..................................................'}
+						{/if}</font></td>
+						<td style="border-left: 1px solid #000000" align="left" valign=top><font color="#000000" width="110px">No. Agenda</font></td>
+						<td align="center" valign=top width="5px"><font color="#000000">:</font></td>
+						<td style="border-right: 1px solid #000000" align="left" valign=top sdval="472" sdnum="1033;"><font color="#000000">{$data.surat.info_tambahan.no_agenda|default:'.....................'}</font></td>
+					</tr>
+					<tr>
+						<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000"  align="left" valign=top width="10%"><font color="#000000">Tgl. Surat</font></td>
+						<td style="border-bottom: 1px solid #000000" align="center" valign=top width="5px"><font color="#000000">:</font></td>
+						<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=top><font color="#000000">{tgl_indo($data.surat.tgl_surat)|default:'.....................'}</font></td>
+						<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left" valign=top width="110px"><font color="#000000">Sifat Surat</font></td>
+						<td style="border-bottom: 1px solid #000000"align="center" valign=top width="5px"><font color="#000000">:</font></td>
+						<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=top><font color="#000000">{$data.surat.info_tambahan.cl_sifat_surat|default:'.....................'}</font></td>
+					</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=6  align="left" valign=top><font color="#000000">Perihal                                       : </font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=6 height="50" align="center" valign=middle><font color="#000000"><b>{nl2br($data.surat.info_tambahan.perihal_disposisi)}</b></font></td>
+						</tr>
+					<tr>
+						<td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000">Diteruskan Kepada Sdr.</font></td>
+						<td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="left" valign=top><font color="#000000">Dengan Hormat Harap :</font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Sekcam</font></td>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Target dan Saran</font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Kasi Pemerintahan, Kinerja Lurah dan RT/RW</font></td>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Proses Lebih Lanjut</font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Kasi Ketentraman, Ketertiban dan Penegakan Peraturan Daerah</font></td>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Koordinasi/Konfirmasi</font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Kasi Perekonomian, Pembangunan dan Pengembangan Sistem Manajemen Informasi</font></td>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> &hellip;.................</font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Kasi Pemberdayaan Masyarakat dan Kesejahteraan Sosial</font></td>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> &hellip;.................</font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Kasi Pengelolaan Kebersihan dan Pertamanan</font></td>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><br></font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Kepala Subbagian Umum dan Kepegawaian</font></td>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><br></font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Kepala Subbagian Perencanaan dan Keuangan</font></td>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><br></font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Pengurus Barang</font></td>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><br></font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> &hellip;.................</font></td>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><br></font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> &hellip;.................</font></td>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><br></font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> &hellip;.................</font></td>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><br></font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> &hellip;.................</font></td>
+						<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><br></font></td>
+						</tr>
+					<tr>
+						<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"></font></td>
+						<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><br></font></td>
+						</tr>
+					<tr>
+						<td style="border-left: 1px solid #000000" colspan=3 align="left" valign=top><font color="#000000">Catatan                               :</font></td>
+						<td style="border-right: 1px solid #000000" colspan=3 align="center" valign=middle><font color="#000000"></font></td>
+						</tr>
+					<tr>
+						<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" colspan=3 rowspan=2 height="33" align="center" valign=top><font color="#000000"><br></font></td>
+						<td style="border-right: 1px solid #000000" colspan=3 align="center" valign=middle><font color="#000000"><br></font></td>
+						</tr>
+					<tr>
+						<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><b>{if count($data.ttd)==1}
+							{ttd_fullkanan($data,setting)}
+							{else}
+							{ttd_fullkanan($data,setting)}
+							{/if}</b></font></td>
+						</tr>
+				</table>
+			</td>
+		</tr>
+
+	</table>
+
+	<!-- <div>
+		<table border="0" style="border-collapse: collapse;">
+			<tr>
+				<td colspan="2" align="center"  style="height: 50px;padding-top: 5px;padding-left: 5px;border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;font-size: 16px;"><b>L E M B A R &nbsp; D I S P O S I S I<br>
+				</td>
+			</tr>
+		</table>
+		<table cellspacing="0" border="0" style="border-collapse: collapse;">
+			<colgroup width="151"></colgroup>
+			<colgroup width="10"></colgroup>
+			<colgroup width="232"></colgroup>
+			<colgroup width="110"></colgroup>
+			<colgroup width="10"></colgroup>
+			<colgroup width="81"></colgroup>
+			<tr>
+				<td style="border-top: 1px solid #000000; border-left: 1px solid #000000"  align="left" valign=top width="10%"><font color="#000000">Surat dari </font></td>
+				<td style="border-top: 1px solid #000000" align="center" valign=top width="5px"><font color="#000000">:</font></td>
+				<td style="border-top: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=top><font color="#000000">{$data.surat.info_tambahan.surat_dari|default:'.....................'}</font></td>
+				<td style="border-top: 1px solid #000000; border-left: 1px solid #000000;" align="left" valign=top width="110px"><font color="#000000">Diterima Tanggal</font></td>
+				<td style="border-top: 1px solid #000000" align="center" valign=top width="5px"><font color="#000000">:</font></td>
+				<td style="border-top: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=top><font color="#000000">{tgl_indo($data.surat.info_tambahan.tgl_diterima)|default:'.....................'}</font></td>
+			</tr>
+			<tr>
+				<td style="border-left: 1px solid #000000"  align="left" valign=top><font color="#000000" width="10%">No. Surat</font></td>
+				<td align="center" valign=top width="5px"><font color="#000000">:</font></td>
+				<td style="border-right: 1px solid #000000" align="left" valign=top><font color="#000000">{$data.surat.no_surat|default:'.....................'}</font></td>
+				<td style="border-left: 1px solid #000000" align="left" valign=top><font color="#000000" width="110px">No. Agenda</font></td>
+				<td align="center" valign=top width="5px"><font color="#000000">:</font></td>
+				<td style="border-right: 1px solid #000000" align="left" valign=top sdval="472" sdnum="1033;"><font color="#000000">{$data.surat.info_tambahan.no_agenda|default:'.....................'}</font></td>
+			</tr>
+			<tr>
+				<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000"  align="left" valign=top width="10%"><font color="#000000">Tgl. Surat</font></td>
+				<td style="border-bottom: 1px solid #000000" align="center" valign=top width="5px"><font color="#000000">:</font></td>
+				<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=top><font color="#000000">{tgl_indo($data.surat.tgl_surat)|default:'.....................'}</font></td>
+				<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left" valign=top width="110px"><font color="#000000">Sifat Surat</font></td>
+				<td style="border-bottom: 1px solid #000000"align="center" valign=top width="5px"><font color="#000000">:</font></td>
+				<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=top><font color="#000000">{$data.surat.info_tambahan.cl_sifat_surat|default:'.....................'}</font></td>
+			</tr>
+			<tr>
+				<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=6  align="left" valign=top><font color="#000000">Perihal                                       : </font></td>
+				</tr>
+			<tr>
+				<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=6 height="50" align="center" valign=middle><font color="#000000"><b>{nl2br($data.surat.info_tambahan.perihal_disposisi)}</b></font></td>
+				</tr>
+			<tr>
+				<td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000">Diteruskan Kepada Sdr.</font></td>
+				<td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="left" valign=top><font color="#000000">Dengan Hormat Harap :</font></td>
+				</tr>
+			<tr>
+				<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Sekcam</font></td>
+				<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Target dan Saran</font></td>
+				</tr>
+			<tr>
+				<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Kasi Pemerintahan, Kinerja Lurah dan RT/RW</font></td>
+				<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Proses Lebih Lanjut</font></td>
+				</tr>
+			<tr>
+				<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Kasi Ketentraman, Ketertiban dan Penegakan Peraturan Daerah</font></td>
+				<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Koordinasi/Konfirmasi</font></td>
+				</tr>
+			<tr>
+				<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Kasi Perekonomian, Pembangunan dan Pengembangan Sistem Manajemen Informasi</font></td>
+				<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> &hellip;.................</font></td>
+				</tr>
+			<tr>
+				<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Kasi Pemberdayaan Masyarakat dan Kesejahteraan Sosial</font></td>
+				<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> &hellip;.................</font></td>
+				</tr>
+			<tr>
+				<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Kasi Pengelolaan Kebersihan dan Pertamanan</font></td>
+				<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><br></font></td>
+				</tr>
+			<tr>
+				<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Kepala Subbagian Umum dan Kepegawaian</font></td>
+				<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><br></font></td>
+				</tr>
+			<tr>
+				<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Kepala Subbagian Perencanaan dan Keuangan</font></td>
+				<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><br></font></td>
+				</tr>
+			<tr>
+				<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> Pengurus Barang</font></td>
+				<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><br></font></td>
+				</tr>
+			<tr>
+				<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> &hellip;.................</font></td>
+				<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><br></font></td>
+				</tr>
+			<tr>
+				<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> &hellip;.................</font></td>
+				<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><br></font></td>
+				</tr>
+			<tr>
+				<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> &hellip;.................</font></td>
+				<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><br></font></td>
+				</tr>
+			<tr>
+				<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"><input type="checkbox" name="c1" id="c1"> &hellip;.................</font></td>
+				<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><br></font></td>
+				</tr>
+			<tr>
+				<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3  align="left" valign=top><font color="#000000"></font></td>
+				<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><br></font></td>
+				</tr>
+			<tr>
+				<td style="border-left: 1px solid #000000" colspan=3 align="left" valign=top><font color="#000000">Catatan                               :</font></td>
+				<td style="border-right: 1px solid #000000" colspan=3 align="center" valign=middle><font color="#000000"></font></td>
+				</tr>
+			<tr>
+				<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" colspan=3 rowspan=2 height="33" align="center" valign=top><font color="#000000"><br></font></td>
+				<td style="border-right: 1px solid #000000" colspan=3 align="center" valign=middle><font color="#000000"><br></font></td>
+				</tr>
+			<tr>
+				<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top><font color="#000000"><b>{if count($data.ttd)==1}
+					{ttd_fullkanan($data,setting)}
+					{else}
+					{ttd_fullkanan($data,setting)}
+					{/if}</b></font></td>
+				</tr>
+		</table>	
+	</div> -->
+</body>
+</html>

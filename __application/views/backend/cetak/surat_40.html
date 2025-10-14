@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SIMLURAH ADMINISTRASI</title>
+    <style>
+		table { width:100%; } 
+		body { font-family: 'arial'; }
+	</style>
+</head>
+<body>
+	<div id='content'>
+		<div style="padding-bottom: 5mm;">
+			<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;">
+				<!-- <tr>
+					<td align="center" rowspan=4 valign="middle" style="width: 150px;">
+						<img src="{$host}__assets/images/logo-makassar.png" style="height:100px" />
+					</td>
+					<td align="center" valign="bottom" style="font-size:22.6px;padding:0px">PEMERINTAH {$setting.nama_kab_kota|upper|default:'.......'}</td>
+					{if $setting.status_logo_lainnya eq '1'}
+					<td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+						<img src="{$host}__assets/images/logo-camat.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';"  style="height:100px"/>
+					</td>
+					{else} 
+					<td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+						<img src="{$host}__assets/images/logo-blank.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';"  style="height:100px"/>
+					</td>
+					{/if}
+				</tr>
+				<tr>
+					<td align="center" style="font-size:22.6px;padding:0px">KECAMATAN {$setting.nama_kecamatan|upper|default:'.......'}</td>
+				</tr>
+				<tr>
+					<td align="center" valign="top" style="font-size:18.6px;padding:0px"><b>{$setting.nama_desa|upper|default:'.......'}</b></td>
+				</tr>
+				<tr>
+					<td align="center" valign="top" style="font-size:10.6px;padding:0px">
+						<i>
+							{if strlen($setting.alamat)>1}
+							{$setting.alamat|default:'...'}
+							{/if}
+							{if strlen($setting.telp)>1}
+							Telp. {$setting.telp|default:'...'}
+							{/if}
+							{if strlen($setting.faks)>1}
+							Fax. {$setting.faks|default:'...'}
+							{/if}
+							{if strlen($setting.email)>1}
+							Email : {$setting.email|default:'...'}
+							{/if}
+							{if strlen($setting.nama_kab_kota)>1}
+							{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'...'}
+							{/if}
+							{if strlen($setting.kode_pos)>1}
+							Kode Pos {$setting.kode_pos|default:'...'}
+							{/if}
+							{if strlen($setting.website)>1}
+							<br>Website : {str_replace('-','',$setting.website|default:'')}
+							{/if}
+						</i>
+					</td>
+				</tr>
+				<tr>
+					<td align="center" colspan="3" align="center">
+						<hr style="color: black;height: 4px; margin-bottom:0px">
+						<hr style="color: black;height: 1px; margin-top:3px">
+					</td>
+				</tr> -->
+				{include file="backend/template/kop_surat_kelurahan.html"}
+				<tr>
+					<td colspan=3 align="center"><b><u>SURAT KETERANGAN MILIK</u></b></td>
+				</tr>
+				<tr>
+					<td colspan=3 align="center" style="font-size:13.3px">NOMOR: {$data.surat.no_surat|default:'..................................................'}</td>
+				</tr>
+			</table>
+		</div>
+
+		<br/>
+		<br/>
+	<p style="line-height: 2.0;text-align: justify;margin-left: 20px;margin-right: 10px;padding-top: -50px;font-size: 14px;">&emsp;&emsp;&emsp;Atas dasar surat keterangan Tukang (pacak) No : {$data.surat.info_tambahan.no_surat_tukang|default:'........'}, tanggal {tgl_indo({$data.surat.info_tambahan.tgl_surat_tukang|default:'........'})} perahu yang dibuat di bawah tangan tangan oleh {$data.surat.info_tambahan.nama_pembuat_kapal|default:'........'}, {$data.surat.info_tambahan.pekerjaan_pembuat|default:'........'}, bertempat tinggal {$data.surat.info_tambahan.alamat_pembuat|default:'........'} {$data.surat.info_tambahan.rt_pembuat|default:'........'} {$data.surat.info_tambahan.rw_pembuat|default:'........'} {ucwords(strtolower(str_replace('KOTA','',$setting.nama_desa)))|default:''} Kecamatan {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kecamatan)))|default:'.....'} Kota {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'.....'}, maka yang bertanda tangan di bawah ini menerangkan bahwa :</p>
+
+	<br/>
+	<br/>
+	<table width="100%" style="margin-bottom: 20px; padding-top: -35px; font-weight: none; font-size: 14px;">
+		<tr>	
+			<td>
+				<table width="100%" style="font-weight: none; font-size: 14px;padding-left: 50px;">
+					<tr>
+						<td valign="top">Nama Perahu</td>
+						<td valign="top" style="padding-left: 20px;padding-right: 20px;" align="center">:</td>
+						<td valign="top" style="padding-bottom: 10px;">{$data.surat.info_tambahan.nama_kapal2|default:'........'}</td>
+					</tr> 
+					<tr>
+						<td valign="top" style="padding-bottom: 10px;" colspan="3">Ukuran terdiri dari</td>
+					</tr>
+					<tr>
+						<td valign="top">Panjang</td>
+						<td valign="top" style="padding-left: 20px;padding-right: 20px;" align="center">:</td>
+						<td valign="top" style="padding-bottom: 10px;">{$data.surat.info_tambahan.panjang_perahu|default:'........'}</td>
+					</tr> 
+					<tr>
+						<td valign="top">Lebar</td>
+						<td valign="top" align="center">:</td>
+						<td valign="top" style="padding-bottom: 10px;">{$data.surat.info_tambahan.lebar_perahu|default:'........'}</td>
+					</tr>	
+					<tr>
+						<td valign="top">Dalam</td>
+						<td valign="top" align="center">:</td>
+						<td valign="top" style="padding-bottom: 10px;">{$data.surat.info_tambahan.dalam_perahu|default:'........'}</td>
+					</tr>
+					<tr>
+						<td valign="top">Mesin</td>
+						<td valign="top" align="center">:</td>
+						<td valign="top" style="padding-bottom: 10px;">{$data.surat.info_tambahan.mesin_kapal|default:'........'}</td>
+					</tr>
+					<tr>
+						<td valign="top">Merek Mesin</td>
+						<td valign="top" align="center">:</td>
+						<td valign="top" style="padding-bottom: 10px;">{$data.surat.info_tambahan.merek_mesin|default:'........'}</td>
+					</tr>
+					
+				</table> 
+			<td>
+		</tr>
+	</table>
+
+</table>
+	
+		<p style="line-height: 2.0;text-align: justify;margin-left: 20px; margin-top: -20px; margin-right: 10px;font-size: 14px;">Benar adalah milik {$data.pemohon.nama_lengkap|default:'.....................'} yang bertempat tinggal di {$data.pemohon.alamat|default:'.....................'}, RT {$data.pemohon.rt|default:'...'}/RW {$data.pemohon.rw|default:'...'} {$setting.nama_desa|default:'........'} Kecamatan {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kecamatan)))|default:''} Kota {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:''}.<br/>
+			Demikian Surat Keterangan Milik ini diberikan dan dipergunakan sebagaimana mestinya.</p>
+				
+		<br/>
+		<br/>
+		<table width="100%" style="margin-left: 180px;padding-bottom: -20px;font-size: 14px;padding-top: -40px">
+			<tr>
+				<td width="60%">
+					&nbsp;
+				</td>
+				<td align="center" width="40%">
+				{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'.......'}, {$data.surat.tanggal_surat|default:'............................'}
+				</td>
+			</tr>
+		</table>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<table width="100%" style="font-size: 14px;padding-left: 58px;padding-top: -35px">
+			<tr>
+				<td align="center" style="padding-left: 50px;">Pemilik Kapal</td>
+				<td style="padding-right: 53px;"></td>
+				<td valign="bottom" align="left" style="padding-right: 40px;">
+					<b>
+						{if count($data.ttd)==1}
+						{$data.ttd[0]['center']}
+						{else}
+						{$data.ttd[0]['center']}<br>{$data.ttd[1]['center']}
+						{/if}
+					 </b>
+				</td>
+			</tr>
+			<tr>
+				<td><br><br></td>
+				<td><br><br></td>
+			</tr>
+			<tr>
+				<td><br><br></td>
+				<td><br><br></td>
+			</tr>
+			<tr>
+				<td style="padding-left: 50px;" align="center"><u>{$data.pemohon.nama_lengkap|default:'.....................'}</u></td>
+				<td></td>
+				<td align="center" style="padding-right: 40px;"><u>{$data.pemohon.nama|default:'.....................'}</u></td>
+				<br/>
+				Pangkat : {$data.pemohon.pangkat|default:'............................'}
+				<br/>
+				NIP : {$data.pemohon.nip|default:'...............................'}
+			</tr>
+		</table>
+		<br>
+		{if $data.surat.info_tambahan.nama_camat2 !=''}
+		<table width="100%" style="margin-bottom: 20px; font-weight: none; font-size: 14px;">
+			<tr>
+				<td width="50%">
+					&nbsp;
+				</td>
+				<td align="left" width="40%" style="padding-left: -70px;">
+
+					Nomor : 
+					{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'.....'}, {$data.surat.tanggal_surat|default:'............................'} <br/>
+					<span style="font-size:2px">&nbsp;</span><br/>
+					<b>{$data.surat.info_tambahan.jabatan_camat2|default:'.....................'}</b> 
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					
+					<b><u>{$data.surat.info_tambahan.nama_camat2|default:'.....................'}</u></b>
+					<br/>
+					Pangkat {$data.surat.info_tambahan.pangkat_camat2|default:'.....................'}
+					<br/>
+					NIP : {$data.surat.info_tambahan.nip_camat2|default:'.....................'}
+				</td>
+			</tr>
+		</table>
+		{else} 
+		{/if}
+	
+</div>
+</body>
+</html>

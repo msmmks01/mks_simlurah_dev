@@ -1,0 +1,336 @@
+<form
+  id="form_{$acak}"
+  method="post"
+  url="{$host}backoffice-simpan/data_penduduk"
+  enctype="multipart/form-data"
+>
+  <input type="hidden" name="id" value="{$data.id|default:''}" />
+  <input type="hidden" name="editstatus" value="{$sts|default:'add'}" />
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">Form Isian</h3>
+        </div>
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-12">
+                  <fieldset class="form-group">
+                    <legend
+                      style="
+                        border-color: #e17a35 !important;
+                        border-width: 3px !important;
+                        padding: 5px;
+                        color: #e17a35;
+                        font-weight: bold;
+                        font-size: 16px;
+                        margin-bottom: 5px;
+                        margin-top: 15px;
+                      "
+                    >
+                      PROFILE PENDUDUK
+                    </legend>
+                  </fieldset>
+                </div>
+                <div class="col-md-3">
+                  {include file="backend/template/input_form.html"
+                  required="true" label="NIK" class_width="col-lg-12"
+                  type="pnj_karakter" name="nik" id="nik"
+                  value="{$data.nik|default:''}"}
+                </div>
+                <div class="col-md-5">
+                  {include file="backend/template/input_form.html"
+                  required="true" label="Nama Lengkap" class_width="col-lg-12"
+                  type="text" name="nama_lengkap" id="nama_lengkap"
+                  value="{$data.nama_lengkap|default:''}"}
+                </div>
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html"
+                  required="true" label="Tempat Lahir" class_width="col-lg-12"
+                  type="text" name="tempat_lahir" id="tempat_lahir"
+                  value="{$data.tempat_lahir|default:''}"}
+                </div>
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html"
+                  required="true" label="Tanggal Lahir" placeholder="dd-mm-yyyy" class_width="col-lg-12"
+                  type="date" name="tgl_lahir" id="tgl_lahir"
+                  value="{$data.tgl_lahir|default:''}"}
+                </div>
+              </div>
+              <div class="row" style="margin-bottom: 10px">
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html"
+                  required="true" label="Agama" class_width="col-lg-12"
+                  type="select" name="agama" id="agama"
+                  option={$agama|default:''} }
+                </div>
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html"
+                  required="true" label="Status Kawin" class_width="col-lg-12"
+                  type="select" name="status_kawin" id="status_kawin"
+                  option={$status_kawin|default:''} }
+                </div>
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html"
+                  required="true" label="Jenis Kelamin" class_width="col-lg-12"
+                  type="select" name="jenis_kelamin" id="jenis_kelamin"
+                  option={$jenis_kelamin|default:''} }
+                </div>
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html"
+                  required="true" label="Pendidikan" class_width="col-lg-12"
+                  type="select" name="pendidikan" id="pendidikan"
+                  option={$pendidikan|default:''} }
+                </div>
+                <div class="col-md-4">
+                  {include file="backend/template/input_form.html"
+                  label="Pekerjaan" class_width="col-lg-12" type="select2"
+                  name="cl_jenis_pekerjaan_id" id="cl_jenis_pekerjaan_id"
+                  option={$cl_jenis_pekerjaan_id|default:''} }
+                </div>
+              </div>
+              <div class="row">
+                <legend style="font-size: 14px; color: red">*Isi Golongan Darah Jika Ada</legend>
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html"
+                  required="false" placeholder="Isi Jika Ada" label="Golongan Darah" class_width="col-lg-12"
+                  type="select" name="gol_darah" id="gol_darah"
+                  option={$gol_darah|default:''} }
+                </div>
+              </div>
+
+              <div class="row" style="margin-bottom: 10px">
+                <div class="col-md-12">
+                  <fieldset class="form-group">
+                    <legend
+                      style="
+                        border-color: #e17a35 !important;
+                        border-width: 3px !important;
+                        padding: 5px;
+                        color: #e17a35;
+                        font-weight: bold;
+                        font-size: 16px;
+                        margin-bottom: 5px;
+                        margin-top: 15px;
+                      "
+                    >
+                      DOMISILI PENDUDUK
+                    </legend>
+                  </fieldset>
+                </div>
+                <div class="col-md-1">
+                  {include file="backend/template/input_form.html" label="RT"
+                  class_width="col-lg-12" type="pnj_rt" name="rt" id="rt"
+                  value="{$data.rt|default:''}"}
+                </div>
+                <div class="col-md-1">
+                  {include file="backend/template/input_form.html" label="RW"
+                  class_width="col-lg-12" type="pnj_rt" name="rw" id="rw"
+                  value="{$data.rw|default:''}"}
+                </div>
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html" label="Kode
+                  Pos" class_width="col-lg-12" type="text" name="kode_pos"
+                  id="kode_pos" value="{$data.kode_pos|default:''}"}
+                </div>
+              </div>
+              <div class="row">
+                <legend style="font-size: 14px; color: red">
+                  <b>*Jika Warga Luar Kelurahan ISI LENGKAP ALAMAT mulai dari:
+                    Nama Jalan s.d. Kab/Kota</b
+                  >
+                </legend>
+                <div class="col-md-8">
+                  {include file="backend/template/input_form.html" label="Alamat
+                  Lengkap" class_width="col-lg-12" type="text" name="alamat"
+                  id="alamat" value="{$data.alamat|default:''}"}
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <fieldset class="form-group">
+                    <legend
+                      style="
+                        border-color: #e17a35 !important;
+                        border-width: 3px !important;
+                        padding: 5px;
+                        color: #e17a35;
+                        font-weight: bold;
+                        font-size: 16px;
+                        margin-bottom: 5px;
+                        margin-top: 15px;
+                      "
+                    >
+                      STATUS PENDUDUK
+                    </legend>
+                  </fieldset>
+                </div>
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html"
+                  required="true" label="Status" class_width="col-lg-12"
+                  type="select" name="status_data" id="status_data"
+                  option={$status_penduduk|default:''} }
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <hr />
+                  {include file="backend/template/input_form.html" label="Upload
+                  File *jpg|jpeg|png|pdf" class_width="col-lg-12" type="file"
+                  name="file" id="file" value="{$data.file|default:''}"}
+                  <br />
+                  {include file="backend/template/button_save.html"
+                  text="Simpan" id_na="save" style_btn="btn-success"
+                  btn_goyz="false"} {include
+                  file="backend/template/button_save.html" text="Kembali"
+                  click="$('#grid_nya_{$mod}').show();$('#detil_nya_{$mod}').hide();"
+                  id_na="cancel" style_btn="btn-danger" btn_goyz="true"}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<script>
+  $("#nik").on("keyup", function () {
+    if (this.value.length < 16) {
+      var nik_help = $("#nik").nextAll("span");
+      if (nik_help.length == 0) {
+        $("#nik")
+          .parent()
+          .append('<span style="color:red;">NIK tidak sesuai!</span>');
+      } else {
+        $("#nik").nextAll("span").css("color", "red").html("NIK tidak sesuai!");
+      }
+      document.getElementById("nik").style.borderColor = "red";
+      $("#save").prop("disabled", true);
+    } else {
+      $.ajax({
+        url: host + "Backendxx/cek_nik/" + this.value,
+        cache: false,
+        beforeSend: function (e) {
+          var nik_help = $("#nik").nextAll("span");
+          if (nik_help.length == 0) {
+            $("#nik")
+              .parent()
+              .append('<span style="color:grey;">Cek NIK...</span>');
+          } else {
+            $("#nik").nextAll("span").html("Cek NIK...");
+          }
+          $("#save").prop("disabled", true);
+          document.getElementById("nik").style.borderColor = "blue";
+        },
+        success: function (data) {
+          if (data === "1") {
+            var nik_help = $("#nik").nextAll("span");
+            if (nik_help.length == 0) {
+              $("#nik")
+                .parent()
+                .append('<span style="color:red;">NIK sudah ada!</span>');
+            } else {
+              $("#nik")
+                .nextAll("span")
+                .css("color", "red")
+                .html("NIK sudah ada!");
+            }
+            $("#save").prop("disabled", true);
+            document.getElementById("nik").style.borderColor = "red";
+          } else {
+            var nik_help = $("#nik").nextAll("span");
+            if (nik_help.length == 0) {
+              $("#nik")
+                .parent()
+                .append('<span style="color:green;">Good!</span>');
+            } else {
+              $("#nik").nextAll("span").css("color", "green").html("Good!");
+            }
+            $("#save").prop("disabled", false);
+            document.getElementById("nik").style.borderColor = "green";
+          }
+        },
+        error: function (xhr, status, error) {
+          $("#save").prop("disabled", true);
+          document.getElementById("nik").style.borderColor = "red";
+        },
+      });
+    }
+  });
+
+  var rulesnya = {
+    nik: "required",
+    nama_lengkap: "required",
+    agama: "required",
+    tempat_lahir: "required",
+    tgl_lahir: "required",
+    status_kawin: "required",
+    pendidikan: "required",
+    rt: "required",
+    rw: "required",
+    kode_pos: "required",
+    alamat: "required",
+    status_data: "required",
+    jenis_kelamin: "required",
+    cl_jenis_pekerjaan_id: "required",
+  };
+  var messagesnya = {
+    nik: "<i style='color:red'>Harus Diisi</i>",
+    nama_lengkap: "<i style='color:red'>Harus Diisi</i>",
+    agama: "<i style='color:red'>Harus Diisi</i>",
+    tempat_lahir: "<i style='color:red'>Harus Diisi</i>",
+    tgl_lahir: "<i style='color:red'>Harus Diisi</i>",
+    status_kawin: "<i style='color:red'>Harus Diisi</i>",
+    pendidikan: "<i style='color:red'>Harus Diisi</i>",
+    rt: "<i style='color:red'>Harus Diisi</i>",
+    rw: "<i style='color:red'>Harus Diisi</i>",
+    kode_pos: "<i style='color:red'>Harus Diisi</i>",
+    alamat: "<i style='color:red'>Harus Diisi</i>",
+    status_data: "<i style='color:red'>Harus Diisi</i>",
+    jenis_kelamin: "<i style='color:red'>Harus Diisi</i>",
+    cl_jenis_pekerjaan_id: "<i style='color:red'>Harus Diisi</i>",
+  };
+  $("#form_{$acak}").validate({
+    rules: rulesnya,
+    messages: messagesnya,
+    submitHandler: function (form) {
+      var cek = $("#nik").val();
+      var pnj = cek.length;
+      if (pnj < 16) {
+        $.messager.alert(nama_apps, "NIK tidak valid ", "error");
+      } else {
+        $.LoadingOverlay("show");
+        submit_form("form_{$acak}", function (r) {
+          if (r == 1) {
+            $.messager.alert(nama_apps, "Data Tersimpan", "info");
+            $("#cancel_{$acak}").trigger("click");
+            $("#grid_data_penduduk").datagrid("reload");
+          } else if (r == 2) {
+            $.messager.alert(nama_apps, "NIK sudah digunakan!", "warning");
+          } else {
+            $.messager.alert(nama_apps, "Terjadi Kesalahan! " + r, "warning");
+          }
+          $.LoadingOverlay("hide", true);
+        });
+      }
+      //*/
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr("name");
+      var errorSelector = '.validation_error_message[for="' + name + '"]';
+      var $element = $(errorSelector);
+      if ($element.length) {
+        $(errorSelector).html(error.html());
+      } else {
+        error.insertAfter(element);
+      }
+    },
+  });
+</script>

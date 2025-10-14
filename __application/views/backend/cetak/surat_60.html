@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SIMLURAH</title>
+    <style>
+      table {
+        width: 100%;
+      }
+      body {
+        font-family: "arial";
+      }
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="content">
+      <table width="100%" style="margin-bottom: 20px; font-size: 17px; padding-top: 10px">
+        <tr>
+          <td align="center">
+            <b><u>SURAT KETERANGAN AHLI WARIS</u></b>
+          </td>
+        </tr>
+      </table>
+      <br/>
+      <br/>
+
+     {foreach from=$data.surat.info_tambahan.data_ahli_waris
+      item=kawin} {if $kawin.hubungan_waris != 'ANAK' && $kawin.hubungan_waris
+      != 'CUCU'} {$kw = ucwords(strtolower($kawin.hubungan_waris))} {$nm_aw =
+      $kawin.nama_ahli_waris} {$sw = $kawin.status_waris} {else} {/if}
+      {/foreach}
+      <p
+        style="
+          line-height: 1.6;
+          text-align: justify;
+          margin-left: 67px;
+          margin-right: 10px;
+          padding-top: -50px;
+          font-size: 13px;
+        "
+      >
+        Yang bertanda tangan di bawah ini, para ahli Waris dari
+        {$data.surat.info_tambahan.sebutan|default:'....'}
+        <b>{$data.surat.info_tambahan.nama_alm|default:'.....................'}</b>
+        Menerangkan dengan sesungguhnya dan sanggup diangkat sumpah bahwa :
+      </p>
+      <table width="100%" style="font-size: 13px; padding-left: 60px; padding-top: -10px;line-height: 1.8;" cellpadding="4">
+        <tr>
+          <td align="right" valign="top" style="width: 3%">1.</td>
+          <td align="left" valign="top">Bahwa {$data.surat.info_tambahan.sebutan|default:'....'} <b>{$data.surat.info_tambahan.nama_alm|default:'.....................'}</b>
+              yang bertempat tinggal terakhir di {$data.surat.info_tambahan.alamat_alm|default:'.....................'}, ORT. {$data.surat.info_tambahan.rt_alm|default:'.....................'}
+              ORW. {$data.surat.info_tambahan.rw_alm|default:'.....................'} {ucwords(strtolower(str_replace('KOTA','',$setting.nama_desa)))|default:''}
+              Kecamatan {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kecamatan)))|default:''}
+              Kota {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:''},  pada tanggal {$data.surat.info_tambahan.tgl_meninggal|default:'.....................'}
+              telah meninggal dunia di {$data.surat.info_tambahan.tempat_meninggal|default:'.....................'}.
+          </td>
+        </tr>
+        <tr>
+          <td align="right" valign="top" style="width: 3%">2.</td>
+          <td align="left" valign="top">Dari perkawinan {$data.surat.info_tambahan.sebutan|default:'....'} <b>{$data.surat.info_tambahan.nama_alm|default:'.....................'}</b>
+              dengan {$kw}nya <b>{$nm_aw}</b> {if $sw == 'HIDUP'} yang sampai saat ini masih hidup{else} yang telah meninggal dunia di {$data.surat.info_tambahan.tempat_meninggal2|default:'.....................'} pada tanggal {tgl_indo($data.surat.info_tambahan.tgl_meninggal_istri)|default:'....'}
+              {/if}{if $data.surat.info_tambahan.jml_anak == '0'} dan tidak memiliki anak. {else}, telah dilahirkan {$data.surat.info_tambahan.jml_anak|default:'.....................'}
+              ({ubah_kata($data.surat.info_tambahan.jml_anak)|default:'.....................'|default:'.....................'}) orang anak, yaitu :{/if}
+          </td>
+        </tr>
+      </table>
+      <table
+        width="100%" style="font-size: 13px; padding-left: 100px" cellpadding="4">
+        {$no=1} {foreach from=$data.surat.info_tambahan.data_ahli_waris
+        item=pen} {if $pen.hubungan_waris == 'ANAK'}
+        <tr>
+          <td>
+            {$no++}. {$pen.nama_ahli_waris|default:'.....................'} <br> &nbsp;&nbsp;&nbsp;{if $pen.nik_ahli_waris !=''} NIK &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : &nbsp;&nbsp;{$pen.nik_ahli_waris|default:''} {else} {/if}
+          </td>
+        </tr>
+        {else} {/if} {/foreach}
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+      {foreach from=$data.surat.info_tambahan.data_ahli_waris item=pen} {if
+      $pen.hubungan_waris != 'ANAK'}{$sbg = $pen.hubungan_waris}{else}{/if}
+      {/foreach}
+
+      <p
+        style="
+          line-height: 1.6;
+          text-align: justify;
+          margin-left: 65px;
+          margin-right: 10px;
+          padding-top: -45px;
+          font-size: 13px;
+        "
+      >
+        Demikian kami 
+        {if $data.surat.info_tambahan.jml_anak >0 && $sw =='HIDUP'} {$kw}nya dan ke {$data.surat.info_tambahan.jml_anak|default:'.....................'}
+            ({ubah_kata($data.surat.info_tambahan.jml_anak)|default:'.....................'|default:'.....................'}) orang anak tersebut diatas adalah satu-satunya ahli waris dari
+            {$data.surat.info_tambahan.sebutan|default:'Almarhum/Almarhuma'} <b>{$data.surat.info_tambahan.nama_alm|default:'.....................'}</b>, dan saya sebagai Ahli Waris yang tercantum dalam 
+            surat ini benar adanya. Surat Keterangan Ahli Waris ini saya buat dengan sebenar-benarnya dalam keadaan sehat akal dan pikiran, tidak dipaksa 
+            atau dipengaruhi oleh orang lain dan apabila dikemudian hari terbukti Surat Keterangan Ahli Waris ini tidak benar atau palsu, maka kami bersedia dituntut sesuai aturan hukum yang berlaku tanpa melibatkan orang lain 
+            atau siapapun juga termasuk Camat dan Lurah setempat selaku Pemerintah setempat. 
+        {elseif $data.surat.info_tambahan.jml_anak ==0 && $sw == 'HIDUP' } {$kw}nya tersebut diatas adalah satu-satunya ahli waris dari
+            {$data.surat.info_tambahan.sebutan|default:'Almarhum/Almarhuma'} <b>{$data.surat.info_tambahan.nama_alm|default:'.....................'}</b>, dan saya sebagai Ahli Waris yang tercantum dalam 
+            surat ini benar adanya. Surat Keterangan Ahli Waris ini saya buat dengan sebenar-benarnya dalam keadaan sehat akal dan pikiran, tidak dipaksa 
+            atau dipengaruhi oleh orang lain dan apabila dikemudian hari terbukti Surat Keterangan Ahli Waris ini tidak benar atau palsu, maka kami bersedia dituntut sesuai aturan hukum yang berlaku tanpa melibatkan orang lain 
+            atau siapapun juga termasuk Camat dan Lurah setempat selaku Pemerintah setempat.
+        {else}
+            ke {$data.surat.info_tambahan.jml_anak|default:'.....................'} ({ubah_kata($data.surat.info_tambahan.jml_anak)|default:'.....................'|default:'.....................'})
+            orang anak tersebut diatas adalah satu-satunya ahli waris dari {$data.surat.info_tambahan.sebutan|default:'Almarhum/Almarhuma'} <b>{$data.surat.info_tambahan.nama_alm|default:'.....................'}</b>,
+            dan saya sebagai Ahli Waris yang tercantum dalam 
+            surat ini benar adanya. Surat Keterangan Ahli Waris ini saya buat dengan sebenar-benarnya dalam keadaan sehat akal dan pikiran, tidak dipaksa 
+            atau dipengaruhi oleh orang lain dan apabila dikemudian hari terbukti Surat Keterangan Ahli Waris ini tidak benar atau palsu, maka kami bersedia dituntut sesuai aturan hukum yang berlaku tanpa melibatkan orang lain 
+            atau siapapun juga termasuk Camat dan Lurah setempat selaku Pemerintah setempat.
+        {/if}
+      </p>
+
+      <table
+        width="100%"
+        style="
+          margin-left: 180px;
+          padding-bottom: -20px;
+          font-size: 13px;
+          padding-top: -10px;
+        "
+      >
+        <tr>
+          <td width="60%">&nbsp;</td>
+          <td align="center" width="40%">
+            {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'SIL
+            ONLINE'},
+            {$data.surat.tanggal_surat|default:'............................'}
+          </td>
+        </tr>
+      </table>
+
+      <table width="100%" border="0" style="font-size: 13px; padding-left: 65px; padding-top: 15px" cellpadding="4">
+        <tr>
+          <td>Para ahli waris tersebut :</td>
+        </tr>
+      </table>
+
+      <table width="100%" border="0" style="font-size: 13px; margin-left: 65px" cellpadding="4">
+        {$no=1} {$nox=1} {foreach from=$data.surat.info_tambahan.data_ahli_waris
+        item=pen} {if $pen.status_waris == 'HIDUP'}
+        <tr>
+          <td align="left" valign="top" style="width: 3%">
+            {$no++}.
+          </td>
+          <td align="left" valign="top" style="width: 45%">
+            {$pen.nama_ahli_waris|default:'.....................'}
+          </td>
+          <td align="left" valign="top" style="width: 15%">
+            ({strtolower($pen.hubungan_waris)|default:'.....................'})
+          </td>
+          <td align="left" valign="top" style="width: 37%">
+            {$nox++}. .....................
+          </td>
+        </tr>
+        {else} {/if} {/foreach}
+      </table>
+
+      <table
+        width="100%"
+        style="margin-bottom: 20px; font-size: 13px; padding-top: -10px"
+      >
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="center">
+            <b>Saksi - saksi :</b>
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+
+      <table
+        width="100%"
+        style="font-size: 13px; padding-center: 58px; padding-top: -40px"
+      >
+        <tr>
+          {foreach from=$data.surat.info_tambahan.data_saksi item=pen}
+          <td align="center">
+            {ucwords($pen.pekerjaan)|default:'.....................'}
+          </td>
+          <td>&nbsp;</td>
+          {/foreach}
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          {foreach from=$data.surat.info_tambahan.data_saksi item=pen}
+          <td align="center">
+            <u><b>{$pen.nama|default:'.....................'}</b></u>
+          </td>
+          <td></td>
+          {/foreach}
+        </tr>
+      </table>
+
+      {if $data.surat.info_tambahan.nama_camat != ''}
+      <table width="100%" style="margin-bottom: 20px; font-size: 13px">
+        <tr>
+          <td align="center">
+            <b>Teregister oleh :</b>
+          </td>
+        </tr>
+      </table>
+
+      <table
+        width="100%"
+        style="font-size: 13px; padding-left: 58px; padding-top: -10px"
+      >
+        <tr>
+          <td>
+            Nomor : {$data.surat.info_tambahan.no_reg_camat|default:'....'}
+          </td>
+          <td></td>
+          <td>
+            Nomor : {$data.surat.info_tambahan.no_reg_lurah|default:'....'}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'SIL
+            ONLINE'}, {tgl_indo({$data.surat.info_tambahan.tgl_reg_camat|default:'....'})}
+          </td>
+          <td></td>
+          <td>
+            {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'SIL
+            ONLINE'}, {tgl_indo({$data.surat.info_tambahan.tgl_reg_lurah|default:'....'})}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {ucwords($data.surat.info_tambahan.jabatan_camat)|default:'.....................'}
+          </td>
+          <td></td>
+          <td valign="bottom" align="left">
+						<b>
+							{if count($data.ttd)==1}
+							{$data.ttd[0]['center']}
+							{else}
+							{$data.ttd[0]['center']}<br>{$data.ttd[1]['center']}
+							{/if}
+						 </b>
+						</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>
+            <u
+              >{$data.surat.info_tambahan.nama_camat|default:'.....................'}</u
+            >
+          </td>
+          <td></td>
+          <td>
+            <u
+              >{$data.pemohon.nama|default:'...............................'}</u
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Nip.
+            {$data.surat.info_tambahan.nip_camat|default:'.....................'}
+          </td>
+          <td></td>
+          <td>
+            Nip. {$data.pemohon.nip|default:'...............................'}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Pangkat/Gol.
+            {$data.surat.info_tambahan.pangkat_camat|default:'.....................'}
+          </td>
+          <td></td>
+          <td>
+            Pangkat/Gol.
+            {$data.pemohon.pangkat|default:'............................'}
+          </td>
+        </tr>
+      </table>
+      {else}
+      <table width="100%" style="margin-bottom: 20px; font-size: 13px">
+        <tr>
+          <td align="center">
+            <b>Teregister oleh :</b>
+          </td>
+        </tr>
+      </table>
+      <table
+        width="100%"
+        style="font-size: 13px; padding-left: 58px; padding-top: -10px"
+      >
+        <tr>
+          <td width="51%">
+            Nomor : {$data.surat.info_tambahan.no_reg_camat|default:'....'}
+          </td>
+          <td width="4%"></td>
+          <td width="45%">
+            Nomor : {$data.surat.info_tambahan.no_reg_lurah|default:'....'}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'SIL
+            ONLINE'}, {$data.surat.info_tambahan.tgl_reg_camat|default:'....'}
+          </td>
+          <td></td>
+          <td>
+            {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'SIL
+            ONLINE'}, {$data.surat.info_tambahan.tgl_reg_lurah|default:'....'}
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td></td>
+          <td valign="bottom" align="left">
+						<b>
+							{if count($data.ttd)==1}
+							{$data.ttd[0]['center']}
+							{else}
+							{$data.ttd[0]['center']}<br>{$data.ttd[1]['center']}
+							{/if}
+						 </b>
+						</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td><u>&nbsp;</u></td>
+          <td></td>
+          <td>
+            <u
+              >{$data.pemohon.nama|default:'...............................'}</u
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td></td>
+          <td>
+            Nip. {$data.pemohon.nip|default:'...............................'}
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td></td>
+          <td>
+            Pangkat/Gol.
+            {$data.pemohon.pangkat|default:'............................'}
+          </td>
+        </tr>
+      </table>
+      {/if}
+    </div>
+  </body>
+</html>

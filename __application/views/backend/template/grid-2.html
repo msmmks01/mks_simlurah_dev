@@ -1,0 +1,77 @@
+<style type="text/css">
+	.datagrid-row-over td{
+		background:#D0E5F5;
+	}
+	.datagrid-row-selected td{
+		background:#FBEC88;
+		color:#000;
+	}
+</style>
+<div id='grid_nya_{$main}' style="width:100% !important;">
+	<div class="row" style="margin-bottom:10px !important;">	
+		<div class="col-lg-6">
+			{if $filter_core|default:'' eq 'true'}
+				<label style='width:80px;'>Kolom </label>: &nbsp;&nbsp;
+				<select name="kat_{$acak}" id="kat_{$acak}" style="width:40%;height:28px;padding:3px;">
+					{$data_select|default:''}
+				</select>
+				<input type="text" name="key_{$acak}" id="key_{$acak}" style="width:30%;height:28px;padding:5px;">
+				<a href="javascript:void(0)" class="btn-flat btn-default btn-sm" onClick="cariData('{$main}', '', '{$acak}');">
+					<i class="fa fa-search"></i>
+				</a>
+			{/if}
+		</div>
+		<div class="col-lg-6">
+			{if $button|default:'' eq 'true'}	
+				{if $button_add|default:'' eq 'true'}
+					<a href="javascript:void(0)" title="Add" class="btn-flat btn-success btn-sm" onClick="genformOrder('add', '{$mod}','{$main}');">
+						<i class="fa fa-plus"></i> Add
+					</a>				
+				{/if}
+				{if $button_edit|default:'' eq 'true'}
+					&nbsp;
+					<a href="javascript:void(0)" title="Edit" class="btn-flat btn-warning btn-sm" onClick="genformOrder('edit', '{$mod}','{$main}');">
+						<i class="fa fa-edit"></i> Edit
+					</a>				
+				{/if}
+				{if $button_delete|default:'' eq 'true'}
+					&nbsp;
+					<a href="javascript:void(0)" title="Delete" class="btn-flat btn-danger btn-sm" onClick="genformOrder('delete', '{$mod}','{$main}');">
+						<i class="fa  fa-remove"></i> Delete
+					</a>
+				{/if}
+				
+				{if $button_cetak_surat|default:'' eq 'true'}
+					&nbsp;
+					<a href="{$host}order-cetak/order_dokumen_disetujui/pdf" target="_blank" title="Export Data PDF" class="btn-flat btn-default btn-sm">
+						<i class="fa fa-file-pdf-o "></i> Cetak
+					</a>
+				{/if}
+			{/if}
+			
+		</div>
+	</div>
+	<div class="row" style="margin-bottom:0px !important;">	
+		<div class="col-lg-12" id="grid_parent_{$main}">
+			<div id='grid_{$main}'></div>
+		</div>
+	</div>
+</div>
+<div id='detil_nya_{$main}' width='100%'></div>
+<script>
+$(function(){
+	$('#grid_nya_{$main}').css({
+		'height':( {$height_grid|default:'getClientHeight()-127'} )
+	});
+	$('#grid_parent_{$main}').css({
+		'height': (getClientHeight()-167)
+	});
+	heighttree = (getClientHeight()-167)+'px';
+	
+	{if $jenis_grid eq 'grid'}
+		genGridOrder('{$main}','grid_{$main}', '', '', "{$id_param|default:''}");
+	{else}
+		genTreeGridOrder('{$main}','grid_{$main}', '', heighttree, "{$id_param|default:''}");
+	{/if}
+});
+</script>

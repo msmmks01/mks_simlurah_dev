@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SIMLURAH</title>
+    <style>
+      table {
+        width: 100%;
+      }
+      body {
+        font-family: "arial";
+      }
+      .td-container {
+        width: 1%;
+        white-space: nowrap;
+      }
+      .table-wrapper {
+        display: inline-block;
+      }
+      .table-wrapper table {
+        width: 100%;
+        table-layout: fixed;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="content">
+      <table
+        width="100%"
+        style="margin-bottom: 20px; font-size: 17px; padding-top: 10px"
+      >
+        <tr>
+          <td align="center">
+            <b><u>SURAT KUASA</u></b>
+          </td>
+        </tr>
+      </table>
+
+      <table
+        width="100%"
+        style="
+          padding-top: 12px;
+          padding-left: 60px;
+          padding-top: 14px;
+          padding-top: -15px;
+          font-size: 13px;
+        "
+        cellpadding="3"
+      >
+        <tr>
+          <td colspan="6" align="left" valign="top">
+            Saya Yang bertanda tangan di bawah ini :
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" style="width: 42px"></td>
+          <td align="left" valign="top" style="width: 160px">Nama</td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td align="left" valign="top">
+            <b>{$data.pemohon.nama_lengkap|default:'.....................'}</b>
+          </td>
+        </tr>                 
+        <tr>
+          <td align="left" valign="top"></td>
+          <td align="left" valign="top">Umur</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">{$data.pemohon.umur|default:'.....................'} Tahun</td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"></td>
+          <td align="left" valign="top">Pekerjaan</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">
+            {$data.pemohon.nama_pekerjaan|default:'.....................'}
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"></td>
+          <td align="left" valign="top">Alamat</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">
+            {$data.pemohon.alamat|default:'.....................'}, RT
+            {$data.pemohon.rt|default:'...'}/RW {$data.pemohon.rw|default:'...'}
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"></td>
+          <td align="left" valign="top"></td>
+          <td align="center" valign="top"></td>
+          <td align="left" valign="top">
+            Selanjutnya disebut sebagai Pihak Pertama <b>(Pemberi Kuasa)</b>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4" align="center" valign="top" style="padding-right: 400px;padding-bottom: 20px;">Menerangkan bahwa :</td>
+        </tr>
+      </table>
+      <table
+      width="100%"
+      style="
+        line-height: 1.5;
+        padding-top: 12px;
+        padding-left: 60px;
+        padding-top: 14px;
+        padding-top: -15px;
+        font-size: 13px;
+      ">
+        {foreach from=$data.surat.info_tambahan.data_dokumen item}
+        <tr>
+          <td align="left" valign="top" style="width: 42px"></td>
+          <td align="left" valign="top" style="width: 160px">Nama</td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td align="left" valign="top">
+            <b>{$item.nama_kuasa|default:'.....................'}</b>
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"></td>
+          <td align="left" valign="top">Umur</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">
+            {$item.umur_kuasa|default:'.....................'}
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"></td>
+          <td align="left" valign="top">Pekerjaan</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">
+            {$item.pekerjaan_kuasa|default:'.....................'}
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"></td>
+          <td align="left" valign="top">Alamat</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">
+            {$item.alamat_kuasa|default:'.....................'}
+          </td>
+        </tr>
+        
+        </tr>
+        <tr>
+          <td
+            colspan="4"
+            align="center"
+            valign="top"
+            style="padding-top: 5px"
+          ></td>
+        </tr>
+        {/foreach}
+        <tr>
+          <td align="left" valign="top"></td>
+          <td align="left" valign="top"></td>
+          <td align="center" valign="top"></td>
+          <td align="left" valign="top">
+           Selanjutnya disebut sebagai Pihak Kedua <b>(Penerima Kuasa)</b>
+          </td>
+        </tr>
+      </table>
+
+      <p
+        style="
+          line-height: 1.5;
+          text-align: justify;
+          margin-left: 65px;
+          margin-right: 10px;
+          padding-top: -5px;
+          font-size: 13px;
+        "
+      >
+        Dengan ini memberikan Kuasa Penuh kepada Pihak Kedua <b>(Penerima Kuasa)</b> untuk {$data.surat.info_tambahan.keperluan_surat|default:'.......'}</p>
+        <p
+        style="
+          line-height: 1.5;
+          text-align: justify;
+          margin-left: 65px;
+          margin-right: 10px;
+          padding-top: -5px;
+          font-size: 13px;
+        "
+      >
+        Demikian Surat Kuasa ini saya buat dengan sebenarnya dengan penuh tanggung jawab dan saya bersedia untuk mengangkat sumpah
+        bila diperlukan apabila ternyata ini tidak benar, maka saya bersedia dituntut dihadapan pihak-pihak yang berwenang.
+        Tanpa melibatkan para saksi dan para pihak Pemerintah setempat yang ikut menguatkan Surat Kuasa ini.
+      </p>
+
+      <table
+        width="100%"
+        style="
+          padding-top: 12px;
+          padding-left: 60px;
+          padding-top: 14px;
+          font-size: 13px;
+        "
+      >
+      
+			<tr>
+				<td valign="bottom" align="center"></td>
+				<td valign="bottom">&nbsp;</td>
+				<td valign="bottom" align="center">
+					{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:''},
+          {$data.surat.tanggal_surat|default:'............................'}
+				</td>
+			</tr>
+			<tr>
+				<td valign="bottom" align="center"><b>Yang Memberi Kuasa</b></td>
+				<td valign="bottom">&nbsp;</td>
+				<td valign="bottom" align="center">
+					<b>Yang Menerima Kuasa</b>
+				</td>
+			</tr>
+			<tr>
+				<td><br></td>
+				<td><br></td>
+				<td><br></td>
+			</tr>
+			<tr>
+				<td><br></td>
+				<td><br></td>
+				<td><br></td>
+			</tr>
+			<tr>
+				<td><br></td>
+				<td><br></td>
+				<td><br></td>
+			</tr>
+			<tr>
+				<td valign="bottom" align="center">
+					<b>({$data.pemohon.nama_lengkap|default:'.....................'})</b>
+				</td>
+				<td>&nbsp;</td>
+				<td valign="bottom" align="center">
+					<b>({$item.nama_kuasa|default:'.....................'})</b>
+				</td>
+			</tr>  
+      </table>
+      <br>
+      {if count($data.surat.info_tambahan.data_saksi)>0}
+      <table width="100%" style="margin-bottom: 20px; padding-top: 12px; padding-top: -10px; font-size: 13px;">
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="center">
+            <b>Saksi - saksi</b>
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+      <table
+        width="100%"
+        style="
+          padding-top: 12px;
+          padding-center: 58px;
+          padding-top: -40px;
+          font-size: 13px;
+        "
+      >
+        <tr>
+          {foreach from=$data.surat.info_tambahan.data_saksi item=pen}
+          <td align="center">
+            {ucwords($pen.pekerjaan)|default:'.....................'}
+          </td>
+          <td>&nbsp;</td>
+          {/foreach}
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          {foreach from=$data.surat.info_tambahan.data_saksi item=pen}
+          <td align="center">
+            <u><b>{$pen.nama|default:'.....................'}</b></u>
+          </td>
+          <td></td>
+          {/foreach}
+        </tr>
+      </table>
+      {else} 
+      {/if}
+    
+
+    {if $data.surat.info_tambahan.nip_pernyataan !=''}
+      <table
+        width="100%"
+        style="
+          margin-bottom: 20px;
+          padding-top: 12px;
+          padding-top: 10px;
+          font-size: 13px;
+        "
+      >
+        <tr>
+          <td align="center">
+            <b>Teregister Oleh :</b>
+          </td>
+        </tr>
+      </table>
+
+      <table
+        width="100%"
+        style="
+          padding-top: 12px;
+          padding-left: 250px;
+          padding-top: -20px;
+          font-size: 13px;
+        "
+      >
+        <tr>
+          <td>
+            Nomor : {$data.surat.info_tambahan.no_reg_lurah|default:'....'}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Tanggal : {tgl_indo({$data.surat.info_tambahan.tgl_reg_lurah|default:'....'})}
+          </td>
+        </tr>
+        <tr>
+          <td>{$data.surat.info_tambahan.jabatan|default:'............................'}</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>
+            <u
+              ><b
+                >{$data.surat.info_tambahan.nama|default:'...............................'}</b
+              ></u
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Nip. {$data.surat.info_tambahan.nip_pernyataan}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Pangkat/Gol.
+            {$data.surat.info_tambahan.pangkat|default:'............................'}
+          </td>
+        </tr>
+      </table>
+      {/if}
+    </div>
+  </body>
+</html>

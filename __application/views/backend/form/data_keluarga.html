@@ -1,0 +1,149 @@
+<form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/data_keluarga" enctype="multipart/form-data" >
+    <input type="hidden" name="id" value="{$data.id|default:''}">
+	<input type="hidden" name="editstatus" value="{$sts|default:'add'}">
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<h3 class="box-title">Form Isian</h3>
+				</div>
+				<div class="box-body">
+					<div class="row">
+						<div class="col-md-12">
+							
+							<div class="row">
+								<div class="col-md-6">
+									{include file="backend/template/input_form.html" label="No. Kartu Keluarga" class_width="col-lg-12" type="pnj_karakter" name="no_kk" id="no_kk" value="{$data.no_kk|default:''}"}
+								</div>
+							</div>
+							<div class="row" id="layanan_detail_legal">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend style='font-size:16px;'>Anggota Keluarga</legend>
+										<table class="table table-bordered table-striped table-hover">
+											<thead>
+												<tr style='background-color:#3C8DBC;color:#fff;'>
+													<th class='text-center' style='vertical-align:middle;' width='50%'>Nama Penduduk</th>
+													<th class='text-center' style='vertical-align:middle;' width='40%'>Hubungan Keluarga</th>
+													<th class='text-center' style='vertical-align:middle;' width='10%'>
+														<a href="javascript:void(0);" class="btn btn-success" onclick="tambah_row('anggota_keluarga');"><i class="fa fa-plus"></i></a>
+													</th>
+												</tr>
+											</thead>
+											<tbody class="anggota_keluarga">
+												{if $sts eq 'edit'}
+													{if $detail}
+														{assign var=jml_row value=1}
+														{foreach from=$detail item=rows name=x key=xx}
+															{assign var=jml_row value=$jml_row + $smarty.foreach.x.iteration}
+															<tr class="tr_inv" id="tr_inv_{$jml_row}" idx="{$jml_row}">
+																<td>
+																	<select class="form-control select2nya" idx="{$jml_row}" id="nik_{$jml_row}" name="nik[]" >
+																		{foreach from=$data_keluarga_id item=pen}
+																			{assign var=selected value=""}
+																			{if $pen.id eq $rows.id}
+																				{assign var=selected value="selected"}
+																			{/if}
+																			
+																			<option value="{$pen.id|default:''}" {$selected}>{$pen.nik|default:''} - {$pen.nama_lengkap|default:''}</option>
+																		{/foreach}
+																	</select>
+																</td>
+																<td>
+																	<select class="form-control" idx="{$jml_row}" id="cl_status_hubungan_keluarga_id_{$jml_row}" name="cl_status_hubungan_keluarga_id[]" > 
+																		{foreach from=$hubungan_keluarga item=hub}
+																			{assign var=selected value=""}
+																			{if $hub.id eq $rows.cl_status_hubungan_keluarga_id}
+																				{assign var=selected value="selected"}
+																			{/if}
+																			
+																			<option value="{$hub.id|default:''}" {$selected}>{$hub.nama|default:''}</option>
+																		{/foreach}
+																	</select>
+																</td>
+																<td class="text-center"><a href="javascript:void(0);" class="btn btn-danger btn-circle" onclick="$(this).parents('tr').first().remove();"><i class="fa fa-times"></i></a></td>
+															</tr>
+														{/foreach}
+													{/if}
+												{/if}
+											</tbody>
+										</table>
+									</fieldset>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<hr />
+									{include file="backend/template/input_form.html" label="Upload File" class_width="col-lg-12" type="file" name="file" id="file" value="{$data.file|default:''}"}
+									<br/>
+
+									{include file="backend/template/button_save.html" text="Simpan" id_na="save" style_btn="btn-success"  btn_goyz="false"}
+									{include file="backend/template/button_save.html" text="Kembali" click="$('#grid_nya_{$mod}').show();$('#detil_nya_{$mod}').hide();" id_na="cancel" style_btn="btn-danger"  btn_goyz="true"}	
+
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<script>
+	var idx_row = {$jml_row|default:1};
+	var combo_penduduk = '{$combo_penduduk|default:""}';
+	var combo_hubungan_keluarga = '{$combo_hubungan_keluarga|default:""}';
+	$(".select2nya").select2();
+	
+	var rulesnya = {
+		no_kk : "required",
+		'nik[]' : "required",
+		'cl_status_hubungan_keluarga_id[]' : "required",
+	};
+
+	var messagesnya = {
+		no_kk : "<i style='color:red'>Harus Diisi</i>",
+		'nik[]' : "<i style='color:red'>Harus Diisi</i>",
+		'cl_status_hubungan_keluarga_id[]' : "<i style='color:red'>Harus Diisi</i>",
+	}
+
+	$( "#form_{$acak}" ).validate( {
+		rules: rulesnya,
+		messages: messagesnya,
+		submitHandler: function(form) {
+			var cek = $('#no_kk').val();
+			var pnj = cek.length;
+			if (pnj < 16) {
+				$.messager.alert(nama_apps,'No. Kartu Keluarga tidak valid ','error');
+			}else{
+
+					$.LoadingOverlay("show");
+					submit_form('form_{$acak}',function(r){
+						if(r == 1 ){ 
+							$.messager.alert(nama_apps,'Data Tersimpan','info'); 
+							$('#cancel_{$acak}').trigger('click');
+							$('#grid_data_keluarga').datagrid('reload');
+						}else if(r == 2){ 
+							$.messager.alert(nama_apps,'Nomor Kartu Keluarga sudah digunakan!','warning'); 
+						}else{ 
+							$.messager.alert(nama_apps,'Terjadi Kesalahan!','error'); 
+						}
+						$.LoadingOverlay("hide", true);
+						});
+			}
+		},
+		errorPlacement: function(error, element) {
+	        var name = element.attr('name');
+	        var errorSelector = '.validation_error_message[for="' + name + '"]';
+	        var $element = $(errorSelector);
+	        if ($element.length) { 
+	            $(errorSelector).html(error.html());
+	        } else {
+	            error.insertAfter(element);
+	        }
+	    }
+	} );
+</script>

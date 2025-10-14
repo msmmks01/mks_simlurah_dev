@@ -1,0 +1,130 @@
+<style>
+	.text-ellipsis{
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.text-ellipsis:hover{
+		white-space: normal;
+	}
+</style>
+	<ul class="sidebar-menu" data-widget="tree">
+		<li class="header"><font color='#fff'>MENU UTAMA</font></li>
+		{foreach from=$menu item=x}
+			{if $x.type_menu eq 'PC'}
+			<li class="treeview">
+				<a href="#" class="text-ellipsis">
+					<i class="{$x.icon_menu}"></i> <span>{$x.parent}</span>
+					<span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+				</a>
+				<ul class="treeview-menu">
+					{foreach from=$x.child item=y}
+						{if $y.type_menu eq 'C'}
+							<li style="padding-left:10px;">
+								<a href="javascript:void(0);" class="text-ellipsis" onClick="loadUrl('{$host}{$y.url}');">
+									<i class="{$y.icon_menu}"></i>{$y.menu}
+								</a>
+							</li>
+						{elseif $y.type_menu eq 'CHC'}
+							{*
+							<li>
+								<a href="javascript:void(0);" class="text-ellipsis">{$y.menu}<span class="fa arrow"></span></a>
+								{if isset($y.sub_child) }
+									<ul class="nav nav-third-level collapse">
+										{foreach from=$y.sub_child item=z}
+											<li><a href="javascript:void(0);" onClick="loadUrl('{$host}{$z.url}'')">- {$z.sub_menu}</a></li>
+										{/foreach}
+									</ul>
+								{/if}
+							</li>
+							*}
+						{/if}
+					{/foreach}
+				</ul>
+			</li>	
+			{elseif $x.type_menu eq 'P'}
+				<li>
+					<a href="javascript:void(0);" class="text-ellipsis" onClick="loadUrl('{$host}{$x.url}');">
+						<i class="{$x.icon_menu}"></i>
+						<span>{$x.parent}</span>
+					</a>
+				</li>
+			{elseif $x.type_menu eq 'R'}
+				<li>
+					<a href="{$x.url}" class="text-ellipsis" target="_blank">
+						<i class="{$x.icon_menu}"></i>
+						<span>{$x.parent}</span>
+					</a>
+				</li>
+			{/if}
+		{/foreach}
+	</ul>
+
+	
+
+	
+	
+
+	
+{*
+<ul class="sidebar-menu" data-widget="tree">	
+	<li class="header"><center><font color="white"><b>APLIKASI KARTU IBU & ANAK</b></font></center></li>
+	<li>
+		<a href="#">
+			<i class="fa fa-dashboard"></i> <span>Dashboard</span>
+		</a>
+	</li>
+	<li class="treeview">
+		<a href="#">
+			<i class="fa fa-file-text-o"></i> <span>Kesehatan Ibu Dan Anak</span>
+			<span class="pull-right-container">
+				<i class="fa fa-angle-left pull-right"></i>
+			</span>
+		</a>
+		<ul class="treeview-menu">
+			<li><a href="javascript:void(0);" onClick="loadUrl('{$host}backoffice-grid/ibu_hamil');"><i class="fa fa-circle-o"></i>Ibu Hamil</a></li>
+			<li><a href="javascript:void(0);" onClick="loadUrl('{$host}backoffice-grid/partus');"><i class="fa fa-circle-o"></i> Partus</a></li>
+			<li><a href="javascript:void(0);" onClick="loadUrl('{$host}backoffice-grid/rujukan');"><i class="fa fa-circle-o"></i> Rujukan Perinatal</a></li>
+			<li><a href="javascript:void(0);" onClick="loadUrl('{$host}backoffice-grid/komplikasi_maternal');"><i class="fa fa-circle-o"></i> Komplikasi Maternal</a></li>
+			<li><a href="javascript:void(0);" onClick="loadUrl('{$host}backoffice-grid/komplikasi_neonatus');"><i class="fa fa-circle-o"></i> Komplikasi Neonatus</a></li>
+			<li><a href="javascript:void(0);" onClick="loadUrl('{$host}backoffice-grid/kb');"><i class="fa fa-circle-o"></i> Keluarga Berencana</a></li>
+			<li><a href="javascript:void(0);" onClick="loadUrl('{$host}backoffice-grid/kematian_neo');"><i class="fa fa-circle-o"></i> Kematian Neo</a></li>
+			<li><a href="javascript:void(0);" onClick="loadUrl('{$host}backoffice-grid/kematian_ibu');"><i class="fa fa-circle-o"></i> Kematian Ibu</a></li>
+		</ul>
+	</li>
+	<li class="treeview">
+		<a href="#">
+			<i class="fa fa-folder-open"></i> <span>Laporan</span>
+			<span class="pull-right-container">
+				<i class="fa fa-angle-left pull-right"></i>
+			</span>
+		</a>
+		<ul class="treeview-menu">
+			<li ><a href="javascript:void(0);"><i class="fa fa-circle-o"></i>Ibu Hamil</a></li>
+			<li><a href="javascript:void(0);"><i class="fa fa-circle-o"></i> Partus</a></li>
+			<li><a href="javascript:void(0);"><i class="fa fa-circle-o"></i> Rujukan</a></li>
+			<li><a href="javascript:void(0);"><i class="fa fa-circle-o"></i> Komplikasi Maternal</a></li>
+			<li><a href="javascript:void(0);"><i class="fa fa-circle-o"></i> Komplikasi Neonatus</a></li>
+			<li><a href="javascript:void(0);"><i class="fa fa-circle-o"></i> Keluarga Berencana</a></li>
+			<li><a href="javascript:void(0);"><i class="fa fa-circle-o"></i> Kematian Neo</a></li>
+			<li><a href="javascript:void(0);"><i class="fa fa-circle-o"></i> Kematian Ibu</a></li>
+		</ul>
+	</li>
+	<li class="treeview">
+		<a href="#">
+			<i class="fa fa-user"></i> <span>User Management</span>
+			<span class="pull-right-container">
+				<i class="fa fa-angle-left pull-right"></i>
+			</span>
+		</a>
+		<ul class="treeview-menu">
+			<li ><a href="javascript:void(0);" onClick="loadUrl('{$host}backoffice-grid/user_mng');"><i class="fa fa-circle-o"></i>User List</a></li>
+			<li><a href="javascript:void(0);" onClick="loadUrl('{$host}backoffice-grid/user_group');"><i class="fa fa-circle-o"></i> User Group</a></li>
+		</ul>
+	</li>
+
+	
+</ul>
+*}

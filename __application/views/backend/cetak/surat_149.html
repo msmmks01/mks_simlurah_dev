@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SIMLURAH ADMINISTRASI</title>
+    <style>
+		table { width:100%; } 
+		body { font-family: 'arial'; }
+	</style>
+</head>
+<body>
+	<div id='content'>
+		<div style="padding-bottom: 5mm;">
+			<table  width="100%" style="border-collapse: collapse;">
+				{include file="backend/template/kop_surat_kelurahan.html"}
+			</table>
+		</div>
+		
+		<table width="100%" style="margin-bottom: 20px; font-size: 14px;padding-top: -20px">
+			<tr>
+				<td align="center" style="padding-left: 380px;">{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'..........'}, {$data.surat.tanggal_surat|default:'............................'}</td>
+			</tr>
+		</table>
+		<table width="100%" style="margin-left: 25px;margin-bottom: 20px; font-weight: none; font-size: 17px;" cellspacing="0" cellpadding="10">
+			<tr>
+				<td width="95%">
+					<table>
+						<tr>
+							<td valign="top" >Nomor</td>
+							<td valign="top" >:</td>
+							<td valign="top" style="padding-right: 250px;">{$data.surat.no_surat|default:'.....................'}</td>
+						</tr>
+						<tr>
+							<td valign="top">Lampiran</td>
+							<td valign="top">:</td>
+							<td valign="top" style="padding-right: 250px;">{$data.surat.info_tambahan.lampiran|default:'.....................'}</td>
+						</tr>
+						<tr>
+							<td valign="top">Perihal</td>
+							<td valign="top">:</td>
+							<td valign="top" style="padding-right: 250px;"><u>{$data.surat.info_tambahan.perihal|default:'.....................'}</u></td>
+						</tr>
+						<tr>
+							<td valign="top" colspan="2">&nbsp;</td>
+						</tr>
+						{if $data.surat.info_tambahan.kpd_yth !=''}
+						<tr>
+							<td valign="top">Yth.</td>
+							<td valign="top"></td>
+							<td valign="top" style="padding-left: -30px;">{nl2br({$data.surat.info_tambahan.kpd_yth|default:'.....................'})}</td>
+						</tr>
+						{else}
+							<tr>
+								<td valign="top"></td>
+								<td valign="top" colspan="2">Bapak/Ibu/Saudara (i)</td>
+							</tr>
+						{/if}
+						<tr>
+							<td valign="top">di</td>
+							<td valign="top"></td>
+							<td valign="top"></td>
+						</tr>	
+						{if $data.surat.info_tambahan.di_undangan != ''}
+						<tr>
+							<td valign="top">&nbsp;</td>
+							<td valign="top"></td>
+							<td valign="top" style="padding-left: -87x;">{$data.surat.info_tambahan.di_undangan|default:'..........'}</td>
+						</tr>
+						{else}
+							<tr>
+								<td valign="top">&nbsp;</td>
+								<td valign="top">&nbsp;</td>
+								<td valign="top">{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'..........'}</td>
+							</tr>
+						{/if}	
+					</table>
+				</td>
+				<td width="30%">
+					<table>
+						<tr>
+							<td valign="top"></td>
+							<td valign="top" colspan="2">&nbsp;</td>
+						</tr>
+						<tr>
+							<td valign="top">&nbsp;</td>
+							<td valign="top">&nbsp;</td>
+							<td valign="top">&nbsp;</td>
+						</tr>
+						<tr>
+							<td valign="top">&nbsp;</td>
+							<td valign="top" colspan="2">&nbsp;</td>
+						</tr>
+						<tr>
+							<td valign="top">&nbsp;</td>
+							<td valign="top">&nbsp;</td>
+							<td valign="top">&nbsp;</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>				
+	<br>
+	<table width="100%" style="margin-left: 25px;margin-bottom: 20px; font-weight: none; font-size: 14px">
+		<tr>
+			<td align="justify" style="padding-left:-6px;padding-right:50px;padding-bottom: 10px;">
+				Dengan Hormat,
+			</td>
+		</tr>
+    <tr>
+			<td align="justify" style="padding-left:-6px;padding-right:50px;padding-bottom: 10px;line-height: 2.0;font-size: 14px;">
+				&emsp;&emsp;Berdasarkan {$data.surat.info_tambahan.dasar_surat_pencairan|default:'.....................'} {$data.surat.info_tambahan.no_dasar_surat_pencairan|default:'.....................'} tentang {$data.surat.info_tambahan.ttg_dasar_surat_pencairan|default:'.....................'} 
+        sesuai dengan indikator kinerja yang ditetapkan, maka dengan ini Kami ajukan permohonan pencairan insentif RT RW untuk periode {bln_indo($rows.tgl_penilaian)|upper} {thn_aja($rows.tgl_penilaian)}.
+			</td>
+		</tr>
+    <tr>
+			<td align="justify" style="padding-left:-6px;padding-right:50px;padding-bottom: 10px;font-size: 14px;">
+				Adapun dokumen yang Kami lampirkan sebagai berikut :
+			</td>
+		</tr>
+    <tr>
+			<td style="padding-left:15px;">
+        {$no=1}
+        {foreach from=$data.surat.info_tambahan.dokumen_lampiran_pencairan item=pen}
+        <table width="100%" style="text-align: justify;font-size: 14px;line-height: 1.5;" cellspacing="2">
+          <tr>
+            <td valign="top">&emsp;&emsp;</td>
+            <td valign="top">{$no++}.</td>
+            <td valign="top">{htmlspecialchars_decode($pen)|default:'.....................'}</td>
+          </tr>
+        </table>
+        {/foreach}
+      </td>
+		</tr>
+    <tr>
+			<td align="justify" style="padding-left:-6px;padding-right:50px;padding-bottom: 10px;font-size: 14px;">
+				Demikian permohonan Kami buat. Atas perhatiannya Kami ucapkan terima kasih.
+			</td>
+		</tr>
+  </table>
+    
+  <table align="justify" width="100%" style="border-collapse: collapse; line-height: 1.5;font-family: arial;">
+    <tr>
+      <td width="55%">
+        &nbsp;
+      </td>
+      <td align="left" width="45%">
+        {ttd_1($data,$setting)}
+      </td>
+    </tr>
+  </table> 
+</div>
+</div> 
+</body>
+</html>

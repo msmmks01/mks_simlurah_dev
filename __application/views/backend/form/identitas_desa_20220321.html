@@ -1,0 +1,116 @@
+<section class="content">
+	<div class="row">
+		<div class="col-lg-12">
+
+			<form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/identitas_desa" enctype="multipart/form-data" >
+				<input type="hidden" name="id" value="{$data.id|default:''}">
+				<input type="hidden" name="editstatus" value="{$sts|default:'add'}">
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="box box-primary">
+							<div class="box-header with-border">
+								<h3 class="box-title">Form Identitas Desa</h3> &nbsp;&nbsp; <font color="red" style="font-weight:bold;font-size:10px;">Identitas Digunakan Untuk Profile Kop Surat</font>
+							</div>
+							<div class="box-body">
+								<div class="row">
+									<div class="col-md-12">
+										
+										<div class="row">
+											<div class="col-md-4">
+												{include file="backend/template/input_form.html" label="Provinsi" class_width="col-lg-12" type="select2" name="cl_provinsi_id" id="cl_provinsi_id" option={$cl_provinsi_id|default:''} }
+											</div>
+											<div class="col-md-4">
+												{include file="backend/template/input_form.html" label="Kab/Kota" class_width="col-lg-12" type="select2" name="cl_kab_kota_id" id="cl_kab_kota_id" option={$cl_kab_kota_id|default:''} }
+											</div>
+											<div class="col-md-4">
+												{include file="backend/template/input_form.html" label="Kecamatan" class_width="col-lg-12" type="select2" name="cl_kecamatan_id" id="cl_kecamatan_id" option={$cl_kecamatan_id|default:''} }
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-3">
+												{include file="backend/template/input_form.html" label="Kelurahan / Desa" class_width="col-lg-12" type="select2" name="cl_kelurahan_desa_id" id="cl_kelurahan_desa_id" option={$cl_kelurahan_desa_id|default:''} }
+											</div>
+											<div class="col-md-2">
+												{include file="backend/template/input_form.html" required="true" label="Kode Pos" class_width="col-lg-12" type="text" name="kode_pos" id="kode_pos" value="{$data.kode_pos|default:''}"}
+											</div>
+											<div class="col-md-7">
+												{include file="backend/template/input_form.html" required="true" label="Alamat Kantor Desa" class_width="col-lg-12" type="text" name="alamat" id="alamat" value="{$data.alamat|default:''}"}
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-4">
+												{include file="backend/template/input_form.html" required="true" label="Nama Kepala Desa" class_width="col-lg-12" type="text" name="nama_kepala_desa" id="nama_kepala_desa" value="{$data.nama_kepala_desa|default:''}"}
+											</div>
+											<div class="col-md-4">
+												{include file="backend/template/input_form.html" required="true" label="NIP Kepala Desa" class_width="col-lg-12" type="text" name="nip_kepala_desa" id="nip_kepala_desa" value="{$data.nip_kepala_desa|default:''}"}
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<hr />
+												{include file="backend/template/button_save.html" text="Simpan" id_na="save" style_btn="btn-success"  btn_goyz="false"}
+											</div>
+										</div>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</form>
+			
+		</div>
+	</div>
+</section>
+
+<script>
+	//$('.select2nya').select2().enable(false);
+	$(".select2nya").select2({
+		disabled: true
+	});
+
+	var rulesnya = {
+		kode_pos : "required",
+		nama_kepala_desa : "required",
+		nip_kepala_desa : "required",
+		alamat : "required",
+	};
+
+	var messagesnya = {
+		kode_pos : "<i style='color:red'>Harus Diisi</i>",
+		nama_kepala_desa : "<i style='color:red'>Harus Diisi</i>",
+		nip_kepala_desa : "<i style='color:red'>Harus Diisi</i>",
+		alamat : "<i style='color:red'>Harus Diisi</i>",
+	}
+
+	$( "#form_{$acak}" ).validate( {
+		rules: rulesnya,
+		messages: messagesnya,
+		submitHandler: function(form) {
+			$.LoadingOverlay("show");
+			submit_form('form_{$acak}',function(r){
+				if(r == 1 ){ 
+					$.messager.alert(nama_apps,'Data Tersimpan','info'); 
+					location.reload();
+				}else{ 
+					$.messager.alert(nama_apps,'Proses Simpan Data Gagal '+r,'warning'); 
+				}
+				$.LoadingOverlay("hide", true);
+			});
+			//*/
+		},
+		errorPlacement: function(error, element) {
+	        var name = element.attr('name');
+	        var errorSelector = '.validation_error_message[for="' + name + '"]';
+	        var $element = $(errorSelector);
+	        if ($element.length) { 
+	            $(errorSelector).html(error.html());
+	        } else {
+	            error.insertAfter(element);
+	        }
+	    }
+	} );
+</script>

@@ -1,0 +1,228 @@
+<form
+  id="form_{$acak}"
+  method="post"
+  url="{$host}backoffice-simpan/data_ekspedisi"
+  enctype="multipart/form-data"
+>
+  <input type="hidden" name="id" value="{$data.id|default:''}" />
+  <input type="hidden" name="editstatus" value="{$sts|default:'add'}" />
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">Form Isian</h3>
+        </div>
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row" style="margin-bottom: 10px">
+                <div class="col-md-4">
+                  {include file="backend/template/input_form.html"
+                  required="true" label="Kelurahan" class_width="col-lg-12"
+                  type="baca_aja" name="cl_kelurahan_desa_id"
+                  id="cl_kelurahan_desa_id" value="{$kel.nama|default:''}"}
+                </div>
+                <div class="col-md-4">
+                  {include file="backend/template/input_form.html"
+                  label="Kecamatan" class_width="col-lg-12" type="baca_aja"
+                  name="kecamatan" id="kecamatan"
+                  value="{$kec.nama|default:''}"}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  {include file="backend/template/input_form.html" label="Nama
+                  Pemilik Usaha" class_width="col-lg-12" type="text"
+                  name="nama_pemilik_usaha" id="nama_pemilik_usaha"
+                  value="{$data.nama_pemilik_usaha|default:''}"}
+                </div>
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html"
+                  label="Ekspedisi" class_width="col-lg-12" type="text"
+                  name="nama_ekspedisi" id="nama_ekspedisi"
+                  value="{$data.nama_ekspedisi|default:''}"}
+                </div>
+                <div class="col-md-4">
+                  {include file="backend/template/input_form.html"
+                  label="Alamat" class_width="col-lg-12" type="text"
+                  name="alamat_ekspedisi" id="alamat_ekspedisi"
+                  value="{$data.alamat_ekspedisi|default:''}"}
+                </div>
+                <div class="col-md-3">
+                  {include file="backend/template/input_form.html"
+                  label="Penanggung Jawab/Pengelola" class_width="col-lg-12"
+                  type="text" name="pnj_ekspedisi" id="pnj_ekspedisi"
+                  value="{$data.pnj_ekspedisi|default:''}"}
+                </div>
+              </div>
+              <div class="col-md-12">
+                <fieldset class="form-group">
+                  <legend
+                    style="
+                      border-color: #e17a35 !important;
+                      border-width: 3px !important;
+                      padding: 5px;
+                      color: #e17a35;
+                      font-weight: bold;
+                      font-size: 16px;
+                      margin-bottom: 5px;
+                      margin-top: 15px;
+                    "
+                  ></legend>
+                </fieldset>
+              </div>
+              <div class="row">
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html"
+                  label="TELP/HP" class_width="col-lg-12" type="pnj_hp"
+                  name="tlp_ekspedisi" id="tlp_ekspedisi"
+                  value="{$data.tlp_ekspedisi|default:''}"}
+                </div>
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html" label="JML
+                  Tenaga Kerja" class_width="col-lg-12" type="text"
+                  name="jml_tkerja_ekspedisi" id="jml_tkerja_ekspedisi"
+                  value="{$data.jml_tkerja_ekspedisi|default:''}"}
+                </div>
+                <div class="col-md-3">
+                  {include file="backend/template/input_form.html"
+                  label="Kegiatan Ekspedisi" class_width="col-lg-12" type="text"
+                  name="keg_ekspedisi" id="keg_ekspedisi"
+                  value="{$data.keg_ekspedisi|default:''}"}
+                </div>
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html"
+                  label="Tujuan" class_width="col-lg-12" type="text"
+                  name="tujuan_ekspedisi" id="tujuan_ekspedisi"
+                  value="{$data.tujuan_ekspedisi|default:''}"}
+                </div>
+                <div class="col-md-3">
+                  {include file="backend/template/input_form.html"
+                  label="Pengiriman" class_width="col-lg-12" type="text"
+                  name="pengiriman_ekspedisi" id="pengiriman_ekspedisi"
+                  value="{$data.pengiriman_ekspedisi|default:''}"}
+                </div>
+              </div>
+              <div class="row" style="margin-bottom: 10px">
+                <div class="col-md-12">
+                  <fieldset class="form-group">
+                    <legend
+                      style="
+                        border-color: #e17a35 !important;
+                        border-width: 3px !important;
+                        padding: 5px;
+                        color: #e17a35;
+                        font-weight: bold;
+                        font-size: 16px;
+                        margin-bottom: 5px;
+                        margin-top: 15px;
+                      "
+                    ></legend>
+                  </fieldset>
+                </div>
+                <div class="col-md-4">
+                  {include file="backend/template/input_form.html"
+                  label="Armada" class_width="col-lg-12" type="text"
+                  name="armada_ekspedisi" id="armada_ekspedisi"
+                  value="{$data.armada_ekspedisi|default:''}"}
+                </div>
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html"
+                  label="Jumlah" class_width="col-lg-12" type="text"
+                  name="jml_armada" id="jml_armada"
+                  value="{$data.jml_armada|default:''}"}
+                </div>
+                <div class="col-md-3">
+                  {include file="backend/template/input_form.html" label="Izin
+                  Usaha" class_width="col-lg-12" type="text"
+                  name="izin_usaha_ekspedisi" id="izin_usaha_ekspedisi"
+                  value="{$data.izin_usaha_ekspedisi|default:''}"}
+                </div>
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html"
+                  label="Keterangan" class_width="col-lg-12" type="text"
+                  name="ket_ekspedisi" id="ket_ekspedisi"
+                  value="{$data.ket_ekspedisi|default:''}"}
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <hr />
+                  {include file="backend/template/button_save.html"
+                  text="Simpan" id_na="save" style_btn="btn-success"
+                  btn_goyz="false"} {include
+                  file="backend/template/button_save.html" text="Kembali"
+                  click="$('#grid_nya_{$mod}').show();$('#detil_nya_{$mod}').hide();"
+                  id_na="cancel" style_btn="btn-danger" btn_goyz="true"}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<script>
+  var rulesnya = {
+    nama_pemilik_usaha: "required",
+    nama_ekspedisi: "required",
+    alamat_ekspedisi: "required",
+    pnj_ekspedisi: "required",
+    tlp_ekspedisi: "required",
+    jml_tkerja_ekspedisi: "required",
+    keg_ekspedisi: "required",
+  };
+
+  $(".angka").autoNumeric("init", {
+    aSep: ".",
+    aDec: ",",
+    mDec: "0",
+  });
+
+  var messagesnya = {
+    nama_pemilik_usaha: "<i style='color:red'>Harus Diisi</i>",
+    nama_ekspedisi: "<i style='color:red'>Harus Diisi</i>",
+    alamat_ekspedisi: "<i style='color:red'>Harus Diisi</i>",
+    pnj_ekspedisi: "<i style='color:red'>Harus Diisi</i>",
+    tlp_ekspedisi: "<i style='color:red'>Harus Diisi</i>",
+    jml_tkerja_ekspedisi: "<i style='color:red'>Harus Diisi</i>",
+    keg_ekspedisi: "<i style='color:red'>Harus Diisi</i>",
+  };
+
+  $("#form_{$acak}").validate({
+    rules: rulesnya,
+    messages: messagesnya,
+    submitHandler: function (form) {
+      $.LoadingOverlay("show");
+      submit_form("form_{$acak}", function (r) {
+        if (r == 1) {
+          $.messager.alert(nama_apps, "Data Tersimpan", "info");
+          $("#cancel_{$acak}").trigger("click");
+          $("#grid_data_lorong").datagrid("reload");
+        } else {
+          $.messager.alert(
+            nama_apps,
+            "Proses Simpan Data Gagal " + r,
+            "warning"
+          );
+        }
+        $.LoadingOverlay("hide", true);
+      });
+      //*/
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr("name");
+      var errorSelector = '.validation_error_message[for="' + name + '"]';
+      var $element = $(errorSelector);
+      if ($element.length) {
+        $(errorSelector).html(error.html());
+      } else {
+        error.insertAfter(element);
+      }
+    },
+  });
+</script>

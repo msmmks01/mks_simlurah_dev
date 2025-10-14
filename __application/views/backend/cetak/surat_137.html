@@ -1,0 +1,361 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	
+	<title>SIMLURAH</title>
+	
+	<style type="text/css">
+		table { width:100%; } 
+		body { font-family: 'arial'; }
+	</style>
+	
+</head>
+	<body>
+		<div style="padding-bottom: 5mm">
+			<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;padding-top: 10px;">
+				<tr>
+					<td colspan="3" align="center">
+						<b><u>SURAT PERNYATAAN KELAHIRAN</u></b>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3" align="center" style="font-size: 13.3px">&nbsp;</td>
+				</tr>
+			</table>
+		</div>
+		<div style="padding-right: 5.82mm;padding-left: 15.44mm;padding-bottom: 2mm;font-size: 16px;padding-top: -10px;">
+			<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse; line-height: 1.5;">
+				<tr>
+					<td colspan="6" align="left" valign="top">
+					Yang bertanda tangan di bawah ini :
+					</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top" style="width: 42px"></td>
+					<td align="left" valign="top" style="width: 160px">Nama</td>
+					<td align="center" valign="top" style="width: 15px">:</td>
+					<td align="left" valign="top">
+					<b>{$data.pemohon.nama_lengkap|default:'.....................'}</b>
+					</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top" style="width: 42px"><br /></td>
+					<td align="left" valign="top" style="width: 160px">NIK</td>
+					<td align="center" valign="top" style="width: 15px">:</td>
+					<td align="left" valign="top">
+					{$data.pemohon.nik|default:'.....................'}
+					</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top"><br /></td>
+					<td align="left" valign="top">Tempat/Tgl. Lahir</td>
+					<td align="center" valign="top">:</td>
+					<td align="left" valign="top">
+					{$data.pemohon.tempat_lahir|default:'.....................'}, {tgl_indo({$data.pemohon.tgl_lahir|default:'.....................'})}
+					</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top"><br /></td>
+					<td align="left" valign="top">Jenis Kelamin</td>
+					<td align="center" valign="top">:</td>
+					<td align="left" valign="top">
+					{$data.pemohon.jenis_kelamin|default:'.....................'}
+					</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top"><br /></td>
+					<td align="left" valign="top">Kewarganegaraan</td>
+					<td align="center" valign="top">:</td>
+					<td align="left" valign="top">
+					{$data.surat.info_tambahan.kewarganegaraan|default:'.....................'}
+					</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top"><br /></td>
+					<td align="left" valign="top">Agama</td>
+					<td align="center" valign="top">:</td>
+					<td align="left" valign="top">
+					{$data.pemohon.agama|default:'.....................'}
+					</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top"><br /></td>
+					<td align="left" valign="top">Pekerjaan</td>
+					<td align="center" valign="top">:</td>
+					<td align="left" valign="top">
+					{$data.pemohon.nama_pekerjaan|default:'.....................'}
+					</td>
+				</tr>
+				{if $data.surat.info_tambahan.alamat_domisili_lahir !=''}
+				<tr>
+					<td align="left" valign="top"><br /></td>
+					<td align="left" valign="top">Pekerjaan</td>
+					<td align="center" valign="top">:</td>
+					<td align="left" valign="top">
+					{$data.pemohon.alamat|default:'.....................'}, RT
+            		{$data.pemohon.rt|default:'...'}/RW {$data.pemohon.rw|default:'...'}
+					</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top"><br /></td>
+					<td align="left" valign="top">Alamat Domisili</td>
+					<td align="center" valign="top">:</td>
+					<td align="left" valign="top">
+					{$data.surat.info_tambahan.alamat_domisili_lahir|default:'.....................'}
+					</td>
+				</tr>
+				{else} 
+				<tr>
+					<td align="left" valign="top"><br /></td>
+					<td align="left" valign="top">Pekerjaan</td>
+					<td align="center" valign="top">:</td>
+					<td align="left" valign="top">
+					{$data.pemohon.alamat|default:'.....................'}, RT
+            		{$data.pemohon.rt|default:'...'}/RW {$data.pemohon.rw|default:'...'}
+					</td>
+				</tr>
+				{/if}
+				<tr>
+					<td colspan="4" align="center" valign="bottom"></td>
+				</tr>
+			</table>
+			{if count($data.surat.info_tambahan.data_dokumen) < 2}
+			{foreach from=$data.surat.info_tambahan.data_dokumen item}
+			<table width="100%" style="border-collapse: collapse;margin-bottom: 10px;line-height: 1.5;font-size: 14px;">
+				<tr>
+					<td colspan="4" valign="top" align="justify">
+						Menyatakan dengan sesungguhnya bahwa benar anak saya bernama <b>{$item.nama_anak_pernyataan|default:'..........'}</b> 
+						lahir di {$item.tempat_lahir_anak|default:'..........'} pada hari {$data.surat.info_tambahan.hari_kelahiran_anak|default:'...........'}, berdasarkan 
+						Surat Keterangan Kelahiran dari {$item.asal_sk|default:'..........'}.
+						{if $data.surat.info_tambahan.no_pengantar_sekda !=''}
+						Sesuai surat pengantar Nomor : {$data.surat.info_tambahan.no_pengantar_sekda|default:'.....................'} Tanggal {tgl_indo($data.surat.info_tambahan.tgl_pengantar_sekda)|default:'.....................'}
+						{/if}
+						{if $data.surat.info_tambahan.pernyataan_dari !=''}
+						dan sesuai pernyataan dari {$data.surat.info_tambahan.pernyataan_dari|default:'.....................'} Tanggal {tgl_indo($data.surat.info_tambahan.tgl_pernyataan)|default:'.....................'}.
+						{/if}
+					</td>
+				</tr>
+			</table>
+			<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;padding-right: 10px;padding-bottom: 10px;margin-top: 10px;line-height: 1.5;font-size: 14px;">
+				<tr>
+					<td colspan="4" valign="top" align="justify">
+						Demikian Surat Pernyataan ini saya buat dengan sesungguhnya dan mempertanggung jawabkan segala resiko Hukum yang ditimbulkan 
+						dan tidak melibatkan Pemerintah setempat.
+					</td>
+				</tr>
+			</table>
+			<br>
+			<br>
+			{/foreach}
+			{else} 
+			<table width="100%" style="border-collapse: collapse; line-height: 1.5; margin-bottom: 10px;font-size: 14px">
+				<tr>
+					<td align="left" valign=top>Menyatkan dengan sesungguhnya bahwa benar ke {count($data.surat.info_tambahan.data_dokumen)} anak saya bernama :</td>
+				</tr>
+			</table>
+			<table cellspacing="0" cellpadding="3" border="1" width="100%" style="border-collapse: collapse; line-height: 1.5;font-size: 14px">
+				<tr>
+					<td style="width: 3%;" valign="middle" align="center">NO</td>
+					<td style="width: 35%;" valign="middle" align="center">Nama</td>
+					<td style="width: 27%;" valign="middle" align="center">Tempat/Tgl Lahir</td>
+					<td style="width: 35%;" valign="middle" align="center">Asal Surat Keterangan Kelahiran</td>
+				</tr>
+				{assign var=no value=1}
+				{foreach from=$data.surat.info_tambahan.data_dokumen item}
+				<tr>
+					<td valign="top" align="center">{$no++}</td>
+					<td valign="top"               >{$item.nama_anak_pernyataan|default:'..........'}</td>
+					<td valign="top"               >{ucwords(strtolower($item.tempat_lahir_anak))|default:'..........'}, <span class="nowrap">{tgl_indo($item.tgl_lahir_anak)|default:'..........'}</span></td>
+					<td valign="top"               >{ucwords(strtolower($item.asal_sk))|default:''}</td>
+				</tr>
+				{/foreach}
+			</table>
+			<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;padding-right: 10px;margin-bottom: 10px;margin-top: 10px;line-height: 1.5;font-size: 14px;">
+				<tr>
+					<td colspan="4" valign="top" align="justify">
+						Demikian Surat Pernyataan ini saya buat dengan sesungguhnya dan mempertanggung jawabkan segala resiko Hukum yang ditimbulkan 
+						dan tidak melibatkan Pemerintah setempat.
+					</td>
+				</tr>
+			</table>
+			<br>
+			<br>
+			{/if}
+ 		</div>
+
+		{if $data.surat.info_tambahan.nip_pernyataan !='' && count($data.surat.info_tambahan.data_saksi)>0}
+		<div style="padding-right: 5.82mm;padding-left: 15.44mm;font-size: 14px;line-height: 1.5;">
+			<table style="border-collapse: collapse; width: 100%" border="0" cellpadding="0">
+				<tr>
+					<td valign="bottom" width="45%">Teregister Oleh :</td>
+					<td valign="bottom" width="20%">&nbsp;</td>
+					<td valign="bottom" width="35%">&nbsp;</td>
+				</tr>
+				<tr>
+					<td valign="bottom">No. Register &emsp;&emsp;{$data.surat.info_tambahan.no_register|default:'............................'}</td>
+					<td valign="bottom">&nbsp;</td>
+					<td valign="bottom" align="left"></td>
+				</tr>
+				<tr>
+					<td valign="bottom">Tgl. Register &emsp;&emsp;{$data.surat.info_tambahan.tgl_register|default:'............................'}</td>
+					<td valign="bottom">&nbsp;</td>
+					<td valign="bottom" align="left">{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'.......'},
+						{$data.surat.tanggal_surat|default:'............................'}</td>
+				</tr>
+				<tr>
+					<td valign="bottom"><b>{$data.surat.info_tambahan.jabatan|default:'............................'}</b></td>
+					<td valign="bottom">&nbsp;</td>
+					<td valign="bottom" align="left">Yang Menyatakan</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td align="left" width="40%">	
+						<table style="border:1px dashed #666;width: 80px;margin-left:-70px;font-size: 10px;padding-top: 8px;padding-bottom: 8px;">
+							<tr>
+								<td align="center">Materai<br/>Rp. 10.000,-</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td><br/></td>
+					<td><br/></td>
+					<td><br/></td>
+				</tr>
+				<tr>
+					<td><b><u>{$data.surat.info_tambahan.nama|default:'.....................'}</u></b></td>
+					<td>&nbsp;</td>
+					<td><b><u>{$data.pemohon.nama_lengkap|default:''}</u></b></td>
+				</tr>
+				<tr>
+					<td>Pangkat : {$data.surat.info_tambahan.pangkat|default:'............................'}</td>
+					<td>&nbsp;</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Nip : {$data.surat.info_tambahan.nip_pernyataan}</td>
+					<td>&nbsp;</td>
+					<td></td>
+				</tr>
+			</table>
+			<table width="100%" style="margin-bottom: 20px; font-size: 14px;font-family: arial;">
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td align="center">
+					<b>Saksi - saksi :</b>
+					</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+			</table>
+			<table width="100%" style="font-size: 14px;padding-center: 58px;padding-top: -40px;font-family: arial;">
+				<tr>
+					{foreach from=$data.surat.info_tambahan.data_saksi item=pen}
+					<td align="center">{ucwords($pen.pekerjaan)|default:'.....................'}</td>
+					<td>&nbsp;</td>
+					{/foreach}
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					{foreach from=$data.surat.info_tambahan.data_saksi item=pen}
+					<td align="center"><u>{$pen.nama|default:'.....................'}</u></td> 
+					<td></td>
+					{/foreach}
+				</tr>
+			</table>
+		{elseif $data.surat.info_tambahan.nip_pernyataan !='' && count($data.surat.info_tambahan.data_saksi)==0} 
+			<table style="border-collapse: collapse; width: 100%;margin-top: -40px;margin-left: 60px;" border="0" cellpadding="0">
+				<tr>
+					<td valign="bottom" width="45%">Teregister Oleh :</td>
+					<td valign="bottom" width="15%">&nbsp;</td>
+					<td valign="bottom" align="left" width="40%">&nbsp;</td>
+				</tr>
+				<tr>
+					<td valign="bottom">Tgl. Register : {$data.surat.info_tambahan.tgl_register|default:'............................'}</td>
+					<td valign="bottom">&nbsp;</td>
+					<td valign="bottom" align="left">&nbsp;</td>
+				</tr>
+				<tr>
+					<td valign="bottom">No. Register : {$data.surat.info_tambahan.no_register|default:'............................'}</td>
+					<td valign="bottom">&nbsp;</td>
+					<td valign="bottom" align="left"></td>
+				</tr>
+				<tr>
+					<td valign="bottom"></td>
+					<td valign="bottom">&nbsp;</td>
+					<td valign="bottom">
+						{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'.......'},
+						{$data.surat.tanggal_surat|default:'............................'}
+					</td>
+				</tr>
+				
+				<tr>
+					<td valign="bottom"><b>{$data.surat.info_tambahan.jabatan|default:'............................'}</b></td>
+					<td valign="bottom">&nbsp;</td>
+					<td valign="bottom" align="left">Yang Menyatakan</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td align="left" width="40%">	
+						<table style="border:1px dashed #666;width: 80px;margin-left:-70px;font-size: 10px;padding-top: 8px;padding-bottom: 8px;">
+							<tr>
+								<td align="center">Materai<br/>Rp. 10.000,-</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td><br/></td>
+					<td><br/></td>
+					<td><br/></td>
+				</tr>
+				<tr>
+					<td><b><u>{$data.surat.info_tambahan.nama|default:'.....................'}</u></b></td>
+					<td></td>
+					<td><b><u>{$data.pemohon.nama_lengkap|default:''}</u></b></td>
+				</tr>
+				<tr>
+					<td>Pangkat : {$data.surat.info_tambahan.pangkat|default:'............................'}</td>
+					<td colspan="2"></td>
+				</tr>
+				<tr>
+					<td>Nip : {$data.surat.info_tambahan.nip_pernyataan}</td>
+					<td colspan="2"></td>
+				</tr>
+			</table>
+		{else} 
+			<table width="100%" style="margin-bottom: 20px; font-weight: none; font-size: 14px;padding-top: -35px;font-family: arial;">
+				<tr>
+					<td width="60%">
+						&nbsp;
+					</td>
+					<td align="left" width="40%">
+						{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'.....'}, {$data.surat.tanggal_surat|default:'............................'} <br/>
+						<span style="font-size:2px">&nbsp;</span><br/>
+						Yang Menyatakan 
+						<br/><br/>
+						<table style="border:1px dashed #666;width: 80px;margin-left:-70px;font-size: 10px;padding-top: 8px;padding-bottom: 8px;">
+							<tr>
+								<td align="center">Materai<br/>Rp. 10.000,-</td>
+							</tr>
+						</table>
+						<br/>
+						<b><u>{$data.pemohon.nama_lengkap|default:'.....................'}</u></b>
+					</td>
+				</tr>
+			</table>
+		{/if}
+		</div>
+	</body>
+</html>

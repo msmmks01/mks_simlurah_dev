@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="image/svg+xml" href="{$host}__assets/images/Simlurah White Color.svg">
+    <title>SIMLURAH - SISTEM INFORMASI MANAJEMEN KELURAHAN</title>
+	{$main_css}
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+		
+	<script>
+		var host = "{$host}";
+		var setting = "{$isi_setting|default:''}";
+		var nama_lengkap = "{$auth.nama_lengkap|default:''}";
+		var group_user = "{$auth.cl_user_group_id|default:''}";
+		var nip_pegawai_user = "{$auth.nip_pegawai|default:''}";
+		var nama_pegawai_user = "{$auth.nama_pegawai|default:''}";
+		var nama_apps = "SIMLURAH";
+	</script>
+	
+	{$main_js}
+	
+	
+</head>
+
+<body class="fixed hold-transition skin-green sidebar-mini">
+	<div class="wrapper">
+		<header class="main-header">
+			<a href="{$host}" class="logo d-lg-block d-none" style="background-color: transparent;padding: 0 27px;">
+				<span class="logo-mini"> <img  src="{$host}__assets/images/Simlurah Icon Color.svg" width="100%"></span>
+				<span class="logo-lg">
+
+					{if $auth.cl_user_group_id eq '2'}
+					<img style="margin-top:-5px;margin-left:-15px;" src="{$host}__assets/images/Simlurah White Color.svg" width="73%">
+					{else} 
+					<img style="margin-top:-5px;margin-left:-15px;" src="{$host}__assets/images/simkecamatan.png" width="73%">
+					{/if}
+
+					<img style="margin-top:-5px;margin-left:-15px;" src="{$host}__assets/images/Simlurah White Color.svg" width="73%">
+
+				</span>
+			<!-- {var_dump($auth)}; -->
+			</a>
+			<a href="{$host}" class="logo d-none" style="background-color: transparent;position: absolute;top: 0px;left: 45px;z-index: 1001;width: 50%;">
+				<span class="logo-mini"> SL </span>
+				<span class="logo-lg">
+					<img style="margin-top:-5px;margin-left:-15px;" src="http://localhost:8056/simlurah_dev/__assets/images/Simlurah White.svg" width="100%">
+				</span>
+			</a>
+			<nav class="navbar navbar-static-top">
+				
+				<a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+					<span class="sr-only">Toggle navigation</span>
+				</a>
+
+				<div class="pull-left" style="padding: 13px 0px;">
+					<small class="label pull-right bg-blue" style="font-size: 16px;">{$tahun}</small>
+
+				<div class="pull-left" style="padding: 15px 0px;">
+					<small class="label bg-blue" style="font-size: 15px;">{$tahun}</small>
+
+				</div>
+				<div class="navbar-custom-menu">
+					<ul class="nav navbar-nav">
+						
+						<li class="dropdown user user-menu">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<img src="{$host}__assets/images/logo-makassar.png" class="user-image" alt="User Image">
+								<span class="hidden-xs">{$auth.nama_lengkap}</span>
+							</a>
+							<ul class="dropdown-menu">
+								<!-- User image -->
+								<li class="user-header">
+									<img src="{$host}__assets/images/logo-makassar.png" class="img-circle" alt="User Image">
+									<p>
+										{$auth.nama_lengkap} <br/> {$auth.user_group}
+									</p>
+								</li>
+								<!-- Menu Footer-->
+								<li class="user-footer">
+									<div class="pull-left">
+										<a href="javascript:void(0)" onclick="loadUrl('{$host}backoffice-form/ubah_password_user');" class="btn btn-default btn-flat">Ubah Password</a>
+									</div>
+									<div class="pull-right">
+										<a href="{$host}logout-app" class="btn btn-default btn-flat">Log out</a>
+									</div>
+								</li>
+							</ul>
+						</li>
+						{if $auth.cl_user_group_id eq '2'}
+						<li class="dropdown messages-menu">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+							<i class="fa fa-bell-o"></i>
+							<span class="label label-warning">{$notif}</span>
+							</a>
+							<ul class="dropdown-menu">
+							   <li class="header">Anda Mempunyai {$notif} Pesan yang belum dibaca</li>
+							   {foreach from=$get_data_bc item=rows}
+							   {if $rows.flag_reg == 'Y'}<li class="footer"><a href="javascript:void(0)" onclick="loadUrl(host+'backoffice-grid/broadcast');"><i class="fa fa-envelope-open-o"></i> {$rows.subjek}</a></li>{else}<li class="footer"><a href="javascript:void(0)" onclick="loadUrl(host+'backoffice-grid/broadcast');"><i class="fa fa-envelope-o"></i> {$rows.subjek}</a></li>{/if}
+							   {/foreach}
+							   <li class="footer"><a href="javascript:void(0)" onclick="loadUrl(host+'backoffice-grid/broadcast');">Lihat semua pesan</a></li>
+							</ul>
+						 </li>
+						{else}
+						{/if}
+						<!-- Control Sidebar Toggle Button -->						
+					</ul>
+				</div>
+			</nav>
+		</header>
+		
+		<aside class="main-sidebar">
+			<section class="sidebar">	
+				<div class="user-panel">
+					<div class="pull-left image">
+						<img src="{$host}__assets/images/logo-makassar.png" class="img-circle" alt="User Image">
+					</div>
+					<div class="pull-left info">
+						<p>{$auth.username|default:''}</p>
+						<a href="{$host}"><i class="fa fa-circle text-success"></i> Online</a>
+					</div>
+				</div>
+				{include file="backend/menu.html"}
+			</section>
+		</aside>
+		
+		<div class="content-wrapper">
+			<div id="main-konten"></div>
+		</div>
+	</div>
+
+		<!-- Modal -->
+		<div style='z-index:9000 !important;' class="modal fade" id="pesanModal" tabindex="-1" role="dialog">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<span id="headernya"></span>
+						<button id='button_close' type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					</div>
+					<div class="modal-body">
+						<div id='modalencuk' class="modal-product"></div> <!-- .modal-product -->
+					</div> <!-- .modal-body -->
+				</div> <!-- .modal-content -->
+			</div> <!-- .modal-dialog -->
+		</div>
+		<!-- END Modal -->
+		
+	<script>
+
+		$( document ).ready(function() {
+			get_notif();
+			{if in_array($auth.cl_user_group_id,[2,4,5])}
+				loadUrl(host+'backoffice-form/beranda');		
+			{else}
+				loadUrl(host+'backoffice-form/beranda_admin');		
+			{/if}
+			
+
+			setInterval(function(){ 
+				$.post(host+'backoffice-display/ceksession', { }, function(resp){
+					if(resp == '2'){
+						window.location.reload();
+					}
+				});
+			}, 20000);
+			
+			
+
+		});
+
+		function get_notif() {
+			$.ajax({
+				url: 'Backendxx/notif_broadcast',
+				type: "POST",
+				dataType: "json",
+				success: function(data) {
+					$('#notif').html(data);
+				}
+			});
+		}
+	</script>
+</body>
+</html>

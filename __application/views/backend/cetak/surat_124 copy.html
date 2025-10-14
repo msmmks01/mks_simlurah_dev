@@ -1,0 +1,225 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
+	<title></title>
+	
+	<style type="text/css">
+		table { width:100%; } 
+		body { font-family: 'arial'; }
+	
+	</style>
+	
+</head>
+
+<body>
+	<div style="padding-top: 5mm;">
+		<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;font-family: arial;">
+			<!-- <tr>
+				<td align="center" rowspan=4 valign="middle" style="width: 150px;">
+					<img src="{$host}__assets/images/logo-makassar.png" style="height:100px" />
+				</td>
+				<td align="center" valign="top" style="font-size:22.6px;padding:0px">PEMERINTAH {$setting.nama_kab_kota|upper|default:'.......'}</td>
+				{if $setting.status_logo_lainnya eq '1'}
+				<td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+					<img src="{$host}__assets/images/logo-camat.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';"  style="height:100px"/>
+				</td>
+				{else} 
+				<td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+					<img src="{$host}__assets/images/logo-blank.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';"  style="height:100px"/>
+				</td>
+				{/if}
+			</tr>
+			<tr>
+				<td align="center" style="font-size:22.6px;padding:0px">KECAMATAN {$setting.nama_kecamatan|upper|default:'.......'}</td>
+			</tr>
+			<tr>
+				<td align="center" valign="top" style="font-size:18.6px;padding:0px"><b>{$setting.nama_desa|upper|default:'.......'}</b></td>
+			</tr>
+			<tr>
+				<td align="center" valign="top" style="font-size:10.6px;padding:0px">
+					<i>
+						{if strlen($setting.alamat)>1}
+						{$setting.alamat|default:'...'}
+						{/if}
+						{if strlen($setting.telp)>1}
+						Telp. {$setting.telp|default:'...'}
+						{/if}
+						{if strlen($setting.faks)>1}
+						Fax. {$setting.faks|default:'...'}
+						{/if}
+						{if strlen($setting.email)>1}
+						Email : {$setting.email|default:'...'}
+						{/if}
+						{if strlen($setting.nama_kab_kota)>1}
+						{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'...'}
+						{/if}
+						{if strlen($setting.kode_pos)>1}
+						Kode Pos {$setting.kode_pos|default:'...'}
+						{/if}
+						{if strlen($setting.website)>1}
+						<br>Website : {str_replace('-','',$setting.website|default:'')}
+						{/if}
+					</i>
+				</td>
+			</tr>
+			<tr>
+				<td align="center" colspan="3" align="center">
+					<hr style="color: black;height: 4px; margin-top:0px">
+					<hr style="color: black;height: 1px; margin-top:3px">
+				</td>
+			</tr> -->
+			{include file="backend/template/kop_surat_kecamatan.html"}
+		</table>
+	</div>
+
+	<div>
+		<table border="0" style="border-collapse: collapse;">
+			<tr>
+				<td colspan="2" align="center"  style="height: 50px;padding-top: 5px;padding-left: 5px;border-top: none;border-left: 1px solid black;border-right: 1px solid black;font-size: 15px;"><b>L E M B A R &nbsp; D I S P O S I S I<br>
+				</td>
+			</tr>
+		</table>
+		<table border="1" style="border-collapse: collapse;">
+			<tr>
+				<td valign="top" style="padding-top: 5px;padding-left: 5px;border-top: none;border-right: none;border-bottom: none;" width="100px" height="15">Surat dari</td>
+				<td valign="top" style="padding-top: 5px;padding-left: 5px;border-top: none;border-left: none;border-right: none;border-bottom: none;" align="center" width="5px">:</td>
+				<td valign="top" style="padding-top: 5px;padding-left: 5px;border-top: none;border-left: none;border-right: none;border-bottom: none;" width="250px">{$data.surat.info_tambahan.surat_dari|default:'.....................'}</td>
+				<td valign="top" style="padding-top: 5px;padding-left: 5px;border-top: none;border-left: none;border-right: none;border-bottom: none;" height="15" width='150px'>Diterima Tanggal</td>
+				<td valign="top" style="padding-top: 5px;padding-left: 5px;border-top: none;border-left: none;border-right: none;border-bottom: none;" align="center" width="5px">:</td>
+				<td valign="top" style="padding-top: 5px;padding-left: 5px;border-top: none;border-left: none;border-bottom: none;" width="250px">{tgl_indo($data.surat.info_tambahan.tgl_diterima)|default:'.....................'}</td>
+			</tr>
+			<tr>
+				<td valign="top" style="padding-top: 5px;padding-left: 5px;border-top: none;border-right: none;border-bottom: none;" height="15">Nomor Surat</td>
+				<td valign="top" style="padding-top: 5px;padding-left: 5px;border-top: none;border-left: none;border-right: none;border-bottom: none;" align="center">:</td>
+				<td valign="top" style="padding-top: 5px;padding-left: 5px;border-top: none;border-left: none;border-right: none;border-bottom: none;" >{$data.surat.no_surat|default:'.....................'}</td>
+				<td valign="top" style="padding-top: 5px;padding-left: 5px;border-top: none;border-left: none;border-right: none;border-bottom: none;" height="15">Nomor Agenda</td>
+				<td valign="top" style="padding-top: 5px;padding-left: 5px;border-top: none;border-left: none;border-right: none;border-bottom: none;" align="center">:</td>
+				<td valign="top" style="padding-top: 5px;padding-left: 5px;border-top: none;border-left: none;border-bottom: none;" >{$data.surat.info_tambahan.no_agenda|default:'.....................'}</td>
+			</tr>
+			<tr>
+				<td valign="top" style="padding-top: 5px;padding-left: 5px;border-top: none;border-right: none;border-bottom: none;" height="15" width='150px'>Tanggal Surat</td>
+				<td valign="top" style="padding-top: 5px;padding-left: 5px;border-top: none;border-left: none;border-right: none;border-bottom: none;" align="center">:</td>
+				<td valign="top" style="padding-top: 5px;padding-left: 5px;border-top: none;border-left: none;border-right: none;border-bottom: none;" >{tgl_indo($data.surat.tgl_surat)|default:'.....................'}</td>
+				<td valign="top" style="padding-top: 5px;padding-left: 5px;border-top: none;border-left: none;border-right: none;border-bottom: none;" height="15">Sifat</td>
+				<td valign="top" style="padding-top: 5px;padding-left: 5px;border-top: none;border-left: none;border-right: none;border-bottom: none;" align="center">:</td>
+				<td valign="top" style="padding-top: 5px;padding-left: 5px;border-top: none;border-left: none;border-bottom: none;" >{$data.surat.info_tambahan.cl_sifat_surat|default:'.....................'}</td>
+			</tr>
+		</table>
+		<table border="0" style="border-collapse: collapse;">
+			<tr>
+				<td colspan="2" valign="center"  style="height: 100px;padding-top: 5px;padding-left: 5px;border-top: none;border-left: 1px solid black;border-right: 1px solid black;">Perihal : <br>
+					{nl2br($data.surat.info_tambahan.perihal_disposisi)}
+				</td>
+			</tr>
+			<tr>
+				<td style="width: 55%;">
+					<table cellspacing="0" border="0" width="500px">
+						
+						<tr>
+							<td  height="19" colspan="2" align="left" valign=top>Diteruskan Kepada Sdr.</td>
+						</tr>
+						<tr>
+							<td  height="19" align="left" valign=top><input type="checkbox" name="c1" id="c1"></td>
+							<td>Sekcam</td>
+						</tr>
+						<tr>
+							<td  height="19" align="left" valign=top><input type="checkbox" name="c1" id="c1"></td>
+							<td>Kasi Pemerintahan, Kinerja Lurah dan RT/RW</td>
+						</tr>
+						<tr>
+							<td  height="19" align="left" valign=top><input type="checkbox" name="c1" id="c1"></td>
+							<td>Kasi Ketentraman, Ketertiban dan Penegakan Peraturan Daerah</td>
+						</tr>
+						<tr>
+							<td  height="19" align="left" valign=top><input type="checkbox" name="c1" id="c1"></td>
+							<td>Kasi Perekonomian, Pembangunan dan Pengembangan Sistem Manajemen Informasi</td>
+						</tr>
+						<tr>
+							<td  height="19" align="left" valign=top><input type="checkbox" name="c1" id="c1"></td>
+							<td>Kasi Pemberdayaan Masyarakat dan Kesejahteraan Sosial</td>
+						</tr>
+						<tr>
+							<td  height="19" align="left" valign=top><input type="checkbox" name="c1" id="c1"></td>
+							<td>Kasi Pengelolaan Kebersihan dan Pertamanan</td>
+						</tr>
+						<tr>
+							<td  height="19" align="left" valign=top><input type="checkbox" name="c1" id="c1"></td>
+							<td>Kepala Subbagian Umum dan Kepegawaian</td>
+						</tr>
+						<tr>
+							<td  height="19" align="left" valign=top><input type="checkbox" name="c1" id="c1"></td>
+							<td>Kepala Subbagian Perencanaan dan Keuangan</td>
+						</tr>
+						<tr>
+							<td  height="19" align="left" valign=top><input type="checkbox" name="c1" id="c1"></td>
+							<td>Pengurus Barang</td>
+						</tr>
+						<tr>
+							<td  height="19" align="left" valign=top><input type="checkbox" name="c1" id="c1"></td>
+							<td >Staff PPATA</td>
+						</tr>
+						<tr>
+							<td  height="19" align="left" valign=top><input type="checkbox" name="c1" id="c1"></td>
+							<td>&hellip;.................</td>
+						</tr>
+						<tr>
+							<td  height="19" align="left" valign=top><input type="checkbox" name="c1" id="c1"></td>
+							<td>&hellip;.................</td>
+						</tr>
+						<tr>
+							<td  height="19" align="left" valign=top><input type="checkbox" name="c1" id="c1"></td>
+							<td>&hellip;.................</td>
+						</tr>
+					</table>
+				</td>
+				<td valign="top" style="width: 45%;">
+					<table cellspacing="0" border="0">
+						
+						<tr>
+							<td  height="19" colspan="2" align="left" valign=top>Dengan Hormat Harap :</td>
+						</tr>
+						<tr>
+							<td  height="19" align="left" valign=top style="width: 10%;"><input type="checkbox" name="c1" id="c1"></td>
+							<td>Tanggapan dan Saran</td>
+						</tr>
+						<tr>
+							<td  height="19" align="left" valign=top><input type="checkbox" name="c1" id="c1"></td>
+							<td>Proses lebih lanjut</td>
+						</tr>
+						<tr>
+							<td  height="19" align="left" valign=top><input type="checkbox" name="c1" id="c1"></td>
+							<td>Koordinasi/Konfirmasi</td>
+						</tr>
+						<tr>
+							<td  height="19" align="left" valign=top><input type="checkbox" name="c1" id="c1"></td>
+							<td>&hellip;.................</td>
+						</tr>
+						<tr>
+							<td  height="19" align="left" valign=top><input type="checkbox" name="c1" id="c1"></td>
+							<td>&hellip;.................</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top" style="height: 150px;padding-top: 5px;padding-left: 5px;border-top: none;border-left: none">Catatan : <br></td>
+				<td valign="top" style="height: 150px;padding-top: 5px;padding-left: 5px;border-top: none;border-left: none">Paraf : 
+					{if count($data.ttd)==1}
+					{$data.ttd[0]['center']}
+					{else}
+					{$data.ttd[0]['center']}<br>{$data.ttd[1]['center']}
+					{/if}
+				</td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<td valign="top" style="height: 150px;padding-top: 5px;padding-left: 55px;border-top: none;border-left: none">terima kasih.</td>
+			</tr>
+		</table>	
+	</div>
+</body>
+</html>

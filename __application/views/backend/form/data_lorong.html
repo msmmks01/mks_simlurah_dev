@@ -1,0 +1,238 @@
+<form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/data_lorong" enctype="multipart/form-data" >
+    <input type="hidden" name="id" value="{$data.id|default:''}">
+	<input type="hidden" name="editstatus" value="{$sts|default:'add'}">
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<h3 class="box-title">Form Isian</h3>
+				</div>
+				<div class="box-body">
+					<div class="row">
+						<div class="col-md-12">
+
+							<div class="row" style="margin-bottom:10px;"> 
+                                <div class="col-md-6">
+									{include file="backend/template/input_form.html" label="Nama Lorong" class_width="col-lg-12" type="text" name="nama_lorong" id="nama_lorong" value="{$data.nama_lorong|default:''}"}
+								</div>
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>Lokasi</legend>
+									</fieldset>
+								</div>
+								<div class="col-md-12">
+									{include file="backend/template/input_form.html" label="Alamat" class_width="col-lg-12" type="text" name="alamat" id="alamat" value="{$data.alamat|default:''}"}
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html" label="RT/RW" class_width="col-lg-12" type="text" name="rtrw" id="rtrw" value="{$data.rtrw|default:''}"}
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="true" label="Kelurahan" class_width="col-lg-12" type="baca_aja" name="cl_kelurahan_desa_id" id="cl_kelurahan_desa_id" value="{$kel.nama|default:''}"}
+								</div>
+                                <div class="col-md-4">
+									{include file="backend/template/input_form.html" label="Kecamatan" class_width="col-lg-12" type="baca_aja" name="kecamatan" id="kecamatan" value="{$kec.nama|default:''}"}
+								</div>
+							</div>
+                            <div class="row" style="margin-bottom:10px;">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>Ukuran</legend>
+									</fieldset>
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html" label="Panjang" class_width="col-lg-12" type="text" name="panjang" id="panjang" value="{$data.panjang|default:''}"}
+								</div>
+                                <div class="col-md-2">
+									{include file="backend/template/input_form.html" label="Lebar" class_width="col-lg-12" type="text" name="lebar" id="lebar" value="{$data.lebar|default:''}"}
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" label="Koordinat (Ambil Dari Google Map)" 
+									class_width="col-lg-12" type="text" required="true" placeholder="contoh: -5.13935799930719, 119.45180916240452"
+									name="koordinat" id="koordinat"
+									value="{$kor|default:''}"}
+								  </div>
+							</div>
+                            <div class="row" style="margin-bottom:10px;">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>Jumlah Penduduk</legend>
+									</fieldset>
+								</div>
+                                <div class="col-md-2">
+									{include file="backend/template/input_form.html" label="Jumlah Penduduk" class_width="col-lg-12" class="angka" type="angka" name="jumlah_penduduk" id="jumlah_penduduk" value="{$data.jumlah_penduduk|default:''}"}
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html" label="Laki-Laki" class_width="col-lg-12" class="angka" type="angka" name="jumlah_laki" id="jumlah_laki" value="{$data.jumlah_laki|default:''}"}
+								</div>
+                                <div class="col-md-2">
+									{include file="backend/template/input_form.html" label="Perempuan" class_width="col-lg-12" class="angka" type="angka" name="jumlah_perempuan" id="jumlah_perempuan" value="{$data.jumlah_perempuan|default:''}"}
+								</div>
+                                <div class="col-md-2">
+									{include file="backend/template/input_form.html" label="Jumlah KK" class_width="col-lg-12" class="angka" type="angka" name="jumlah_kk" id="jumlah_kk" value="{$data.jumlah_kk|default:''}"}
+								</div>
+                                <div class="col-md-2">
+									{include file="backend/template/input_form.html" label="Jumlah Rumah" class_width="col-lg-12" class="angka" type="angka" name="jumlah_rumah" id="jumlah_rumah" value="{$data.jumlah_rumah|default:''}"}
+								</div>
+							</div>
+
+                            <div class="row" style="margin-bottom:10px;">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>Potensi Lorong</legend>
+									</fieldset>
+								</div>
+                                <div class="col-md-4">
+									{include file="backend/template/input_form.html" label="Potensi Lorong 1" class_width="col-lg-12" type="text" name="potensi_lorong1" id="potensi_lorong1" value="{$data.potensi_lorong1|default:''}"}
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" label="Potensi Lorong 2" class_width="col-lg-12" type="text" name="potensi_lorong2" id="potensi_lorong2" value="{$data.potensi_lorong2|default:''}"}
+								</div>
+                                <div class="col-md-4">
+									{include file="backend/template/input_form.html" label="Potensi Lorong 3" class_width="col-lg-12" type="text" name="potensi_lorong3" id="potensi_lorong3" value="{$data.potensi_lorong3|default:''}"}
+								</div>
+                                <div class="col-md-6">
+									{include file="backend/template/input_form.html" label="Pekerjaan Umum Warga" class_width="col-lg-12" type="text" name="pekerjaan_umum_warga" id="pekerjaan_umum_warga" value="{$data.pekerjaan_umum_warga|default:''}"}
+								</div>
+							</div>
+
+                            <div class="row" style="margin-bottom:10px;">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>Batas Administrasi Lorong</legend>
+									</fieldset>
+								</div>
+                                <div class="col-md-2">
+									{include file="backend/template/input_form.html" label="Utara" class_width="col-lg-12" type="text" name="utara" id="utara" value="{$data.utara|default:''}"}
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html" label="Timur" class_width="col-lg-12" type="text" name="timur" id="timur" value="{$data.timur|default:''}"}
+								</div>
+                                <div class="col-md-2">
+									{include file="backend/template/input_form.html" label="Selatan" class_width="col-lg-12" type="text" name="selatan" id="selatan" value="{$data.selatan|default:''}"}
+								</div>
+                                <div class="col-md-2">
+									{include file="backend/template/input_form.html" label="Barat" class_width="col-lg-12" type="text" name="barat" id="barat" value="{$data.barat|default:''}"}
+								</div>
+							</div>
+
+                            <div class="row" style="margin-bottom:10px;">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>Tokoh Masyarakat Paling Berpengaruh</legend>
+									</fieldset>
+								</div>
+                                <div class="col-md-4">
+									{include file="backend/template/input_form.html" label="Tokoh 1" class_width="col-lg-12" type="text" name="tokoh1" id="tokoh1" value="{$data.tokoh1|default:''}"}
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" label="Tokoh 2" class_width="col-lg-12" type="text" name="tokoh2" id="tokoh2" value="{$data.tokoh2|default:''}"}
+								</div>
+                                <div class="col-md-4">
+									{include file="backend/template/input_form.html" label="Tokoh 3" class_width="col-lg-12" type="text" name="tokoh3" id="tokoh3" value="{$data.tokoh3|default:''}"}
+								</div>
+							</div>
+
+                            <div class="row" style="margin-bottom:10px;">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>Penanggung Jawab Lorong</legend>
+									</fieldset>
+								</div>
+                                <div class="col-md-4">
+									{include file="backend/template/input_form.html" label="Nama" class_width="col-lg-12" type="text" name="nama_pj" id="nama_pj" value="{$data.nama_pj|default:''}"}
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" label="Jabatan" class_width="col-lg-12" type="text" name="jabatan_pj" id="jabatan_pj" value="{$data.jabatan_pj|default:''}"}
+								</div>
+                                <div class="col-md-4">
+									{include file="backend/template/input_form.html" label="Nomor Kontak" class_width="col-lg-12" type="text" name="no_pj" id="no_pj" value="{$data.no_pj|default:''}"}
+								</div>
+							</div>
+
+							<!-- <div class="row">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>STATUS DATA</legend>
+									</fieldset>
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html" required="true" label="Status" class_width="col-lg-12" type="select" name="status_data" id="status_data" option={$status_data|default:''} }
+								</div>
+							</div> -->
+
+							<div class="row">
+								<div class="col-md-12">
+									<hr />
+									{include file="backend/template/button_save.html" text="Simpan" id_na="save" style_btn="btn-success"  btn_goyz="false"}
+									{include file="backend/template/button_save.html" text="Kembali" click="$('#grid_nya_{$mod}').show();$('#detil_nya_{$mod}').hide();" id_na="cancel" style_btn="btn-danger"  btn_goyz="true"}
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</form>
+
+<script>
+	var rulesnya = {
+		nik : "required",
+		nama_lengkap : "required",
+		agama : "required",
+		tempat_lahir : "required",
+		tgl_lahir : "required",
+		status_kawin : "required",
+		pendidikan : "required",
+		koordinat: "required"
+	};
+
+	$('.angka').autoNumeric('init', {
+		aSep : '.',
+		aDec: ',',
+		mDec: '0'
+	});
+
+	var messagesnya = {
+		nik : "<i style='color:red'>Harus Diisi</i>",
+		nama_lengkap : "<i style='color:red'>Harus Diisi</i>",
+		agama : "<i style='color:red'>Harus Diisi</i>",
+		tempat_lahir : "<i style='color:red'>Harus Diisi</i>",
+		tgl_lahir : "<i style='color:red'>Harus Diisi</i>",
+		status_kawin : "<i style='color:red'>Harus Diisi</i>",
+		pendidikan : "<i style='color:red'>Harus Diisi</i>",
+		koordinat: "<i style='color:red'>Harus Diisi</i>"
+	}
+
+	$( "#form_{$acak}" ).validate( {
+		rules: rulesnya,
+		messages: messagesnya,
+		submitHandler: function(form) {
+			$.LoadingOverlay("show");
+			submit_form('form_{$acak}',function(r){
+				if(r == 1 ){
+					$.messager.alert(nama_apps,'Data Tersimpan','info');
+					$('#cancel_{$acak}').trigger('click');
+					$('#grid_data_lorong').datagrid('reload');
+				}else{
+					$.messager.alert(nama_apps,'Proses Simpan Data Gagal '+r,'warning');
+				}
+				$.LoadingOverlay("hide", true);
+			});
+			//*/
+		},
+		errorPlacement: function(error, element) {
+	        var name = element.attr('name');
+	        var errorSelector = '.validation_error_message[for="' + name + '"]';
+	        var $element = $(errorSelector);
+	        if ($element.length) {
+	            $(errorSelector).html(error.html());
+	        } else {
+	            error.insertAfter(element);
+	        }
+	    }
+	} );
+</script>

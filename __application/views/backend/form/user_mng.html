@@ -1,0 +1,113 @@
+<form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/user_mng" enctype="multipart/form-data" >
+    <input type="hidden" name="id" value="{$data.id|default:''}">
+	<input type="hidden" name="editstatus" value="{$sts|default:'add'}">
+
+	<div class="row">
+		<!-- left column -->
+		<div class="col-md-12">
+			<!-- general form elements -->
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<h3 class="box-title">Form Data User</h3>
+				</div>
+				<div class="box-body">
+					<div class="row">
+						<div class="col-md-6">
+							{include file="backend/template/input_form.html" required="true" label="UserName" class_width="col-lg-12" type="text" name="username" id="username" value="{$data.username|default:''}"}
+						</div>
+						<div class="col-md-6">
+							{include file="backend/template/input_form.html" required="true" label="Password" class_width="col-lg-12" type="pwd" name="password" id="password" value="{$data.password|default:''}"}
+						</div>
+						<div class="col-md-6">
+							{include file="backend/template/input_form.html" required="true" label="Nama Lengkap" class_width="col-lg-12" type="text" name="nama_lengkap" id="nama_lengkap" value="{$data.nama_lengkap|default:''}"}
+						</div>
+						<div class="col-md-6">
+							{include file="backend/template/input_form.html" required="true" label="Group User" class_width="col-lg-12"  type="select" name="cl_user_group_id" id="cl_user_group_id" option=$cl_user_group_id|default:'' }
+						</div>
+					</div>
+					<hr/>
+					<div class="row">
+						<div class="col-md-3">
+							{include file="backend/template/input_form.html" label="Provinsi" class_width="col-lg-12" type="select2" name="cl_provinsi_id" id="cl_provinsi_id" option={$cl_provinsi_id|default:''} }
+						</div>
+						<div class="col-md-3">
+							{include file="backend/template/input_form.html" label="Kab/Kota" class_width="col-lg-12" type="select2" name="cl_kab_kota_id" id="cl_kab_kota_id" option={$cl_kab_kota_id|default:''} }
+						</div>
+						<div class="col-md-3">
+							{include file="backend/template/input_form.html" label="Kecamatan" class_width="col-lg-12" type="select2" name="cl_kecamatan_id" id="cl_kecamatan_id" option={$cl_kecamatan_id|default:''} }
+						</div>
+						<div class="col-md-3">
+							{include file="backend/template/input_form.html" label="Kelurahan / Desa" class_width="col-lg-12" type="select2" name="cl_kelurahan_desa_id" id="cl_kelurahan_desa_id" option={$cl_kelurahan_desa_id|default:''} }
+						</div>
+					</div>
+					<hr />
+					<div class="row">
+						<div class="col-md-12">
+							{include file="backend/template/button_save.html" text="Save" id_na="save" style_btn="btn-success"  btn_goyz="false"}
+							{include file="backend/template/button_save.html" text="Back" click="$('#grid_nya_{$mod}').show();$('#detil_nya_{$mod}').hide();" id_na="cancel" style_btn="btn-danger"  btn_goyz="true"}	
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</form>
+
+<script type="text/javascript">
+	
+	var rulesnya = {
+		username: "required",
+		password: "required",
+		nama_lengkap: "required",
+		cl_user_group_id: "required",
+
+		cl_provinsi_id: "required",
+		cl_kab_kota_id: "required",
+		cl_kecamatan_id: "required",
+		//cl_kelurahan_desa_id: "required",
+	};
+
+	var messagesnya = {
+		username: "<i style='color:red'>Required</i>",
+		password: "<i style='color:red'>Required</i>",
+		nama_lengkap: "<i style='color:red'>Required</i>",
+		cl_user_group_id: "<i style='color:red'>Required</i>",
+
+		cl_provinsi_id: "<i style='color:red'>Required</i>",
+		cl_kab_kota_id: "<i style='color:red'>Required</i>",
+		cl_kecamatan_id: "<i style='color:red'>Required</i>",
+		//cl_kelurahan_desa_id: "<i style='color:red'>Required</i>",
+	}
+
+	$( "#form_{$acak}" ).validate( {
+		rules: rulesnya,
+		messages: messagesnya,
+		submitHandler: function(form) {
+			$.LoadingOverlay("show");
+			submit_form('form_{$acak}',function(r){
+				if(r==1){ 
+					$.messager.alert(nama_apps,'Data Tersimpan','info'); 
+					$('#cancel_{$acak}').trigger('click');
+					grid_nya.datagrid('reload');
+				}else{ 
+					$.messager.alert(nama_apps,'Proses Simpan Data Gagal','warning'); 
+				}
+				$.LoadingOverlay("hide", true);
+			});
+			//*/
+		},
+		errorPlacement: function(error, element) {
+	        var name = element.attr('name');
+	        var errorSelector = '.validation_error_message[for="' + name + '"]';
+	        var $element = $(errorSelector);
+	        if ($element.length) { 
+	            $(errorSelector).html(error.html());
+	        } else {
+	            error.insertAfter(element);
+	        }
+	    }
+	} );
+	
+</script>

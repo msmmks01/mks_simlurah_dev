@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+
+<head>
+
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+    <title>LAPORAN PERSURATAN MASUK UMUM</title>
+    <meta name="generator" content="LibreOffice 5.4.7.2 (Linux)" />
+    <meta name="author" content="No Name" />
+    <meta name="created" content="2022-11-10T02:16:23" />
+    <meta name="changedby" content="No Name" />
+    <meta name="changed" content="2022-11-10T02:57:05" />
+    <meta name="AppVersion" content="16.0300" />
+    <meta name="DocSecurity" content="0" />
+    <meta name="HyperlinksChanged" content="false" />
+    <meta name="LinksUpToDate" content="false" />
+    <meta name="ScaleCrop" content="false" />
+    <meta name="ShareDoc" content="false" />
+
+    <style type="text/css">
+        table {
+            width: 100%;
+        }
+
+        body {
+            font-family: 'Bookman Old Style, Helvetica, sans-serif';
+        }
+
+        .nowrap {
+            white-space: nowrap;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div style="padding-bottom: 5mm;">
+        {if $auth.cl_user_group_id eq '2'}
+        <table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;">
+            <tr>
+                <td align="center" rowspan=4 valign="middle" style="width: 150px;">
+                    <img src="./__assets/images/logo-makassar.png" style="height:100px" />
+                </td>
+                <td align="center" valign="bottom" style="font-size:22.6px;padding:0px">PEMERINTAH
+                    {$setting.nama_kab_kota|upper|default:'.......'}</td>
+                <td align="center" rowspan=4 valign="middle" style="width: 150px;">
+                    <img src="./__assets/images/logo-camat.png" style="height:100px" />
+                </td>
+            </tr>
+            <tr>
+                <td align="center" style="font-size:22.6px;padding:0px">KECAMATAN
+                    {$setting.nama_kecamatan|upper|default:'.......'}</td>
+            </tr>
+            <tr>
+                <td align="center" valign="top" style="font-size:18.6px;padding:0px">
+                    <b>{$setting.nama_desa|upper|default:'.......'}</b>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" valign="top" style="font-size:10.6px;padding:0px">{$setting.alamat|default:'ALAMAT
+                    .......'}
+                    {if str_replace('-','',$setting.telp) neq ''}
+                    Telp. {str_replace('-','',$setting.telp|default:'')}
+                    {/if}
+                    {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'.....'}
+                    {$setting.kode_pos|default:''}</td>
+            </tr>
+            <tr>
+                <td align="center" colspan="3" align="center">
+                    <hr style="color: black;height: 4px; margin-bottom:0px">
+                    <hr style="color: black;height: 1px; margin-top:3px">
+                </td>
+            </tr>
+            <tr>
+                <td colspan=3 align="center"><b><u>LAPORAN PERSURATAN MASUK UMUM</u></b></td>
+            </tr>
+        </table>
+        {else}
+        <table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;">
+            <tr>
+                <td align="center" valign="middle" style="width: 150px;">
+                    <img src="./__assets/images/logo-makassar.png" style="height:100px" />
+                </td>
+                <td align="center" valign="middle" style="font-size:22.6px;padding:0px">PEMERINTAH
+                    {$setting.nama_kab_kota|upper|default:'.......'}<br>KECAMATAN
+                    {$setting.nama_kecamatan|upper|default:'.......'}</td>
+                <td align="center" valign="middle" style="width: 150px;">
+                    <img src="./__assets/images/logo-camat.png" style="height:100px" />
+                </td>
+            </tr>
+            <tr>
+                <td align="center" colspan="3" align="center">
+                    <hr style="color: black;height: 4px; margin-bottom:0px">
+                    <hr style="color: black;height: 1px; margin-top:3px">
+                </td>
+            </tr>
+            <tr>
+                <td colspan=3 align="center"><b><u>LAPORAN PERSURATAN MASUK UMUM</u></b></td>
+            </tr>
+        </table>
+        {/if}
+    </div>
+    <br>
+    <div style="padding-bottom: 2mm;padding font-size: 16px;">
+        <table border="1" cellpadding="3" width="100%" style="margin-bottom:10px; font-family:arial; font-size:10px;border-collapse: collapse;">	
+            <thead>
+                <tr>
+                    <th bgcolor="#b9b9b9" width="5%" style="text-align: center" ><b>NO</b></th>
+                    {if $auth.cl_user_group_id neq '2'}
+                        <th bgcolor="#b9b9b9" width="10%" style="text-align: center" ><b>KELURAHAN</b></th>
+                    {/if}
+                    <th bgcolor="#b9b9b9" width="20%" style="text-align: center" ><b>ASAL SURAT</b></th>
+                    <th bgcolor="#b9b9b9" width="20%" style="text-align: center" ><b>JENIS SURAT</b></th>
+                    <th bgcolor="#b9b9b9" width="25%" style="text-align: center" ><b>PERIHAL</b></th>
+                    <th bgcolor="#b9b9b9" width="20%" style="text-align: center" ><b>TGL. DITERIMA</b></th>
+                </tr>
+            </thead>
+            <tbody>
+                {assign var=idx value=1}
+                {foreach from=$data item=rows}
+                    <tr>
+                        <td valign="top" style="text-align: center">{$idx}</td>
+                        {if $auth.cl_user_group_id neq '2'}
+                            <td valign="top">{$rows.nama_kelurahan_desa|default:'-'}</td>
+                        {/if}
+                        <td valign="top">{$rows.asal_surat|default:'-'}</td>
+                        <td valign="top">{$rows.jenis_surat|default:'-'}</td>
+                        <td valign="top">{$rows.perihal|default:'-'}</td>
+                        <td valign="top" style="text-align: center">{$rows.tanggal_terima|default:'-'}</td>
+                    </tr>
+
+                    {assign var=idx value=$idx+1}
+                {/foreach}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

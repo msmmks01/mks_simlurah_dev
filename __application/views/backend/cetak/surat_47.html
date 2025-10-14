@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SIMLURAH ADMINISTRASI</title>
+    <style>
+		table { width:100%; } 
+		body { font-family: 'arial'; }
+	</style>
+</head>
+<body>
+	<div id='content'>
+		<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;">
+			<!-- <tr>
+				<td align="center" rowspan=4 valign="middle" style="width: 150px;">
+					<img src="{$host}__assets/images/logo-makassar.png" style="height:100px" />
+				</td>
+				<td align="center" valign="bottom" style="font-size:22.6px;padding:0px">PEMERINTAH {$setting.nama_kab_kota|upper|default:'.......'}</td>
+				{if $setting.status_logo_lainnya eq '1'}
+				<td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+					<img src="{$host}__assets/images/logo-camat.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';"  style="height:100px"/>
+				</td>
+				{else} 
+				<td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+					<img src="{$host}__assets/images/logo-blank.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';"  style="height:100px"/>
+				</td>
+				{/if}
+			</tr>
+			<tr>
+				<td align="center" style="font-size:22.6px;padding:0px">KECAMATAN {$setting.nama_kecamatan|upper|default:'.......'}</td>
+			</tr>
+			<tr>
+				<td align="center" valign="top" style="font-size:18.6px;padding:0px"><b>{$setting.nama_desa|upper|default:'.......'}</b></td>
+			</tr>
+			<tr>
+				<td align="center" valign="top" style="font-size:10.6px;padding:0px">
+					<i>
+						{if strlen($setting.alamat)>1}
+						{$setting.alamat|default:'...'}
+						{/if}
+						{if strlen($setting.telp)>1}
+						Telp. {$setting.telp|default:'...'}
+						{/if}
+						{if strlen($setting.faks)>1}
+						Fax. {$setting.faks|default:'...'}
+						{/if}
+						{if strlen($setting.email)>1}
+						Email : {$setting.email|default:'...'}
+						{/if}
+						{if strlen($setting.nama_kab_kota)>1}
+						{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'...'}
+						{/if}
+						{if strlen($setting.kode_pos)>1}
+						Kode Pos {$setting.kode_pos|default:'...'}
+						{/if}
+						{if strlen($setting.website)>1}
+						<br>Website : {str_replace('-','',$setting.website|default:'')}
+						{/if}
+					</i>
+				</td>
+			</tr>
+			<tr>
+				<td align="center" colspan="3" align="center">
+					<hr style="color: black;height: 4px; margin-bottom:0px">
+					<hr style="color: black;height: 1px; margin-top:3px">
+				</td>
+			</tr> -->
+			{include file="backend/template/kop_surat_kelurahan.html"}
+		</table>
+		
+		<table width="100%" style="margin-bottom: 0px; font-size: 17px;padding-top: -10px"> 
+			<tr>
+				<td align="center">
+						<b style="font-size: 17px;border-bottom: 1px solid black;">SURAT PENGANTAR PEROLEHAN IZIN USAHA</b><br/>
+						<span style="font-size:24px">&nbsp;</span>
+						<span style="font-size: 13px;">NOMOR : {$data.surat.no_surat|default:'..................................................'}</span>
+				</td>  
+			</tr>
+		</table>
+		
+	<table width="100%" style="line-height: 1.6;margin-bottom: 0px; font-weight: none; font-size: 13px;padding-top: 20px;" cellspacing="1">
+			<tr>
+				<td align="justify" style="padding-left:70px;padding-bottom: 10px;padding-top: -20px">
+					Yang bertanda tangan di bawah ini Kepala {$setting.nama_desa|default:'........'} Kecamatan {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kecamatan)))|default:''}, menerangkan bahwa:
+				</td>
+			</tr>
+			<tr>
+				<td style="padding-left:100px;">
+					
+					<table width="100%" style="font-weight: none; font-size: 13px;padding-left: -10px;">
+						<tr>
+							<td valign="top">Nama</td>
+							<td valign="top" align="center">:</td> 
+							<td valign="top" style="padding-bottom: 5px;"><b>{$data.pemohon.nama_lengkap|default:'.....................'}</b></td>
+						</tr>
+						<tr>
+							<td valign="top">Tempat/Tanggal Lahir</td>
+							<td valign="top" align="center">:</td>
+							<td valign="top" style="padding-bottom: 5px;">{$data.pemohon.tempat_lahir|default:''}, {tgl_indo({$data.pemohon.tgl_lahir|default:''})}</td>
+						</tr>
+						<tr>
+							<td valign="top">Kewarganegaraan</td>
+							<td valign="top" align="center">:</td>
+							<td valign="top" style="padding-bottom: 5px;">{$data.surat.info_tambahan.kewarganegaraan|default:'.....................'}</td>
+						</tr>
+						<tr>
+							<td valign="top">Pekerjaan</td>
+							<td valign="top" align="center">:</td>
+							<td valign="top" style="padding-bottom: 5px;">{$data.pemohon.nama_pekerjaan|default:'.....................'}</td>
+						</tr>
+						<tr>
+							<td valign="top">No. KTP / NIK</td>
+							<td valign="top" align="center">:</td>
+							<td valign="top" style="padding-bottom: 5px;">{$data.pemohon.nik|default:'.....................'}</td>
+						</tr>
+						<tr>
+							<td valign="top">Alamat</td>
+							<td valign="top" align="center">:</td>
+							<td valign="top" style="padding-bottom: 5px;">{$data.pemohon.alamat|default:'.....................'}, RT {$data.pemohon.rt|default:'...'}/RW {$data.pemohon.rw|default:'...'}</td>
+						</tr>
+						
+						<tr>
+							<td valign="top" style="padding-bottom: 15px; padding-left: -25px;padding-top: -5px;" colspan="3">Benar nama yang bersangkutan tersebut di atas bermaksud bermohon untuk mengurus Surat Izin Tempat Usaha (SITU) atas :</td>
+						</tr>
+						<tr>
+							<td valign="top" style="padding-top: -5px;">Nama Perusahaan</td>
+							<td valign="top" align="center">:</td>
+							<td valign="top" style="padding-bottom: 5px;"><b>{$data.surat.info_tambahan.nama_perusahaan|default:'.....................'}</b></td>
+						</tr>
+						<tr>
+							<td valign="top">Alamat Perusahaan</td>
+							<td valign="top" align="center">:</td>
+							<td valign="top" style="padding-bottom: 5px;">{$data.surat.info_tambahan.alamat_perusahaan|default:'.....................'}</td>
+						</tr>
+						<tr>
+							<td valign="top">Bidang Usaha</td>
+							<td valign="top" align="center">:</td>
+							<td valign="top" style="padding-bottom: 5px;">{$data.surat.info_tambahan.bidang_usaha|default:'....'}</td>
+						</tr>
+						<tr>
+							<td valign="top">Luas Usaha</td>
+							<td valign="top" align="center">:</td>
+							<td valign="top" style="padding-bottom: 5px;">{$data.surat.info_tambahan.luas_usaha|default:'.....................'}</td>
+						</tr>
+						<tr>
+							<td valign="top">Bangunan</td>
+							<td valign="top" align="center">:</td>
+							<td valign="top" style="padding-bottom: 5px;">{$data.surat.info_tambahan.bangunan_usaha|default:'.....................'}</td>
+						</tr>
+						<tr>
+							<td valign="top">Status Tanah</td> 
+							<td valign="top" align="center">:</td>  
+							<td valign="top" style="padding-bottom: 5px;"><b>{$data.surat.info_tambahan.status_tanah|default:'.....................'}</b></td>
+						</tr> 
+					</table> 
+				</td>
+			</tr>
+		<tr>
+			<td align="justify" style="padding-left:70px;padding-bottom: 10px;">Pihak kami tidak berkeberatan atas kegiatan usaha tersebut di atas apabila yang bersangkutan tetap mentaati semua ketentuan dan peraturan yang berlaku oleh instansi yang berwenang ({$data.surat.info_tambahan.no_sk|default:'.....................'}) dan surat keterangan ini tidak merupakan jaminan Surat Izin yang akan diperoleh.<br>
+				Demikian Surat Keterangan ini kami berikan untuk dipergunakan sebagai kelengkapan pengurusan Surat Izin Tempat Usaha (SITU). 
+			</td> 
+		</tr>
+	</table>
+
+		   <div style="padding-right: 5.82mm;padding-left: 20.44mm; padding-bottom: 1mm;padding-top: 10px; font-size: 13px;">  
+			   <table style="border-collapse: collapse;width: 100%;" border="0" cellpadding="0">
+				<tr>
+					<td valign="bottom" style="padding-left: -7px;" width="50%">No. Reg : {$data.surat.info_tambahan.no_register_usaha|default:'.....................'}</td>
+					<td valign="bottom" width="50%"> 
+						{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'.......'}, {$data.surat.tanggal_surat|default:'............................'}
+					</td>
+				</tr>
+				<tr>
+					   <td valign="bottom" style="padding-left: -7px;" width="50%"><b>Mengetahui :</b></td>  
+					   <td valign="bottom" width="50%"><br></td>
+				   </tr>
+				   <tr>
+					   <td valign="bottom" style="padding-left: -7px;"><b>{$data.surat.info_tambahan.jabatan_camat|default:'.....................'}</b></td>
+					   <td valign="bottom" align="left">
+						<b>
+							{if count($data.ttd)==1}
+							{$data.ttd[0]['center']}
+							{else}
+							{$data.ttd[0]['center']}<br>{$data.ttd[1]['center']}
+							{/if}
+						 </b>
+					</td>
+				   </tr>
+				   <tr>
+					   <td><br></td>
+					   <td><br></td>
+				   </tr>
+				   <tr>
+					   <td><br></td>
+					   <td><br></td>
+				   </tr>
+				   <tr>
+					   <td><br></td>
+					   <td><br></td>
+				   </tr>
+				   <tr>
+					   <td style="padding-left: -7px;">
+						   <b><u>{$data.surat.info_tambahan.nama_camat|default:'.....................'}</u></b>
+					   </td>
+					   <td>
+						   <b><u>{$data.pemohon.nama|default:'...............................'}</u></b>
+					   </td>
+				   </tr>
+				   <tr>
+					   <td align="left" style="padding-left: -7px;">
+						   Pangkat : {$data.surat.info_tambahan.pangkat_camat|default:'.....................'}
+						</td>
+					   <td align="left">
+						   Pangkat : {$data.pemohon.pangkat|default:'............................'}
+					   </td>
+				   </tr>
+				   <tr>
+					   <td  align="left" style="padding-left: -7px;">
+						   NIP : {$data.surat.info_tambahan.nip_camat|default:'.....................'}
+					   </td>
+					   <td align="left">
+						   NIP : {$data.pemohon.nip|default:'...............................'}
+					   </td>
+				   </tr>
+			   </table>
+		   </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SIMLURAH ADMINISTRASI</title>
+    <style>
+		table { width:100%; } 
+		body { font-family: 'arial'; }
+	</style>
+</head>
+<body>
+	<div id='content'>
+		<div style="padding-bottom: 5mm;">
+			<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;">
+				<!-- <tr>
+					<td align="center" rowspan=4 valign="middle" style="width: 150px;">
+						<img src="{$host}__assets/images/logo-makassar.png" style="height:100px" />
+					</td>
+					<td align="center" valign="bottom" style="font-size:22.6px;padding:0px">PEMERINTAH {$setting.nama_kab_kota|upper|default:'.......'}</td>
+					<td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+						<img src="{$host}__assets/images/logo-camat.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';" style="height:100px" alt=" "/>
+					</td>
+				</tr>
+				<tr>
+					<td align="center" style="font-size:22.6px;padding:0px">KECAMATAN {$setting.nama_kecamatan|upper|default:'.......'}</td>
+				</tr>
+				<tr>
+					<td align="center" valign="top" style="font-size:18.6px;padding:0px"></td>
+				</tr>
+				<tr>
+					<td align="center" valign="top" style="font-size:10.6px;padding:0px">
+						<i>
+							{if strlen($setting.alamat)>1}
+							{$setting.alamat|default:'...'}
+							{/if}
+							{if strlen($setting.telp)>1}
+							Telp. {$setting.telp|default:'...'}
+							{/if}
+							{if strlen($setting.faks)>1}
+							Fax. {$setting.faks|default:'...'}
+							{/if}
+							{if strlen($setting.email)>1}
+							Email : {$setting.email|default:'...'}
+							{/if}
+							{if strlen($setting.nama_kab_kota)>1}
+							Kota {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'...'}
+							{/if}
+							{if strlen($setting.kode_pos)>1}
+							Kode Pos {$setting.kode_pos|default:'...'}
+							{/if}
+							{if strlen($setting.website)>1}
+							<br>Website : {str_replace('-','',$setting.website|default:'')}
+							{/if}
+						</i>
+					</td>
+				</tr>
+				<tr>
+					<td align="center" colspan="3">
+						<hr style="color: black;height: 4px; margin-bottom:0px">
+						<hr style="color: black;height: 1px; margin-top:3px">
+					</td>
+				</tr> -->
+				{include file="backend/template/kop_surat_kecamatan.html"}
+			</table>
+			<table width="100%" border="0" style="padding-left: 380px;margin-bottom: 20px; font-size: 13px">
+				<tr>
+					<td valign="top" >Lembar Ke</td>
+					<td valign="top" >:</td>
+					<td valign="top" style="padding-right: 150px;">{$data.surat.lembar_ke|default:'.....................'}</td>
+				</tr>
+				<tr>
+					<td valign="top">Kode No.</td>
+					<td valign="top">:</td>
+					<td valign="top" style="padding-right: 150px;">{$data.surat.info_tambahan.no_agenda|default:'.....................'}</td>
+				</tr>
+				<tr>
+					<td valign="top">Nomor</td>
+					<td valign="top">:</td>
+					<td valign="top" style="padding-right: 150px;"><u>
+						{if isset($data.surat.info_tambahan.ttd_srikandi) and $data.surat.info_tambahan.ttd_srikandi neq ''}
+						{'${nomor_naskah}'}
+						{else}
+						{$data.surat.no_surat|default:'..................................................'}
+						{/if}</u></td>
+				</tr>
+			</table>
+
+			<table width="100%" style="margin-left: 25px;margin-right: 25px;margin-bottom: 20px; font-weight: none; font-size: 17px;" cellspacing="0" cellpadding="10">
+				<tr>
+					<td colspan=3 align="center"><b>SURAT PERJALANAN DINAS (SPD)</b></td>
+				</tr>
+			</table>
+
+			<table cellspacing="0" border="1" width="100%" style="margin-left: 25px;margin-right: 25px;font-size: 12px;border-collapse: collapse; line-height: 1.5;font-family: arial;">
+				
+				<tr>
+					<td align="left" valign=top style="width: 300px;">Pejabat Pembuat Komitmen</td>
+					<td align="left" valign=top colspan="2"><b>{$data.surat.info_tambahan.pemberi_komitmen|default:'.....................'}</b></td>
+				</tr>
+				<tr>
+					<td align="left" valign=top>Nama/NIP Pegawai yang Melaksanakan perjalanan dinas</td>
+\					<td align="left" valign=top colspan="2">{$data.surat.info_tambahan.pelaksana_dinas|default:'.....................'} / {$data.surat.info_tambahan.nip_pelaksana_dinas|default:'.....................'}</td>
+				</tr>
+				<tr>
+					<td align="left" valign=top>Pangkat dan Golongan</td>
+					<td align="left" valign=top colspan="2">{$data.surat.info_tambahan.pangkat|default:''}</td>
+				</tr>
+				<tr>
+					<td align="left" valign=top>Jabatan/Instansi</td>
+					<td align="left" valign=top colspan="2">{$data.surat.info_tambahan.jabatan|default:'.....................'}</td>
+				</tr>
+				<tr>
+					<td align="left" valign=top>Tingkat Biaya Perjalanan Dinas</td>
+					<td align="left" valign=top colspan="2">{$data.surat.info_tambahan.biaya_perjalanan_dinas|default:'.....................'}</td>
+				</tr>
+				<tr>
+					<td align="left" valign=top>Maksud Perjalanan Dinas</td>
+					<td align="left" valign=top colspan="2">{$data.surat.info_tambahan.tujuan_perjalanan_dinas|default:'.....................'}</td>
+				</tr>
+				<tr>
+					<td align="left" valign=top>Alat angkut yang diperlukan</td>
+					<td align="left" valign=top colspan="2">{$data.surat.info_tambahan.transportasi_dinas|default:'.....................'}</td>
+				</tr>
+				<tr>
+					<td align="left" valign=top>Tempat Berangkat</td>
+					<td align="left" valign=top colspan="2">{$data.surat.info_tambahan.tempat_berangkat|default:'.....................'}</td>
+				</tr>
+				<tr>
+					<td align="left" valign=top>Tempat Tujuan</td>
+					<td align="left" valign=top colspan="2">{$data.surat.info_tambahan.tempat_tujuan|default:'.....................'}</td>
+				</tr>
+				<tr>
+					<td align="left" valign=top>Lamanya Perjalanan Dinas</td>
+					<td align="left" valign=top colspan="2">{$data.surat.info_tambahan.waktu_dinas|default:'.....................'}</td>
+				</tr>
+				<tr>
+					<td align="left" valign=top>Tanggal berangkat</td>
+					<td align="left" valign=top colspan="2">{tgl_indo($data.surat.info_tambahan.tgl_dinas)|default:'.....................'}</td>
+				</tr>
+				<tr>
+					<td align="left" valign=top>Tanggal Harus Kembali *</td>
+					<td align="left" valign=top colspan="2">{tgl_indo($data.surat.info_tambahan.tgl_selesai_dinas)|default:'.....................'}</td>
+				</tr>
+				{foreach from=$data.surat.info_tambahan.data_perjalanan_dinas item}
+				<tr>
+					<td style="border: hidden;padding-top: 10px" valign="top">{$item.nama_perjalanan_dinas}</td>
+					<td style="border: hidden;padding-top: 10px" valign="top" align="center">{tgl_indo($item.tgl_lahir_dinas)|default:''}</td>
+					<td style="border: hidden;padding-top: 10px" valign="top">{$item.ket_dinas|default:''}</td>
+				</tr>
+				{/foreach}
+				<tr>
+					<td align="left" valign=top>Pembebanan Anggaran SKPD</td>
+					<td align="left" valign=top colspan="2">{$data.surat.info_tambahan.anggaran_dinas|default:'.....................'}</td>
+				</tr>
+				<tr>
+					<td align="left" valign=top>Kode Rekening</td>
+					<td align="left" valign=top colspan="2">{$data.surat.info_tambahan.kode_rekening_dinas|default:'.....................'}</td>
+				</tr>
+			</table>
+		</table>
+		<br>
+		<table width="100%" style="line-height: 1.3;margin-bottom: 20px; font-weight: none; font-size: 14px;">
+			<tr>
+				<td width="55%">
+					&nbsp;
+				</td>
+				<td align="left" width="45%">  
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Dikeluarkan di {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:''}</b>, <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tanggal {$data.surat.tanggal_surat|default:'............................'}, <br>
+					{ttd_fullkanan($data,$setting)}
+				</td>
+			</tr>
+		</table>  
+		
+</body>
+</html>

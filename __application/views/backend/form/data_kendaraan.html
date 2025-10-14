@@ -1,0 +1,299 @@
+<form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/data_kendaraan" enctype="multipart/form-data" >
+    <input type="hidden" name="id" value="{$data.id|default:''}">
+	<input type="hidden" name="editstatus" value="{$sts|default:'add'}">
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<h3 class="box-title">Form Isian</h3>
+				</div>
+				<div class="box-body">
+					<div class="row">
+						<div class="col-md-12"> 
+							
+							<div class="row" >
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>DATA MASTER KENDARAAN</legend>
+									</fieldset>
+								</div>
+								<div class="col-md-5">
+									{include file="backend/template/input_form.html" required="true" label="Nama Pengemudi" class_width="col-lg-12" type="text" name="nama_sopir" id="nama_sopir" value="{$data.nama_sopir|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="true" label="Nomor Polisi" class_width="col-lg-12" type="text" name="nopol" id="nopol" autocomplete="off" value="{$data.nopol|default:''}"}
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="true" label="Nilai (Rp)" class_width="col-lg-12" class="angka" type="angka" name="nilai_perolehan" id="nilai_perolehan"  value="{number_format($data.nilai_perolehan,2,'.',',')|default:''}"}
+								</div>
+							</div>
+							<div class="row" style="margin-bottom:10px;"> 
+								<div class="col-md-5">
+									{include file="backend/template/input_form.html" required="true" label="Kode Barang" class_width="col-lg-12" type="select" name="kode_barang" id="kode_barang" option="{$kd_brg|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="true" label="Nomor Rangka" class_width="col-lg-12" type="text" name="no_rangka" id="no_rangka" value="{$data.no_rangka|default:''}"}
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="true" label="Sumber Perolehan" class_width="col-lg-12" type="text" name="sumber_perolehan" id="sumber_perolehan" value="{$data.sumber_perolehan|default:''}"}
+								</div>
+							</div>
+							<div class="row" style="margin-bottom:10px;">
+								<div class="col-md-5">
+									{include file="backend/template/input_form.html" required="true" label="Jenis Barang" class_width="col-lg-12" type="baca_aja" name="jenis_barang" id="jenis_barang" value="{$data.jenis_barang|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="true" label="Nomor Mesin" class_width="col-lg-12" type="text" name="no_mesin" id="no_mesin" value="{$data.no_mesin|default:''}"}
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="true" label="Dokumen Perolehan" class_width="col-lg-12" type="text" name="dokumen_kepemilikan" id="dokumen_kepemilikan" value="{$data.dokumen_kepemilikan|default:''}"}
+								</div>
+							</div>
+							<div class="row" style="margin-bottom:10px;">
+								<div class="col-md-5">
+									{include file="backend/template/input_form.html" required="true" label="Detail Barang" class_width="col-lg-12" type="text" name="detail_barang" id="detail_barang" value="{$data.detail_barang|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="true" label="Silinder" class_width="col-lg-12" type="text" name="ukuran_silinder" id="ukuran_silinder" value="{$data.ukuran_silinder|default:''}"}
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="true" label="Warna" class_width="col-lg-12" type="text" name="warna_kendaraan" id="warna_kendaraan" value="{$data.warna_kendaraan|default:''}"}
+								</div>
+							</div>
+							<div class="row" style="margin-bottom:10px;">
+								<div class="col-md-5">
+									{include file="backend/template/input_form.html" required="true" label="No Register" class_width="col-lg-12" type="text" name="no_register_kendaraan" id="no_register_kendaraan" value="{$data.no_register_kendaraan|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="true" label="Merek/Type" class_width="col-lg-12" type="text" name="type_merek" id="type_merek" value="{$data.type_merek|default:''}"}
+								</div>
+								{if $cl_user_group_id eq '3'}
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="true" label="Wilayah Penugasan" class_width="col-lg-12" type="select" name="cl_kelurahan_desa_id" id="cl_kelurahan_desa_id" option={$asal_kelurahan|default:''} }
+								</div>
+								{else} 
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="true" label="Kelurahan" class_width="col-lg-12"
+									type="baca_aja" name="cl_kelurahan_desa_id" id="cl_kelurahan_desa_id" value="{$kel.nama|default:''}"}
+								</div>
+								{/if}
+							</div>	
+							<div class="row" style="margin-bottom:10px;">
+								<div class="col-md-5">
+									{include file="backend/template/input_form.html" required="true" label="Tahun Perolehan" class_width="col-lg-12" type="select2" name="tahun_perolehan" id="tahun_perolehan" option={$pilih_tahun_perolehan|default:''} }
+								</div>	
+							</div>
+
+							<div class="row">
+								{foreach from=$data.file item=foto}
+								<div class="col-md-2" style="margin-bottom: 20px;position: relative;">
+									<a href="{$host}{$foto}" target="_blank">
+										<img src="{$host}{$foto}" alt="" style="width: 100%; aspect-ratio: 1/1;border: 1px solid grey;border-radius: 8px;">
+									</a>
+									<a href="javascript:void(0)" onclick="(()=>{
+										const parents = this.parentNode;
+										$.post('{$host}hapus-foto-kendaraan/{$data.id}/', {
+											files: '{$foto}',
+										}, function(data) {
+											if (data==1) {
+												parents.remove();
+											}else{
+												$.messager.alert(
+													'Peringatan!',
+													data,
+													'error'
+												);
+											}
+										});
+										
+									})()" style="position: absolute;top:-9px;right: 6px;border: 1px solid grey;padding: 0px 7px;border-radius: 100%;background: white;color: black;">x</a>
+								</div>
+								{/foreach}
+								<div class="col-md-12">
+									<hr />
+									{include file="backend/template/input_form.html" label="Upload
+									File *jpg|jpeg|png|pdf" class_width="col-lg-12" type="filemulti"
+									name="files[]" id="files" value=""}
+									<br />
+									{include file="backend/template/button_save.html" text="Simpan" id_na="save" style_btn="btn-success"  btn_goyz="false"}
+									{include file="backend/template/button_save.html" text="Kembali" click="$('#grid_nya_{$mod}').show();$('#detil_nya_{$mod}').hide();" id_na="cancel" style_btn="btn-danger"  btn_goyz="true"}	
+								</div>
+							</div>
+							
+							<!-- <div class="row">
+								<div class="col-md-12">
+									<hr />
+									{include file="backend/template/button_save.html" text="Simpan" id_na="save" style_btn="btn-success"  btn_goyz="false"}
+									{include file="backend/template/button_save.html" text="Kembali" click="$('#grid_nya_{$mod}').show();$('#detil_nya_{$mod}').hide();" id_na="cancel" style_btn="btn-danger"  btn_goyz="true"}	
+								</div>
+							</div> -->
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</form>
+
+<script>
+	$("#nopol").on("input", function () {
+		str=this.value;
+		$nomorpol = str.replaceAll(' ','');
+		// alert($nomorpol);
+		// return false;
+
+		$.ajax({
+		url: host + "Backendxx/cek_nopol/" + $nomorpol,
+		cache: false,
+		beforeSend: function (e) {
+			var nopol_help = $("#nopol").nextAll("span");
+			if (nopol_help.length == 0) {
+			$("#nopol")
+				.parent()
+				.append('<span style="color:grey;">Cek Nomor Polisi...</span>');
+			} else {
+			$("#nopol").nextAll("span").html("Cek Nomor Polisi...");
+			}
+			$("#save").prop("disabled", true);
+			document.getElementById("nopol").style.borderColor = "blue";
+		},
+		success: function (data) {
+			console.log(data);
+			if (data === "1") {
+				var nopol_help = $("#nopol").nextAll("span");
+				console.log(nopol_help);
+				if (nopol_help.length == 0) {
+					$("#nopol")
+					.parent()
+					.append('<span style="color:green;">Nomor Polisi Sudah Ada!</span>');
+				} else {
+					$("#nopol")
+					.nextAll("span")
+					.css("color", "red")
+					.html("Nomor Polisi sudah ada!");
+				}
+				$("#save").prop("disabled", true);
+				document.getElementById("nopol").style.borderColor = "red";
+			} else {
+			var nopol_help = $("#nopol").nextAll("span");
+			if (nopol_help.length == 0) {
+				$("#nopol")
+				.parent()
+				.append('<span style="color:green;">Good!</span>');
+			} else {
+				$("#nopol").nextAll("span").css("color", "green").html("Good!");
+			}
+			$("#save").prop("disabled", false);
+			document.getElementById("nopol").style.borderColor = "green";
+			}
+		},
+		error: function (xhr, status, error) {
+			$("#save").prop("disabled", true);
+			document.getElementById("nopol").style.borderColor = "red";
+		},
+		});
+	});
+
+
+	$(document).ready(function(e) {
+		$('.angka').keypress(function() {
+			return(currencyFormat(this,',','.',event));
+		});
+
+		$("#kode_barang").select2({
+			width: $("#kode_barang").parent().width(),
+		});
+		
+		$("#kode_barang").on('select2:select',function(e){
+			var data = $(this).select2('data')[0];
+			var text = data.text;
+			$('#select2-kode_barang-container').text(data.id);
+			text = text.split("-");
+			$('#jenis_barang').attr('value',text[1].trim());
+		});
+
+		if ($("[name=id]").val()!='') {
+			var text = $('#select2-kode_barang-container').text();
+			text = text.split("-");
+			$('#select2-kode_barang-container').text(text[0].trim());
+		}
+	});
+
+	var rulesnya = {
+		nama_sopir : "required",
+		asal_kelurahan : "required",
+		cl_kelurahan_desa_id : "required",
+		jenis_barang : "required",
+		detail_barang : "required",
+		kode_barang : "required",
+		tahun_perolehan : "required",
+		nilai_perolehan : "required",
+		sumber_perolehan : "required",
+		dokumen_kepemilikan : "required",
+		type_merek : "required",
+		warna_kendaraan : "required",
+		no_rangka : "required",
+		no_mesin : "required",
+		nopol : "required",
+		ukuran_silinder : "required",
+		kondisi_barang : "required",
+		no_register_kendaraan : "required",
+		
+	};
+
+	var messagesnya = {
+		nama_sopir : "<i style='color:red'>Harus Diisi</i>",
+		asal_kelurahan : "<i style='color:red'>Harus Diisi</i>",
+		cl_kelurahan_desa_id : "<i style='color:red'>Harus Diisi</i>",
+		jenis_barang : "<i style='color:red'>Harus Diisi</i>",
+		detail_barang : "<i style='color:red'>Harus Diisi</i>",
+		kode_barang : "<i style='color:red'>Harus Diisi</i>",
+		tahun_perolehan : "<i style='color:red'>Harus Diisi</i>",
+		nilai_perolehan : "<i style='color:red'>Harus Diisi</i>",
+		sumber_perolehan : "<i style='color:red'>Harus Diisi</i>",
+		dokumen_kepemilikan : "<i style='color:red'>Harus Diisi</i>",
+		type_merek : "<i style='color:red'>Harus Diisi</i>",
+		warna_kendaraan : "<i style='color:red'>Harus Diisi</i>",
+		no_rangka : "<i style='color:red'>Harus Diisi</i>",
+		no_mesin : "<i style='color:red'>Harus Diisi</i>",
+		nopol : "<i style='color:red'>Harus Diisi</i>",
+		ukuran_silinder : "<i style='color:red'>Harus Diisi</i>",
+		kondisi_barang : "<i style='color:red'>Harus Diisi</i>",
+		no_register_kendaraan : "<i style='color:red'>Harus Diisi</i>",
+		
+	}
+
+	$( "#form_{$acak}" ).validate( {
+		rules: rulesnya,
+		messages: messagesnya,
+		submitHandler: function(form) {
+		$.LoadingOverlay("show");
+		submit_form('form_{$acak}',function(r){
+			if(r == 1 ){ 
+				$.messager.alert(nama_apps,'Data Tersimpan','info'); 
+				$('#cancel_{$acak}').trigger('click');
+				$('#grid_data_kendaraan').datagrid('reload');
+			}else if(r == 2){ 
+				$.messager.alert(nama_apps,'Nomor Polisi sudah digunakan!','warning'); 
+			}else{ 
+				$.messager.alert(nama_apps,'Proses Simpan Data Gagal '+r,'error'); 
+			}
+			$.LoadingOverlay("hide", true);
+		});
+			//*/
+		},
+		errorPlacement: function(error, element) {
+	        var name = element.attr('name');
+	        var errorSelector = '.validation_error_message[for="' + name + '"]';
+	        var $element = $(errorSelector);
+	        if ($element.length) { 
+	            $(errorSelector).html(error.html());
+	        } else {
+	            error.insertAfter(element);
+	        }
+	    }
+	} );
+</script>

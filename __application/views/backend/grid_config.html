@@ -1,0 +1,2092 @@
+{if $prev.buat eq '1'} 
+{assign var=button_add value='true'} 
+{else} 
+{assign
+var=button_add value='false'} 
+{/if}
+{if $prev.ubah eq '1'} 
+{assign
+var=button_edit value='true'} 
+{else} 
+{assign var=button_edit value='false'}
+{/if}
+{if $prev.hapus eq '1'} 
+{assign var=button_delete value='true'} 
+{else}
+{assign var=button_delete value='false'} 
+{/if}
+
+
+{assign var=jenis_grid value='grid'} 
+{if $mod eq 'data_penduduk'} 
+{assign var=button_import value="true"} 
+{/if}
+{if $mod eq 'data_penduduk'} 
+{assign var=button_cetak value="true"} 
+{/if}
+{if $mod eq 'data_penduduk_asing'} 
+{assign var=button_cetak_asing value="true"} 
+{/if}
+
+{if $mod eq 'data_ktp'} 
+{assign var=button_import value="true"} 
+{/if} 
+{if $mod eq 'data_ktp'} 
+{assign var=button_cetakktp value="true"} 
+{/if} 
+{if $mod eq 'data_rekap_imb'} 
+{assign var=button_cetakimb value="true"} 
+{/if} 
+{if $mod eq 'data_wamis'} 
+{assign var=button_cetakwamis value="true"} 
+{/if} 
+{if $mod eq 'data_umkm'} 
+{assign var=button_cetakumkm value="true"} 
+{/if}
+{if $mod eq 'data_dasawisma'} 
+{assign var=button_cetakdasawisma value="true"} 
+{/if}
+{if $mod eq 'data_faskes'} 
+{assign var=button_cetakfaskes value="true"} 
+{/if}
+{if $mod eq 'data_rt_rw'} 
+{assign var=button_cetak_rt_rw value="true"} 
+{/if}
+{if $mod eq 'usulan_penilaian_rt_rw'} 
+{assign var=button_cetak_rt_rw value="true"} 
+{/if}
+{if $mod eq 'data_pegawai_kel_kec'} 
+{assign var=button_cetak_staff value="true"} 
+{/if}
+{if $mod eq 'penilaian_rt_rw'} 
+{assign var=button_cetak_staff value="true"} 
+{/if}
+{if $mod eq 'rekap_penilaian_kelrtrw'} 
+{assign var=button_cetak_staff value="true"} 
+{/if}
+{if $mod eq 'data_retribusi_sampah'} 
+{assign var=button_cetak_retribusi value="true"} 
+{/if}
+{if $mod eq 'data_keluarga'} 
+{assign
+var=button_cetak_keluarga value="true"} 
+{/if}
+{if $mod eq 'data_petugas_kebersihan'} 
+{assign var=button_cetak_kebersihan value="true"}
+{/if}
+{if $mod eq 'data_sekolah'} 
+{assign var=button_cetak_sekolah value="true"}
+{/if}
+{if $mod eq 'data_tempat_ibadah'} 
+{assign var=button_cetak_ibadah
+value="true"} 
+{/if}
+{if $mod eq 'data_pkl'} 
+{assign var=button_cetak_pkl
+value="true"} 
+{/if}
+{if $mod eq 'data_penandatanganan'} 
+{assign
+var=button_cetak_penandatanganan value="true"} 
+{/if}
+{if $mod eq 'data_kendaraan'} 
+{assign
+var=button_cetak_kendaraan value="true"} 
+{/if}
+{if $mod eq 'data_indikator_skm'} 
+{assign
+var=button_cetak_indikator_skm value="true"} 
+{/if}
+{if $mod eq 'form_sub_indikator_rt_rw'} 
+{assign
+var=button_cetak_form_sub_indikator_rt_rw value="true"} 
+{/if}
+{if $mod eq 'data_sub_indikator_rt_rw'} 
+{assign
+var=button_cetak_data_sub_indikator_rt_rw value="true"} 
+{/if}
+{if $mod eq 'data_penilaian_skm'} 
+{assign
+var=button_cetak_penilaian_skm value="true"} 
+{/if}
+{if $mod eq 'data_lorong'}
+{assign var=button_cetak_lorong value="true"} 
+{/if}
+{if $mod eq 'data_rekap_bulan'}
+{assign var=button_cetak_rekap_bulan value="true"} 
+{/if}
+{if $mod eq 'data_ekspedisi'} 
+{assign var=button_cetak_ekspedisi value="true"} 
+{/if}
+{if
+$mod eq 'data_surat'} 
+{assign var=button_add value="false"} 
+{/if}
+{if $mod eq 'surat_himbauan'} 
+{assign var=button_exhimbauan value="false"} 
+{/if}
+{if $mod eq 'broadcast'} 
+{assign var=button_broadcast value="false"} 
+{/if}
+
+<section class="content">
+  <div class="box box-default">
+    <div class="box-header witkelurahan_{$acak}h-border">
+      <h3 class="box-title">{$judul|default:''}</h3>
+    </div>
+    <div class="box-body">
+      <div id="grid_nya_{$mod}" style="width: 100% !important">   
+      <br>
+      {if $mod eq 'laporan_persuratan'} 
+          {if !in_array($cl_user_group_id,[2,4,5])}
+            <div class="row">
+              <div class="col-lg-2" style="margin-top: 3px">
+                <label style="width: 100px">Filter Tanggal </label>: &nbsp;&nbsp;
+
+                <div class="input-group input-daterange">
+                  <input
+                    class="form-control input-sm tanggalnya"
+                    id="date_start_{$acak}"
+                    type="text"
+                  />
+                  <div class="input-group-addon">-</div>
+                  <input
+                    class="form-control input-sm tanggalnya"
+                    id="date_end_{$acak}"
+                    type="text"/>
+                </div>
+              </div>
+            <div class="col-lg-3">
+              <div class="col-md-12">
+                {include file="backend/template/input_form.html" label="Jenis
+                Surat" class_width="col-lg-12" type="select2" name="jenis_surat"
+                id="jenis_surat_{$acak}" option={$pilih_jsurat|default:''} }
+              </div>
+            </div>
+
+            <!-- {if $cl_user_group_id neq '2'} -->
+            <div class="col-lg-4">
+              <label style="width: 100px">Unit Kerja </label>: &nbsp;&nbsp;
+              <select
+                name="kelurahan_{$acak}"
+                id="kelurahan_{$acak}"
+                style="width: 100%; height: 30px; padding: 3px"
+                onChange="getlurah();">
+                {$kelurahan|default:''}
+              </select>
+            </div>
+            <div class="col-lg-3">
+              <label style="width: 100px">Pilih TTD</label>: &nbsp;&nbsp;
+              <select name="nip" id="nip" style="width: 100%; height: 32px; padding: 3px">
+                {$nip_id|default:''}
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-8 text-right">&nbsp; <input
+              class="form-control input-sm tanggalnya"
+              id="acakk"
+              type="text" value="{$acak}" style="visibility: hidden;"/></div>
+            <!-- {/if} -->
+            <div class="col-lg-4" style="margin-bottom: 10px">
+              <div class="form-group" style="float: right">
+                <a
+                  href="javascript:void(0)"
+                  class="btn-flat btn-default btn-sm"
+                  onClick="kumpulAction('generate_laporan_persuratan', '{$acak}');"
+                >
+                  <i class="fa fa-search"></i> Filter
+                </a>
+                &nbsp;
+                <a
+                  href="javascript:void(0)"
+                  class="btn-flat btn-info btn-sm"
+                  onClick="kumpulAction('reload_laporan_persuratan', '{$acak}');"
+                >
+                  <i class="fa fa-refresh"></i> Reload
+                </a>
+                &nbsp;
+                <a
+                  href="javascript:void(0)"
+                  class="btn-flat btn-success btn-sm"
+                  onClick="kumpulAction('export_laporan_persuratan', '{$acak}');"
+                >
+                  <i class="fa fa-print"></i> Cetak
+                </a>
+              </div>
+            </div>
+            <!-- {if $cl_user_group_id neq '2'} -->
+          </div>
+          <!-- {/if} -->
+
+          <!-- Filter User Kecamatan -->
+      
+      {else}
+
+        <div class="row" style="margin-bottom: 5px">
+          <div class="col-lg-3" style="margin-top: 3px">
+            <label style="width: 100px">Filter Tanggal </label>: &nbsp;&nbsp;
+
+            <div class="input-group input-daterange">
+              <input
+                class="form-control input-sm tanggalnya"
+                id="date_start_{$acak}"
+                type="text"
+              />
+              <div class="input-group-addon">-</div>
+              <input
+                class="form-control input-sm tanggalnya"
+                id="date_end_{$acak}"
+                type="text"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="col-md-12">
+              {include file="backend/template/input_form.html" label="Jenis
+              Surat" class_width="col-lg-12" type="select2" name="jenis_surat"
+              id="jenis_surat_{$acak}" option={$pilih_jsurat|default:''} }
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <div class="col-md-12">
+              {include file="backend/template/input_form.html" label="Filter
+              NIK" class_width="col-lg-12" type="pnj_karakter" name="nik"
+              id="nik_{$acak}" option={$nik|default:''} }
+            </div>
+          </div>
+
+          <div class="col-lg-4" style="margin-bottom: 10px">
+            <div class="form-group" style="float: right; margin-top: 5px">
+              <div>
+                <label style="width: 100px">&nbsp;</label>
+              </div>
+
+              <a
+                href="javascript:void(0)"
+                class="btn-flat btn-default btn-sm"
+                onClick="kumpulAction('generate_laporan_persuratan', '{$acak}');"
+              >
+                <i class="fa fa-search"></i> Filter
+              </a>
+              &nbsp;
+              <a
+                href="javascript:void(0)"
+                class="btn-flat btn-info btn-sm"
+                onClick="kumpulAction('reload_laporan_persuratan', '{$acak}');"
+              >
+                <i class="fa fa-refresh"></i> Reload
+              </a>
+              &nbsp;
+              <a
+                href="javascript:void(0)"
+                class="btn-flat btn-success btn-sm"
+                onClick="kumpulAction('export_laporan_persuratan', '{$acak}');"
+              >
+                <i class="fa fa-print"></i> Cetak Pdf
+              </a>
+              &nbsp;
+              <a
+                href="javascript:void(0)"
+                class="btn-flat btn-success btn-sm"
+                onClick="kumpulAction('export_laporan_persuratan_excel', '{$acak}');"
+              >
+                <i class="fa fa-print"></i> Ctk Excel
+              </a>
+            </div>
+          </div>
+        </div>
+      {/if} 
+
+    
+      {elseif $mod eq 'data_pegawai_kel_kec'}
+       
+        <div class="row">
+        <div class="col-lg-5" style="margin-top: 3px;margin-bottom: 3px;">
+          <label style="width: 90px">Kolom </label>: &nbsp;
+          <select name="kat_{$acak}" id="kat_{$acak}" style="width: 30%; height: 32px; padding: 3px">
+            {$data_select|default:''}
+          </select>
+          <input type="text" name="key_{$acak}" id="key_{$acak}" style="width: 40%; height: 32px; padding: 2px"/>
+          <a href="javascript:void(0)" class="btn-flat btn-default btn-sm" onClick="cariData('{$mod}', '', '{$acak}');">
+            <i class="fa fa-search"></i>
+          </a>
+        </div>
+
+        <div class="col-lg-3" style="margin-left: -20px">
+          <label style="width: 80px">Pilih TTD</label>: &nbsp;
+          <select name="nip" id="nip" style="width: 60%; height: 32px; padding: 5px">
+            {$nip_id|default:''}
+          </select>
+        </div>
+        
+        <div class="col-lg-2" style="margin-left: -20px">
+          {if !in_array($cl_user_group_id,[2,4,5])}
+          <select name="kelurahan_{$acak}" id="kelurahan_{$acak}" style="width: 60%; height: 30px; padding: 2px">
+            {$kelurahan|default:''}
+          </select> 
+          
+          <a href="javascript:void(0)" id="cari" class="btn-flat btn-default btn-sm" onClick="cariData('{$mod}', '', '{$acak}');">
+            <i class="fa fa-search"></i>
+          </a>
+          {/if}
+        </div>
+        
+        
+        <div class="col-lg-4 text-right">
+          {if $button_add|default:'' eq 'true'}
+          <a href="javascript:void(0)" title="Add" class="btn-flat btn-success btn-sm" onClick="genform('add', '{$mod}','{$mod}');">
+            <i class="fa fa-plus"></i> Tambah
+          </a>
+          {/if}
+          {if $button_edit|default:'' eq 'true'} &nbsp;
+          <a href="javascript:void(0)" title="Edit" class="btn-flat btn-warning btn-sm" onClick="genform('edit', '{$mod}','{$mod}');">
+            <i class="fa fa-edit"></i> Edit
+          </a>
+          {/if}
+          {if $button_delete|default:'' eq 'true'} &nbsp;
+          <a href="javascript:void(0)" title="Delete" class="btn-flat btn-danger btn-sm" onClick="genform('delete', '{$mod}','{$mod}');">
+            <i class="fa fa-remove"></i> Hapus
+          </a>
+          {/if}
+          {if $button_cetak_staff|default:'' eq 'true'} &nbsp;
+          <a href="javascript:void(0)" class="btn-flat btn-success btn-sm" onClick="kumpulAction('export_laporan_staff', '{$acak}');">
+            <i class="fa fa-print"></i> Cetak
+          </a>
+          {/if}
+        </div>
+      </div>
+
+      {elseif $mod eq 'data_rt_rw'}
+        <div class="row">
+        <div class="col-lg-5" style="margin-top: 3px;margin-bottom: 3px;">
+          <label style="width: 90px">Kolom </label>: &nbsp;
+          <select name="kat_{$acak}" id="kat_{$acak}" style="width: 30%; height: 32px; padding: 3px">
+            {$data_select|default:''}
+          </select>
+          <input type="text" name="key_{$acak}" id="key_{$acak}" style="width: 40%; height: 32px; padding: 2px"/>
+          <a href="javascript:void(0)" class="btn-flat btn-default btn-sm" onClick="cariData('{$mod}', '', '{$acak}');">
+            <i class="fa fa-search"></i>
+          </a>
+        </div>
+
+       
+        <div class="col-lg-4 text-right">
+          {if $button_add|default:'' eq 'true'}
+          <a href="javascript:void(0)" title="Add" class="btn-flat btn-success btn-sm" onClick="genform('add', '{$mod}','{$mod}');">
+            <i class="fa fa-plus"></i> Tambah
+          </a>
+          {/if}
+          {if $button_edit|default:'' eq 'true'} &nbsp;
+          <a href="javascript:void(0)" title="Edit" class="btn-flat btn-warning btn-sm" onClick="genform('edit', '{$mod}','{$mod}');">
+            <i class="fa fa-edit"></i> Edit
+          </a>
+          {/if}
+          {if $button_delete|default:'' eq 'true'} &nbsp;
+          <a href="javascript:void(0)" title="Delete" class="btn-flat btn-danger btn-sm" onClick="genform('delete', '{$mod}','{$mod}');">
+            <i class="fa fa-remove"></i> Hapus
+          </a>
+          {/if}
+          {if $button_cetak_rt_rw|default:'' eq 'true'} &nbsp;
+          <a href="javascript:void(0)" class="btn-flat btn-success btn-sm" onClick="kumpulAction('export_laporan_rt_rw', '{$acak}');">
+            <i class="fa fa-print"></i> Cetak
+          </a>
+          {/if}
+        </div>
+      </div>
+    
+      {elseif $mod eq 'usulan_penilaian_rt_rw'}
+        <div class="row">
+        <div class="col-lg-5" style="margin-top: 3px;margin-bottom: 3px;">
+          <label style="width: 90px">Kolom </label>: &nbsp;
+          <select name="kat_{$acak}" id="kat_{$acak}" style="width: 30%; height: 32px; padding: 3px">
+            {$data_select|default:''}
+          </select>
+          <input type="text" name="key_{$acak}" id="key_{$acak}" style="width: 40%; height: 32px; padding: 2px"/>
+          <a href="javascript:void(0)" class="btn-flat btn-default btn-sm" onClick="cariData('{$mod}', '', '{$acak}');">
+            <i class="fa fa-search"></i>
+          </a>
+        </div>
+          <div class="col-lg-3">
+            <label style="width: 100px">Kelurahan </label>: &nbsp;&nbsp;
+            <select
+              name="kelurahan_{$acak}"
+              id="kelurahan_{$acak}"
+              style="width: 100%; height: 30px; padding: 3px">
+              {$kelurahan|default:''}
+            </select>
+          </div>
+        <div class="col-md-2">
+          {include file="backend/template/input_form.html" required="false" label="Bulan" 
+          class_width="col-lg-12" type="select2" name="bulan" id="bulan"
+          option={$bulan|default:''}}
+        </div>
+        <div class="col-md-2">
+          {include file="backend/template/input_form.html" required="false" label="Status" 
+          class_width="col-lg-12" type="select2" name="status_penilaian" id="status_penilaian"
+          option={$status_penilaian|default:''}}
+        </div>
+        <div class="col-lg-4 text-right">
+          {if $button_add|default:'' eq true}
+          <a href="javascript:void(0)" title="Add" class="btn-flat btn-success btn-sm" onClick="genform('add', '{$mod}','{$mod}');">
+            <i class="fa fa-plus"></i> Tambah Usulan
+          </a>
+          {/if}
+          {if $button_edit|default:'' eq true} &nbsp;
+          <a href="javascript:void(0)" title="Edit" class="btn-flat btn-warning btn-sm" onClick="genform('edit', '{$mod}','{$mod}');">
+            <i class="fa fa-edit"></i> Edit
+          </a>
+          {/if}
+          {if $button_delete|default:'' eq true} &nbsp;&nbsp;
+          <a href="javascript:void(0)" title="Delete" class="btn-flat btn-danger btn-sm" onClick="genform('delete', '{$mod}','{$mod}');">
+            <i class="fa fa-remove"></i> Hapus
+          </a>
+          {/if}
+          {if $button_cetak|default:'' eq true} &nbsp;
+          <a href="javascript:void(0)" class="btn-flat btn-success btn-sm" onClick="kumpulAction('export_usulan_penilaian_rt_rw', '{$acak}');">
+            <i class="fa fa-print"></i> Cetak
+          </a>
+          {/if}
+        </div>
+      </div>
+
+      {elseif $mod eq 'penilaian_rt_rw'}
+        <div class="row">
+          <div class="col-lg-12 text-right pb-3">
+          <!-- {if $button_add|default:'' eq 'true'}
+          <a href="javascript:void(0)" title="Add" class="btn-flat btn-success btn-sm" onClick="genform('add', '{$mod}','{$mod}');">
+            <i class="fa fa-plus"></i> Tambah
+          </a>
+          {/if} -->
+          <a href="javascript:void(0)" class="btn-flat btn-primary btn-sm"  onclick="(()=>{
+              $('#modal_salin{$mod}{$acak}').show();
+            })()">
+            <i class="fa fa-copy"></i> Salin Penilaian
+          </a>
+          {if $button_edit|default:'' eq 'true'} &nbsp;
+          <a href="javascript:void(0)" title="Edit" class="btn-flat btn-warning btn-sm" onClick="genform('edit', '{$mod}','{$mod}');">
+            <i class="fa fa-edit"></i> Edit
+          </a>
+          {/if}
+          {if $button_delete|default:'' eq 'true'} &nbsp;
+          <a href="javascript:void(0)" title="Delete" class="btn-flat btn-danger btn-sm" onClick="genform('delete', '{$mod}','{$mod}');">
+            <i class="fa fa-remove"></i> Hapus
+          </a>
+          {/if}
+          {if in_array($cl_user_group_id,[2,4,5])} &nbsp;
+            <a href="javascript:void(0)" class="btn-flat btn-success btn-sm" onClick="kumpulAction('export_penilaian_rt_rw', '{$acak}');">
+              <i class="fa fa-print"></i> Cetak
+            </a>
+
+        {else}  &nbsp;
+          <a href="javascript:void(0)" class="btn-flat btn-success btn-sm" onClick="kumpulAction('export_rekap_penilaian_rt_rw', '{$acak}');">
+            <i class="fa fa-print"></i>Cetak
+          </a>
+
+        {/if}
+        </div>
+        <div class="col-lg-4" style="margin-top: 3px;margin-bottom: 3px;">
+          <label>Kolom</label>:<br>
+          <select name="kat_{$acak}" id="kat_{$acak}" style="width: 30%; height: 32px; padding: 3px">
+            {$data_select|default:''}
+          </select>
+          <input type="text" name="key_{$acak}" id="key_{$acak}" style="width: 40%; height: 32px; padding: 2px"/>
+          <a href="javascript:void(0)" class="btn-flat btn-default btn-sm" onClick="cariData('{$mod}', '', '{$acak}');">
+            <i class="fa fa-search"></i>
+          </a>
+        </div>
+          {if $mod eq 'penilaian_rt_rw'}
+         <div class="col-lg-2">
+          <label>Bulan</label>: &nbsp;&nbsp;
+          <select name="bulan" id="bulan" style="width: 100%; height: 32px; padding: 3px">
+            <option value="">-- Pilih --</option>
+            {for $i=1 to 12}
+            {if $i eq date('n')}
+              <option value="{$i}" selected>{getBulan($i)}</option>
+              {else}
+              <option value="{$i}">{getBulan($i)}</option>
+              {/if}
+          {/for}
+          </select>
+          <script>
+            $('#bulan').change(function(e) {
+                $("#grid_penilaian_rt_rw").datagrid("reload",{
+                  bulan:this.value
+                });
+            });
+          </script>
+        </div>
+        {/if}
+         <div class="col-lg-2">
+          <label style="width: 100px">Pilih TTD Camat</label>: &nbsp;&nbsp;
+          <select name="nip" id="nip" style="width: 100%; height: 32px; padding: 3px">
+            {$nip_id|default:''}
+          </select>
+        </div>
+
+        <div class="col-lg-2">
+          <label style="width: 100px">Pilih TTD LPM</label>: &nbsp;&nbsp;
+          <select name="nik_lsm" id="nik_lsm" style="width: 100%; height: 32px; padding: 3px">
+            {$nik_lsm|default:''}
+          </select>
+        </div>
+
+        <div class="col-lg-2">
+          <label style="width: 100px">TTD Pembuat</label>: &nbsp;&nbsp;
+          <select name="nik_pembuat" id="nik_pembuat" style="width: 100%; height: 32px; padding: 3px">
+            {$nik_pembuat|default:''}
+          </select>
+        </div>
+ 
+        
+      </div>
+
+      {elseif $mod eq 'rekap_penilaian_kelrtrw' && in_array($cl_user_group_id,[2,4,5])}
+
+      <div class="row d-flex align-items-stretch">
+        <div class="col-lg-4">
+          <label style="width: 100%">Kolom:</label>
+          <select name="kat_{$acak}" id="kat_{$acak}" style="width: 30%; height: 32px; padding: 3px">
+            {$data_select|default:''}
+          </select>
+          <input type="text" name="key_{$acak}" id="key_{$acak}" style="width: 55%; height: 32px; padding: 2px"/>
+          <a href="javascript:void(0)" class="btn-flat btn-default btn-sm" onClick="cariData('{$mod}', '', '{$acak}');">
+            <i class="fa fa-search"></i>
+          </a>
+        </div>
+        <div class="col-lg-2">
+          <label style="width: 100px">Pilih RW:</label>
+          <select name="rw" id="rw{$acak}" style="width: 100%; height: 32px; padding: 3px">
+            {$rw|default:''}
+          </select>
+        </div>
+        <div class="col-lg-2">
+          <label style="width: 100px">Pilih Bulan:</label>
+          <select name="bulan" id="bulan{$acak}" style="width: 100%; height: 32px; padding: 3px">
+            {$bulan|default:''}
+          </select>
+          <script>
+            $('#bulan{$acak},#rw{$acak}').change(function(e) {
+                $("#grid_rekap_penilaian_kelrtrw").datagrid("reload",{
+                  rw:$('#rw{$acak}').val(),
+                  bulan:$('#bulan{$acak}').val(),
+                });
+            });
+          </script>
+        </div>
+        <div class="col-lg-4 text-right" style="gap: 7px;display: flex;justify-content: end;align-items: end;">
+          <a href="javascript:void(0)" class="btn-flat btn-success btn-sm"  onclick="(()=>{
+            $('#modal_{$mod}{$acak}').show();
+          })()">
+            <i class="fa fa-print"></i> Cetak
+          </a>
+        </div>
+      </div>
+
+    {elseif $mod eq 'laporan_rekap_usaha'}
+      
+        <div class="row" style="margin-bottom: 5px">
+          <div class="col-lg-2" style="margin-top: 3px">
+            <label style="width: 100px">Filter Tanggal </label>: &nbsp;&nbsp;
+          </div>
+          <div class="col-lg-3" style="margin-left: -65px">
+            <div class="input-group input-daterange">
+              <input
+                class="form-control input-sm tanggalnya"
+                id="date_start_{$acak}"
+                type="text"
+              />
+              <div class="input-group-addon">-</div>
+              <input
+                class="form-control input-sm tanggalnya"
+                id="date_end_{$acak}"
+                type="text"
+              />
+            </div>
+          </div>
+
+          <div class="col-lg-3" style="margin-left: -20px">
+            {if !in_array($cl_user_group_id,[2,4,5])}
+            <select
+              name="kelurahan_{$acak}"
+              id="kelurahan_{$acak}"
+              style="width: 100%; height: 30px; padding: 3px"
+            >
+              {$kelurahan|default:''}
+            </select>
+            {/if}
+          </div>
+          <div class="col-lg-4 text-right" style="margin-left: 80px">
+            <a
+              href="javascript:void(0)"
+              class="btn-flat btn-default btn-sm"
+              onClick="kumpulAction('generate_laporan_rekap_usaha', '{$acak}');"
+            >
+              <i class="fa fa-search"></i> Filter
+            </a>
+            &nbsp;
+            <a
+              href="javascript:void(0)"
+              class="btn-flat btn-info btn-sm"
+              onClick="kumpulAction('reload_laporan_rekap_usaha', '{$acak}');"
+            >
+              <i class="fa fa-refresh"></i> Reload
+            </a>
+            &nbsp;
+            <a
+              href="javascript:void(0)"
+              class="btn-flat btn-success btn-sm" 
+              onClick="kumpulAction('export_laporan_rekap_usaha', '{$acak}');"
+            >
+              <i class="fa fa-print"></i> Cetak PDF
+            </a>
+            &nbsp;
+            <a
+              href="javascript:void(0)"
+              class="btn-flat btn-success btn-sm"
+              onClick="kumpulAction('export_laporan_rekap_usaha_excel', '{$acak}');"
+            >
+              <i class="fa fa-print"></i> Cetak Excel
+            </a>
+          </div>
+        </div>
+
+    {elseif $mod eq 'laporan_rekap_pengantar_kendaraan'}
+      
+        <div class="row" style="margin-bottom: 5px">
+          <div class="col-lg-2" style="margin-top: 3px">
+            <label style="width: 100px">Filter Tanggal </label>: &nbsp;&nbsp;
+          </div>
+          <div class="col-lg-3" style="margin-left: -65px">
+            <div class="input-group input-daterange">
+              <input
+                class="form-control input-sm tanggalnya"
+                id="date_start_{$acak}"
+                type="text"
+              />
+              <div class="input-group-addon">-</div>
+              <input
+                class="form-control input-sm tanggalnya"
+                id="date_end_{$acak}"
+                type="text"
+              />
+            </div>
+          </div>
+
+          <div class="col-lg-3" style="margin-left: -20px">
+            {if !in_array($cl_user_group_id,[2,4,5])}
+            <select
+              name="kelurahan_{$acak}"
+              id="kelurahan_{$acak}"
+              style="width: 100%; height: 30px; padding: 3px"
+            >
+              {$kelurahan|default:''}
+            </select>
+            {/if}
+          </div>
+          <div class="col-lg-4 text-right" style="margin-left: 80px">
+            <a
+              href="javascript:void(0)"
+              class="btn-flat btn-default btn-sm"
+              onClick="kumpulAction('generate_laporan_rekap_pengantar_kendaraan', '{$acak}');">
+              <i class="fa fa-search"></i> Filter
+            </a>
+            &nbsp;
+            <a
+              href="javascript:void(0)"
+              class="btn-flat btn-info btn-sm"
+              onClick="kumpulAction('reload_laporan_rekap_pengantar_kendaraan', '{$acak}');">
+              <i class="fa fa-refresh"></i> Reload
+            </a>
+            &nbsp;
+            <a
+              href="javascript:void(0)"
+              class="btn-flat btn-success btn-sm" 
+              onClick="kumpulAction('export_laporan_rekap_pengantar_kendaraan', '{$acak}');">
+              <i class="fa fa-print"></i> Cetak PDF
+            </a>
+            &nbsp;
+            <a
+              href="javascript:void(0)"
+              class="btn-flat btn-success btn-sm"
+              onClick="kumpulAction('export_laporan_rekap_pengantar_kendaraan_excel', '{$acak}');">
+              <i class="fa fa-print"></i> Cetak Excel
+            </a>
+          </div>
+        </div>
+
+      {elseif $mod eq 'laporan_penduduk'}
+      <div class="row" style="margin-bottom: 5px">
+        <div class="col-lg-1" style="margin-top: 3px">
+          <label style="width: 90px">Filter RT : </label>
+        </div>
+        <div class="col-lg-1">
+          <input
+            type="text"
+            name="rt_{$acak}"
+            id="rt_{$acak}"
+            class="form-control input-sm"
+          />
+        </div>
+        <div class="col-lg-1" style="margin-top: 3px">
+          <label style="width: 100px">Filter RW : </label>
+        </div>
+        <div class="col-lg-1">
+          <input
+            type="text"
+            name="rw_{$acak}"
+            id="rw_{$acak}"
+            class="form-control input-sm"
+          />
+        </div>
+        <div class="col-lg-2">
+          <select
+            name="kelurahan_{$acak}"
+            id="kelurahan_{$acak}"
+            class="form-control input-sm"
+          >
+            {$kelurahan|default:''}
+          </select>
+        </div>
+        <div class="col-lg-6 text-right">
+          <a
+            href="javascript:void(0)"
+            class="btn-flat btn-default btn-sm"
+            onClick="kumpulAction('generate_laporan_penduduk', '{$acak}');"
+          >
+            <i class="fa fa-search"></i> Generate
+          </a>
+          &nbsp;
+          <a
+            href="javascript:void(0)"
+            class="btn-flat btn-info btn-sm"
+            onClick="kumpulAction('reload_laporan_penduduk', '{$acak}');"
+          >
+            <i class="fa fa-refresh"></i> Reload
+          </a>
+          &nbsp;
+
+          <a
+            href="javascript:void(0)"
+            class="btn-flat btn-success btn-sm"
+            onClick="kumpulAction('export_laporan_penduduk', '{$acak}');"
+          >
+            <i class="fa fa-print"></i> Cetak
+          </a>
+        </div>
+      </div>
+
+      {elseif $mod eq 'laporan_ktp'}
+      <div class="row" style="margin-bottom: 5px">
+        <div class="col-lg-1" style="margin-top: 3px">
+          <label style="width: 90px">Filter RT : </label>
+        </div>
+        <div class="col-lg-1">
+          <input
+            type="text"
+            name="rt_{$acak}"
+            id="rt_{$acak}"
+            class="form-control input-sm"
+          />
+        </div>
+        <div class="col-lg-1" style="margin-top: 3px">
+          <label style="width: 100px">Filter RW : </label>
+        </div>
+        <div class="col-lg-1">
+          <input
+            type="text"
+            name="rw_{$acak}"
+            id="rw_{$acak}"
+            class="form-control input-sm"
+          />
+        </div>
+        <div class="col-lg-2">
+          <select
+            name="kelurahan_{$acak}"
+            id="kelurahan_{$acak}"
+            class="form-control input-sm"
+          >
+            {$kelurahan|default:''}
+          </select>
+        </div>
+        <div class="col-lg-6 text-right">
+          <a
+            href="javascript:void(0)"
+            class="btn-flat btn-default btn-sm"
+            onClick="kumpulAction('generate_laporan_ktp', '{$acak}');"
+          >
+            <i class="fa fa-search"></i> Generate
+          </a>
+          &nbsp;
+          <a
+            href="javascript:void(0)"
+            class="btn-flat btn-info btn-sm"
+            onClick="kumpulAction('reload_laporan_ktp', '{$acak}');"
+          >
+            <i class="fa fa-refresh"></i> Reload
+          </a>
+          &nbsp;
+
+          <a
+            href="javascript:void(0)"
+            class="btn-flat btn-success btn-sm"
+            onClick="kumpulAction('export_laporan_ktp', '{$acak}');"
+          >
+            <i class="fa fa-print"></i> Cetak
+          </a>
+        </div>
+      </div>
+
+      {elseif $mod eq 'data_penandatanganan'}
+      <div class="row" style="margin-bottom: 5px">
+        <div class="col-lg-6">
+          <label style="width: 80px">Kolom </label>: &nbsp;&nbsp;
+          <select
+            name="kat_{$acak}"
+            id="kat_{$acak}"
+            style="width: 30%; height: 32px; padding: 3px"
+          >
+            {$data_select|default:''}
+          </select>
+          <input
+            type="text"
+            name="key_{$acak}"
+            id="key_{$acak}"
+            style="width: 40%; height: 32px; padding: 5px"
+          />
+          <a
+            href="javascript:void(0)"
+            class="btn-flat btn-default btn-sm"
+            onClick="cariData('{$mod}', '', '{$acak}');"
+          >
+            <i class="fa fa-search"></i>
+          </a>
+        </div>
+        <div class="col-lg-6 text-right">
+          {if $button_add|default:'' eq 'true'}
+          <a
+            href="javascript:void(0)"
+            title="Add"
+            class="btn-flat btn-success btn-sm"
+            onClick="genform('add', '{$mod}','{$mod}');"
+          >
+            <i class="fa fa-plus"></i> Tambah
+          </a>
+          {/if}
+          {if $button_edit|default:'' eq 'true'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Edit"
+              class="btn-flat btn-warning btn-sm"
+              onClick="genform('edit', '{$mod}','{$mod}');"
+            >
+              <i class="fa fa-edit"></i> Edit
+            </a>
+            {/if}
+            {if $button_cetak_penandatanganan|default:'' eq 'true'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Cetak"
+              class="btn-flat btn-warning btn-sm"
+              onClick="kumpulAction('export_laporan_penandatanganan');"
+            >
+              <i class="fa fa-print"></i> Cetak
+            </a>
+            {/if} 
+            <!-- {if $button_delete|default:'' eq 'true'}
+								&nbsp;
+								<a href="javascript:void(0)" title="Delete" class="btn-flat btn-danger btn-sm" onClick="genform('delete', '{$mod}','{$mod}');">
+									<i class="fa  fa-remove"></i> Hapus
+								</a>
+							{/if} -->
+
+            {if $button_import|default:'' eq 'true'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Delete"
+              class="btn-flat btn-info btn-sm"
+              onClick="kumpulAction('import_penduduk');"
+            >
+              <i class="fa fa-remove"></i> Import Excel
+            </a>
+            {/if}
+            {if $mod|default:'' eq 'data_surat'} &nbsp;
+            <a
+              href="javascript:void(0);"
+              onClick="kumpulAction('cetak_surat');"
+              title="Export Data PDF"
+              class="btn-flat btn-default btn-sm"
+            >
+              <i class="fa fa-file-pdf-o"></i> Cetak
+            </a>
+            {/if}
+          </div>
+        </div>
+        {elseif $mod eq 'data_jenis_persuratan'}
+        <div class="row" style="margin-bottom: 5px">
+          <div class="col-lg-6">
+            <label style="width: 80px">Kolom </label>: &nbsp;&nbsp;
+            <select
+              name="kat_{$acak}"
+              id="kat_{$acak}"
+              style="width: 30%; height: 32px; padding: 3px"
+            >
+              {$data_select|default:''}
+            </select>
+            <input
+              type="text"
+              name="key_{$acak}"
+              id="key_{$acak}"
+              style="width: 40%; height: 32px; padding: 5px"
+            />
+            <a
+              href="javascript:void(0)"
+              class="btn-flat btn-default btn-sm"
+              onClick="cariData('{$mod}', '', '{$acak}');"
+            >
+              <i class="fa fa-search"></i>
+            </a>
+          </div>
+          <div class="col-lg-6 text-right">
+            {if $button_edit|default:'' eq 'true'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Edit"
+              class="btn-flat btn-warning btn-sm"
+              onClick="genform('edit', '{$mod}','{$mod}');"
+            >
+              <i class="fa fa-edit"></i> Edit
+            </a>
+            {/if}
+          </div>
+        </div>
+        {elseif $mod eq 'laporan_persuratan_masuk'}
+        <div class="row" style="margin-bottom: 5px">
+          <div class="col-lg-2" style="margin-top: 3px">
+            <label style="width: 100px">Filter Tanggal </label>: &nbsp;&nbsp;
+          </div>
+          <div class="col-lg-3" style="margin-left: -65px">
+            <div class="input-group input-daterange">
+              <input
+                class="form-control input-sm tanggalnya"
+                id="date_start_{$acak}"
+                type="text"
+              />
+              <div class="input-group-addon">-</div>
+              <input
+                class="form-control input-sm tanggalnya"
+                id="date_end_{$acak}"
+                type="text"
+              />
+            </div>
+          </div>
+
+        
+
+          <div class="col-lg-3" style="margin-left: -20px">
+            {if !in_array($cl_user_group_id,[2,4,5])}
+            <select
+              name="kelurahan_{$acak}"
+              id="kelurahan_{$acak}"
+              style="width: 100%; height: 30px; padding: 3px"
+            >
+              {$kelurahan|default:''}
+            </select>
+            {/if}
+          </div>
+          <div class="col-lg-4 text-right" style="margin-left: 80px">
+            <a
+              href="javascript:void(0)"
+              class="btn-flat btn-default btn-sm"
+              onClick="kumpulAction('generate_laporan_persuratan_masuk', '{$acak}');"
+            >
+              <i class="fa fa-search"></i> Filter
+            </a>
+            &nbsp;
+            <a
+              href="javascript:void(0)"
+              class="btn-flat btn-info btn-sm"
+              onClick="kumpulAction('reload_laporan_persuratan_masuk', '{$acak}');"
+            >
+              <i class="fa fa-refresh"></i> Reload
+            </a>
+            &nbsp;
+            <a
+              href="javascript:void(0)"
+              class="btn-flat btn-success btn-sm"
+              onClick="kumpulAction('export_laporan_persuratan_masuk', '{$acak}');"
+            >
+              <i class="fa fa-print"></i> Cetak PDF
+            </a>
+            &nbsp;
+            <a
+              href="javascript:void(0)"
+              class="btn-flat btn-success btn-sm"
+              onClick="kumpulAction('export_laporan_persuratan_masuk_excel', '{$acak}');"
+            >
+              <i class="fa fa-print"></i> Cetak Excel
+            </a>
+          </div>
+        </div>
+        
+      {elseif $mod eq 'data_esign'}
+        <div class="row" style="margin-bottom: 5px">
+          <div class="col-lg-6">
+            <label style="width: 80px">Kolom </label>: &nbsp;&nbsp;
+            <select
+              name="kat_{$acak}"
+              id="kat_{$acak}"
+              style="width: 30%; height: 32px; padding: 3px"
+            >
+              {$data_select|default:''}
+            </select>
+            <input
+              type="text"
+              name="key_{$acak}"
+              id="key_{$acak}"
+              style="width: 40%; height: 32px; padding: 5px"
+            />
+            <a
+              href="javascript:void(0)"
+              class="btn-flat btn-default btn-sm"
+              onClick="cariData('{$mod}', '', '{$acak}');"
+            >
+              <i class="fa fa-search"></i>
+            </a>
+          </div>
+          <div class="col-lg-6 text-right">
+          {if $button_edit|default:'' eq 'true'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Edit"
+              class="btn-flat btn-warning btn-sm"
+              onClick="genform('edit', 'data_esign','data_esign');"
+            >
+              <i class="fa fa-edit"></i> Edit
+            </a>
+            {/if}
+          {if $button_edit|default:'' eq 'true' && $mod|default:''}
+            &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Edit Preview"
+              class="btn-flat btn-warning btn-sm"
+              onClick="genform('edit_preview', 'data_esign','data_esign');"
+            >
+              <i class="fa fa-edit"></i> Edit Preview
+            </a>
+            {/if}
+          {if ($button_edit|default:'' eq 'true' OR
+            in_array($auth.cl_user_group_id,[4,5]))} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Daftar E-SIGN"
+              class="btn-flat btn-success btn-sm"
+              onClick="get_data_riwayat_esign();"
+            >
+              <i class="fa fa-qrcode"></i> E-SIGN
+            </a>
+            {/if}
+          </div>
+        </div>
+{elseif $mod eq 'data_penduduk' && !in_array($cl_user_group_id,[2,4,5])}
+  <div class="row" style="margin-bottom: 5px">
+    <div class="col-lg-9" style="display: flex;">
+      <div style="display: flex;width: 50%;">
+        <label style="width: 80px">Kolom</label>: &nbsp;&nbsp;
+        <select
+          name="kat_{$acak}"
+          id="kat_{$acak}"
+          style="width: 30%; height: 32px; padding: 3px"
+        >
+          {$data_select|default:''}
+        </select>
+        <input
+          type="text"
+          name="key_{$acak}"
+          id="key_{$acak}"
+          style="width: 40%; height: 32px; padding: 5px"
+          onkeypress="return(handleKeyPress(event))"
+        />
+      </div>
+      {if $mod eq 'data_penduduk'} 
+          {if !in_array($cl_user_group_id,[2,4,5])}
+          <div style="display: flex;width: 50%;">
+            <label style="width: 80px">Kelurahan</label>: &nbsp;&nbsp;
+            <select
+              name="kelurahan_{$acak}"
+              id="kelurahan_{$acak}"
+              style="width: 100%; height: 30px; padding: 3px">
+              {$kelurahan|default:''}
+            </select>
+          </div>
+        {/if}
+      {/if}
+      <a
+        href="javascript:void(0)"
+        id="cari"
+        class="btn-flat btn-default btn-sm"
+        onClick="cariData('{$mod}', '', '{$acak}');"
+      >
+        <i class="fa fa-search"></i>
+      </a>
+    </div>
+    <div class="col-lg-3" style="text-align: end;">
+      {if $button_cetak|default:'' eq 'true'} &nbsp;
+        <a
+          href="javascript:void(0)"
+          title="Cetakx"
+          class="btn-flat btn-warning btn-sm"
+          onClick="kumpulAction('export_laporan_penduduk','{$acak}');"
+        >
+          <i class="fa fa-print"></i> Cetak
+        </a>
+      {/if}
+      {if $button_import|default:'' eq 'true'} &nbsp;
+        <a
+          href="javascript:void(0)"
+          title="Delete"
+          class="btn-flat btn-info btn-sm"
+          onClick="kumpulAction('import_penduduk');"
+        >
+          <i class="fa fa-remove"></i> Import Excel
+        </a>
+      {/if}
+    </div>
+  </div>
+{elseif $mod eq 'data_dasawisma' && !in_array($cl_user_group_id,[2,4,5])}
+<div class="row" style="margin-bottom: 5px">
+  <div class="col-lg-9" style="display: flex;">
+    <div style="display: flex;width: 50%;">
+      <label style="width: 80px">Kolom</label>: &nbsp;&nbsp;
+      <select name="kat_{$acak}" id="kat_{$acak}" style="width: 30%; height: 32px; padding: 3px">
+        {$data_select|default:''}
+      </select>
+      <input type="text" name="key_{$acak}" id="key_{$acak}" style="width: 40%; height: 32px; padding: 5px" onkeypress="return(handleKeyPress(event))" />
+    </div>
+  
+    <div style="display: flex;width: 50%;">
+      <label style="width: 80px">Kelurahan</label>: &nbsp;&nbsp;
+      <select name="kelurahan_{$acak}" id="kelurahan_{$acak}" style="width: 100%; height: 30px; padding: 3px">
+        {$kelurahan|default:''}
+      </select>
+    </div>
+    <a href="javascript:void(0)" id="cari" class="btn-flat btn-default btn-sm"
+      onclick="cariData('{$mod}', '', '{$acak}');">
+      <i class="fa fa-search"></i>
+    </a>
+  </div>
+
+  <div class="col-lg-3">
+    <a href="javascript:void(0)" title="Cetakx" class="btn-flat btn-warning btn-sm"
+      onclick="kumpulAction('export_laporan_dasawisma','{$acak}');">
+      <i class="fa fa-print"></i> Cetak
+    </a>
+  </div>
+</div>
+{elseif $mod eq 'data_penilaian_skm'}  
+  <div class="row">
+    <div class="col-lg-5" style="margin-top: 3px;margin-bottom: 3px;">
+      <label style="width: 90px">Kolom </label>: &nbsp;
+      <select name="kat_{$acak}" id="kat_{$acak}" style="width: 30%; height: 32px; padding: 3px">
+        {$data_select|default:''}
+      </select>
+      <input type="text" name="key_{$acak}" id="key_{$acak}" style="width: 40%; height: 32px; padding: 2px"/>
+      <a href="javascript:void(0)" class="btn-flat btn-default btn-sm" onClick="cariData('{$mod}', '', '{$acak}');">
+        <i class="fa fa-search"></i>
+      </a>
+    </div>
+    {if !in_array($cl_user_group_id,[2,4,5])}
+    <div class="col-lg-3" style="display: flex;width: 50%;">
+      <label style="width: 80px">Kelurahan</label>: &nbsp;&nbsp;
+      <select name="kelurahan_{$acak}" id="kelurahan_{$acak}" style="width: 100%; height: 30px; padding: 3px">
+        {$kelurahan|default:''}
+      </select>
+      <a href="javascript:void(0)" id="cari" class="btn-flat btn-default btn-sm"
+        onclick="cariData('{$mod}', '', '{$acak}');">
+        <i class="fa fa-search"></i>
+      </a>
+    </div>
+    {/if}
+    <div class="col-lg-3">
+      {if $button_cetak_penilaian_skm|default:'' eq 'true'} &nbsp;
+      <button class="btn-flat btn-success btn-sm" type="button" onclick="kumpulAction('export_laporan_hasil_skm','{$acak}')">Cetak Rekap</button>
+      <button class="btn-flat btn-success btn-sm" type="button" onclick="kumpulAction('export_laporan_hasil_skm2','{$acak}')">Cetak Responden</button>
+      <!-- <a href="javascript:void(0)"
+        title="Cetak"
+        class="btn-flat btn-warning btn-sm"
+        onClick="kumpulAction('export_laporan_hasil_skm','{$acak}');">
+        <i class="fa fa-print"></i> Cetak 1
+      </a>
+      <a href="javascript:void(0)"
+        title="Cetak"
+        class="btn-flat btn-warning btn-sm"
+        onClick="kumpulAction('export_laporan_hasil_skm2','{$acak}');">
+        <i class="fa fa-print"></i> Cetak 2
+      </a> -->
+      {/if}
+    </div>
+  </div>
+{elseif $mod eq 'rekap_penilaian_kelrtrw' && !in_array($cl_user_group_id,[2,4,5])}
+<div class="row" style="margin-bottom: 5px">
+  <div class="col-lg-8" style="display: flex;">
+    <div style="display: flex;width: 50%;">
+      <label style="width: 80px">Kolom</label>: &nbsp;&nbsp;
+      <select name="kat_{$acak}" id="kat_{$acak}" style="width: 30%; height: 32px; padding: 3px">
+        {$data_select|default:''}
+      </select>
+      <input type="text" name="key_{$acak}" id="key_{$acak}" style="width: 40%; height: 32px; padding: 5px" onkeypress="return(handleKeyPress(event))" />
+    </div>
+
+    <div class="col-lg-4" style="display: flex;width: 50%;">
+      <label style="width: 80px">Kelurahan</label>: &nbsp;&nbsp;
+      <select name="kelurahan_{$acak}" id="kelurahan_{$acak}" style="width: 100%; height: 30px; padding: 3px">
+        {$kelurahan|default:''}
+      </select>
+    </div>
+
+    <a href="javascript:void(0)" id="cari" class="btn-flat btn-default btn-sm"
+      onclick="cariData('{$mod}', '', '{$acak}');">
+      <i class="fa fa-search"></i>
+    </a>
+  </div>
+
+  <div class="col-lg-2">
+    <label style="width: 100px">Pilih Bulan:</label>
+    <select name="bulan" id="bulan{$acak}" style="width: 100%; height: 32px; padding: 3px">
+      {$bulan|default:''}
+    </select>
+    <script>
+      $('#bulan{$acak},#rw{$acak}').change(function(e) {
+          $("#grid_rekap_penilaian_kelrtrw").datagrid("reload",{
+            rw:$('#rw{$acak}').val(),
+            bulan:$('#bulan{$acak}').val(),
+          });
+      });
+    </script>
+  </div>
+  <div class="col-lg-4 text-right" style="gap: 7px;display: flex;justify-content: end;align-items: end;">
+    <a href="javascript:void(0)" class="btn-flat btn-success btn-sm"  onclick="(()=>{
+      $('#modal_{$mod}{$acak}').show();
+    })()">
+      <i class="fa fa-print"></i> Cetak
+    </a>
+  </div>
+
+
+{else}
+        <div class="row" style="margin-bottom: 5px">
+       
+          {if in_array($mod, ['data_penduduk','data_kendaraan','data_indikator_skm','form_sub_indikator_rt_rw','data_sub_indikator_rt_rw','data_penduduk_asing', 'data_keluarga', 'data_surat','surat_himbauan','broadcast'])}
+          <div class="col-lg-8" style="margin-bottom: 10px;">
+          {else}
+          <div class="col-lg-9" style="margin-bottom: 10px;">
+          {/if}
+            {if $mod eq 'data_detail_sekolah'}
+            <label style="width: 80px">Tahun Ajaran </label>: &nbsp;&nbsp;
+            <select name="kat_{$acak}" id="kat_{$acak}" style="width: 30%; height: 32px; padding: 3px; display:none">
+              <option value='thn_ajar'>N</option>
+            </select>
+            <select name="key_{$acak}" id="key_{$acak}" style="width: 30%; height: 32px; padding: 3px" onChange="cariData('{$mod}', '', '{$acak}');">
+              {$data_select|default:''}
+            </select>
+
+            {else}
+            <label style="width: 50px">Kolom</label>: &nbsp;&nbsp;
+            <select name="kat_{$acak}" id="kat_{$acak}" style="width: 25%; height: 32px; padding: 3px">
+              {$data_select|default:''}
+            </select>
+            <input type="text" name="key_{$acak}" id="key_{$acak}" style="width: 25%; height: 32px; padding: 5px"
+              onkeypress="return(handleKeyPress(event))"/>
+              {if !in_array($cl_user_group_id,[2,4,5]) and !in_array($mod, ['data_kendaraan','data_indikator_skm','form_sub_indikator_rt_rw','data_sub_indikator_rt_rw','data_penilaian_skm', 'surat_himbauan', 'broadcast', 'surat_lain', 'data_surat','rekap_penilaian_kelrtrw','surat_masuk'])}
+              
+                <label style="width: 80px">Kelurahan</label>: &nbsp;&nbsp;
+                <select
+                  name="kelurahan_{$acak}"
+                  id="kelurahan_{$acak}"
+                  style="width: 20%; height: 30px; padding: 3px">
+                  {$kelurahan|default:''}
+                </select> 
+            {/if}
+            <a href="javascript:void(0)" id="cari" class="btn-flat btn-default btn-sm" onClick="cariData('{$mod}', '', '{$acak}');">
+            <i class="fa fa-search"></i></a>
+            {/if}
+
+            {if $mod eq 'data_penduduk'} 
+                {if !in_array($cl_user_group_id,[2,4,5])}
+                <label style="width: 80px">Kelurahan</label>: &nbsp;&nbsp;
+                <select
+                  name="kelurahan_{$acak}"
+                  id="kelurahan_{$acak}"
+                  style="width: 100%; height: 30px; padding: 3px">
+                  {$kelurahan|default:''}
+                </select>
+              {/if}
+            {/if}
+          </div>
+          {if !in_array($mod, ['data_penduduk','usulan_penilaian_rt_rw','data_penduduk_asing','data_keluarga','data_kendaraan','data_indikator_skm','form_sub_indikator_rt_rw','data_sub_indikator_rt_rw','data_penilaian_skm', 'surat_himbauan', 'broadcast', 'surat_lain', 'data_surat','data_rt_rw','penilaian_rt_rw','data_dasawisma','rekap_penilaian_kelrtrw','surat_masuk'])}
+          <div class="col-lg-8">
+            <label style="width: 80px">Pilih TTD</label>: &nbsp;&nbsp;
+            <select name="nip" id="nip" style="width: 60%; height: 32px; padding: 3px">
+              {$nip_id|default:''}
+            </select>
+          </div>
+          {/if}
+          <div class="col-lg-4 text-right">
+            {if $button_add|default:'' eq 'true' and !in_array($mod, ['data_penilaian_skm'])}
+            <a
+              href="javascript:void(0)"
+              title="Add"
+              class="btn-flat btn-success btn-sm"
+              onClick="genform('add', '{$mod}','{$mod}');"
+            >
+              <i class="fa fa-plus"></i> Tambah
+            </a>
+            {/if}
+            {if $button_edit|default:'' eq 'true'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Edit"
+              class="btn-flat btn-warning btn-sm"
+              onClick="genform('edit', '{$mod}','{$mod}');"
+            >
+              <i class="fa fa-edit"></i> Edit
+            </a>
+            {/if}
+            {if $button_edit|default:'' eq 'true' && $mod|default:'' eq 'data_surat'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Edit Preview"
+              class="btn-flat btn-warning btn-sm"
+              onClick="genform('edit_preview', 'data_surat','data_surat');"
+            >
+              <i class="fa fa-edit"></i> Edit Preview
+            </a>
+            {/if}
+            {if ($button_edit|default:'' eq 'true' OR in_array($auth.cl_user_group_id,[4,5])) && $mod|default:'' eq 'data_surat'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Daftar E-SIGN"
+              class="btn-flat btn-success btn-sm"
+              onClick="get_data_riwayat_esign();"
+            >
+              <i class="fa fa-qrcode"></i> E-SIGN
+            </a>
+            {/if}
+            {if $button_delete|default:'' eq 'true'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Delete"
+              class="btn-flat btn-danger btn-sm"
+              onClick="genform('delete', '{$mod}','{$mod}');"
+            >
+              <i class="fa fa-remove"></i> Hapus
+            </a>
+            {/if}
+            {if $button_cetak|default:'' eq 'true'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Cetakx"
+              class="btn-flat btn-warning btn-sm"
+              onClick="kumpulAction('export_laporan_penduduk','{$acak}');"
+            >
+              <i class="fa fa-print"></i> Cetak
+            </a>
+            {/if}
+
+            {if $button_cetak_asing|default:'' eq 'true'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Cetak"
+              class="btn-flat btn-warning btn-sm"
+              onClick="kumpulAction('export_laporan_penduduk_asing','{$acak}');"
+            >
+              <i class="fa fa-print"></i> Cetak
+            </a>
+            {/if}
+            
+            {if $button_cetakktp|default:'' eq 'true'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Cetak"
+              class="btn-flat btn-warning btn-sm"
+              onClick="kumpulAction('export_laporan_ktp');"
+            >
+              <i class="fa fa-print"></i> Cetak
+            </a>
+            {/if}
+            {if $button_cetakimb|default:'' eq 'true'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Cetak"
+              class="btn-flat btn-warning btn-sm"
+              onClick="kumpulAction('export_laporan_rekap_imb');"
+            >
+              <i class="fa fa-print"></i> Cetak
+            </a>
+            {/if}
+            {if $button_cetak_rt_rw|default:'' eq 'true'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Cetak"
+              class="btn-flat btn-warning btn-sm"
+              onClick="kumpulAction('export_laporan_rt_rw');"
+            >
+              <i class="fa fa-print"></i> Cetak
+            </a>
+            {/if}
+            {if $button_cetakwamis|default:'' eq 'true'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Cetak"
+              class="btn-flat btn-warning btn-sm"
+              onClick="kumpulAction('export_laporan_wamis');"
+            >
+              <i class="fa fa-print"></i> Cetak
+            </a>
+            {/if}
+            {if $button_cetakumkm|default:'' eq 'true'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Cetak"
+              class="btn-flat btn-warning btn-sm"
+              onClick="kumpulAction('export_laporan_umkm');"
+            >
+              <i class="fa fa-print"></i> Cetak
+            </a>
+            {/if}
+            {if $button_cetakdasawisma|default:'' eq true} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Cetak"
+              class="btn-flat btn-warning btn-sm"
+              onClick="kumpulAction('export_laporan_dasawisma');"
+            >
+              <i class="fa fa-print"></i> Cetak
+            </a>
+            {/if}
+            {if $button_cetakfaskes|default:'' eq 'true'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Cetak"
+              class="btn-flat btn-warning btn-sm"
+              onClick="kumpulAction('export_laporan_faskes');"
+            >
+              <i class="fa fa-print"></i> Cetak
+            </a>
+            {/if}
+            
+            {if $button_cetak_staff|default:'' eq 'true'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Cetak"
+              class="btn-flat btn-warning btn-sm"
+              onClick="kumpulAction('export_laporan_staff');"
+            >
+              <i class="fa fa-print"></i> Cetak
+            </a>
+            {/if}
+
+            {if $button_cetak_retribusi|default:'' eq 'true'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Cetak"
+              class="btn-flat btn-warning btn-sm"
+              onClick="kumpulAction('export_laporan_retribusi');"
+            >
+              <i class="fa fa-print"></i> Cetak
+            </a>
+            {/if}
+            {if $button_cetak_keluarga|default:'' eq 'true'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Cetak"
+              class="btn-flat btn-warning btn-sm"
+              onClick="kumpulAction('export_laporan_keluarga');"
+            >
+              <i class="fa fa-print"></i> Cetak
+            </a>
+            {/if}
+            <!-- {if $button_cetak_penilaian_skm|default:'' eq 'true'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Cetak"
+              class="btn-flat btn-warning btn-sm"
+              onClick="kumpulAction('export_laporan_hasil_skm');"
+            >
+              <i class="fa fa-print"></i> Cetak
+            </a>
+            {/if} -->
+            <!-- {if $button_cetak_persuratan|default:'' eq 'true'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Cetak"
+              class="btn-flat btn-warning btn-sm"
+              onClick="kumpulAction('export_laporan_persuratan');"
+            >
+              <i class="fa fa-print"></i> Ctk Rekap
+            </a>
+            {/if}  -->
+            {if $button_cetak_kebersihan|default:'' eq 'true'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Cetak"
+              class="btn-flat btn-warning btn-sm"
+              onClick="kumpulAction('export_laporan_kebersihan');"
+            >
+              <i class="fa fa-print"></i> Cetak
+            </a>
+            {/if}
+            {if $button_cetak_sekolah|default:'' eq 'true'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Cetak"
+              class="btn-flat btn-warning btn-sm"
+              onClick="kumpulAction('export_laporan_sekolah');"
+            >
+              <i class="fa fa-print"></i> Cetak
+            </a>
+            {/if}
+            {if $button_cetak_ibadah|default:'' eq 'true'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Cetak"
+              class="btn-flat btn-warning btn-sm"
+              onClick="kumpulAction('export_laporan_ibadah');"
+            >
+              <i class="fa fa-print"></i> Cetak
+            </a>
+            {/if}
+        {if $button_cetak_pkl|default:'' eq 'true'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Cetak"
+              class="btn-flat btn-warning btn-sm"
+              onClick="kumpulAction('export_laporan_pkl');"
+            >
+              <i class="fa fa-print"></i> Cetak
+            </a>
+            {/if}
+        {if $button_cetak_lorong|default:'' eq 'true'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Cetak"
+              class="btn-flat btn-warning btn-sm"
+              onClick="kumpulAction('export_laporan_lorong');"
+            >
+              <i class="fa fa-print"></i> Cetak
+            </a>
+            {/if}
+        {if $button_cetak_rekap_bulan|default:'' eq 'true'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Cetak"
+              class="btn-flat btn-warning btn-sm"
+              onClick="kumpulAction('export_laporan_rekap_bulan');"
+            >
+              <i class="fa fa-print"></i> Cetak
+            </a>
+            {/if}
+        {if $button_cetak_ekspedisi|default:'' eq 'true'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Cetak"
+              class="btn-flat btn-warning btn-sm"
+              onClick="kumpulAction('export_laporan_ekspedisi');"
+            >
+              <i class="fa fa-print"></i> Cetak
+            </a>
+            {/if}
+        {if $button_import|default:'' eq 'true'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Delete"
+              class="btn-flat btn-info btn-sm"
+              onClick="kumpulAction('import_penduduk');"
+            >
+              <i class="fa fa-remove"></i> Import Excel
+            </a>
+            {/if}
+        {if $mod|default:'' eq 'data_surat'} &nbsp;
+            <a
+              href="javascript:void(0);"
+              onClick="kumpulAction('cetak_surat');"
+              title="Export Data PDF"
+              class="btn-flat btn-default btn-sm"
+            >
+              <i class="fa fa-file-pdf-o"></i> Cetak PDF
+            </a>
+            {/if}
+
+        {if $mod|default:'' eq 'surat_himbauan'} &nbsp;
+            <a
+              href="javascript:void(0);"
+              onClick="kumpulAction('cetak_himbauan');"
+              title="Export Data PDF"
+              class="btn-flat btn-default btn-sm"
+            >
+              <i class="fa fa-file-pdf-o"></i> Cetak PDF
+            </a>
+            {/if}
+            {if $mod|default:'' eq 'broadcast'} &nbsp;
+            <a
+              href="javascript:void(0);"
+              onClick="kumpulAction('cetak_broadcast');"
+              title="Export Data PDF"
+              class="btn-flat btn-default btn-sm"
+            >
+              <i class="fa fa-file-pdf-o"></i> Cetak PDF
+            </a>
+            {/if}
+          </div>
+        </div>
+        {/if}
+
+        <div class="row">
+          <div class="col-lg-12">
+            {include file="backend/template/grid.html" main={$mod}
+            table={$table|default:''} filter_core="true"
+            button={$button|default:'true'} }
+          </div>
+        </div>
+      </div>
+      <div id="detil_nya_{$mod}" width="100%"></div>
+    </div>
+  </div>
+</section>
+
+<div class="modal fade" id="modal-esign" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="color-line"></div>
+      <div class="modal-header text-center">
+        <h4 class="modal-title fw-bold text-uppercase" id="modal_title">
+          E-SIGN
+        </h4>
+        <small class="font-bold"></small>
+      </div>
+      <form
+        id="fm-esign"
+        action="{$host}backoffice-cetak/daftar_esign"
+        method="post"
+      >
+        <div class="modal-body" style="padding: 20px 29px">
+          <div class="row" style="margin: 0px">
+            <div class="col-md-7">
+              <label>Riwayat:</label>
+              <div
+                id="list-riwayat-esign"
+                style="border: 1px solid #e6e4e4; height: 100%"
+              ></div>
+            </div>
+            <div class="col-md-5" id="div-catatan-esign">
+              <div class="mb-2">
+                <label for="">Bertandatangan:</label>
+                <p id="nama_ttd">-</p>
+              </div>
+              <div class="mb-2">
+                <label for="">Paraf :</label>
+                <p>
+                  <select id="pemeriksa_id" width="100%">
+                    {$data_user_pemeriksa_esign}
+                  </select>
+                </p>
+              </div>
+              <div class="mb-2">
+                <label>Catatan:</label>
+                <textarea
+                  name="catatan-esign"
+                  id="catatan-esign"
+                  rows="5"
+                  class="form-control"
+                ></textarea>
+              </div>
+              <div id="list-radio-status-esign" class="mb-5">
+                <label for="status_esign_1"
+                  ><input
+                    type="radio"
+                    id="status_esign_1"
+                    name="status_esign"
+                    value="1"
+                  />
+                  Approve</label
+                >
+                <label for="status_esign_2"
+                  ><input
+                    type="radio"
+                    id="status_esign_2"
+                    name="status_esign"
+                    value="2"
+                    style="margin-left: 10px"
+                  />
+                  Submit</label
+                >
+                <label for="status_esign_3"
+                  ><input
+                    type="radio"
+                    id="status_esign_3"
+                    name="status_esign"
+                    value="3"
+                    style="margin-left: 10px"
+                  />
+                  Verified</label
+                >
+                <label for="status_esign_4"
+                  ><input
+                    type="radio"
+                    id="status_esign_4"
+                    name="status_esign"
+                    value="4"
+                    style="margin-left: 10px"
+                  />
+                  Revision</label
+                >
+                <label for="status_esign_5"
+                  ><input
+                    type="radio"
+                    id="status_esign_5"
+                    name="status_esign"
+                    value="5"
+                    style="margin-left: 10px"
+                  />
+                  Reject</label
+                >
+              </div>
+              <div id="akun-esign" style="display: none">
+                <h6>Akun E-SIGN</h6>
+                <hr class="my-0" />
+                <label>NIK:</label>
+                <input type="text" id="nik_esign" class="form-control mb-2" />
+                <label>Password:</label>
+                <input
+                  type="password"
+                  id="passphrase_esign"
+                  class="form-control"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            style="margin-top: 10px"
+            class="btn btn-default"
+            data-dismiss="modal"
+          >
+            Tutup
+          </button>
+          <button
+            type="submit"
+            style="margin-top: 10px"
+            class="btn btn-primary btn-simpan-esign"
+          >
+            Simpan
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal" id="modal_{$mod}{$acak}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cetak {$judul|default:''}</h5>
+                <button class="close" type="button" onclick="$(this).closest('.modal').hide()">x</button>
+            </div>
+            <div class="modal-body">
+              {if $mod eq 'rekap_penilaian_kelrtrw'}
+                <div class="row">
+                  <div class="col-lg-6 mb-3">
+                    <label style="width: 100px">Pilih Camat:</label>
+                    <select name="nip" id="nip{$acak}" style="width: 100%; height: 32px; padding: 3px">
+                      {$nip_id|default:''}
+                    </select>
+                  </div>
+
+                  <div class="col-lg-6 mb-3">
+                    <label style="width: 100px">Pilih LPM:</label>
+                    <select name="nik_lsm" id="nik_lsm{$acak}" style="width: 100%; height: 32px; padding: 3px">
+                      {$nik_lsm|default:''}
+                    </select>
+                  </div>
+
+                  <div class="col-lg-6 mb-3">
+                    <label style="width: 100px">Pilih Pembuat:</label>
+                    <select name="nik_pembuat" id="nik_pembuat{$acak}" style="width: 100%; height: 32px; padding: 3px">
+                      {$nik_pembuat|default:''}
+                    </select>
+                  </div>
+          
+                  <div class="col-md-6 mb-3">
+                    {include file="backend/template/input_form.html" label="Tgl Cetak" 
+                    class_width="col-lg-12" type="date" placeholder="dd-mm-yyyy" limit="true" startDate="{$startDate}" endDate="{$endDate}" name="tgl_cetak" id="tgl_cetak{$acak}" value="{date('d-m-Y')}"}
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    {include file="backend/template/input_form.html" label="Tinggi Baris" 
+                    class_width="col-lg-12" type="text" placeholder="Tinggi Baris" name="tinggi_baris" id="tinggi_baris{$acak}" value="25"}
+                  </div>
+                </div>
+              {/if}
+            </div>
+            <div class="modal-footer">
+              {if $mod eq 'rekap_penilaian_kelrtrw'}
+                <button class="btn-flat btn-success btn-sm" type="button" onclick="kumpulAction('export_rekap_penilaian_kelrtrw','{$acak}')">Cetak</button>
+                <button class="btn-flat btn-success btn-sm" type="button" onclick="kumpulAction('export_konsolidasi_penilaian_kelrtrw','{$acak}')">Cetak Konsolidasi</button>
+              {/if}
+                <button class="btn-flat btn-danger btn-sm" type="button" onclick="$(this).closest('.modal').hide()">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modal_salin{$mod}{$acak}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Salin {$judul|default:''}</h5>
+                <button class="close" type="button" onclick="$(this).closest('.modal').hide()">x</button>
+            </div>
+            <form id="form_salin{$acak}">
+              <div class="modal-body">
+                {if $mod eq 'penilaian_rt_rw'}
+                  <div class="row">
+                    <div class="col-lg-6 mb-3">
+                      <label style="width: 100px">Dari Bulan:</label>
+                      <select name="bulan_asal" id="bulan_asal{$acak}" style="width: 100%; height: 32px; padding: 3px">
+                        {for $i=1 to 12}
+                          {if $i eq date('n')}
+                            <option value="{$i}" selected>{getBulan($i)}</option>
+                            {else}
+                            <option value="{$i}">{getBulan($i)}</option>
+                            {/if}
+                        {/for}
+                      </select>
+                    </div>
+
+                    <div class="col-lg-6 mb-3">
+                      <label style="width: 100px">Ke Bulan:</label>
+                      <select  name="bulan_tujuan" id="bulan_tujuan{$acak}" style="width: 100%; height: 32px; padding: 3px">
+                        {for $i=1 to 12}
+                          {if $i eq date('n')}
+                            <option value="{$i}" selected>{getBulan($i)}</option>
+                            {else}
+                            <option value="{$i}">{getBulan($i)}</option>
+                            {/if}
+                        {/for}
+                      </select>
+                    </div>
+            
+                    <div class="col-md-6 mb-3">
+                      {include file="backend/template/input_form.html" label="Tgl Penilaian"  required="true"
+                      class_width="col-lg-12" type="date" placeholder="dd-mm-yyyy" limit="true" startDate="{$startDate}" endDate="{$endDate}" name="tgl_penilaian" id="tgl_penilaian{$acak}" value="{date('d-m-Y')}"}
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                      <div class="form-group">
+                        <input type="checkbox" name="replace_penilaian" id="replace_penilaian{$acak}" value="1" onchange="((e)=>{
+                          if($(this).is(':checked')){
+                            $('#replace_penilaian_feed{$acak}').show();
+                          }else{
+                            $('#replace_penilaian_feed{$acak}').hide();
+                          }
+                        })()">
+                        <label for="replace_penilaian{$acak}">Centang jika ingin menimpa penilaian yang sudah ada</label>
+                      </div>
+                      <div id="replace_penilaian_feed{$acak}" style="border: 2px dashed red;padding: 9px;display: none;">
+                        <strong>Peringatan!</strong>
+                        Data yang tertimpa tidak dapat dipulihkan
+                      </div>
+                    </div>
+                  </div>
+                {/if}
+                <div class="modal-footer">
+                  {if $mod eq 'penilaian_rt_rw'}
+                  <button class="btn-flat btn-success btn-sm" type="submit">Salin</button>
+                  {/if}
+                  <button class="btn-flat btn-danger btn-sm" type="button" onclick="$(this).closest('.modal').hide()">Tutup</button>
+                </div>
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+  var base_url = "{$host}";
+
+  var startDate = "{$startDate}",
+    endDate = "{$endDate}",
+    id = '{$id|default:""}';
+
+  $(".tanggalnya" + id).datepicker({
+    autoclose: true,
+    startDate: new Date(startDate),
+    endDate: new Date(endDate),
+    format: "yyyy-mm-dd",
+    orientation: "bottom",
+    changeMonth: true,
+    changeYear: true,
+    yearRange: "c-80:c+10",
+    dayNamesMin: ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"],
+    monthNamesShort: [
+      "Januari",
+      "Februari",
+      "Maret",
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Agustus",
+      "September",
+      "Oktober",
+      "November",
+      "Desember",
+    ],
+  });
+
+  $("#fm-esign").submit(function (e) {
+    e.preventDefault();
+    if ($("#grid_data_esign").length) {
+      var rowid = $("#grid_data_esign");
+    } else {
+      var rowid = $("#grid_data_surat");
+    }
+    row = rowid.datagrid("getSelected");
+    var url =
+      host +
+      "backoffice-cetak/daftar_esign/" +
+      row.cl_jenis_surat_id +
+      "/" +
+      row.tbl_data_penduduk_id +
+      "/" +
+      row.id;
+    $.ajax({
+      url: url,
+      type: "post",
+      dataType: "json",
+      cache: false,
+      data: {
+        catatan_esign: $("#catatan-esign").val(),
+        status_esign: $('[name="status_esign"]:checked').val(),
+        nip_pemeriksa_esign: $("#pemeriksa_id").val(),
+        nik_esign: $("#nik_esign").val(),
+        passphrase_esign: $("#passphrase_esign").val(),
+      },
+      success: function (data) {
+        if (data.stat == true) {
+          rowid.datagrid("reload");
+          $("#modal-esign").modal("hide");
+          $.messager.alert("SIMLURAH", data.msg);
+        } else {
+          $.messager.alert("SIMLURAH", data.msg, "error");
+        }
+      },
+      error: function (xhr, status, error) {
+        $.messager.alert(status, error, "error");
+      },
+    });
+  });
+
+  $("#form_salin{$acak}").submit(function (e) {
+    e.preventDefault();
+    const formdata = new FormData(this);
+    var btn = $("#form_salin{$acak} [type='submit']");
+    $.ajax({
+      url: "{$host}salin-data-penilaian-rt-rw",
+      data: formdata,
+      processData: false,
+      contentType: false,
+      cache: false,
+      async: true,
+      type:'post',
+      dataType: "json",
+      beforeSend: function (e) {
+        btn.prop('disabled',true);
+      },
+      success: function (data) {
+        btn.prop("disabled", false);
+        if (data.status == false) {
+          $.messager.alert("SIMLURAH", data.message, "error");
+          return;
+        }
+        $.messager.alert("SIMLURAH", data.message);
+        $('#modal_salin{$mod}{$acak}').hide()
+        $("#grid_{$mod}").datagrid("reload");
+      },
+      error: function (xhr, status, error) {
+        $.messager.alert(status, error, "error");
+        btn.prop("disabled", false);
+      },
+    });
+  });
+
+  $(".tanggalnya").datepicker({
+    format: "yyyy-mm-dd",
+  });
+
+  function cetak() {
+    var row = $("#grid_data_surat").datagrid("getSelected");
+
+    if (row != null) {
+      $("#cjenis_surat").val(row.jenis_surat);
+      document.getElementById("modal_title").innerHTML =
+        "CETAK " + row.jenis_surat;
+      $("#cno_surat").val(row.no_surat);
+      $("#myModal").modal("show");
+    } else {
+      alert("No Data Selected!");
+    }
+  }
+
+  function cetak_pdf() {
+    var ttd = $("#pil_ttd").val();
+
+    kumpulAction("cetak_surat", ttd);
+  }
+
+  function upload_arsip() {
+    alert("lihat");
+  }
+
+  $("#pil_ttd").change(function (data) {
+    var ttd = this.value;
+
+    //mulai save data
+    $.ajax({
+      url: "{base_url()}Backendxx/simpan_ttd/?nip=" + ttd,
+      dataType: "json",
+      cache: false,
+      success: function (data) {
+        if (data.status == true) {
+          $("#pil_ttd")
+            .parent()
+            .find("label")
+            .html('Pilih TTD <span style="color:green">Berhasil</span>');
+          setTimeout(function () {
+            $("#pil_ttd").parent().find("label").html("Pilih TTD");
+          }, 3000);
+        } else {
+          $("#pil_ttd")
+            .parent()
+            .find("label")
+            .html('Pilih TTD <span style="color:red">Gagal</span>');
+          setTimeout(function () {
+            $("#pil_ttd").parent().find("label").html("Pilih TTD");
+          }, 3000);
+        }
+      },
+      error: function (xhr, status, error) {
+        $("#pil_ttd")
+          .parent()
+          .find("label")
+          .html(
+            'Pilih TTD <span style="color:red">error: ' + error + "</span>"
+          );
+        setTimeout(function () {
+          $("#pil_ttd").parent().find("label").html("Pilih TTD");
+        }, 3000);
+      },
+    });
+  });
+</script>

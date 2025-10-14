@@ -1,0 +1,273 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 5.4.7.2 (Linux)"/>
+	<meta name="author" content="No Name"/>
+	<meta name="created" content="2022-11-10T02:16:23"/>
+	<meta name="changedby" content="No Name"/>
+	<meta name="changed" content="2022-11-10T02:57:05"/>
+	<meta name="AppVersion" content="16.0300"/>
+	<meta name="DocSecurity" content="0"/>
+	<meta name="HyperlinksChanged" content="false"/>
+	<meta name="LinksUpToDate" content="false"/>
+	<meta name="ScaleCrop" content="false"/>
+	<meta name="ShareDoc" content="false"/>
+	
+	<style type="text/css">
+		table { width:100%; } 
+		body { font-family: 'arial'; }
+	</style>
+	
+</head>
+
+<body>
+	<div style="padding-bottom: 5mm;">
+		<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;font-family: arial;">
+			<!-- <tr>
+				<td align="center" rowspan=4 valign="middle" style="width: 150px;">
+					<img src="{$host}__assets/images/logo-makassar.png" style="height:100px" />
+				</td>
+				<td align="center" valign="bottom" style="font-size:22.6px;padding:0px">PEMERINTAH {$setting.nama_kab_kota|upper|default:'.......'}</td>
+				{if $setting.status_logo_lainnya eq '1'}
+				<td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+					<img src="{$host}__assets/images/logo-camat.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';"  style="height:100px"/>
+				</td>
+				{else} 
+				<td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+					<img src="{$host}__assets/images/logo-blank.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';"  style="height:100px"/>
+				</td>
+				{/if}
+			</tr>
+			<tr>
+				<td align="center" style="font-size:22.6px;padding:0px">KECAMATAN {$setting.nama_kecamatan|upper|default:'.......'}</td>
+			</tr>
+			<tr>
+				<td align="center" valign="top" style="font-size:18.6px;padding:0px"><b>{$setting.nama_desa|upper|default:'.......'}</b></td>
+			</tr>
+			<tr>
+				<td align="center" valign="top" style="font-size:10.6px;padding:0px">
+					<i>
+						{if strlen($setting.alamat)>1}
+						{$setting.alamat|default:'...'}
+						{/if}
+						{if strlen($setting.telp)>1}
+						Telp. {$setting.telp|default:'...'}
+						{/if}
+						{if strlen($setting.faks)>1}
+						Fax. {$setting.faks|default:'...'}
+						{/if}
+						{if strlen($setting.email)>1}
+						Email : {$setting.email|default:'...'}
+						{/if}
+						{if strlen($setting.nama_kab_kota)>1}
+						{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'...'}
+						{/if}
+						{if strlen($setting.kode_pos)>1}
+						Kode Pos {$setting.kode_pos|default:'...'}
+						{/if}
+						{if strlen($setting.website)>1}
+						<br>Website : {str_replace('-','',$setting.website|default:'')}
+						{/if}
+					</i>
+				</td>
+			</tr>
+			<tr>
+				<td align="center" colspan="3" align="center">
+					<hr style="color: black;height: 4px; margin-bottom:0px">
+					<hr style="color: black;height: 1px; margin-top:3px">
+				</td>
+			</tr> -->
+			{include file="backend/template/kop_surat_kelurahan.html"}
+			<tr>
+				<td colspan=3 align="center"><b><u>SURAT JAMINAN KESANGGUPAN KELUARGA</u></b></td>
+			</tr>
+			
+		</table>
+	</div>
+	<div style="padding-right: 5.82mm;padding-left: 15.44mm; padding-bottom: 2mm; font-size: 14px;padding-top: -10px;">
+		<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse; line-height: 1.5;font-family: arial;font-size: 13px;">
+			<tr>
+				<td colspan=6 align="left" valign=top>Yang bertanda tangan dibawah ini :</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top style="width:42px;"><br></td>
+				<td align="left" valign=top style="width: 160px;">Nama</td>
+				<td align="center" valign=top style="width: 15px;">:</td>
+				<td align="left" valign=top><b>{$data.pemohon.nama_lengkap|default:'.....................'}</b></td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Umur</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{$data.pemohon.umur|default:'.....................'} Tahun</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Pekerjaan/Jabatan</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{$data.pemohon.nama_pekerjaan|default:'.....................'}</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Hubungan dgn Narapida</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{$data.surat.info_tambahan.hubungan_narapidana|default:''}</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Alamat</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{$data.pemohon.alamat|default:'.....................'}, RT {$data.pemohon.rt|default:'...'}/RW {$data.pemohon.rw|default:'...'}</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>No.Telp/Hp</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{$data.surat.info_tambahan.hp_penjamin|default:''}</td>
+			</tr>
+		</table>
+		<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse; line-height: 1.5;font-family: arial;font-size: 13px;">
+			<tr>
+				<td colspan=6 align="left" valign=top>Adalah sebagai penjamin dari Narapidana :</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top style="width:42px;"><br></td>
+				<td align="left" valign=top style="width: 160px;">Nama</td>
+				<td align="center" valign=top style="width: 15px;">:</td>
+				<td align="left" valign=top><b>{$data.surat.info_tambahan.nama_narapidana|default:''}</b></td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Umur</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{$data.surat.info_tambahan.umur_narapidana|default:''}</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Menjalani Pidana di</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{$data.surat.info_tambahan.lokasi_narapidana|default:''}</td>
+			</tr>
+			<tr>
+				<td colspan=4 align="center" valign=bottom></td>
+			</tr>
+			<tr>
+				<td colspan=6 align="left" valign=top>Dengan ini Saya Menyatakan :</td>
+			</tr>
+			<tr>
+				<td colspan=4 align="center" valign=bottom></td>
+			</tr>
+			<tr>
+				<td colspan=4 valign=top align="justify" style="font-size: 13px;">
+					1. Sanggup menjamin yang bersangkutan tidak meninggalkan wilayah Negara Republik Indonesia
+				</td>
+			</tr>
+			<tr>
+				<td colspan=4 valign=top align="justify" style="font-size: 13px;">
+					2. Sanggup menjamin yang bersangkutan mentaati persyaratan pelaksanaan <b>(asimilasi/pembebasan bersyarat/cuti menjelang bebas/cuti bersyarat *).</b>
+				</td>
+					
+			</tr>
+			<tr>
+				<td colspan=4 valign=top align="justify" style="font-size: 13px;">
+					3. Sanggup menjamin yang bersangkutan tidak melakukan perbuatan melanggar hukum.
+				</td>
+					
+			</tr>
+			<tr>
+				<td colspan=4 valign=top align="justify" style="font-size: 13px;">
+					4. Sanggup membantu mengawasi narapidana yang menjalani <b>(asimilasi/pembebasan bersyarat/cuti menjelang bebas/cuti bersyarat *).</b>
+				</td>
+					
+			</tr>
+			<tr>
+				<td colspan=4 valign=top align="justify" style="font-size: 13px;">
+					5. Pengurusan pengusulan <b>(asimilasi/pembebasan bersyarat/cuti menjelang bebas/cuti bersyarat *)</b> tidak dipungut biaya apapun / Gratis.
+				</td>
+					
+			</tr>
+			<tr>
+				<td colspan=4 valign=top align="justify" style="font-size: 13px;">
+					6. Sanggup <b>membantu dalam perekonomian</b> dan tempat tinggal yang bersangkutan.
+				</td>
+			</tr>
+			<tr>
+				<td colspan=4 align="left" valign=top style="font-size: 14px;">Demikian Surat Jaminan ini dibuat dengan sesungguhnya untuk dipergunakan seperlunya.</td>
+			</tr>
+		</table>
+	</div>
+	<div style="padding-right: 5.82mm;padding-left: 20.44mm; padding-bottom: 1mm; font-size: 16px;">
+		<table style="border-collapse: collapse;width: 100%;" border="0" cellpadding="0">
+			<tr>
+				<td valign="bottom" width="35%"><br></td>
+				<td valign="bottom" width="10%">&nbsp;</td>
+				<td valign="bottom" width="55%">
+					{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'.......'}, {$data.surat.tanggal_surat|default:'............................'}
+				</td>
+			</tr>
+			<tr>
+				<td valign="bottom"><b>Penjamin</b></td>
+				<td valign="bottom">&nbsp;</td>
+				<td valign="bottom" align="left">
+					<b>
+						{if count($data.ttd)==1}
+						{$data.ttd[0]['center']}
+						{else}
+						{$data.ttd[0]['center']}<br>{$data.ttd[1]['center']}
+						{/if}
+					 </b>
+				</td>
+			</tr>
+			<tr>
+				<td><br></td>
+				<td><br></td>
+				<td><br></td>
+			</tr>
+			<tr>
+				<td><br></td>
+				<td><br></td>
+				<td><br></td>
+			</tr>
+			<tr>
+				<td><br></td>
+				<td><br></td>
+				<td><br></td>
+			</tr>
+			<tr>
+				<td><br></td>
+				<td><br></td>
+				<td><br></td>
+			</tr>
+			<tr>
+				<td>
+					<b><u>{$data.pemohon.nama_lengkap|default:'.....................'}</u></b>
+				</td>
+				<td>&nbsp;</td>
+				<td>
+					<b><u>{$data.pemohon.nama|default:'...............................'}</u></b>
+				</td>
+			</tr>
+			<tr>
+				<td><br></td>
+				<td>&nbsp;</td>
+				<td align="left">
+					Pangkat : {$data.pemohon.pangkat|default:'............................'}
+				</td>
+			</tr>
+			<tr>
+				<td><br></td>
+				<td>&nbsp;</td>
+				<td align="left">
+					NIP : {$data.pemohon.nip|default:'...............................'}
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	<!-- {ttd_1($data,$setting)} -->
+</body>
+</html>

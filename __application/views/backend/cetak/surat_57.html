@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+    <title></title>
+    <meta name="generator" content="LibreOffice 5.4.7.2 (Linux)" />
+    <meta name="author" content="No Name" />
+    <meta name="created" content="2022-11-10T02:16:23" />
+    <meta name="changedby" content="No Name" />
+    <meta name="changed" content="2022-11-10T02:57:05" />
+    <meta name="AppVersion" content="16.0300" />
+    <meta name="DocSecurity" content="0" />
+    <meta name="HyperlinksChanged" content="false" />
+    <meta name="LinksUpToDate" content="false" />
+    <meta name="ScaleCrop" content="false" />
+    <meta name="ShareDoc" content="false" />
+
+    <style type="text/css">
+      table {
+        width: 100%;
+      }
+      body {
+        font-family: "arial";
+      }
+    </style>
+  </head>
+
+  <body>
+    <div style="padding-bottom: 5mm">
+      <table cellspacing="0" border="0" width="100%" style="border-collapse: collapse">
+        <!-- <tr>
+          <td align="center" rowspan="4" valign="middle" style="width: 150px">
+            <img src="{$host}__assets/images/logo-makassar.png" style="height: 100px"/>
+          </td>
+          <td align="center" valign="bottom" style="font-size: 22.6px; padding: 0px">
+            PEMERINTAH {$setting.nama_kab_kota|upper|default:'.......'}
+          </td>
+          {if $setting.status_logo_lainnya eq '1'}
+          <td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+            <img src="{$host}__assets/images/logo-camat.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';"  style="height:100px"/>
+          </td>
+          {else} 
+          <td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+            <img src="{$host}__assets/images/logo-blank.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';"  style="height:100px"/>
+          </td>
+          {/if}
+        </tr>
+        <tr>
+          <td align="center" style="font-size: 22.6px; padding: 0px">
+            KECAMATAN {$setting.nama_kecamatan|upper|default:'.......'}
+          </td>
+        </tr>
+        <tr>
+          <td
+            align="center"
+            valign="top"
+            style="font-size: 18.6px; padding: 0px"
+          >
+            <b>{$setting.nama_desa|upper|default:'.......'}</b>
+          </td>
+        </tr>
+        <tr>
+					<td align="center" valign="top" style="font-size:10.6px;padding:0px">
+						<i>
+							{if strlen($setting.alamat)>1}
+							{$setting.alamat|default:'...'}
+							{/if}
+							{if strlen($setting.telp)>1}
+							Telp. {$setting.telp|default:'...'}
+							{/if}
+							{if strlen($setting.faks)>1}
+							Fax. {$setting.faks|default:'...'}
+							{/if}
+							{if strlen($setting.email)>1}
+							Email : {$setting.email|default:'...'}
+							{/if}
+							{if strlen($setting.nama_kab_kota)>1}
+							{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'...'}
+							{/if}
+							{if strlen($setting.kode_pos)>1}
+							Kode Pos {$setting.kode_pos|default:'...'}
+							{/if}
+							{if strlen($setting.website)>1}
+							<br>Website : {str_replace('-','',$setting.website|default:'')}
+							{/if}
+						</i>
+					</td>
+				</tr> -->
+        {include file="backend/template/kop_surat_kelurahan.html"}
+       
+        <tr>
+          <td colspan="3" align="center">
+            <b><u>SURAT DUPLIKAT KEMATIAN</u></b>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3" align="center" style="font-size: 13.3px">
+            NOMOR:
+            {$data.surat.no_surat|default:'..................................................'}
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div
+      style="
+        padding-right: 5.82mm;
+        padding-left: 15.44mm;
+        padding-bottom: 2mm;
+        font-size: 12px;
+        padding-top: -10px;
+      "
+    >
+      <table
+        cellspacing="0"
+        border="0"
+        width="100%"
+        style="border-collapse: collapse; line-height: 1.8"
+      >
+        <tr>
+          <td colspan="6" align="left" valign="top">
+            Yang bertanda tangan di bawah ini :
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" style="width: 42px"><br /></td>
+          <td align="left" valign="top" style="width: 80px">Nama</td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td colspan="3" align="left" valign="top">
+            {$data.pemohon.nama|default:'.....................'}
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"><br /></td>
+          <td align="left" valign="top">Jabatan</td>
+          <td align="center" valign="top">:</td>
+          <td colspan="3" align="left" valign="top">
+            {$data.pemohon.jabatan|default:'.....................'}
+          </td>
+        </tr>
+      </table>
+      <table
+        cellspacing="0"
+        border="0"
+        width="100%"
+        style="border-collapse: collapse; line-height: 1.5"
+      >
+        <tr>
+          <td colspan="6" align="left" valign="top">
+            Menerangkan dengan sesungguhnya bahwa :
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" style="width: 42px"><br /></td>
+          <td align="left" valign="top" style="width: 160px">Nama</td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td align="left" valign="top">
+            <b>{$data.surat.info_tambahan.nama_duplikat_kematian|default:'.....................'}</b>
+          </td>
+        </tr>
+        {if $data.surat.info_tambahan.nik_duplikat_kematian !=''}
+        <tr>
+          <td align="left" valign="top" style="width: 42px"><br /></td>
+          <td align="left" valign="top" style="width: 160px">NIK</td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td align="left" valign="top">
+            <b>{$data.surat.info_tambahan.nik_duplikat_kematian|default:'.....................'}</b>
+          </td>
+        </tr>
+        {else} 
+        {/if}
+        <tr>
+          <td align="left" valign="top"><br /></td>
+          <td align="left" valign="top">Umur</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">
+            {$data.surat.info_tambahan.umur_duplikat_kematian|default:'.....................'}
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"><br /></td>
+          <td align="left" valign="top">Alamat Terakhir</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">
+            {$data.surat.info_tambahan.alamat_duplikat_kematian|default:'.....................'}
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4" align="center" valign="bottom"></td>
+        </tr>
+        <tr>
+          <td colspan="4" valign="top" align="justify">
+            Telah meninggal dunia pada Tanggal {$data.surat.info_tambahan.tgl_kematian} {if $data.surat.info_tambahan.no_reg_duplikat !=''} sesuai No Register : {$data.surat.info_tambahan.no_reg_duplikat|default:''} {else}{/if} dan dikebumikan di {$data.surat.info_tambahan.dikebumikan_di}, sesuai dengan {if $data.surat.info_tambahan.pernyataan_dari !=''} Surat Pernyataan {$data.surat.info_tambahan.pernyataan_dari|default:''} Tanggal {$data.surat.info_tambahan.tgl_pernyataan|default:''} dan{else} {/if} Surat pengantar RT/RW setempat Nomor {$data.surat.info_tambahan.no_pengantar} Tanggal {tgl_indo({$data.surat.info_tambahan.tgl_pengantar})}.
+          </td>
+        </tr>
+        <tr>
+          <td align="justify" colspan="4" style="padding-top: 10px;" align="justify" valign="top">
+            Demikian Surat Keterangan ini dibuat sesuai keadaan yang sebenarnya untuk dipergunakan sebagaimana mestinya. Dan apabila dikemudian hari surat duplikat ini tidak benar atau palsu, maka kami dari
+            pihak keluarga bersedia dituntut sesuai aturan hukum perundang-undangan yang berlaku tanpa melibatkan orang lain atau siapapun juga termasuk pemerintah setempat.
+            
+          </td>
+        </tr>
+      </table>
+    </div>
+    {ttd_1($data,$setting)}
+  </body>
+</html>

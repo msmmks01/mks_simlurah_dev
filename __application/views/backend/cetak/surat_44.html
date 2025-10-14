@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SIMLURAH</title>
+    <style>
+		table { width:100%; }
+		body { font-family: 'arial'; }
+	</style>
+</head>
+<body>
+<div id='content'>
+	<table width="100%" style="margin-bottom: 20px; font-size: 17px;padding-top: 10px">
+		<tr>
+			<td align="center">
+					<b><u>SURAT PERNYATAAN PENGUASAAN FISIK BIDANG TANAH</u></b>
+			</td>
+		</tr>
+	</table>
+</div>
+
+	<table width="100%" style="margin-left: 20px;margin-right: 20px;margin-bottom: 20px; font-weight: none; font-size: 12px;padding-top: -10px;">
+		<tr>
+			<td align="justify" style="padding-left:30px;padding-right:50px;padding-bottom: 10px;">
+				Saya yang bertandatangan/cap jempol di bawah ini :
+			</td>
+		</tr>		
+		<tr>
+			<td>
+				<table width="100%" style="margin-left: 20px;margin-right: 20px;font-weight: none; font-size: 12px;padding-left: 60px;padding-top: -10px;">
+					<tr>
+						<td valign="top">Nama</td>
+						<td valign="top" style="padding-left: 20px;padding-right: 20px;" align="center">:</td>
+						<td valign="top" style="padding-bottom: 5px;"><b>{$data.pemohon.nama_lengkap|default:'.....................'}</b></td>
+					</tr> 
+					<tr>
+						<td valign="top">NIK</td>
+						<td valign="top" align="center">:</td>
+						<td valign="top" style="padding-bottom: 5px;">{$data.pemohon.nik|default:'.....................'}</td>
+					</tr>
+					<tr>
+						<td valign="top">Tempat/Tanggal Lahir</td>
+						<td valign="top" align="center">:</td>
+						<td valign="top" style="padding-bottom: 5px;">{$data.pemohon.tempat_lahir|default:''}, {tgl_indo({$data.pemohon.tgl_lahir|default:''})}</td>
+					</tr>
+					<tr>
+						<td valign="top">Pekerjaan</td>
+						<td valign="top" align="center">:</td>
+						<td valign="top" style="padding-bottom: 5px;">{$data.pemohon.nama_pekerjaan|default:'.....................'}</td>
+					</tr>
+					<tr>
+						<td valign="top">Alamat</td>
+						<td valign="top" align="center">:</td>
+						<td valign="top" style="padding-bottom: 5px;">{$data.pemohon.alamat|default:'.....................'}, RT {$data.pemohon.rt|default:'...'}/RW {$data.pemohon.rw|default:'...'}</td>
+					</tr>
+					
+				</table> 
+			</td>
+		</tr>
+	</table>
+	<br>
+
+	<p style="line-height: 1.6;text-align: justify;margin-left: 30px;margin-right: 10px;padding-top: -60px;font-size: 12px;">Dengan ini menyatakan bahwa saya dengan itikad baik dan sanggup mengangkat sumpah bahwa saya telah menguasai/menggarap sebidang tanah dengan nomor SPPT PBB (NOP) {$data.surat.info_tambahan.no_sppt_pbb|default:'.....................'} yang terletak di {$data.surat.info_tambahan.lokasi_tanah|default:'.....................'} RT {$data.surat.info_tambahan.rt_pemilik_tanah|default:'.....................'}/RW {$data.surat.info_tambahan.rw_pemilik_tanah|default:'.....................'} {$setting.nama_desa|default:'........'} Kecamatan {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kecamatan)))|default:''} Kota {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:''} serta disepakati oleh pemilik batas yaitu : <br></p>	
+		
+<table width="100%" style="margin-left: 20px;margin-right: 20px;margin-bottom: 20px; font-weight: none; font-size: 12px;padding-top: -40px;">
+	<tr>
+		<td align="justify" style="padding-left:30px;padding-right:50px;padding-bottom: 10px;">&nbsp;</td>
+	</tr>		
+	<tr>
+		<td>
+			<table width="100%" style="margin-left: 20px;margin-right: 20px;font-weight: none; font-size: 12px;padding-left: 60px;padding-top: -5px;">
+				<tr>
+					<td valign="top">Sebelah Utara</td>
+					<td valign="top" style="padding-left: 60px;padding-right: 20px;" align="center">:</td>
+					<td valign="top" style="padding-bottom: 5px;">{$data.surat.info_tambahan.batas_utara|default:'.....................'}</td>
+				</tr> 
+				<tr>
+					<td valign="top">Sebelah Timur</td>
+					<td valign="top" style="padding-left: 60px;padding-right: 20px;" align="center">:</td>
+					<td valign="top" style="padding-bottom: 5px;">{$data.surat.info_tambahan.batas_timur|default:'.....................'}</td>
+				</tr>
+				<tr>
+					<td valign="top">Sebelah Selatan</td>
+					<td valign="top" style="padding-left: 60px;padding-right: 20px;" align="center">:</td>
+					<td valign="top" style="padding-bottom: 5px;">{$data.surat.info_tambahan.batas_selatan|default:''}</td>
+				</tr>
+				<tr>
+					<td valign="top">Sebelah Barat</td>
+					<td valign="top" style="padding-left: 60px;padding-right: 20px;" align="center">:</td>
+					<td valign="top" style="padding-bottom: 5px;">{$data.surat.info_tambahan.batas_barat|default:'.....................'}</td>
+				</tr>	
+			</table>
+		</td>
+	</tr>
+</table> 
+
+<br>
+<p style="line-height: 1.6;text-align: justify;margin-left: 30px;margin-right: 10px;padding-top: -60px;font-size: 12px;">Sebidang tanah miliki tersebut dengan ukuran panjang= {$data.surat.info_tambahan.panjang_tanah|default:'.....................'} dan lebar= {$data.surat.info_tambahan.lebar_tanah|default:'.....................'} kami kuasai sejak tahun {$data.surat.info_tambahan.sejak_tahun|default:'.....................'} yang sampai saat ini kami kuasai terus menerus, tidak dijadikan utang piutang tidak dalam sengketa dan tidak pernah dijual kepada pihak manapun juga 
+	{if $data.surat.info_tambahan.no_pengantar_pernyataan !=''}
+	sesuai surat pengantar Nomor : {$data.surat.info_tambahan.no_pengantar_pernyataan|default:'.....................'} Tanggal {tgl_indo({$data.surat.info_tambahan.tgl_pengantar_pernyataan|default:'.....................'})}. 
+	{/if}
+</p>	
+<br>
+
+<p style="line-height: 1.6;text-align: justify;margin-left: 30px;margin-right: 10px;padding-top: -25px;font-size: 12px;">Demikian Surat Pernyataan Penugasan Fisik Bidang Tanah ini saya buat dengan sebesar-besarnya secara dari dalam keadaan sehat jasmani/rohani tanpa ada paksaan/tekanan dari pihak manapun juga. Surat Pernyataan ini hanya dipergunakan untuk kelengkapan berkas dan pernyataan ini bukanlah bukti kepemilikan tanah, apabila pernyataan ini tidak benar maka segala akibat hukum yang timbul baik Perdata maupun Pidana maka saya menanggung nyata, tanpa melibatkan para Saksi, Lurah dan Camat setempat.<br></p>	
+
+	<table width="100%" style="margin-left: 20px;margin-right: 20px;margin-bottom: 20px; font-weight: none; font-size: 12px;padding-right: -150px;padding-top: -10px;">
+		<tr>
+			<td width="60%">
+				&nbsp;
+			</td>
+			<td align="left" width="40%">
+				{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'.....'}, {$data.surat.tanggal_surat|default:'............................'} <br/>
+				<span style="font-size:2px">&nbsp;</span><br/>
+				Yang Menyatakan 
+				<br/><br/>
+				<table style="border:1px dashed #666;width: 80px;margin-left:-70px;font-size: 10px;padding-top: 8px;padding-bottom: 8px;">
+					<tr>
+						<td align="center">Materai<br/>Rp. 10.000,-</td>
+					</tr>
+				</table>
+				<br/>
+				<b><u>{$data.pemohon.nama_lengkap|default:'.....................'}</u></b>
+			</td>
+		</tr>
+	</table>
+	
+	<table width="100%" style="margin-left: 20px;margin-right: 20px;font-size: 12px;padding-left: 30px;padding-top: -35px">
+		<tr>
+			<td><b><u>Saksi - saksi :</u></b></td>
+		</tr>
+		{$no=1}
+		{$nox=1}
+		{foreach from=$data.surat.info_tambahan.data_saksi_tanah item=pen}
+		<tr>
+			<td>{$no++}. {$pen.nama|default:'.....................'}&emsp;&emsp;&emsp;({strtolower($pen.pekerjaan)|default:'.....................'})</td>
+		</tr>
+		{/foreach}
+	</table>
+
+	<br>
+	<table width="100%" style="margin-left: 20px;margin-right: 20px;margin-bottom: 20px; font-size: 12px">
+		<tr>
+			<td style="padding-left: 250px;">
+				<b>Mengetahui oleh :</b>
+			</td>
+		</tr>
+	</table>
+
+	<table style="margin-left: 20px;margin-right: 20px;border-collapse: collapse;width: 100%;font-size: 12px;padding-top: -50px;" cellpadding="0">
+		<tr>
+			<td valign="bottom" style="padding-left: 30px;">Ketua RW</td>
+			<td valign="bottom" align="left">&nbsp;<br></td>
+			<td valign="bottom" style="padding-left: 350px;">Ketua RT</td>
+		</tr>
+		<tr>
+			<td><br></td>
+			<td><br></td>
+			<td><br></td>
+		</tr>
+		<tr>
+			<td><br></td>
+			<td><br></td>
+			<td><br></td>
+		</tr>
+		<tr>
+			<td valign="bottom" style="padding-left: 30px;"><b><u>{$data.surat.info_tambahan.nama_rt|default:'.....................'}</u></b></td>
+			<td valign="bottom" align="left"></td>
+			<td valign="bottom" style="padding-left: 330px;"><b><u>{$data.surat.info_tambahan.nama_rw|default:'.....................'}</u></b></td>
+		</tr>
+	</table>
+		
+	<table width="100%" style="margin-left: 20px;margin-right: 20px;font-size: 12px;padding-top: 15px">
+		<tr>
+			<td style="padding-left: 250px;">Register Nomor : {$data.surat.info_tambahan.no_register|default:'.....................'}</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td style="padding-left: 250px;">Tanggal : {$data.surat.info_tambahan.tgl_register|default:'.....................'}</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td style="padding-left: 250px;" valign="bottom" align="left">
+				<b>
+					{if count($data.ttd)==1}
+					{$data.ttd[0]['center']}
+					{else}
+					{$data.ttd[0]['center']}<br>{$data.ttd[1]['center']}
+					{/if}
+				 </b>
+			</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td style="padding-left: 250px;"><u><b>{$data.pemohon.nama|default:'...............................'}</b></u></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td style="padding-left: 250px;">Pangkat : {$data.pemohon.pangkat|default:'............................'}</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td style="padding-left: 250px;">NIP : {$data.pemohon.nip|default:'...............................'}</td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+</div>
+</body>
+</html>

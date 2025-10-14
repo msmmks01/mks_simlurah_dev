@@ -1,0 +1,61 @@
+<tr class="kop-surat">
+    <td align="center" rowspan="4" valign="middle" style="width: 150px;">
+        <img src="{$host}{$setting.logo_kab_kota|default:''}" 
+            height="100px" 
+            alt="Logo" 
+            onerror="this.onerror=null;this.src='{$host}__assets/images/logo-makassar.png'"
+        />
+    </td>
+<td align="center" valign="bottom" style="font-size: 22.6px; padding: 0px" >
+    PEMERINTAH {$setting.nama_kab_kota|upper|default:'.......'}
+</td>
+{if $setting.status_logo_lainnya eq '1'}
+    <td align="center" rowspan="4" valign="middle" style="width: 150px">
+        <img src="{$host}{$setting.logo_desa|default:''}"
+        onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';" style="height: 100px"/>
+    </td>
+{else} 
+    <td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+        <img src="{$host}__assets/images/logo-blank.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';"  style="height:100px"/>
+    </td>
+{/if}
+</tr>
+<tr class="kop-surat">
+    <td align="center" style="font-size:22.6px;padding:0px">KECAMATAN {$setting.nama_kecamatan|upper|default:'.......'}</td>
+</tr>
+<tr class="kop-surat">
+    <td align="center" valign="top" style="font-size:18.6px;padding:0px"></td>
+</tr>
+<tr class="kop-surat">
+    <td align="center" valign="top" style="font-size:10px;">
+        <i>
+            {if strlen($setting.alamat)>1}
+            {$setting.alamat|default:'...'}
+            {/if}
+            {if strlen($setting.telp)>1}
+            Telp. {$setting.telp|default:'...'}
+            {/if}
+            {if strlen($setting.faks)>1}
+            Fax. {$setting.faks|default:'...'}
+            {/if}
+            {if strlen($setting.email)>1}
+            Email : {$setting.email|default:'...'}
+            {/if}
+            {if strlen($setting.nama_kab_kota)>1}
+            Kota {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'...'}
+            {/if}
+            {if strlen($setting.kode_pos)>1}
+            Kode Pos {$setting.kode_pos|default:'...'}
+            {/if}
+            {if strlen($setting.website)>1}
+            <br>Website : {str_replace('-','',$setting.website|default:'')}
+            {/if}
+        </i>
+    </td>
+</tr>
+<tr class="kop-surat">
+    <td align="center" colspan="3" align="center">
+        <hr style="color: black; height: 4px; margin-bottom: 0px;margin-top: -5;" />
+        <hr style="color: black; height: 1px; margin-top: -5px" />
+    </td>
+</tr>

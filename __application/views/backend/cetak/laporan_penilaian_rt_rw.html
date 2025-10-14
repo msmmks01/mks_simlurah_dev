@@ -1,0 +1,387 @@
+
+<html>
+<head>
+	
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
+	<title>Penilaian RT RW</title>
+	
+</head>
+
+<body>
+<table style="border: 1px solid #000; border-collapse: collapse;font-size: 8pt;font-family: callibri;width: 100%;" cellspacing="0">
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 0px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;background-color: #FADADD;" rowspan=3 width="100" align="center" valign=middle><img src="./__assets/images/logo-makassar.png" style="height:70px" /></td>
+		<td style="border-bottom: 0px solid #000000;border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;background-color: #FADADD;white-space: nowrap;" align="center" valign=bottom><b>INDIKATOR KINERJA KETUA RUKUN WARGA DAN KETUA RUKUN TETANGGA</b></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000;background-color: #FADADD;" align="left" valign=middle>Sifat</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 0px solid #000000;background-color: #FADADD;" align="center" valign=middle>:</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 0px solid #000000; border-right: 1px solid #000000;background-color: #FADADD;" colspan=2 align="left" valign=middle>Rahasia</td>
+	</tr>
+	<tr>
+		<td style="border-bottom: 1px solid #000000;border-left: 1px solid #000000; border-right: 1px solid #000000;background-color: #FADADD;" align="center" valign=top><b>KECAMATAN {$setting.nama_kecamatan|upper|default:'.......'}</b></td>
+		<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; background-color: #FADADD;" align="left" valign=middle>Ditetapkan di</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; background-color: #FADADD;" align="center" valign=middle>:</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; background-color: #FADADD;; border-right: 1px solid #000000" colspan=2 align="left" valign=middle>Makassar</td>
+	</tr>
+	<tr>
+		<td style=" border-left: 1px solid #000000; border-right: 1px solid #000000;font-size: 9pt;background-color: #FADADD;" align="center" valign=middle><b>PERWALI NOMOR 3 TAHUN 2024</b></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000;background-color: #FADADD;" align="left" valign=middle>Hari/Tgl</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000;background-color: #FADADD;" align="center" valign=middle>:</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000;background-color: #FADADD;" colspan=2 align="left" valign=middle>{tgl_indo($setting.tgl_surat|upper|default:'.......')}</td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=top>Kelurahan</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=5 align="left" valign=top>{str_replace('Kelurahan','',$setting.nama_desa)|upper|default:'.......'}</td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=top>Nama</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=top>{$setting.nama_lengkap|upper|default:'.......'}</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left" valign=top>Masa Kerja</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="center" valign=top>:</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000;white-space: nowrap;" colspan=2 align="left" valign=top>{hitungSelisihTanggal($setting.tgl_mulai_jabat,$setting.tgl_surat)}</td>
+	</tr>
+	<tr>
+		<td style="border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=top>Alamat</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=top>{$setting.alamat|upper|default:'.......'}</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left" valign=top>Periode Penilaian</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="center" valign=top>:</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="left" valign=top>{ucwords(strtolower(getBulan($setting.bulan)))|default:'.......'}</td>
+	</tr>
+	<tr>
+		<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=top>Jabatan</td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=top>{$setting.jabatan|upper|default:'.......'} {if $setting.rt neq ''}{$setting.rt|upper|default:'.......'} / {$setting.rw|upper|default:'.......'}{else}{$setting.rw|upper|default:'.......'}{/if}</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left" valign=top>Periode Anggaran</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="center" valign=top>:</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="left" valign=top>{$tahun}</td>
+	</tr>
+</table>
+<table style="border: 0px white; border-collapse: collapse;font-size: 8pt;font-family: callibri" cellspacing="0" >
+	<tr>
+		<td style="border-top: 0px white; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; background-color: #F3F3F3;" align="center" valign=middle><b>NO</b></td>
+		<td style="border-top: 0px white; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; background-color: #F3F3F3;" align="center" valign=middle><b>INDIKATOR PENILAIAN</b></td>
+		<td style="border-top: 0px white; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; background-color: #F3F3F3;" align="center" valign=middle><b>Vol &amp; Sat</b></td>
+		<td style="border-top: 0px white; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; background-color: #F3F3F3;" align="center" valign=middle><b>Target</b></td>
+		<td style="border-top: 0px white; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; background-color: #F3F3F3;" align="center" valign=middle><b>Capaian</b></td>
+		<td style="border-top: 0px white; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; background-color: #F3F3F3;" align="center" valign=middle><b><font face="Arial">Nilai</b></td>
+	</tr>
+	{assign var=header value=0}
+	{assign var=no value=0}
+	{assign var=dno value=0}
+	{assign var=jumlah_sub_indikator value=0}
+	{assign var=total_skor value=0}
+	{foreach from=$data.penilaian item=pen}
+	{if $pen.nor eq '3'}
+		{$urai='Maksimal Skor'}
+		{$b='<b>'}
+	{elseif $pen.nor eq '1'}
+		{$b=''}
+		{$urai=$pen.kategori}
+	{else}
+		{$b=''}
+		{$urai=$pen.uraian}
+	{/if}
+
+	{if $pen.nor eq '1'}
+		{assign var=header value=1}
+		{$urai=strtoupper($urai)}
+		{assign var=no value=$no+1}
+		{assign var=no_urut value=toRomawi($no)}
+		{assign var=dno value=0}
+	{elseif $pen.nor neq '3' }
+		{assign var=header value=0}
+		{assign var=dno value=$dno+1}
+		{assign var=no_urut value=$dno}
+	{else}
+		{assign var=header value=3}
+		{assign var=no_urut value=''}
+	{/if}
+
+	{if $header eq '1'}
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; background-color: #F3F3F3;" align="center" valign=middle><b>{$no_urut}</b></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; background-color: #F3F3F3;" colspan=5 align="left" valign=middle><b> {$urai}</b></td>
+	</tr>
+	{elseif $header eq '3'}
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><b>{$no_urut}</b></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" valign=middle><b> {$b}{$urai}</b></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><b> {$pen.satuan}</b></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" valign=middle><b>Skor</b></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><b> {$pen.nilai*1}</b></td>
+	</tr>
+	{else}
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle>{$no_urut}</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle> {$b}{$urai}</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom> {$pen.satuan}</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle>{$pen.target*1}</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle>{$pen.capaian*1}</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle> {$pen.nilai*1}</td>
+	</tr>
+		{if $pen.xid neq ''}
+			{assign var=total_skor value=$total_skor+$pen.nilai}
+			{assign var=jumlah_sub_indikator value=$jumlah_sub_indikator+1}
+			{/if}
+		{/if}
+		{/foreach}
+		{assign var=hasil_skor value=(ceil(($total_skor/($jumlah_sub_indikator*100)*100)))}
+</table>
+<br>
+
+<table style="border: 1px solid #000; border-collapse: collapse;font-size: 8pt;font-family: callibri;width: 100%;" cellspacing="0">
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; background-color: #D0F0C0;" align="center" valign=middle><b><font face="Arial" color="#000000">MAKSIMAL SKOR SELURUH INDIKATOR</font></b></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; background-color: #D0F0C0;" align="center" valign=middle sdval="250" sdnum="1033;"><font face="Arial" color="#000000">{$jumlah_sub_indikator*100}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; background-color: #D0F0C0;" align="center" valign=middle><b><font face="Arial" color="#000000">TOTAL SKOR KINERJA BULAN INI</font></b></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; background-color: #D0F0C0;" align="center" valign=middle><font face="Arial" color="#000000">{$total_skor|default:'.......'}</font></td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; background-color: #D0F0C0;" align="center" valign=middle><b><font face="Arial" color="#000000">NILAI</font></b></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; background-color: #D0F0C0;" align="center" valign=middle><b><font face="Arial" color="#000000">{ceil($hasil_skor)|default:'.......'}</font></b></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; background-color: #D0F0C0;" align="center" valign=middle colspan="2"><b><font face="Arial" color="#000000">{if ceil($hasil_skor)>='60' && ceil($hasil_skor)<='70'}Cukup{elseif ceil($hasil_skor)>='71' && ceil($hasil_skor)<='80'}Cukup Baik{elseif ceil($hasil_skor)>='81' && ceil($hasil_skor)<='90'}Baik{elseif ceil($hasil_skor)>='91'}Sangat Baik{/if}</font></b></td>
+	</tr>
+	<br>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; background-color: #F3F3F3;" colspan=4 align="center" valign=middle><b><font face="Arial" color="#000000">CATATAN</font></b></td>
+		</tr>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=4 align="left" valign=middle><font face="Arial" color="#000000">Prestasi lain yang perlu dicatat :</font></td>
+		</tr>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=4 align="left" valign=middle><font face="Arial" color="#000000">Indisipliner tertentu yang perlu dicatat :</font></td>
+		</tr>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=4 align="left" valign=middle><font face="Arial" color="#000000">Saran dan Perbaikan :</font></td>
+	</tr>
+	<br>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=4 align="center" valign=middle><b><font face="Arial" color="#000000">TIM PENILAI</font></b></td>
+		</tr>
+
+	<tr>
+		<td colspan="4" style="border: 1px solid #000000; padding: 10px; padding-left: 1px;padding-right: 1px;" align="center">
+			{if $auth.cl_user_group_id eq '2'}
+			<table style="border: 0px solid #000; border-collapse: collapse;" cellspacing="0">
+				{if $ttd.camat neq "" && $ttd.lsm neq "" && $ttd.pembuat neq ""}
+				{* camat, lurah, lsm, pembuat *}
+					<tr>
+						<td align="center" valign="top" style="width:187.5px;"><b>MENGETAHUI<br>{$setting.jabatan_camat|upper|default:'.......'}</b></td>
+						<td align="center" valign="top" style="width:187.5px;"><b>MENYETUJUI<br>{$setting.jabatan_lsm|upper|default:'.......'}</b></td>
+						<td align="center" valign="top" style="width:187.5px;"><b>MENYETUJUI<br>{$setting.jabatan_lurah|upper|default:'.......'}</b></td>
+						<td align="center" valign="top" style="width:187.5px;"><b>{$setting.jabatan_pembuat|upper|default:'.......'}</b></td>
+					</tr>
+					<tr>
+						<td height="30" colspan="4"><br><br><br><br></td>
+					</tr>
+					<tr>
+						<td align="center"><u><b>{$setting.nama_camat|upper|default:'.......'}</b></u></td>
+						<td align="center"><u><b>{$setting.nama_lsm|upper|default:'.......'}</b></u></td>
+						<td align="center"><u><b>{$setting.nama_lurah|upper|default:'.......'}</b></u></td>
+						<td align="center"><u><b>{$setting.nama_pembuat|upper|default:'.......'}</b></u></td>
+					</tr>
+					<tr>
+						<td align="center"><b>NIP: {$setting.nip_camat|default:'.......'}</b></td>
+						<td align="center"><br></td>
+						<td align="center"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
+						<td align="center"><br></td>
+					</tr>
+				{elseif $ttd.camat neq "" && $ttd.lsm eq "" && $ttd.pembuat neq ""}
+				{* camat, lurah, pembuat *}
+					<tr>
+						<td align="center" valign="top" style="width: 250px;"><b>MENGETAHUI<br>{$setting.jabatan_camat|upper|default:'.......'}</b></td>
+						<td align="center" valign="top" style="width: 250px;"><b>MENYETUJUI<br>{$setting.jabatan_lurah|upper|default:'.......'}</b></td>
+						<td align="center" valign="top" style="width: 250px;"><b>{$setting.jabatan_pembuat|upper|default:'.......'}</b></td>
+					</tr>
+					<tr>
+						<td height="30" colspan="3"><br><br><br><br></td>
+					</tr>
+					<tr>
+						<td align="center"><u><b>{$setting.nama_camat|upper|default:'.......'}</b></u></td>
+						<td align="center"><u><b>{$setting.nama_lurah|upper|default:'.......'}</b></u></td>
+						<td align="center"><u><b>{$setting.nama_pembuat|upper|default:'.......'}</b></u></td>
+					</tr>
+					<tr>
+						<td align="center"><b>NIP: {$setting.nip_camat|default:'.......'}</b></td>
+						<td align="center"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
+						<td align="center"><br></td>
+					</tr>
+				{elseif $ttd.camat neq "" && $ttd.lsm neq "" && $ttd.pembuat eq ""}
+					{* camat, lurah, lsm *}
+					
+					<tr>
+						<td align="center" valign="top" style="width: 250px;"><b>MENGETAHUI<br>{$setting.jabatan_camat|upper|default:'.......'}</b></td>
+						<td align="center" valign="top" style="width: 250px;"><b>MENYETUJUI<br>{$setting.jabatan_lsm|upper|default:'.......'}</b></td>
+						<td align="center" valign="top" style="width: 250px;"><b>MENYETUJUI<br>{$setting.jabatan_lurah|upper|default:'.......'}</b></td>
+					</tr>
+					<tr>
+						<td height="30" colspan="3"><br><br><br><br></td>
+					</tr>
+					<tr>
+						<td align="center"><u><b>{$setting.nama_camat|upper|default:'.......'}</b></u></td>
+						<td align="center"><u><b>{$setting.nama_lsm|upper|default:'.......'}</b></u></td>
+						<td align="center"><u><b>{$setting.nama_lurah|upper|default:'.......'}</b></u></td>
+					</tr>
+					<tr>
+						<td align="center"><b>NIP: {$setting.nip_camat|default:'.......'}</b></td>
+						<td align="center"><br></td>
+						<td align="center"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
+					</tr>
+				{elseif $ttd.camat neq "" && $ttd.lsm eq "" && $ttd.pembuat eq ""}
+					{* camat, lurah *}
+					
+					<tr>
+						<td align="center" valign="top" style="width: 375px;"><b>MENGETAHUI<br>{$setting.jabatan_camat|upper|default:'.......'}</b></td>
+						<td align="center" valign="top" style="width: 375px;"><b>MENYETUJUI<br>{$setting.jabatan_lurah|upper|default:'.......'}</b></td>
+					</tr>
+					<tr>
+						<td height="30" colspan="2"><br><br><br><br></td>
+					</tr>
+					<tr>
+						<td align="center"><u><b>{$setting.nama_camat|upper|default:'.......'}</b></u></td>
+						<td align="center"><u><b>{$setting.nama_lurah|upper|default:'.......'}</b></u></td>
+					</tr>
+					<tr>
+						<td align="center"><b>NIP: {$setting.nip_camat|default:'.......'}</b></td>
+						<td align="center"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
+					</tr>
+				{elseif $ttd.camat eq '' && $ttd.lsm neq '' && $ttd.pembuat eq ''}
+					{* lurah, LSM *}
+				
+					<tr>
+						<td align="center" valign="top" style="width: 375px;"><b>MENYETUJUI<br>{$setting.jabatan_lsm|upper|default:'.......'}</b></td>
+						<td align="center" valign="top" style="width: 375px;"><b>MENYETUJUI<br>{$setting.jabatan_lurah|upper|default:'.......'}</b></td>
+					</tr>
+					<tr>
+						<td height="30" colspan="2"><br><br><br><br></td>
+					</tr>
+					<tr>
+						<td align="center"><u><b>{$setting.nama_lsm|upper|default:'.......'}</b></u></td>
+						<td align="center"><u><b>{$setting.nama_lurah|upper|default:'.......'}</b></u></td>
+					</tr>
+					<tr>
+						<td align="center"><br></td>
+						<td align="center"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
+					</tr>
+				{elseif $ttd.camat eq '' && $ttd.lsm neq '' && $ttd.pembuat neq ''}
+					{* lurah, LSM, pembuat *}
+					<tr>
+						<td align="center" valign="top" style="width: 250px;"><b>MENYETUJUI<br>{$setting.jabatan_lsm|upper|default:'.......'}</b></td>
+						<td align="center" valign="top" style="width: 250px;"><b>MENYETUJUI<br>{$setting.jabatan_lurah|upper|default:'.......'}</b></td>
+						<td align="center" valign="top" style="width: 250px;"><b>{$setting.jabatan_pembuat|upper|default:'.......'}</b></td>
+					</tr>
+					<tr>
+						<td height="30" colspan="3"><br><br><br><br></td>
+					</tr>
+					<tr>
+						<td align="center"><u><b>{$setting.nama_lsm|upper|default:'.......'}</b></u></td>
+						<td align="center"><u><b>{$setting.nama_lurah|upper|default:'.......'}</b></u></td>
+						<td align="center"><u><b>{$setting.nama_pembuat|upper|default:'.......'}</b></u></td>
+					</tr>
+					<tr>
+						<td align="center"><br></td>
+						<td align="center"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
+						<td align="center"><br></td>
+					</tr>
+				{elseif $ttd.camat eq '' && $ttd.lsm eq '' && $ttd.pembuat neq ''}
+					{* lurah, pembuat *}
+					<tr>
+						<td align="center" valign="top" style="width: 375px;"><b>MENYETUJUI<br>{$setting.jabatan_lurah|upper|default:'.......'}</b></td>
+						<td align="center" valign="top" style="width: 375px;"><b>{$setting.jabatan_pembuat|upper|default:'.......'}</b></td>
+					</tr>
+					<tr>
+						<td height="30" colspan="2"><br><br><br><br></td>
+					</tr>
+					<tr>
+						<td align="center"><u><b>{$setting.nama_lurah|upper|default:'.......'}</b></u></td>
+						<td align="center"><u><b>{$setting.nama_pembuat|upper|default:'.......'}</b></u></td>
+					</tr>
+					<tr>
+						<td align="center"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
+						<td align="center"><br></td>
+					</tr>
+				{elseif $ttd.camat eq '' && $ttd.lsm eq '' && $ttd.pembuat eq ''}
+					{* lurah *}
+					<tr>
+						<td align="center"><b>MENYETUJUI<br>{$setting.jabatan_lurah|upper|default:'.......'}</b></td>
+					</tr>
+					<tr>
+						<td height="30"><br><br><br><br></td>
+					</tr>
+					<tr>
+						<td align="center"><u><b>{$setting.nama_lurah|upper|default:'.......'}</b></u></td>
+					</tr>
+					<tr>
+						<td align="center"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
+					</tr>
+				{/if}
+			</table>
+
+			{else} 
+			<table style="border: 1px solid #000; border-collapse: collapse;width: 100%;" cellspacing="0">
+				<tr>
+					<td colspan="4" align="right">Makassar, {tgl_indo($tgl_cetak)}</td>
+				</tr>
+				<tr>
+					<td align="center"><b>MENGETAHUI<br>{$setting.jabatan_camat|upper|default:'.......'}</b></td>
+					<td align="center"><b>MENYETUJUI<br>{$setting.jabatan_lsm|upper|default:'.......'}</b></td>
+					<td align="center"><b>MENYETUJUI<br>{$setting.jabatan_lurah|upper|default:'.......'}</b></td>
+				</tr>
+				<tr>
+					<td colspan="3">
+						<br>
+						<br>
+						<br>
+						<br>
+					</td>
+				</tr>
+				<tr>
+					<td align="center"><u><b>{$setting.nama_camat|upper|default:'.......'}</b></u></td>
+					<td align="center"><u><b>{$setting.nama_lsm|upper|default:'.......'}</b></u></td>
+					<td align="center"><u><b>{$setting.nama_lurah|upper|default:'.......'}</b></u></td>
+				</tr>
+				<tr>
+					<td align="center"><b>NIP: {$setting.nip_camat|default:'.......'}</b></td>
+					<td align="center"><br></td>
+					<td align="center"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
+				</tr>
+			</table>
+			{/if}
+		</td>
+	</tr>
+
+	<br>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=4 align="center" valign=middle><b><font face="Arial" color="#000000">RUMUS PEMBERIAN SKOR</font></b></td>
+		</tr>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; background-color: #F0F8FF;" colspan=2 rowspan=2 align="center" valign=middle><b><font face="Arial" color="#000000">Skor nilai = Total Perolehan nilai dibagi dengan  jumlah kriteria  penilaian (sub indikator)</font></b></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; background-color: #F0F8FF;" colspan=2 align="center" valign=middle sdval="150" sdnum="1033;"><font face="Arial" color="#000000">{$total_skor|default:'.......'}</font></td>
+		</tr>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; background-color: #F0F8FF;" align="center" valign=middle><font face="Arial" color="#000000">({$total_skor|default:'.......'} / {($jumlah_sub_indikator*100)}) / 100</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; background-color: #F0F8FF;" align="center" valign=middle><font face="Arial" color="#000000">{ceil($hasil_skor)|default:'.......'}</font></td>
+	</tr>
+</table>
+<table style="border-collapse: collapse;width: 100%;">
+	<tr>
+		<td style=" border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=6 align="center" valign=middle><b>STANDAR NILAI</b></td>
+	</tr>
+	<tr>
+		<td style="border-top: 0px solid #000000; border-bottom: 0px solid #000000; border-left: 1px solid #000000; background-color: #F3F3F3;width: 55px;" align="left" valign=bottom>60 sd 70</td>
+		<td style="border-top: 0px solid #000000; border-bottom: 0px solid #000000; background-color: #F3F3F3;width: 20px;" align="center" valign=bottom>=</td>
+		<td style="border-top: 0px solid #000000; border-bottom: 0px solid #000000; border-right: 1px solid #000000; background-color: #F3F3F3;" align="left" valign=bottom>Kategori Cukup</td>
+		<td style="border-top: 0px solid #000000; border-bottom: 0px solid #000000; border-left: 1px solid #000000; background-color: #F3F3F3;width: 65px;" align="left" valign=bottom>81 sd 90</td>
+		<td style="border-top: 0px solid #000000; border-bottom: 0px solid #000000; background-color: #F3F3F3;width: 20px;" align="center" valign=bottom>=</td>
+		<td style="border-top: 0px solid #000000; border-bottom: 0px solid #000000; border-right: 1px solid #000000; background-color: #F3F3F3" align="left" valign=bottom>Kategori Baik</td>
+	</tr>
+	<tr>
+		<td style="border-top: 0px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; background-color: #F3F3F3;" align="left" valign=bottom>71 sd 80</td>
+		<td style="border-top: 0px solid #000000; border-bottom: 1px solid #000000; background-color: #F3F3F3;" align="center" valign=bottom>=</td>
+		<td style="border-top: 0px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000; background-color: #F3F3F3" align="left" valign=bottom>Kategori Cukup Baik</td>
+		<td style="border-top: 0px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; background-color: #F3F3F3;" align="left" valign=bottom>91 sd 100</td>
+		<td style="border-top: 0px solid #000000; border-bottom: 1px solid #000000; background-color: #F3F3F3;" align="center" valign=bottom>=</td>
+		<td style="border-top: 0px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000; background-color: #F3F3F3" align="left" valign=bottom>Kategori Sangat Baik</td>
+	</tr>	
+</table>
+</body>
+
+</html>

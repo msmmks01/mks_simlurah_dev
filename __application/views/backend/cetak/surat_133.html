@@ -1,0 +1,148 @@
+<html>
+  <head>
+
+    <style type="text/css">
+
+      body {
+        font-family: "arial";
+      }
+    </style>
+  </head>
+  <body>
+    <div style="padding-bottom: 5mm">
+      <table cellspacing="0" border="0" width="100%" style="border-collapse: collapse">
+        {include file="backend/template/kop_surat_kecamatan.html"}
+        <tr>
+          <td colspan="3" align="center" style="padding-top: 20px;">
+            <b><u>{$data.surat.info_tambahan.judul_surat_ket|default:'.....................'}</u></b>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3" align="center">
+            NOMOR: 
+						{if isset($data.surat.info_tambahan.ttd_srikandi) and $data.surat.info_tambahan.ttd_srikandi neq ''}
+						{'${nomor_naskah}'}
+						{else}
+						{$data.surat.no_surat|default:'..................................................'}
+						{/if}
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div
+      style="padding-right: 5.82mm;padding-left: 15.44mm;padding-bottom: 2mm;padding-top: -10px;">
+      <table cellspacing="0" border="0" width="100%" style="border-collapse: collapse; line-height: 1.5;">
+        <tr>
+          <td colspan="6" align="left" valign="top">
+            Yang bertanda tangan di bawah ini :
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" style="width: 42px"></td>
+          <td align="left" valign="top" style="width: 80px">Nama</td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td colspan="3" align="left" valign="top">
+            {$data.pemohon.nama|default:'.....................'}
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"></td>
+          <td align="left" valign="top">NIP</td>
+          <td align="center" valign="top">:</td>
+          <td colspan="3" align="left" valign="top">
+            {$data.pemohon.nip|default:'.....................'}
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"></td>
+          <td align="left" valign="top">Pangkat/Gol</td>
+          <td align="center" valign="top">:</td>
+          <td colspan="3" align="left" valign="top">
+            {$data.pemohon.pangkat|default:'.....................'}
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"></td>
+          <td align="left" valign="top">Jabatan</td>
+          <td align="center" valign="top">:</td>
+          <td colspan="3" align="left" valign="top">
+            {$data.pemohon.jabatan|default:'.....................'}
+          </td>
+        </tr>
+      </table>
+      <table cellspacing="0" border="0" width="100%" style="border-collapse: collapse; line-height: 1.5;">
+        <tr>
+          <td colspan="6" align="left" valign="top">
+            Dengan ini menerangkan bahwa :
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" style="width: 42px"></td>
+          <td align="left" valign="top" style="width: 160px">Nama</td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td align="left" valign="top">
+            <b>{$data.surat.info_tambahan.nama_ket_kec|default:'.....................'}</b>
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" style="width: 42px"></td>
+          <td align="left" valign="top" style="width: 160px">NIP</td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td align="left" valign="top">
+            {$data.surat.info_tambahan.nip_ket_kec|default:'.....................'}
+          </td>
+        </tr>
+        {if $data.surat.info_tambahan.pangkat !=''}
+        <tr>
+          <td align="left" valign="top"></td>
+          <td align="left" valign="top">Pangkat/Gol</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">
+            {$data.surat.info_tambahan.pangkat|default:'.....................'}
+          </td>
+        </tr>
+        {/if}
+        {if $data.surat.info_tambahan.jabatan_ket_kec !=''}
+        <tr>
+          <td align="left" valign="top"></td>
+          <td align="left" valign="top">Jabatan</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">
+            {$data.surat.info_tambahan.jabatan_ket_kec|default:'.....................'}
+          </td>
+        </tr>
+        {/if}
+        {if $data.surat.info_tambahan.agama_ket_kec !=''}
+        <tr>
+          <td align="left" valign="top"></td>
+          <td align="left" valign="top">Agama</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">
+            {$data.surat.info_tambahan.agama_ket_kec|default:'.....................'}
+          </td>
+        </tr>
+        {/if}
+        {if $data.surat.info_tambahan.alamat_ket_kec !=''}
+        <tr>
+          <td align="left" valign="top"></td>
+          <td align="left" valign="top">Alamat</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">
+            {$data.surat.info_tambahan.alamat_ket_kec|default:'.....................'}
+          </td>
+        </tr>
+        {/if}
+        <tr>
+          <td colspan="4" align="center" valign="bottom"><br/></td>
+        </tr>
+        <tr>
+          <td width="100%" colspan="4" valign="top" align="justify" style="padding-top: -20px;line-height: 1.8;">
+            {htmlspecialchars_decode($data.surat.info_tambahan.uraian)|default:'.....................'}
+        </tr>
+      </table>
+    </div>
+    <br>
+		{ttd_1($data,$setting)}
+  </body>
+
+</html>

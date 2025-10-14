@@ -1,0 +1,263 @@
+<form
+  id="form_{$acak}"
+  method="post"
+  url="{$host}backoffice-simpan/data_penduduk_asing"
+  enctype="multipart/form-data"
+>
+  <input type="hidden" name="id" value="{$data.id|default:''}" />
+  <input type="hidden" name="editstatus" value="{$sts|default:'add'}" />
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">Form Isian</h3>
+        </div>
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-12">
+                  <fieldset class="form-group">
+                    <legend style="border-color: #e17a35 !important;border-width: 3px !important;padding: 5px;color: #e17a35;font-weight: bold;font-size: 16px;margin-bottom: 5px;margin-top: 15px;">
+                      PROFILE PENDUDUK ASING
+                    </legend>
+                  </fieldset>
+                </div>
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html" required="true" label="No. Passport" class_width="col-lg-12"
+                  type="text" name="no_passport" id="no_passport" value="{$data.no_passport|default:''}"}
+                </div>
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html" required="true" label="No. Pengenalan" class_width="col-lg-12"
+                  type="text" name="no_pengenalan" id="no_pengenalan" value="{$data.no_pengenalan|default:''}"} 
+                </div>
+                <div class="col-md-4">
+                  {include file="backend/template/input_form.html" required="true" label="Nama Lengkap" class_width="col-lg-12"
+                  type="text" name="nama_lengkap" id="nama_lengkap" value="{$data.nama_lengkap|default:''}"}
+                </div>
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html" required="true" label="Tempat Lahir" class_width="col-lg-12"
+                  type="text" name="tempat_lahir" id="tempat_lahir" value="{$data.tempat_lahir|default:''}"}
+                </div>
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html" required="true" label="Tanggal Lahir" class_width="col-lg-12"
+                  type="date" placeholder="dd-mm-yyyy" name="tgl_lahir" id="tgl_lahir" value="{$data.tgl_lahir|default:''}"}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  {include file="backend/template/input_form.html" required="true" label="Jenis Kelamin" class_width="col-lg-12"
+                  type="select" name="jenis_kelamin" id="jenis_kelamin" option={$jenis_kelamin|default:''} }
+                </div>
+                <div class="col-md-3">
+                  {include file="backend/template/input_form.html" required="true" label="Kewarganegaraan" class_width="col-lg-12"
+                  type="text" name="kewarganegaraan" id="kewarganegaraan" value="{$data.kewarganegaraan|default:''}"}
+                </div>
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html" required="true" label="Agama" class_width="col-lg-12"
+                  type="select" name="agama" id="agama" option={$agama|default:''} }
+                </div>
+                <div class="col-md-4">
+                  {include file="backend/template/input_form.html" label="Pekerjaan" class_width="col-lg-12" type="select2"
+                  name="cl_jenis_pekerjaan_id" id="cl_jenis_pekerjaan_id" option={$cl_jenis_pekerjaan_id|default:''} }
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  {include file="backend/template/input_form.html" required="true" label="Tanggal Keluar Passport" class_width="col-lg-12"
+                  type="date" placeholder="dd-mm-yyyy" name="tgl_kel_passport" id="tgl_kel_passport" value="{$data.tgl_kel_passport|default:''}"}
+                </div>
+                <div class="col-md-3">
+                  {include file="backend/template/input_form.html" required="true" label="Tanggal Akhir Passport" class_width="col-lg-12"
+                  type="date" placeholder="dd-mm-yyyy" name="tgl_akhir_passport" id="tgl_akhir_passport" value="{$data.tgl_akhir_passport|default:''}"}
+                </div>
+              </div>
+              <div class="row" style="margin-bottom: 10px">
+                <div class="col-md-12">
+                  <fieldset class="form-group">
+                    <legend style="border-color: #e17a35 !important;border-width: 3px !important;padding: 5px;color: #e17a35;font-weight: bold;font-size: 16px;margin-bottom: 5px;margin-top: 15px;">
+                      DOMISILI PENDUDUK
+                    </legend>
+                  </fieldset>
+                </div>
+                <div class="col-md-1">
+                  {include file="backend/template/input_form.html" label="RT" class_width="col-lg-12" type="pnj_rt" name="rt" id="rt" value="{$data.rt|default:''}"}
+                </div>
+                <div class="col-md-1">
+                  {include file="backend/template/input_form.html" label="RW" class_width="col-lg-12" type="pnj_rt" name="rw" id="rw" value="{$data.rw|default:''}"}
+                </div>
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html" label="Kode Pos" class_width="col-lg-12" type="text" name="kode_pos" id="kode_pos" value="{$data.kode_pos|default:''}"}
+                </div>
+              </div>
+              <div class="row">
+                
+                <div class="col-md-8">
+                  {include file="backend/template/input_form.html" label="Alamat Lengkap Domisili" class_width="col-lg-12" type="text" name="alamat" id="alamat" value="{$data.alamat|default:''}"}
+                </div>
+                <div class="col-md-8">
+                  {include file="backend/template/input_form.html" label="Alamat Asal" class_width="col-lg-12" type="text" name="alamat_asal" id="alamat_asal" value="{$data.alamat_asal|default:''}"}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-5">
+                  {include file="backend/template/input_form.html" required="true" label="Keperluan" class_width="col-lg-12" type="select" name="keperluan" id="keperluan" option={$keperluan_passport|default:''} }
+                </div> 
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <fieldset class="form-group">
+                    <legend style="border-color: #e17a35 !important;border-width: 3px !important;padding: 5px;color: #e17a35;font-weight: bold;font-size: 16px;margin-bottom: 5px;margin-top: 15px;">
+                      STATUS PENDUDUK
+                    </legend>
+                  </fieldset>
+                </div>
+                <div class="col-md-3">
+                  {include file="backend/template/input_form.html" required="true" label="Status Passport" class_width="col-lg-12" type="select" name="jenis_passport" id="jenis_passport" option={$jenis_passport|default:''} }
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <hr />
+                  {include file="backend/template/input_form.html" label="Upload File *jpg|jpeg|png|pdf" class_width="col-lg-12" type="file" name="file" id="file" value="{$data.file|default:''}"}
+                  <br />
+                  {include file="backend/template/button_save.html" text="Simpan" id_na="save" style_btn="btn-success" btn_goyz="false"} 
+                  {include file="backend/template/button_save.html" text="Kembali" click="$('#grid_nya_{$mod}').show();$('#detil_nya_{$mod}').hide();" id_na="cancel" style_btn="btn-danger" btn_goyz="true"}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<script>
+  $("#no_passport").on("input", function () {
+		str=this.value;
+		$nomorpassport = str.replaceAll(' ','');
+		// alert($nomorpol);
+		// return false;
+
+		$.ajax({
+		url: host + "Backendxx/cek_no_passport/" + $nomorpassport,
+		cache: false,
+		beforeSend: function (e) {
+			var no_passport_help = $("#no_passport").nextAll("span");
+			if (no_passport_help.length == 0) {
+			$("#no_passport")
+				.parent()
+				.append('<span style="color:grey;">Cek Nomor Passport...</span>');
+			} else {
+			$("#no_passport").nextAll("span").html("Cek Nomor Passport...");
+			}
+			$("#save").prop("disabled", true);
+			document.getElementById("no_passport").style.borderColor = "blue";
+		},
+		success: function (data) {
+			console.log(data);
+			if (data === "1") {
+				var no_passport_help = $("#no_passport").nextAll("span");
+				console.log(no_passport_help);
+				if (no_passport_help.length == 0) {
+					$("#no_passport")
+					.parent()
+					.append('<span style="color:green;">Nomor Passport Sudah Ada!</span>');
+				} else {
+					$("#no_passport")
+					.nextAll("span")
+					.css("color", "red")
+					.html("Nomor Passport sudah ada!");
+				}
+				$("#save").prop("disabled", true);
+				document.getElementById("no_passport").style.borderColor = "red";
+			} else {
+			var no_passport_help = $("#no_passport").nextAll("span");
+			if (no_passport_help.length == 0) {
+				$("#no_passport")
+				.parent()
+				.append('<span style="color:green;">Good!</span>');
+			} else {
+				$("#no_passport").nextAll("span").css("color", "green").html("Good!");
+			}
+			$("#save").prop("disabled", false);
+			document.getElementById("no_passport").style.borderColor = "green";
+			}
+		},
+		error: function (xhr, status, error) {
+			$("#save").prop("disabled", true);
+			document.getElementById("no_passport").style.borderColor = "red";
+		},
+		});
+	});
+
+  var rulesnya = {
+    no_passport: "required",
+    nama_lengkap: "required",
+    agama: "required",
+    tempat_lahir: "required",
+    tgl_lahir: "required",
+    status_kawin: "required",
+    pendidikan: "required",
+    rt: "required",
+    rw: "required",
+    kode_pos: "required",
+    alamat: "required",
+    status_data: "required",
+    jenis_kelamin: "required",
+    cl_jenis_pekerjaan_id: "required",
+  };
+  var messagesnya = {
+    no_passport: "<i style='color:red'>Harus Diisi</i>",
+    nama_lengkap: "<i style='color:red'>Harus Diisi</i>",
+    agama: "<i style='color:red'>Harus Diisi</i>",
+    tempat_lahir: "<i style='color:red'>Harus Diisi</i>",
+    tgl_lahir: "<i style='color:red'>Harus Diisi</i>",
+    status_kawin: "<i style='color:red'>Harus Diisi</i>",
+    pendidikan: "<i style='color:red'>Harus Diisi</i>",
+    rt: "<i style='color:red'>Harus Diisi</i>",
+    rw: "<i style='color:red'>Harus Diisi</i>",
+    kode_pos: "<i style='color:red'>Harus Diisi</i>",
+    alamat: "<i style='color:red'>Harus Diisi</i>",
+    status_data: "<i style='color:red'>Harus Diisi</i>",
+    jenis_kelamin: "<i style='color:red'>Harus Diisi</i>",
+    cl_jenis_pekerjaan_id: "<i style='color:red'>Harus Diisi</i>",
+  };
+  
+
+  $( "#form_{$acak}" ).validate( {
+		rules: rulesnya,
+		messages: messagesnya,
+		submitHandler: function(form) {
+		$.LoadingOverlay("show");
+		submit_form('form_{$acak}',function(r){
+			if(r == 1 ){ 
+				$.messager.alert(nama_apps,'Data Tersimpan','info'); 
+				$('#cancel_{$acak}').trigger('click');
+				$('#grid_data_penduduk_asing').datagrid('reload');
+			}else if(r == 2){ 
+				$.messager.alert(nama_apps,'Nomor Passport sudah digunakan!','warning'); 
+			}else{ 
+				$.messager.alert(nama_apps,'Proses Simpan Data Gagal '+r,'error'); 
+			}
+			$.LoadingOverlay("hide", true);
+		});
+			//*/
+		},
+		errorPlacement: function(error, element) {
+	        var name = element.attr('name');
+	        var errorSelector = '.validation_error_message[for="' + name + '"]';
+	        var $element = $(errorSelector);
+	        if ($element.length) { 
+	            $(errorSelector).html(error.html());
+	        } else {
+	            error.insertAfter(element);
+	        }
+	    }
+	} );
+
+</script>

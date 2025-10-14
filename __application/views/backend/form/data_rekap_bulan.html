@@ -1,0 +1,287 @@
+<form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/data_rekap_bulan" enctype="multipart/form-data" >
+    <input type="hidden" name="id" value="{$data.id|default:''}">
+	<input type="hidden" name="editstatus" value="{$sts|default:'add'}">
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<h3 class="box-title">Form Isian</h3>
+				</div>
+				<div class="box-body">
+					<div class="row">
+						<div class="col-md-12">
+
+							<div class="row" style="margin-bottom:10px;"> 
+                                <div class="col-md-3">
+									{include file="backend/template/input_form.html" required="true" label="Kelurahan" class_width="col-lg-12" type="baca_aja" name="cl_kelurahan_desa_id" id="cl_kelurahan_desa_id" value="{$kel.nama|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" label="Kecamatan" class_width="col-lg-12" type="baca_aja" name="kecamatan" id="kecamatan" value="{$kec.nama|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="true" label="Periode Rekap Bulnan" class_width="col-lg-12" type="date" 
+									placeholder="dd-mm-yyyy" limit="true" startDate="{$startDate}" endDate="{$endDate}" name="periode_cetak" id="periode_cetak"
+									value="{$data.periode_cetak|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="true" label="Tgl. Cetak" class_width="col-lg-12" type="date" 
+									placeholder="dd-mm-yyyy" limit="true" startDate="{$startDate}" endDate="{$endDate}" name="tgl_cetak" id="tgl_cetak"
+									value="{$data.tgl_cetak|default:''}"}
+								</div>
+							</div>
+
+							<div class="row" style="margin-bottom:10px;"> 
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>PENDUDUK AWAL BULAN INI</legend>
+									</fieldset>
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" label="Laki-laki" class_width="col-lg-12" type="text" name="jml_lk_wni" id="jml_lk_wni" value="{$data.jml_lk_wni|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" label="Perempuan" class_width="col-lg-12" type="text" name="jml_pr_wni" id="jml_pr_wni" value="{$data.jml_pr_wni|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" label="Laki-laki/WNA" class_width="col-lg-12" type="text" name="jml_lk_wna" id="jml_lk_wna" value="{$data.jml_lk_wna|default:''}"}
+								</div>
+                                <div class="col-md-3">
+									{include file="backend/template/input_form.html" label="Perempuan/WNA" class_width="col-lg-12" type="text" name="jml_pr_wna" id="jml_pr_wna" value="{$data.jml_pr_wna|default:''}"}
+								</div>
+							</div>
+
+                            <div class="row" style="margin-bottom:10px;">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>KELAHIRAN BULAN INI</legend>
+									</fieldset>
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" label="Laki-laki" class_width="col-lg-12" type="text" name="lahir_lk_wni" id="lahir_lk_wni" value="{$data.lahir_lk_wni|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" label="Perempuan" class_width="col-lg-12" type="text" name="lahir_pr_wni" id="lahir_pr_wni" value="{$data.lahir_pr_wni|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" label="Laki-laki/WNA" class_width="col-lg-12" type="text" name="lahir_lk_wna" id="lahir_lk_wna" value="{$data.lahir_lk_wna|default:''}"}
+								</div>
+                                <div class="col-md-3">
+									{include file="backend/template/input_form.html" label="Perempuan/WNA" class_width="col-lg-12" type="text" name="lahir_pr_wna" id="lahir_pr_wna" value="{$data.lahir_pr_wna|default:''}"}
+								</div>
+							</div>
+
+                            <div class="row" style="margin-bottom:10px;">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>KEMATIAN BULAN INI</legend>
+									</fieldset>
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" label="Laki-laki" class_width="col-lg-12" type="text" name="mati_lk_wni" id="mati_lk_wni" value="{$data.mati_lk_wni|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" label="Perempuan" class_width="col-lg-12" type="text" name="mati_pr_wni" id="mati_pr_wni" value="{$data.mati_pr_wni|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" label="Laki-laki/WNA" class_width="col-lg-12" type="text" name="mati_lk_wna" id="mati_lk_wna" value="{$data.mati_lk_wna|default:''}"}
+								</div>
+                                <div class="col-md-3">
+									{include file="backend/template/input_form.html" label="Perempuan/WNA" class_width="col-lg-12" type="text" name="mati_pr_wna" id="mati_pr_wna" value="{$data.mati_pr_wna|default:''}"}
+								</div>
+							</div>
+
+							<div class="row" style="margin-bottom:10px;">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>PENDATANG BULAN INI</legend>
+									</fieldset>
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" label="Laki-laki" class_width="col-lg-12" type="text" name="datang_lk_wni" id="datang_lk_wni" value="{$data.datang_lk_wni|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" label="Perempuan" class_width="col-lg-12" type="text" name="datang_pr_wni" id="datang_pr_wni" value="{$data.datang_pr_wni|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" label="Laki-laki/WNA" class_width="col-lg-12" type="text" name="datang_lk_wna" id="datang_lk_wna" value="{$data.datang_lk_wna|default:''}"}
+								</div>
+                                <div class="col-md-3">
+									{include file="backend/template/input_form.html" label="Perempuan/WNA" class_width="col-lg-12" type="text" name="datang_pr_wna" id="datang_pr_wna" value="{$data.datang_pr_wna|default:''}"}
+								</div>
+							</div>
+
+							<div class="row" style="margin-bottom:10px;">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>PINDAH BULAN INI</legend>
+									</fieldset>
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" label="Laki-laki" class_width="col-lg-12" type="text" name="pindah_lk_wni" id="pindah_lk_wni" value="{$data.pindah_lk_wni|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" label="Perempuan" class_width="col-lg-12" type="text" name="pindah_pr_wni" id="pindah_pr_wni" value="{$data.pindah_pr_wni|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" label="Laki-laki/WNA" class_width="col-lg-12" type="text" name="pindah_lk_wna" id="pindah_lk_wna" value="{$data.pindah_lk_wna|default:''}"}
+								</div>
+                                <div class="col-md-3">
+									{include file="backend/template/input_form.html" label="Perempuan/WNA" class_width="col-lg-12" type="text" name="pindah_pr_wna" id="pindah_pr_wna" value="{$data.pindah_pr_wna|default:''}"}
+								</div>
+							</div>
+
+							<div class="row" style="margin-bottom:10px;">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>KARTU KELUARGA</legend>
+									</fieldset>
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" label="Jumlah KK Awal Bulan ini" class_width="col-lg-12" type="text" name="kk_bln_ini" id="kk_bln_ini" value="{$data.kk_bln_ini|default:''}"}
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" label="KK Kelahiran Bulan ini" class_width="col-lg-12" type="text" name="kk_lahir" id="kk_lahir" value="{$data.kk_lahir|default:''}"}
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" label="KK Kematian Bulan ini" class_width="col-lg-12" type="text" name="kk_kematian" id="kk_kematian" value="{$data.kk_kematian|default:''}"}
+								</div>
+							</div>
+							<div class="row">
+                                <div class="col-md-4">
+									{include file="backend/template/input_form.html" label="KK Pendatang Bulan ini" class_width="col-lg-12" type="text" name="kk_pendatang" id="kk_pendatang" value="{$data.kk_pendatang|default:''}"}
+								</div>
+                                <div class="col-md-4">
+									{include file="backend/template/input_form.html" label="KK Pindah Bulan ini" class_width="col-lg-12" type="text" name="kk_pindah" id="kk_pindah" value="{$data.kk_pindah|default:''}"}
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-12">
+									<hr />
+									{include file="backend/template/button_save.html" text="Simpan" id_na="save" style_btn="btn-success"  btn_goyz="false"}
+									{include file="backend/template/button_save.html" text="Kembali" click="$('#grid_nya_{$mod}').show();$('#detil_nya_{$mod}').hide();" id_na="cancel" style_btn="btn-danger"  btn_goyz="true"}
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</form>
+
+<script>
+	var rulesnya = {
+		cl_kelurahan_desa_id : "required",
+		kecamatan : "required",
+		tgl_cetak : "required",
+
+		jml_lk_wni : "required",
+		jml_pr_wni : "required",
+		jml_lk_wna : "required",
+		jml_pr_wna : "required",
+
+		lahir_lk_wni : "required",
+		lahir_pr_wni : "required",
+		lahir_lk_wna : "required",
+		lahir_pr_wna : "required",
+
+		mati_lk_wni : "required",
+		mati_pr_wni : "required",
+		mati_lk_wna : "required",
+		mati_pr_wna : "required",
+
+		datang_lk_wni : "required",
+		datang_pr_wni : "required",
+		datang_lk_wna : "required",
+		datang_pr_wna : "required",
+
+		pindah_lk_wni : "required",
+		pindah_pr_wni : "required",
+		pindah_lk_wna : "required",
+		pindah_pr_wna : "required",
+
+		kk_bln_ini : "required",
+		kk_lahir : "required",
+		kk_kematian : "required",
+		kk_pendatang : "required",
+
+		kk_pindah : "required"
+	};
+
+	$('.angka').autoNumeric('init', {
+		aSep : '.',
+		aDec: ',',
+		mDec: '0'
+	});
+
+	var messagesnya = {
+		cl_kelurahan_desa_id : "<i style='color:red'>Harus Diisi</i>",
+		kecamatan : "<i style='color:red'>Harus Diisi</i>",
+		tgl_cetak : "<i style='color:red'>Harus Diisi</i>",
+
+		jml_lk_wni : "<i style='color:red'>Harus Diisi</i>",
+		jml_pr_wni : "<i style='color:red'>Harus Diisi</i>",
+		jml_lk_wna : "<i style='color:red'>Harus Diisi</i>",
+		jml_pr_wna : "<i style='color:red'>Harus Diisi</i>",
+
+		lahir_lk_wni : "<i style='color:red'>Harus Diisi</i>",
+		lahir_pr_wni : "<i style='color:red'>Harus Diisi</i>",
+		lahir_lk_wna : "<i style='color:red'>Harus Diisi</i>",
+		lahir_pr_wna : "<i style='color:red'>Harus Diisi</i>",
+
+		mati_lk_wni : "<i style='color:red'>Harus Diisi</i>",
+		mati_pr_wni : "<i style='color:red'>Harus Diisi</i>",
+		mati_lk_wna : "<i style='color:red'>Harus Diisi</i>",
+		mati_pr_wna : "<i style='color:red'>Harus Diisi</i>",
+
+		datang_lk_wni : "<i style='color:red'>Harus Diisi</i>",
+		datang_pr_wni : "<i style='color:red'>Harus Diisi</i>",
+		datang_lk_wna : "<i style='color:red'>Harus Diisi</i>",
+		datang_pr_wna : "<i style='color:red'>Harus Diisi</i>",
+
+		pindah_lk_wni : "<i style='color:red'>Harus Diisi</i>",
+		pindah_pr_wni : "<i style='color:red'>Harus Diisi</i>",
+		pindah_lk_wna : "<i style='color:red'>Harus Diisi</i>",
+		pindah_pr_wna : "<i style='color:red'>Harus Diisi</i>",
+
+		kk_bln_ini : "<i style='color:red'>Harus Diisi</i>",
+		kk_lahir : "<i style='color:red'>Harus Diisi</i>",
+		kk_kematian : "<i style='color:red'>Harus Diisi</i>",
+		kk_pendatang : "<i style='color:red'>Harus Diisi</i>",
+
+		kk_pindah : "<i style='color:red'>Harus Diisi</i>"
+	}
+
+	$( "#form_{$acak}" ).validate( {
+		rules: rulesnya,
+		messages: messagesnya,
+		submitHandler: function(form) {
+			$.LoadingOverlay("show");
+			submit_form('form_{$acak}',function(r){
+				if(r == 1 ){
+					$.messager.alert(nama_apps,'Data Tersimpan','info');
+					$('#cancel_{$acak}').trigger('click');
+					$('#grid_data_lorong').datagrid('reload');
+				}else{
+					$.messager.alert(nama_apps,'Proses Simpan Data Gagal '+r,'warning');
+				}
+				$.LoadingOverlay("hide", true);
+			});
+			//*/
+		},
+		errorPlacement: function(error, element) {
+	        var name = element.attr('name');
+	        var errorSelector = '.validation_error_message[for="' + name + '"]';
+	        var $element = $(errorSelector);
+	        if ($element.length) {
+	            $(errorSelector).html(error.html());
+	        } else {
+	            error.insertAfter(element);
+	        }
+	    }
+	} );
+</script>

@@ -1,0 +1,388 @@
+<form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/surat_himbauan" enctype="multipart/form-data" >
+    <input type="hidden" name="id" value="{$data.id|default:''}" />
+	<input type="hidden" name="editstatus" value="{$sts|default:'add'}" />
+    <!-- <input type="hidden" name="cl_jenis_surat_id" id="cl_jenis_surat_id" value="{$idx|default:''}" /> -->
+    <!-- <input type="hidden" name="tbl_data_penduduk_id_lama" id="tbl_data_penduduk_id_lama" value="{$data.tbl_data_penduduk_id_lama|default:''}" /> -->
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<h3 class="box-title"><b>FORM SURAT HIMBAUAN ATAU SURAT PENGUMUMAN</b></h3>
+				</div>
+				<div class="box-body">
+					<div class="row"> 
+						<div class="col-md-12"> 
+							
+							<div class="row">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>INFORMASI SURAT HIMBAUAN ATAU SURAT PENGUMUMAN</legend>
+									</fieldset>
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" label="No. Surat" class_width="col-lg-12" type="text" name="no_surat" id="no_surat" value="{$data.no_surat|default:''}"}
+									{include file="backend/template/input_form.html" label="Sifat Surat" class_width="col-lg-12" type="select2" name="cl_sifat_surat" id="cl_sifat_surat" option = {$sifat_suratx|default:''}}
+									<!-- {include file="backend/template/input_form.html" label="No Agenda" class_width="col-lg-12" type="text" name="no_agenda" id="no_agenda" value="{$data.no_agenda|default:''}"}  -->
+									
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" label="Tanggal Surat" class_width="col-lg-12" type="date" placeholder="dd-mm-yyyy" placeholder="dd-mm-yyyy" name="tgl_surat" id="tgl_surat" value="{$data.tgl_surat|default:''}"}
+									{include file="backend/template/input_form.html" label="Asal Surat" class_width="col-lg-12" type="text" name="asal_surat" id="asal_surat" value="{$data.asal_surat|default:''}"}
+									
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" label="Perihal" class_width="col-lg-12" type="text" name="perihal" id="perihal" value="{$data.perihal|default:''}"}
+									{include file="backend/template/input_form.html" label="Tujuan Surat" class_width="col-lg-12" type="text" name="tujuan" id="tujuan" value="{$data.tujuan|default:''}"}
+								</div>
+
+							</div>	
+
+							<div class="row">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>URAIAN SURAT HIMBAUAN ATAU SURAT PENGUMUMAN</legend>
+									</fieldset>
+								</div>
+								<div class="col-md-12">
+									{include file="backend/template/input_form.html" label="Uraian" class_width="col-lg-12" type="textarea_wysig" name="uraian" id="uraian" value="{$data.uraian|default:''}"}
+									<br>
+									{include file="backend/template/input_form.html" label="Upload File" class_width="col-lg-12" type="file" name="file" id="file" value="{$data.file|default:''}"}
+
+								</div>
+							</div>	
+
+							<div class="row">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>PILIH PENANDATANGANAN</legend>
+									</fieldset>
+								</div>
+								<div class="col-md-6">
+									{include file="backend/template/input_form.html" required="true" label="NIP" class_width="col-lg-12" type="select2" name="nip" id="nip" option={$pilih_ttd|default:''} } 
+								</div>
+							</div>
+
+						</div>
+							
+							
+							
+							<div class="row">
+								<div class="col-md-12">
+									<hr />
+									{include file="backend/template/button_save.html" text="Simpan" id_na="save" style_btn="btn-success"  btn_goyz="false"}
+									{include file="backend/template/button_save.html" text="Kembali" click="$('#grid_nya_{$mod}').show();$('#detil_nya_{$mod}').hide();" id_na="cancel" style_btn="btn-danger"  btn_goyz="true"}	
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</form>
+
+<script>
+	$('.angka').autoNumeric('init', {
+		aSep : '.',
+		aDec: ',',
+		mDec: '0'
+	});
+
+	var rulesnya = {
+		cl_jenis_surat_masuk_id : "required",
+		cl_sifat_surat_masuk_id : "required",
+		nama_pemohon : "required",
+		nik : "required",
+		no_surat : "required",
+		tgl_surat : "required",
+		
+		// Surat Keterangan Orang Tua
+		nama_anak : "required",
+		// Surat Keterangan Orang Tua
+
+		// Surat Keterangan Yang Sama
+		keperluan : "required",
+		nama_dalam_sertifikat : "required",
+		no_sertifikat : "required",
+		// Surat Keterangan Yang Sama
+
+		// Surat Keterangan Belum Memiliki Rumah
+		nama_ibu : "required",
+		tgl_pernyataan : "required",
+		// Surat Keterangan Belum Memiliki Rumah
+
+		// Surat Keterangan Penghasilan
+		penghasilan : "required",
+		istri : "required",
+		anak : "required",
+		// Surat Keterangan Penghasilan
+
+		// Surat Keterangan Kejandaan
+		nama_suami : "required",
+		tgl_meninggal : "required",
+		hari_meninggal : "required",
+		nama_pemakaman : "required",
+		no_surat_keterangan : "required",
+		rumah_sakit : "required",
+		surat_pengantar : "required",
+		tgl_pengantar : "required",
+		// Surat Keterangan Kejandaan
+
+		// Surat Keterangan Kebakaran
+		tgl_kebakaran : "required",
+		rincian_kerugian : "required",
+		// Surat Keterangan Kebakaran
+
+		// Surat Keterangan Identitas
+		peruntukan_surat : "required",
+		// Surat Keterangan Identitas
+
+		// Surat Keterangan GAIB
+		nama_istri : "required",
+		tgl_surat_pernyataan : "required",
+		no_surat_pengantar : "required",
+		tgl_surat_pengantar : "required",
+		tgl_pergi : "required",
+
+		peruntukan_surat : "required",
+		// Surat Keterangan GAIB
+
+		// Surat Izin Keramaian
+		nama_kegiatan : "required",
+		hari : "required",
+		tgl_acara : "required",
+		tempat : "required",
+		
+		bunyi_bunyian : "required",
+		jalan_lorong : "required",
+		tutup_sementara : "required",
+
+		no_surat_pengantar : "required",
+		tgl_surat_pengantar : "required",
+		satker_polisi : "required",
+		// Surat Izin Keramaian
+
+		// Surat Ket. Lahir
+		nama_bayi : "required",
+		jenis_kelamin_bayi : "required",
+		jam_lahir : "required",
+		hari_lahir : "required",
+		tgl_lahir : "required",
+		tempat_lahir : "required",
+		// End Surat Ket. Lahir
+		
+		// Surat Ket. Lahir Mati
+		usia_kandungan_kematian : "required",
+		hari_kematian : "required",
+		tgl_kematian : "required",
+		jam_kematian : "required",
+		nama_pelapor : "required",
+		hubungan_pelapor : "required",
+		tempat_kematian : "required",
+		// Surat Ket. Lahir Mati
+		
+		// Surat Ket. Kematian
+		penyebab_kematian : "required",
+		nik_pelapor : "required",
+		// End Surat Ket. Kematian
+		
+		// Surat Pengantar Numpang Nikah
+		nama_pasangan : "required",
+		nama_ayah_pasangan : "required",
+		alamat_pasangan : "required",
+		// End Surat Pengantar Numpang Nikah
+		
+		// Surat Keterangan Pindah Penduduk
+		tgl_pindah : "required",
+		alasan_pindah : "required",
+		alamat_pindah : "required",
+		// End Surat Keterangan Pindah Penduduk
+		
+		// Surat Keterangan Pengantar
+		tgl_mulai_berlaku : "required",
+		tgl_selesai_berlaku : "required",
+		keperluan : "required",
+		// End Surat Keterangan Pengantar
+		
+		// Surat Keterangan Domisili Usaha
+		alamat_usaha : "required",
+		nama_usaha : "required",
+		// Surat Keterangan Domisili Usaha
+		
+		// Surat Keterangan Rujuk & Cerai
+		nama_pasangan : "required",
+		nik_pasangan : "required",
+		alamat_pasangan : "required",
+		// End Surat Keterangan Rujuk & Cerai
+		
+	};
+
+	var messagesnya = {
+		cl_jenis_surat_id : "<i style='color:red'>Harus Diisi</i>",
+		nama_pemohon : "<i style='color:red'>Harus Diisi</i>",
+		nik : "<i style='color:red'>Harus Diisi</i>",
+		no_surat : "<i style='color:red'>Harus Diisi</i>",
+		tgl_surat : "<i style='color:red'>Harus Diisi</i>",
+		
+		// Surat Keterangan Orang Tua
+		nama_anak : "<i style='color:red'>Harus Diisi</i>",
+		// Surat Keterangan Orang Tua
+
+		// Surat Keterangan Yang Sama
+		keperluan : "<i style='color:red'>Harus Diisi</i>",
+		nama_dalam_sertifikat : "<i style='color:red'>Harus Diisi</i>",
+		no_sertifikat : "<i style='color:red'>Harus Diisi</i>",
+		// Surat Keterangan Yang Sama
+
+		// Surat Keterangan Belum Memiliki Rumah
+		nama_ibu : "<i style='color:red'>Harus Diisi</i>",
+		tgl_pernyataan : "<i style='color:red'>Harus Diisi</i>",
+		// Surat Keterangan Belum Memiliki Rumah
+
+		// Surat Keterangan Penghasilan
+		penghasilan : "<i style='color:red'>Harus Diisi</i>",
+		istri : "<i style='color:red'>Harus Diisi</i>",
+		anak : "<i style='color:red'>Harus Diisi</i>",
+		// Surat Keterangan Penghasilan
+
+		// Surat Keterangan Kejandaan
+		nama_suami : "<i style='color:red'>Harus Diisi</i>",
+		tgl_meninggal : "<i style='color:red'>Harus Diisi</i>",
+		hari_meninggal : "<i style='color:red'>Harus Diisi</i>",
+		nama_pemakaman : "<i style='color:red'>Harus Diisi</i>",
+		no_surat_keterangan : "<i style='color:red'>Harus Diisi</i>",
+		rumah_sakit : "<i style='color:red'>Harus Diisi</i>",
+		surat_pengantar : "<i style='color:red'>Harus Diisi</i>",
+		tgl_pengantar : "<i style='color:red'>Harus Diisi</i>",
+		// Surat Keterangan Kejandaan
+
+		// Surat Keterangan Kebakaran
+		tgl_kebakaran : "<i style='color:red'>Harus Diisi</i>",
+		rincian_kerugian : "<i style='color:red'>Harus Diisi</i>",
+		// Surat Keterangan Kebakaran
+
+		// Surat Keterangan Identitas
+		peruntukan_surat : "<i style='color:red'>Harus Diisi</i>",
+		// Surat Keterangan Identitas
+
+		// Surat Keterangan GAIB
+		nama_istri : "<i style='color:red'>Harus Diisi</i>",
+		tgl_surat_pernyataan : "<i style='color:red'>Harus Diisi</i>",
+		no_surat_pengantar : "<i style='color:red'>Harus Diisi</i>",
+		tgl_surat_pengantar : "<i style='color:red'>Harus Diisi</i>",
+		tgl_pergi : "<i style='color:red'>Harus Diisi</i>",
+
+		peruntukan_surat : "<i style='color:red'>Harus Diisi</i>",
+		// Surat Keterangan GAIB
+		
+		// Surat Izin Keramaian
+		nama_kegiatan : "<i style='color:red'>Harus Diisi</i>",
+		hari : "<i style='color:red'>Harus Diisi</i>",
+		tgl_acara : "<i style='color:red'>Harus Diisi</i>",
+		tempat : "<i style='color:red'>Harus Diisi</i>",
+		
+		bunyi_bunyian : "<i style='color:red'>Harus Diisi</i>",
+		jalan_lorong : "<i style='color:red'>Harus Diisi</i>",
+		tutup_sementara : "<i style='color:red'>Harus Diisi</i>",
+
+		no_surat_pengantar : "<i style='color:red'>Harus Diisi</i>",
+		tgl_surat_pengantar : "<i style='color:red'>Harus Diisi</i>",
+		satker_polisi : "<i style='color:red'>Harus Diisi</i>",
+		// Surat Izin Keramaian
+
+		// Surat Ket. Lahir
+		nama_bayi : "<i style='color:red'>Harus Diisi</i>",
+		jenis_kelamin_bayi : "<i style='color:red'>Harus Diisi</i>",
+		jam_lahir : "<i style='color:red'>Harus Diisi</i>",
+		hari_lahir : "<i style='color:red'>Harus Diisi</i>",
+		tgl_lahir : "<i style='color:red'>Harus Diisi</i>",
+		tempat_lahir : "<i style='color:red'>Harus Diisi</i>",
+		// End Surat Ket. Lahir
+		
+		// Surat Ket. Lahir Mati
+		usia_kandungan_kematian : "<i style='color:red'>Harus Diisi</i>",
+		hari_kematian : "<i style='color:red'>Harus Diisi</i>",
+		tgl_kematian : "<i style='color:red'>Harus Diisi</i>",
+		jam_kematian : "<i style='color:red'>Harus Diisi</i>",
+		nama_pelapor : "<i style='color:red'>Harus Diisi</i>",
+		hubungan_pelapor : "<i style='color:red'>Harus Diisi</i>",
+		tempat_kematian : "<i style='color:red'>Harus Diisi</i>",
+		// Surat Ket. Lahir Mati
+		
+		// Surat Ket. Kematian
+		penyebab_kematian : "<i style='color:red'>Harus Diisi</i>",
+		nik_pelapor : "<i style='color:red'>Harus Diisi</i>",
+		// End Surat Ket. Kematian
+		
+		// Surat Pengantar Numpang Nikah
+		nama_pasangan : "<i style='color:red'>Harus Diisi</i>",
+		nama_ayah_pasangan : "<i style='color:red'>Harus Diisi</i>",
+		alamat_pasangan : "<i style='color:red'>Harus Diisi</i>",
+		// End Surat Pengantar Numpang Nikah
+		
+		// Surat Keterangan Pindah Penduduk
+		tgl_pindah : "<i style='color:red'>Harus Diisi</i>",
+		alasan_pindah : "<i style='color:red'>Harus Diisi</i>",
+		alamat_pindah : "<i style='color:red'>Harus Diisi</i>",
+		// End Surat Keterangan Pindah Penduduk
+		
+		// Surat Keterangan Pengantar
+		tgl_mulai_berlaku : "<i style='color:red'>Harus Diisi</i>",
+		tgl_selesai_berlaku : "<i style='color:red'>Harus Diisi</i>",
+		keperluan : "<i style='color:red'>Harus Diisi</i>",
+		// End Surat Keterangan Pengantar
+		
+		// Surat Keterangan Domisili Usaha
+		alamat_usaha : "<i style='color:red'>Harus Diisi</i>",
+		nama_usaha : "<i style='color:red'>Harus Diisi</i>",
+		// Surat Keterangan Domisili Usaha
+		
+		// Surat Keterangan Rujuk & Cerai
+		nama_pasangan : "<i style='color:red'>Harus Diisi</i>",
+		nik_pasangan : "<i style='color:red'>Harus Diisi</i>",
+		alamat_pasangan : "<i style='color:red'>Harus Diisi</i>",
+		// End Surat Keterangan Rujuk & Cerai
+	}
+
+	$( "#form_{$acak}" ).validate( {
+		rules: rulesnya,
+		messages: messagesnya,
+		submitHandler: function(form) {
+			var nik = $('#nik').val();
+			var jenis_surat = $('#cl_jenis_surat_id').val();
+		
+			$.LoadingOverlay("show");
+			submit_form('form_{$acak}',function(r){
+				if(r == 1 ){ 
+					$.messager.alert(nama_apps,'Data Tersimpan','info'); 
+					$('#cancel_{$acak}').trigger('click');
+					loadUrl(host+'backoffice-grid/surat_himbauan');
+					//window.open(host+"backoffice-cetak/cetak_surat/"+jenis_surat+"/"+nik, "_blank");
+				}
+				else{ 
+					$.messager.alert(nama_apps,'Proses Simpan Data Gagal','warning'); 
+				}
+				$.LoadingOverlay("hide", true);
+			});
+			//*/
+		},
+		errorPlacement: function(error, element) {
+	        var name = element.attr('name');
+	        var errorSelector = '.validation_error_message[for="' + name + '"]';
+	        var $element = $(errorSelector);
+	        if ($element.length) { 
+	            $(errorSelector).html(error.html());
+	        } else {
+	            error.insertAfter(element);
+	        }
+	    }
+	} );
+
+	function upload_file(){
+		alert('lihat');
+	}
+
+</script>

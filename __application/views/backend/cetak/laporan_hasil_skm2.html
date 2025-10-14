@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	
+	<title>Jumlah Responden SKM</title>
+	
+</head>
+
+<body>
+<table style="width: 100%;border-collapse: collapse;" cellspacing="0" border="1" ></table> 
+  <tr>
+    <td style="border: hidden; font-family: Arial; font-size: 10pt;" align="center" valign="top">
+      <b>JUMLAH RESPONDEN SKM</b>
+    </td>
+  </tr>
+</table>
+<table style="width: 100%;border-collapse: collapse;font-family: Arial; font-size: 10pt;padding-top: 10px;" cellspacing="0" border="1">
+	<tr>
+		<td align="center" valign="middle"><b>No</b></td>
+		<td align="center" valign="middle"><b>KARAKTERISTIK</b></td>
+		<td align="center" valign="middle"><b>INDIKATOR</b></td>
+		<td align="center" valign="middle"><b>JUMLAH</b></td>
+		<td align="center" valign="middle"><b>PERSENTASE</b></td>
+	</tr>
+
+	{assign var="no" value=1}
+	{assign var="last_kategori" value=""}
+	{foreach from=$data.laporan_hasil_skm2 item=row}
+	<tr>
+		{if $row.urutan_kategori != $last_kategori}
+			<td rowspan="{$data.rowspan_kategori[$row.urutan_kategori]}" align="center" valign="middle">{$no}</td>
+			{assign var="no" value=$no+1}
+			{assign var="last_kategori" value=$row.urutan_kategori}
+			<td align="left" rowspan="{$data.rowspan_kategori[$row.urutan_kategori]}" valign="middle">{$row.kategori}</td>
+		{/if}
+
+		<td align="left" valign="middle">{$rowspan_kategori} {$row.nama_kategori}</td>
+		<td align="right" valign="middle">{$row.jumlah}</td>
+		<td align="right" valign="middle">{$row.persentase}%</td>
+	</tr>
+	{/foreach}
+</table>
+</body>
+
+</html>

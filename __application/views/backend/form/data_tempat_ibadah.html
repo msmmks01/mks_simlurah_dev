@@ -1,0 +1,125 @@
+<form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/data_tempat_ibadah" enctype="multipart/form-data" >
+    <input type="hidden" name="id" value="{$data.id|default:''}">
+	<input type="hidden" name="editstatus" value="{$sts|default:'add'}">
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<h3 class="box-title">Form Isian</h3>
+				</div>
+				<div class="box-body">
+					<div class="row">
+						<div class="col-md-12">
+
+							<div class="row" style="margin-bottom:10px;">
+                                <div class="col-md-6">
+									<input type="hidden" name="cl_kelurahan_desa_id" value="{$cl_kelurahan_desa_id}"/>
+									{include file="backend/template/input_form.html" required="true" label="Kelurahan" class_width="col-lg-12" type="baca_aja" value="{$kel.nama|default:''}" }
+								</div>
+							</div>
+                            <div class="row" style="margin-bottom:10px;">
+                                <div class="col-md-4">
+									<!-- {include file="backend/template/input_form.html" required="true" label="Masa Berlaku" class_width="col-lg-12" type="select" name="masa_berlaku" id="masa_berlaku" option={$masa_berlaku_id|default:''} } -->
+									{include file="backend/template/input_form.html" label="Jenis Tempat Ibadah" class_width="col-lg-12" type="select" name="jns_tempat_ibadah" id="jns_tempat_ibadah" option={$tempat_ibadah|default:''} }
+								</div>
+                                <div class="col-md-4">
+									{include file="backend/template/input_form.html" label="Nama Tempat Ibadah" class_width="col-lg-12" type="text" name="nama_tempat_ibadah" id="nama_tempat_ibadah" value="{$data.nama_tempat_ibadah|default:''}"}
+								</div>
+                                <div class="col-md-8">
+									{include file="backend/template/input_form.html" label="Alamat" class_width="col-lg-12" type="text" name="alamat" id="alamat" value="{$data.alamat|default:''}"}
+								</div>
+                                <div class="col-md-4">
+									{include file="backend/template/input_form.html" label="Ketua Pengurus" class_width="col-lg-12" type="text" name="ketua_pengurus" id="ketua_pengurus" value="{$data.ketua_pengurus|default:''}"}
+								</div>
+                                <div class="col-md-4">
+									{include file="backend/template/input_form.html" label="Keterangan" class_width="col-lg-12" type="text" name="ket" id="ket" value="{$data.ket|default:''}"}
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" label="Koordinat (Ambil Dari Google Map)" 
+									class_width="col-lg-12" type="text" required="true" placeholder="contoh: -5.13935799930719, 119.45180916240452"
+									name="koordinat" id="koordinat"
+									value="{$kor|default:''}"}
+								  </div>
+                            </div>
+
+							<!-- <div class="row">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>STATUS DATA</legend>
+									</fieldset>
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html" required="true" label="Status" class_width="col-lg-12" type="select" name="status_data" id="status_data" option={$status_data|default:''} }
+								</div>
+							</div> -->
+
+							<div class="row">
+								<div class="col-md-12">
+									<hr/>
+									{include file="backend/template/input_form.html" label="Upload File *jpg|jpeg|png|pdf" class_width="col-lg-12" type="file" name="file" id="file" value="{$data.file|default:''}"}
+									<br/>
+									{include file="backend/template/button_save.html" text="Simpan" id_na="save" style_btn="btn-success"  btn_goyz="false"}
+									{include file="backend/template/button_save.html" text="Kembali" click="$('#grid_nya_{$mod}').show();$('#detil_nya_{$mod}').hide();" id_na="cancel" style_btn="btn-danger"  btn_goyz="true"}
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</form>
+
+<script>
+	var rulesnya = {
+		cl_kelurahan_desa_id : "required",
+		jns_tempat_ibadah : "required",
+		nama_tempat_ibadah : "required",
+		alamat : "required",
+		ketua_pengurus : "required",
+		ket : "required",
+		koordinat: "required"
+	};
+
+	var messagesnya = {
+		cl_kelurahan_desa_id : "<i style='color:red'>Harus Diisi</i>",
+		jns_tempat_ibadah : "<i style='color:red'>Harus Diisi</i>",
+		nama_tempat_ibadah : "<i style='color:red'>Harus Diisi</i>",
+		alamat : "<i style='color:red'>Harus Diisi</i>",
+		ketua_pengurus : "<i style='color:red'>Harus Diisi</i>",
+		ket : "<i style='color:red'>Harus Diisi</i>",
+		koordinat: "<i style='color:red'>Harus Diisi</i>"
+	}
+
+	$( "#form_{$acak}" ).validate( {
+		rules: rulesnya,
+		messages: messagesnya,
+		submitHandler: function(form) {
+			$.LoadingOverlay("show");
+			submit_form('form_{$acak}',function(r){
+				if(r == 1 ){
+					$.messager.alert(nama_apps,'Data Tersimpan','info');
+					$('#cancel_{$acak}').trigger('click');
+					$('#grid_data_tempat_ibadah').datagrid('reload');
+				}else{
+					$.messager.alert(nama_apps,'Proses Simpan Data Gagal '+r,'warning');
+				}
+				$.LoadingOverlay("hide", true);
+			});
+			//*/
+		},
+		errorPlacement: function(error, element) {
+	        var name = element.attr('name');
+	        var errorSelector = '.validation_error_message[for="' + name + '"]';
+	        var $element = $(errorSelector);
+	        if ($element.length) {
+	            $(errorSelector).html(error.html());
+	        } else {
+	            error.insertAfter(element);
+	        }
+	    }
+	} );
+</script>

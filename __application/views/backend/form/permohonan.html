@@ -1,0 +1,181 @@
+<form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/data_permohonan" enctype="multipart/form-data" >
+    <input type="hidden" name="id" value="{$data.id|default:''}" />
+	<input type="hidden" name="editstatus" value="{$sts|default:'add'}" />
+	<input type="hidden" name="nik" value="{$data.nik|default:''}" />
+    <input type="hidden" name="cl_jenis_surat_id" id="cl_jenis_surat_id" value="{$data.cl_jenis_surat_id|default:''}" />
+    <input type="hidden" name="tbl_data_penduduk_id_lama" id="tbl_data_penduduk_id_lama" value="{$data.tbl_data_penduduk_id_lama|default:''}" />
+
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table">
+				<tr style="background:navy;color:#fff;">
+					<td>Jenis Surat</td>
+					<td>:</td>
+					<td>{$data.jenis_surat|default:''}</td>
+				</tr>
+				<tr>
+					<td>NIK</td>
+					<td>:</td>
+					<td>{$data.nik|default:''}</td>
+				</tr>
+				
+				<tr>
+					<td>Nama</td>
+					<td>:</td>
+					<td>{$data.nama_lengkap|default:''}</td>
+				</tr>
+				<tr>
+					<td>Tempat/Tgl Lahir</td>
+					<td>:</td>
+					<td>{$data.tempat_lahir|default:''}, {$data.tgl_lahir|default:''}</td>
+				</tr>
+				<tr>
+					<td>Jenis Kelamin</td>
+					<td>:</td>
+					<td>{$data.jenis_kelamin|default:''}</td>
+				</tr>
+				<tr>
+					<td>Agama</td>
+					<td>:</td>
+					<td>{$data.nama_agama|default:''}</td>
+				</tr>
+				<tr>
+					<td>Status Kawin</td>
+					<td>:</td>
+					<td>{$data.nama_status_kawin|default:''}</td>
+				</tr>
+				<tr>
+					<td>Pendidikan</td>
+					<td>:</td>
+					<td>{$data.nama_pendidikan|default:''}</td>
+				</tr>
+				<tr>
+					<td>Pekerjaan</td>
+					<td>:</td>
+					<td>{$data.nama_pekerjaan|default:''}</td>
+				</tr>
+				<tr>
+					<td>RT/RW</td>
+					<td>:</td>
+					<td>{$data.rt|default:''}/{$data.rw|default:''}</td>
+				</tr>
+				<tr>
+					<td>Alamat</td>
+					<td>:</td>
+					<td>{$data.alamat|default:''}</td>
+				</tr>
+				<tr>
+					<td>Kode Pos</td>
+					<td>:</td>
+					<td>{$data.kode_pos|default:''}</td>
+				</tr>
+				<tr>
+					<td>No. Surat</td>
+					<td>:</td>
+					<td><input type="text" name="no_surat" id="no_surat" class="" required="true"></td>
+				</tr>
+				<tr>
+					<td>Tgl. Surat</td>
+					<td>:</td>
+					<td><input type="text" name="tgl_surat" id="tgl_surat"  class="tanggalnya" required="true"></td>
+				</tr>
+			</table>
+		</div>
+		<div class="row">
+				<div class="col-md-12">
+					<hr />
+					<center>
+					{include file="backend/template/button_save.html" text="Proses Data Persuratan" id_na="save" style_btn="btn-success"  btn_goyz="false"}
+					</center>
+				</div>
+		</div>
+	</div>
+	
+</form>
+
+<script>
+$('.tanggalnya').datepicker({ 
+			format: 'yyyy-mm-dd',
+			orientation:'bottom',
+			changeMonth: true,
+			changeYear: true,
+			yearRange: "c-80:c+10",
+			dayNamesMin: ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'],
+			monthNamesShort: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+		});
+		
+var rulesnya = {
+
+		tgl_surat : "required",
+
+		no_surat : "required",
+
+		
+
+	};
+
+
+
+	var messagesnya = {
+
+		tgl_surat : "<i style='color:red'>Harus Diisi</i>",
+
+		no_surat : "<i style='color:red'>Harus Diisi</i>",
+
+	}
+
+
+
+	$( "#form_{$acak}" ).validate( {
+
+		rules: rulesnya,
+
+		messages: messagesnya,
+
+		submitHandler: function(form) {
+
+			$.LoadingOverlay("show");
+
+			submit_form('form_{$acak}',function(r){
+
+				if(r == 1 ){ 
+
+					$.messager.alert(nama_apps,'Data Surat dan Penduduk Tersimpan ','info'); 
+					 $('#pesanModal').modal('hide');
+					 $('#grid_data_permohonan').datagrid('reload');
+				}else{ 
+
+					$.messager.alert(nama_apps,'Proses Simpan Data Gagal '+r,'warning'); 
+
+				}
+
+				$.LoadingOverlay("hide", true);
+
+			});
+
+			//*/
+
+		},
+
+		errorPlacement: function(error, element) {
+
+	        var name = element.attr('name');
+
+	        var errorSelector = '.validation_error_message[for="' + name + '"]';
+
+	        var $element = $(errorSelector);
+
+	        if ($element.length) { 
+
+	            $(errorSelector).html(error.html());
+
+	        } else {
+
+	            error.insertAfter(element);
+
+	        }
+
+	    }
+
+	} );
+</script>

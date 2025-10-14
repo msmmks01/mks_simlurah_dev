@@ -1,0 +1,273 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	
+	<title>SURAT PENGANTAR NIKAH</title>
+</head>
+
+<body>
+	<div style="padding-bottom: 5mm;">
+		<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;">
+			
+			<tr>
+				<td colspan=3 align="left" style="padding-right: 5.82mm;padding-left: 25mm;font-size: 11px;">Keputusan Dirjen Bimas Islam Nomor 473 Tahun 2020</td>
+			</tr>
+			<tr>
+				<td colspan=3 align="left" style="padding-right: 5.82mm;padding-left: 25mm;font-size: 11px;">Tentang Petunjuk Teknis Pelaksanaan Pencatatan Pernikahan</td>
+			</tr>
+			<tr>
+				<td colspan=3>&emsp;</td>
+			</tr>
+			<tr> 
+				<td align="left" valign=top width="35%" style="padding-left: 25mm;font-size: 13px;">KANTOR KELURAHAN</td>
+				<td valign="top" width="2%">:</td>
+				<td valign="top">{$data.pemohon.nama_kelurahan|default:'........'}</td>
+			</tr>
+			<tr>
+				<td align="left" width="25%" style="padding-left: 25mm;font-size: 13px;">KECAMATAN</td>
+				<td valign="top">:</td>
+				<td valign="top">{ucwords(strtolower(str_replace('KOTA','',$data.pemohon.nama_kecamatan)))|default:''}</td>
+			</tr>
+			<tr>
+				<td align="left" width="25%" style="padding-left: 25mm;font-size: 13px;">KOTA</td>
+				<td valign="top">:</td>
+				<td valign="top">{ucwords(strtolower(str_replace('KOTA','',$data.pemohon.nama_kota)))|default:''}</td>
+			</tr>
+			<tr>
+				<td colspan=3>&emsp;</td>
+			</tr>
+			<tr>
+				<td colspan=3 align="center"><b><u>SURAT PENGANTAR NIKAH</u></b></td>
+			</tr>
+			<tr>
+				<td colspan=3 align="center" style="font-size:13.3px;padding-bottom: 10px;">NOMOR: 
+						{if isset($data.surat.info_tambahan.ttd_srikandi) and $data.surat.info_tambahan.ttd_srikandi neq ''}
+						{'${nomor_naskah}'}
+						{else}
+						{$data.surat.no_surat|default:'..................................................'}
+						{/if}</td>
+			</tr>
+		</table>
+	</div>
+	<div style="padding-right: 5.82mm;padding-left: 15.44mm; padding-bottom: 2mm; font-size: 16px;">
+		
+		<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse; line-height: 1.5;">
+			<tr>
+				<td colspan=4 valign=top align="justify" style="padding-top: -20px;padding-left: 45px;">Yang bertanda tangan di bawah ini menerangkan dengan sesungguhnya bahwa :
+				</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top style="width:42px;"><br></td>
+				<td align="left" valign=top style="width: 160px;">Nama</td>
+				<td align="center" valign=top style="width: 15px;">:</td>
+				<td align="left" valign=top><b>{$data.pemohon.nama_lengkap|default:'.....................'}</b></td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>NIK</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{$data.pemohon.nik|default:'.....................'}</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Jenis Kelamin</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{$data.pemohon.jenis_kelamin|default:'.....................'}</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Tempat/ Tanggal Lahir</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{ucwords(strtolower($data.pemohon.tempat_lahir))|default:'...'}, {tgl_indo({$data.pemohon.tgl_lahir|default:''})}</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Pekerjaan</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{ucwords(strtolower($data.pemohon.nama_pekerjaan))|default:'.....................'}</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Agama</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{$data.pemohon.agama|default:'.....................'}</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Alamat</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{$data.pemohon.alamat|default:'.....................'}, RT {$data.pemohon.rt|default:'...'}/RW {$data.pemohon.rw|default:'...'}</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Kewarganegaraan</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{$data.surat.info_tambahan.warga_nikah|default:'.....................'}</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Status Perkawinan</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{$data.surat.info_tambahan.status_perkawinan|default:'.....................'}</td>
+			</tr>
+			
+			<tr>
+				<td colspan=4 align="center" valign=bottom><br></td>
+			</tr>
+			<tr>
+				<td colspan=4 valign=top align="justify" style="padding-top: -20px;padding-left: 45px;">Adalah benar anak dari perkawinan seorang pria :
+				</td>
+			</tr>
+			<tr>
+				<td colspan=4 align="center" valign=bottom></td>
+			</tr>
+		
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Nama Ayah</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{$data.surat.info_tambahan.nama_ayah|default:'.....................'}</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Jenis Kelamin</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>Laki-laki</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Tempat / Tanggal Lahir</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{$data.surat.info_tambahan.tempat_lahir_ayah|default:'.....................'}, {tgl_indo({$data.surat.info_tambahan.tgl_lahir_ayah|default:'.....................'})}</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Pekerjaan</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{$data.surat.info_tambahan.pekerjaan_ayah|default:'.....................'}</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Agama</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{$data.surat.info_tambahan.agama_ayah|default:'.....................'}</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Alamat</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{$data.surat.info_tambahan.alamat_ayah|default:'.....................'}</td>
+			</tr>
+			<tr>
+				<td>&emsp;</td>
+			</tr>
+			<tr>
+				<td colspan=4 valign=top align="justify" style="padding-top: -20px;padding-left: 45px;">dengan seorang wanita :
+				</td>
+			</tr>
+		
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Nama Ibu</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{$data.surat.info_tambahan.nama_ibu|default:'.....................'}</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Jenis Kelamin</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>Perempuan</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Tempat / Tanggal Lahir</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{$data.surat.info_tambahan.tempat_lahir_ibu|default:'.....................'}, {tgl_indo({$data.surat.info_tambahan.tgl_lahir_ibu|default:'.....................'})}</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Pekerjaan</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{$data.surat.info_tambahan.pekerjaan_ibu|default:'.....................'}</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Agama</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{$data.surat.info_tambahan.agama_ibu|default:'.....................'}</td>
+			</tr>
+			<tr>
+				<td align="left" valign=top><br></td>
+				<td align="left" valign=top>Alamat</td>
+				<td align="center" valign=top>:</td>
+				<td align="left" valign=top>{$data.surat.info_tambahan.alamat_ibu|default:'.....................'}</td>
+			</tr>
+			<tr>
+				<td colspan=4 align="justify" valign=top style="padding-right: 5.82mm;padding-left: 11mm;">Demikian Surat Pengantar ini dibuat dengan mengingat sumpah jabatan dan untuk <b>{$data.surat.info_tambahan.keperluan_surat|default:'sebagaimana mestinya'}</b>.</td>
+			</tr>
+		</table>
+	</div>
+	<br>
+	{if $data.surat.info_tambahan.ceklis_ttd_imam neq ''}
+	<div style="padding-left: 26.44mm;padding-bottom: 1mm;font-size: 16px;line-height: 1.4;">
+        <table style="border-collapse: collapse; width: 100%;line-height: 1.4;" border="0" cellpadding="0">
+          <tr>
+            <td valign="bottom" width="40%"></td>
+            <td valign="bottom" width="5%">&nbsp;</td>
+            <td valign="top" width="50%">
+              {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'.......'},
+              {$data.surat.tanggal_surat|default:'............................'}
+            </td>
+          </tr>
+          <tr>
+            <td valign="top">Imam Kelurahan</td>
+            <td>&nbsp;</td>
+            <td valign="top" align="left"><b>{if count($data.ttd)==1}{$data.ttd[0]['center']}{else}{$data.ttd[0]['center']}<br>{$data.ttd[1]['center']}</b>
+                {/if}</td>
+          </tr>
+          <tr>
+            <td><br /></td>
+            <td><br /></td>
+            <td><br /></td>
+          </tr>
+          <tr>
+            <td><br /></td>
+            <td><br /></td>
+            <td><br /></td>
+          </tr>
+          <tr>
+            <td><br /></td>
+            <td><br /></td>
+            <td><br /></td>
+          </tr>
+          <tr>
+            <td><br /></td>
+            <td><br /></td>
+            <td><br /></td>
+          </tr>
+          <tr>
+            <td>
+              <b><u>{$data.surat.info_tambahan.nama_imam_kel|default:'...............................'}</u></b>
+            </td>
+            <td><br/></td>
+            <td>
+              <b><u>{$data.pemohon.nama|default:'.....................'}</u></b>
+            </td>
+          </tr>
+          <tr>
+            <td align="left"></td>
+            <td>&nbsp;</td>
+            <td align="left">Pangkat : {$data.pemohon.pangkat|default:'............................'}</td>
+          </tr>
+          <tr>
+            <td align="left"></td>
+            <td>&nbsp;</td>
+            <td align="left">NIP : {$data.pemohon.nip|default:'...............................'}</td>
+          </tr>
+        </table>
+      </div>
+	  {else}
+	  	{ttd_1($data,$setting)}
+	  {/if}
+</body>
+</html>

@@ -1,0 +1,585 @@
+	<!DOCTYPE html>
+
+	<html>
+	<head>
+	
+		<title>Rekap Penilaian RT RW</title>
+		
+	</head>
+
+	<body>
+
+			
+		{assign var=head value=''}
+		{assign var=head_max value=''}
+		{foreach from=$data.penilaian item=row}
+			{if $row.nil_indikator neq '0'}
+				{assign var=head value=explode(',',$row.kategori)}
+				{assign var=head_max value=explode(',',$row.nil_max)}
+			{/if}
+		{/foreach}
+		<table style="width: 100%;border-collapse: collapse;font-size: 8pt;font-family: callibri" cellspacing="0" cellpadding="5" border="0">
+			<colgroup width="30"></colgroup>
+			<colgroup width="167"></colgroup>
+			<colgroup span="2" width="94"></colgroup>
+			<colgroup width="93"></colgroup>
+			<colgroup width="94"></colgroup>
+			<colgroup width="64"></colgroup>
+			<colgroup span="7" width="94"></colgroup>
+			<tr>
+				<td style="border: hidden; font-family: Arial; font-size: 16pt; color: #000000;" colspan="{count($head)+7}" align="center" valign="top">
+					<b>INDIKATOR KINERJA KETUA RUKUN TETANGGA DAN KETUA RUKUN WARGA</b>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: hidden; font-family: Arial; font-size: 14pt; color: #000000;" colspan="{count($head)+7}" align="center" valign="top">
+					<b>PERIODE {($bulan)|upper} {$tahun}</b>
+				</td>
+			</tr>
+			<tr>
+				<td colspan={count($head)+7} align="center" valign=top><b><font face="Arial" size=4 color="#000000" style="border-left: 0px;border-right: 0px"><br></b></td>
+				</tr>
+			<tr>
+				<td colspan={count($head)+7} align="left" valign=top><b>KECAMATAN : {$setting.nama_kecamatan|default:"......."}</b></td>
+				</tr>
+			{if $auth.cl_user_group_id eq '2'}
+			<tr>
+				<td style="border-bottom: 1px solid #000000" colspan={count($head)+7} align="left" valign=top><b>KELURAHAN :  {str_replace('Kelurahan','',$setting.nama_desa)|upper|default:'.......'}</b></td>
+			</tr>
+			{else} 
+			<tr>
+				<td style="border-bottom: 1px solid #000000" colspan={count($head)+7} align="left" valign=top><b>KELURAHAN :  {str_replace('Kelurahan','',$data['nama_kelurahan'])|upper|default:'.......'}</b></td>
+			</tr>
+			{/if}
+			<tr>
+				<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align: center; vertical-align: middle; background-color: #F3F3F3;" rowspan=3 valign=top><b>NO</b></td>
+				<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align: center; vertical-align: middle; background-color: #F3F3F3;" rowspan=3 valign=top><b>NAMA /<br>REKENING BANK /<br>NPWP</b></td>
+				<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align: center; vertical-align: middle; background-color: #F3F3F3;" rowspan=3 valign=top><b>JABATAN / PANGKAT</b></td>
+				<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align: center; vertical-align: middle; background-color: #F3F3F3;" colspan={count($head)} valign=top><b>INDIKATOR &amp; SKOR PENILAIAN</b></td>
+				<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align: center; vertical-align: middle; background-color: #F3F3F3;" rowspan=3 valign=top><b>REKAP SKOR PENILAIAN</b></td>
+				<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align: center; vertical-align: middle; background-color: #F3F3F3;" colspan="2" valign=top><b>STANDAR PENILAIAN</b></td>
+				
+				<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align: center; vertical-align: middle; background-color: #F3F3F3;" rowspan=3 valign=top><b>USULAN NILAI INSENTIF</b></td>
+			</tr>
+			<tr>
+				{foreach from=$head item=head_row}
+				<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; text-align: center; vertical-align: middle; background-color: #F3F3F3;font-size: 8pt;" valign=top><b>{{strtoupper($head_row)}}</b></td>
+				{/foreach}
+				<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align: center; vertical-align: middle; background-color: #F3F3F3;" rowspan=2 valign=top><b>NILAI</b></td>
+				<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align: center; vertical-align: middle; background-color: #F3F3F3;" rowspan=2 valign=top><b>KRITERIA</b></td>
+			</tr>
+			<tr>
+				{foreach from=$head_max item=head_max_row}
+				<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; text-align: center; vertical-align: middle; background-color: #F3F3F3;font-size: 8pt;" valign=middle><b>{{strtoupper($head_max_row)}}</b></td>
+				{/foreach}
+			</tr>
+			
+			<tr>
+				{for $foo=1 to count($head)+7}
+				<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; background-color: #F0F8FF;" align="center" valign=top><i>{$foo}</i></td>
+				{/for}
+			</tr>
+
+			{assign var=idx value=1}
+			{assign var=total_insentif value=0}
+			{assign var=bgcolor value=''}
+			{foreach from=$data.penilaian item=pen}
+			{if $pen.rt eq ''}
+				{$bgcolor='#d2d2d2'}
+			{else}
+				{$bgcolor=''}
+			{/if}
+			<tr>
+				<td rowspan="3" bgcolor="{$bgcolor}" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign=middle>{$idx}</td>
+				<td height="{$tinggi_baris}" bgcolor="{$bgcolor}" style="border: 1px solid #000000;" valign="top">{$pen.nama_lengkap|upper|default:'...'}</td>
+				<td rowspan="3" bgcolor="{$bgcolor}" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align: center; vertical-align: middle;" align="center" valign=middle>{$pen.jabatan_lengkap|upper|default:'.......'}</td>
+				{assign var=nil value=explode(',',$pen.nil_indikator)}
+				{assign var=rekap_indikator value=0}
+				{if $pen.nil_indikator neq '0'}
+				{foreach from=$nil item=nil_row}
+				<td rowspan="3" bgcolor="{$bgcolor}" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align: center; vertical-align: middle;" valign=top>{(round($nil_row,2)*1)|default:'.......'}</td>
+				{assign var=rekap_indikator value=$rekap_indikator+$nil_row}
+				{/foreach}
+			
+				{else} 
+				{for $foo=1 to count($head)}
+				<td rowspan="3" bgcolor="{$bgcolor}" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align: center; vertical-align: middle;" valign=top>0</td>
+				{/for}
+				{/if}
+				<td rowspan="3" bgcolor="{$bgcolor}" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align: center; vertical-align: middle;" valign=top>{(round($rekap_indikator,2)*1)|default:'.......'}</td>
+				<td rowspan="3" bgcolor="{$bgcolor}" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align: center; vertical-align: middle;" valign=top>{(number_format($pen.rata_rata))}</td>
+				<td rowspan="3" bgcolor="{$bgcolor}" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align: center; vertical-align: middle;" valign=top>{$pen.standar|default:'.......'}</td>
+				<td rowspan="3" bgcolor="{$bgcolor}" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align: center; vertical-align: middle;" valign=top>{number_format($pen.insentif,2,',','.')|default:'.......'}</td>
+			</tr>
+			<tr>
+				<td height="{$tinggi_baris}"  bgcolor="{$bgcolor}" style="border-bottom: 1px solid #000000;">{$pen.no_rekening|upper|default:'...'}</td>
+			</tr>
+			<tr>
+				<td height="{$tinggi_baris}"  bgcolor="{$bgcolor}" style="border-bottom: 1px solid #000000;">{$pen.no_npwp|upper|default:'...'}</td>
+			</tr>
+			{assign var=total_insentif value=$total_insentif+$pen.insentif} 
+			{assign var=idx value=$idx+1} 
+			{/foreach}
+			<tr>
+				<td style="border-left: 1px solid #000000;border-bottom: 1px solid #000000;border-right: 1px solid #000000;" colspan="{count($head)+6}" align="center"><b>TOTAL</b></td>
+				<td style="border-left: 1px solid #000000;border-bottom: 1px solid #000000;border-right: 1px solid #000000;" align="center"><b>{number_format($total_insentif,2,',','.')|default:'.......'}</b></td>
+			</tr>
+		</table>
+		<br>
+		<table border="0" style="border-collapse: collapse;width: 100%;">
+			<tr>
+				<td>
+					{if $auth.cl_user_group_id eq '2'}
+						{if $ttd.camat neq "" && $ttd.lsm neq "" && $ttd.pembuat neq ""}
+						{* camat, lurah, lsm, pembuat *}
+						<table style="border: 0px solid #000; border-collapse: collapse;width: 100%;font-size: 8pt;font-family: callibri;margin-left: 100px;" cellspacing="0">
+							<tr>
+								<td width="25%"></td>
+								<td width="25%"></td>
+								<td width="25%"></td>
+								<td width="25%" align="left" valign="top"><b>MAKASSAR, {tgl_indo($tgl_cetak)|upper|default:''}</b></td>
+							</tr>
+							<tr>
+								<td align="left" valign="top"><b>MENGETAHUI<br>{$setting.jabatan_camat|upper|default:'.......'}</b></td>
+								<td align="left" valign="top"><b>MENYETUJUI<br>{$setting.jabatan_lsm|upper|default:'.......'}</b></td>
+								<td align="left" valign="top"><b>MENYETUJUI<br>{$setting.jabatan_lurah|upper|default:'.......'}</b></td>
+								<td align="left" valign="top"><b>{$setting.jabatan_pembuat|upper|default:'.......'}</b></td>
+							</tr>
+							<tr>
+								<td height="50" colspan="4"><br></td>
+							</tr>
+							<tr>
+								<td align="left"><u><b>{$setting.nama_camat|upper|default:'.......'}</b></u></td>
+								<td align="left"><u><b>{$setting.nama_lsm|upper|default:'.......'}</b></u></td>
+								<td align="left"><u><b>{$setting.nama_lurah|upper|default:'.......'}</b></u></td>
+								<td align="left"><u><b>{$setting.nama_pembuat|upper|default:'.......'}</b></u></td>
+							</tr>
+							<tr>
+								<td align="left"><b>Pangkat: {$setting.pangkat_camat|default:'.......'}</b></td>
+								<td align="left"><br></td>
+								<td align="left"><b>Pangkat: {$setting.pangkat_lurah|default:'.......'}</b></td>
+								<td align="left"><br></td>
+							</tr>
+							<tr>
+								<td align="left"><b>NIP: {$setting.nip_camat|default:'.......'}</b></td>
+								<td align="left"><br></td>
+								<td align="left"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
+								<td align="left"><br></td>
+							</tr>
+						</table>
+						{elseif $ttd.camat neq "" && $ttd.lsm eq "" && $ttd.pembuat neq ""}
+						{* camat, lurah, pembuat *}
+						<table style="border: 0px solid #000; border-collapse: collapse;width: 100%;font-size: 8pt;font-family: callibri;margin-left: 100px;" cellspacing="0">
+							<tr>
+								<td width="30%"></td>
+								<td width="40%"></td>
+								<td width="30%" align="left"><b>MAKASSAR, {tgl_indo($tgl_cetak)|upper|default:''}</b></td>
+							</tr>
+							<tr>
+								<td align="left"><b>MENGETAHUI<br>{$setting.jabatan_camat|upper|default:'.......'}</b></td>
+								<td align="left"><b>MENYETUJUI<br>{$setting.jabatan_lurah|upper|default:'.......'}</b></td>
+								<td align="left"><b>{$setting.jabatan_pembuat|upper|default:'.......'}</b></td>
+							</tr>
+							<tr>
+								<td height="50" colspan="3"><br></td>
+							</tr>
+							<tr>
+								<td align="left"><u><b>{$setting.nama_camat|upper|default:'.......'}</b></u></td>
+								<td align="left"><u><b>{$setting.nama_lurah|upper|default:'.......'}</b></u></td>
+								<td align="left"><u><b>{$setting.nama_pembuat|upper|default:'.......'}</b></u></td>
+							</tr>
+							<tr>
+								<td align="left"><b>Pangkat: {$setting.pangkat_camat|default:'.......'}</b></td>
+								<td align="left"><b>Pangkat: {$setting.pangkat_lurah|default:'.......'}</b></td>
+								<td align="left"><br></td>
+							</tr>
+							<tr>
+								<td align="left"><b>NIP: {$setting.nip_camat|default:'.......'}</b></td>
+								<td align="left"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
+								<td align="left"><br></td>
+							</tr>
+						</table>
+						{elseif $ttd.camat neq "" && $ttd.lsm neq "" && $ttd.pembuat eq ""}
+						{* camat, lurah, lsm *}
+						<table style="border: 0px solid #000; border-collapse: collapse;width: 100%;font-size: 8pt;font-family: callibri;margin-left: 100px;" cellspacing="0">
+							<tr>
+								<td width="25%"></td>
+								<td width="50%"></td>
+								<td width="25%"><b>MAKASSAR, {tgl_indo($tgl_cetak)|upper|default:''}</b></td>
+							</tr>
+							<tr>
+								<td align="left"><b>MENGETAHUI<br>{$setting.jabatan_camat|upper|default:'.......'}</b></td>
+								<td align="left"><b>MENYETUJUI<br>{$setting.jabatan_lsm|upper|default:'.......'}</b></td>
+								<td align="left"><b>MENYETUJUI<br>{$setting.jabatan_lurah|upper|default:'.......'}</b></td>
+							</tr>
+							<tr>
+
+								<td height="50" colspan="3"><br></td>
+							</tr>
+							<tr>
+								<td align="left"><u><b>{$setting.nama_camat|upper|default:'.......'}</b></u></td>
+								<td align="left"><u><b>{$setting.nama_lsm|upper|default:'.......'}</b></u></td>
+								<td align="left"><u><b>{$setting.nama_lurah|upper|default:'.......'}</b></u></td>
+							</tr>
+							<tr>
+								<td align="left"><b>Pangkat: {$setting.pangkat_camat|default:'.......'}</b></td>
+								<td align="left"><br></td>
+								<td align="left"><b>Pangkat: {$setting.pangkat_lurah|default:'.......'}</b></td>
+							</tr>
+							<tr>
+								<td align="left"><b>NIP: {$setting.nip_camat|default:'.......'}</b></td>
+								<td align="left"><br></td>
+								<td align="left"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
+							</tr>
+						</table>
+						{elseif $ttd.camat neq "" && $ttd.lsm eq "" && $ttd.pembuat eq ""}
+						{* camat, lurah *}
+						<table style="border: 0px solid #000; border-collapse: collapse;width: 100%;font-size: 8pt;font-family: callibri" cellspacing="0">
+							<tr>
+								<td width="30%"></td>
+								<td width="45%"></td>
+								<td width="25%" align="left"><b>MAKASSAR, {tgl_indo($tgl_cetak)|upper|default:''}</b></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td align="left"><b>MENGETAHUI<br>{$setting.jabatan_camat|upper|default:'.......'}</b></td>
+								<td align="left"><b>MENYETUJUI<br>{$setting.jabatan_lurah|upper|default:'.......'}</b></td>
+							</tr>
+							<tr>
+								<td height="50" colspan="3"><br></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td align="left"><u><b>{$setting.nama_camat|upper|default:'.......'}</b></u></td>
+								<td align="left"><u><b>{$setting.nama_lurah|upper|default:'.......'}</b></u></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td align="left"><b>Pangkat: {$setting.pangkat_camat|default:'.......'}</b></td>
+								<td align="left"><b>Pangkat: {$setting.pangkat_lurah|default:'.......'}</b></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td align="left"><b>NIP: {$setting.nip_camat|default:'.......'}</b></td>
+								<td align="left"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
+							</tr>
+						</table>
+						{elseif $ttd.camat eq '' && $ttd.lsm neq '' && $ttd.pembuat eq ''}
+						{* lurah, LSM *}
+						<table style="border: 0px solid #000; border-collapse: collapse;width: 100%;font-size: 8pt;font-family: callibri;margin-left: 30px;" cellspacing="0">
+							<tr>
+								<td width="25%"></td>
+								<td width="45%"></td>
+								<td width="30%" align="left"><b>MAKASSAR, {tgl_indo($tgl_cetak)|upper|default:''}</b></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td align="left"><b>MENYETUJUI<br>{$setting.jabatan_lsm|upper|default:'.......'}</b></td>
+								<td align="left"><b>MENYETUJUI<br>{$setting.jabatan_lurah|upper|default:'.......'}</b></td>
+							</tr>
+							<tr>
+								<td height="50" colspan="3"><br></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td align="left"><u><b>{$setting.nama_lsm|upper|default:'.......'}</b></u></td>
+								<td align="left"><u><b>{$setting.nama_lurah|upper|default:'.......'}</b></u></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td align="left"><br></td>
+								<td align="left"><b>Pangkat: {$setting.pangkat_lurah|default:'.......'}</b></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td align="left"><br></td>
+								<td align="left"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
+							</tr>
+						</table>
+						{elseif $ttd.camat eq '' && $ttd.lsm neq '' && $ttd.pembuat neq ''}
+						{* lurah, LSM, pembuat *}
+						<table style="border: 0px solid #000; border-collapse: collapse;width: 100%;font-size: 8pt;font-family: callibri;margin-left: 80px;" cellspacing="0">
+							<tr>
+								<td width="45%"></td>
+								<td width="35%"></td>
+								<td width="20%" align="left"><b>MAKASSAR, {tgl_indo($tgl_cetak)|upper|default:''}</b></td>
+							</tr>
+							<tr>
+								<td align="left"><b>MENYETUJUI<br>{$setting.jabatan_lsm|upper|default:'.......'}</b></td>
+								<td align="left"><b>MENYETUJUI<br>{$setting.jabatan_lurah|upper|default:'.......'}</b></td>
+								<td align="left"><b>{$setting.jabatan_pembuat|upper|default:'.......'}</b></td>
+							</tr>
+							<tr>
+								<td height="50" colspan="3"><br></td>
+							</tr>
+							<tr>
+								<td align="left"><u><b>{$setting.nama_lsm|upper|default:'.......'}</b></u></td>
+								<td align="left"><u><b>{$setting.nama_lurah|upper|default:'.......'}</b></u></td>
+								<td align="left"><u><b>{$setting.nama_pembuat|upper|default:'.......'}</b></u></td>
+							</tr>
+							<tr>
+								<td align="left"><br></td>
+								<td align="left"><b>Pangkat: {$setting.pangkat_lurah|default:'.......'}</b></td>
+								<td align="left"><br></td>
+							</tr>
+							<tr>
+								<td align="left"><br></td>
+								<td align="left"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
+								<td align="left"><br></td>
+							</tr>
+						</table>
+						{elseif $ttd.camat eq '' && $ttd.lsm eq '' && $ttd.pembuat neq ''}
+						{* lurah, pembuat *}
+						<table style="border: 0px solid #000; border-collapse: collapse;width: 100%;font-size: 8pt;font-family: callibri;margin-left: 80px;" cellspacing="0">
+							<tr>
+								<td width="32%"></td>
+								<td width="35%"></td>
+								<td width="33%" align="left"><b>MAKASSAR, {tgl_indo($tgl_cetak)|upper|default:''}</b></td>
+							</tr>
+							<tr>
+								<td align="left"></td>
+								<td align="left"><b>MENYETUJUI<br>{$setting.jabatan_lurah|upper|default:'.......'}</b></td>
+								<td align="left"><b>{$setting.jabatan_pembuat|upper|default:'.......'}</b></td>
+							</tr>
+							<tr>
+								<td height="50" colspan="3"><br></td>
+							</tr>
+							<tr>
+								<td align="left"></td>
+								<td align="left"><u><b>{$setting.nama_lurah|upper|default:'.......'}</b></u></td>
+								<td align="left"><u><b>{$setting.nama_pembuat|upper|default:'.......'}</b></u></td>
+							</tr>
+							<tr>
+								<td align="left"></td>
+								<td align="left"><b>Pangkat: {$setting.pangkat_lurah|default:'.......'}</b></td>
+								<td align="left"><br></td>
+							</tr>
+							<tr>
+								<td align="left"></td>
+								<td align="left"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
+								<td align="left"><br></td>
+							</tr>
+						</table>
+						{elseif $ttd.camat eq '' && $ttd.lsm eq '' && $ttd.pembuat eq ''}
+						{* lurah *}
+						<table style="border: 0px solid #000; border-collapse: collapse;width: 100%;font-size: 8pt;font-family: callibri" cellspacing="0">
+							<tr>
+								<td></td>
+								<td width="40%" align="left"><b>MAKASSAR, {tgl_indo($tgl_cetak)|upper|default:''}</b></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td align="left"><b>{$setting.jabatan_lurah|upper|default:'.......'}</b></td>
+							</tr>
+							<tr>
+								<td height="50" colspan="2"><br></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td align="left"><u><b>{$setting.nama_lurah|upper|default:'.......'}</b></u></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td align="left"><b>Pangkat: {$setting.pangkat_lurah|default:'.......'}</b></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td align="left"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
+							</tr>
+						</table>
+						{/if}
+					{else} 
+						<table style="border: 0px solid #000; border-collapse: collapse;width: 100%;font-size: 8pt;font-family: callibri" cellspacing="0">
+							{if $ttd.camat neq "" && $ttd.lsm neq "" && $ttd.pembuat neq ""}
+							{* camat, lurah, lsm, pembuat *}
+								<tr>
+									<td colspan="3"></td>
+									<td align="center" valign="top"><b>MAKASSAR, {tgl_indo($tgl_cetak)|upper|default:''}</b></td>
+								</tr>
+								<tr>
+									<td align="center" valign="top"><b>MENGETAHUI<br>{$setting.jabatan_camat|upper|default:'.......'}</b></td>
+									<td align="center" valign="top"><b>MENYETUJUI<br>{$setting.jabatan_lsm|upper|default:'.......'}</b></td>
+									<td align="center" valign="top"><b>MENYETUJUI<br>{$setting.jabatan_lurah|upper|default:'.......'}</b></td>
+									<td align="center" valign="top"><b>{$setting.jabatan_pembuat|upper|default:'.......'}</b></td>
+								</tr>
+								<tr>
+									<td height="50" colspan="4"><br></td>
+								</tr>
+								<tr>
+									<td align="center"><u><b>{$setting.nama_camat|upper|default:'.......'}</b></u></td>
+									<td align="center"><u><b>{$setting.nama_lsm|upper|default:'.......'}</b></u></td>
+									<td align="center"><u><b>{$setting.nama_lurah|upper|default:'.......'}</b></u></td>
+									<td align="center"><u><b>{$setting.nama_pembuat|upper|default:'.......'}</b></u></td>
+								</tr>
+								<tr>
+									<td align="center"><b>NIP: {$setting.nip_camat|default:'.......'}</b></td>
+									<td align="center"><br></td>
+									<td align="center"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
+									<td align="center"><br></td>
+								</tr>
+							{elseif $ttd.camat neq "" && $ttd.lsm eq "" && $ttd.pembuat neq ""}
+							{* camat, lurah, pembuat *}
+								<tr>
+									<td colspan="2"></td>
+									<td align="center"><b>MAKASSAR, {tgl_indo($tgl_cetak)|upper|default:''}</b></td>
+								</tr>
+								<tr>
+									<td align="center"><b>MENGETAHUI<br>{$setting.jabatan_camat|upper|default:'.......'}</b></td>
+									<td align="center"><b>MENYETUJUI<br>{$setting.jabatan_lurah|upper|default:'.......'}</b></td>
+									<td align="center"><b>{$setting.jabatan_pembuat|upper|default:'.......'}</b></td>
+								</tr>
+								<tr>
+									<td height="50" colspan="3"><br></td>
+								</tr>
+								<tr>
+									<td align="center"><u><b>{$setting.nama_camat|upper|default:'.......'}</b></u></td>
+									<td align="center"><u><b>{$setting.nama_lurah|upper|default:'.......'}</b></u></td>
+									<td align="center"><u><b>{$setting.nama_pembuat|upper|default:'.......'}</b></u></td>
+								</tr>
+								<tr>
+									<td align="center"><b>NIP: {$setting.nip_camat|default:'.......'}</b></td>
+									<td align="center"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
+									<td align="center"><br></td>
+								</tr>
+							{elseif $ttd.camat neq "" && $ttd.lsm neq "" && $ttd.pembuat eq ""}
+								{* camat, lurah, lsm *}
+								<tr>
+									<td colspan="2"></td>
+									<td align="center"><b>MAKASSAR, {tgl_indo($tgl_cetak)|upper|default:''}</b></td>
+								</tr>
+								<tr>
+									<td align="center"><b>MENGETAHUI<br>{$setting.jabatan_camat|upper|default:'.......'}</b></td>
+									<td align="center"><b>MENYETUJUI<br>{$setting.jabatan_lsm|upper|default:'.......'}</b></td>
+									<td align="center"><b>MENYETUJUI<br>{$setting.jabatan_lurah|upper|default:'.......'}</b></td>
+								</tr>
+								<tr>
+
+									<td height="50" colspan="3"><br></td>
+								</tr>
+								<tr>
+									<td align="center"><u><b>{$setting.nama_camat|upper|default:'.......'}</b></u></td>
+									<td align="center"><u><b>{$setting.nama_lsm|upper|default:'.......'}</b></u></td>
+									<td align="center"><u><b>{$setting.nama_lurah|upper|default:'.......'}</b></u></td>
+								</tr>
+								<tr>
+									<td align="center"><b>NIP: {$setting.nip_camat|default:'.......'}</b></td>
+									<td align="center"><br></td>
+									<td align="center"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
+								</tr>
+							{elseif $ttd.camat neq "" && $ttd.lsm eq "" && $ttd.pembuat eq ""}
+								{* camat, lurah *}
+								<tr>
+									<td></td>
+									<td align="center"><b>MAKASSAR, {tgl_indo($tgl_cetak)|upper|default:''}</b></td>
+								</tr>
+								<tr>
+									<td align="center"><b>MENGETAHUI<br>{$setting.jabatan_camat|upper|default:'.......'}</b></td>
+									<td align="center"><b>MENYETUJUI<br>{$setting.jabatan_lurah|upper|default:'.......'}</b></td>
+								</tr>
+								<tr>
+									<td height="50" colspan="2"><br></td>
+								</tr>
+								<tr>
+									<td align="center"><u><b>{$setting.nama_camat|upper|default:'.......'}</b></u></td>
+									<td align="center"><u><b>{$setting.nama_lurah|upper|default:'.......'}</b></u></td>
+								</tr>
+								<tr>
+									<td align="center"><b>NIP: {$setting.nip_camat|default:'.......'}</b></td>
+									<td align="center"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
+								</tr>
+							{elseif $ttd.camat eq '' && $ttd.lsm neq '' && $ttd.pembuat eq ''}
+								{* lurah, LSM *}
+								<tr>
+									<td></td>
+									<td align="center"><b>MAKASSAR, {tgl_indo($tgl_cetak)|upper|default:''}</b></td>
+								</tr>
+								<tr>
+									<td align="center" width="50%"><b>MENYETUJUI<br>{$setting.jabatan_lsm|upper|default:'.......'}</b></td>
+									<td align="center" width="50%"><b>MENYETUJUI<br>{$setting.jabatan_lurah|upper|default:'.......'}</b></td>
+								</tr>
+								<tr>
+									<td height="50" colspan="2"><br></td>
+								</tr>
+								<tr>
+									<td align="center"><u><b>{$setting.nama_lsm|upper|default:'.......'}</b></u></td>
+									<td align="center"><u><b>{$setting.nama_lurah|upper|default:'.......'}</b></u></td>
+								</tr>
+								<tr>
+									<td align="center"><br></td>
+									<td align="center"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
+								</tr>
+							{elseif $ttd.camat eq '' && $ttd.lsm neq '' && $ttd.pembuat neq ''}
+								{* lurah, LSM, pembuat *}
+								<tr>
+									<td colspan="2"></td>
+									<td align="center"><b>MAKASSAR, {tgl_indo($tgl_cetak)|upper|default:''}</b></td>
+								</tr>
+								<tr>
+									<td align="center"><b>MENYETUJUI<br>{$setting.jabatan_lsm|upper|default:'.......'}</b></td>
+									<td align="center"><b>MENYETUJUI<br>{$setting.jabatan_lurah|upper|default:'.......'}</b></td>
+									<td align="center"><b>{$setting.jabatan_pembuat|upper|default:'.......'}</b></td>
+								</tr>
+								<tr>
+									<td height="50" colspan="3"><br></td>
+								</tr>
+								<tr>
+									<td align="center"><u><b>{$setting.nama_lsm|upper|default:'.......'}</b></u></td>
+									<td align="center"><u><b>{$setting.nama_lurah|upper|default:'.......'}</b></u></td>
+									<td align="center"><u><b>{$setting.nama_pembuat|upper|default:'.......'}</b></u></td>
+								</tr>
+								<tr>
+									<td align="center"><br></td>
+									<td align="center"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
+									<td align="center"><br></td>
+								</tr>
+							{elseif $ttd.camat eq '' && $ttd.lsm eq '' && $ttd.pembuat neq ''}
+								{* lurah, pembuat *}
+								<tr>
+									<td></td>
+									<td align="center"><b>MAKASSAR, {tgl_indo($tgl_cetak)|upper|default:''}</b></td>
+								</tr>
+								<tr>
+									<td align="center"><b>MENYETUJUI<br>{$setting.jabatan_lurah|upper|default:'.......'}</b></td>
+									<td align="center"><b>{$setting.jabatan_pembuat|upper|default:'.......'}</b></td>
+								</tr>
+								<tr>
+									<td height="50" colspan="2"><br></td>
+								</tr>
+								<tr>
+									<td align="center"><u><b>{$setting.nama_lurah|upper|default:'.......'}</b></u></td>
+									<td align="center"><u><b>{$setting.nama_pembuat|upper|default:'.......'}</b></u></td>
+								</tr>
+								<tr>
+									<td align="center"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
+									<td align="center"><br></td>
+								</tr>
+							{elseif $ttd.camat eq '' && $ttd.lsm eq '' && $ttd.pembuat eq ''}
+								{* lurah *}
+								<tr>
+									<td></td>
+									<td width="40%" align="center"><b>MAKASSAR, {tgl_indo($tgl_cetak)|upper|default:''}</b></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td align="center"><b>MENYETUJUI<br>{$setting.jabatan_lurah|upper|default:'.......'}</b></td>
+								</tr>
+								<tr>
+									<td height="50" colspan="2"><br></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td align="center"><u><b>{$setting.nama_lurah|upper|default:'.......'}</b></u></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td align="center"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
+								</tr>
+							{/if}
+						</table>
+					{/if}
+				</td>
+			</tr>
+		</table>
+	<!-- ************************************************************************** -->
+	</body>
+	</html>

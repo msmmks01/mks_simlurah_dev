@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SIMLURAH ADMINISTRASI</title>
+    <style>
+		table { width:100%; } 
+		body { font-family: 'arial'; }
+	</style>
+</head>
+<body>
+	<div id='content'>
+		<div style="padding-bottom: 5mm;padding-top: -10px;">
+			<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;">
+				<!-- <tr>
+					<td align="center" rowspan=4 valign="middle" style="width: 150px;">
+						<img src="{$host}__assets/images/logo-makassar.png" style="height:100px" />
+					</td>
+					<td align="center" valign="bottom" style="font-size:22.6px;padding:0px">PEMERINTAH {$setting.nama_kab_kota|upper|default:'.......'}</td>
+					<td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+						<img src="{$host}__assets/images/logo-camat.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';" style="height:100px" alt=" "/>
+					</td>
+				</tr>
+				<tr>
+					<td align="center" style="font-size:22.6px;padding:0px">KECAMATAN {$setting.nama_kecamatan|upper|default:'.......'}</td>
+				</tr>
+				<tr>
+					<td align="center" valign="top" style="font-size:18.6px;padding:0px"></td>
+				</tr>
+				<tr>
+					<td align="center" valign="top" style="font-size:10.6px;padding:0px">
+						<i>
+							{if strlen($setting.alamat)>1}
+							{$setting.alamat|default:'...'}
+							{/if}
+							{if strlen($setting.telp)>1}
+							Telp. {$setting.telp|default:'...'}
+							{/if}
+							{if strlen($setting.faks)>1}
+							Fax. {$setting.faks|default:'...'}
+							{/if}
+							{if strlen($setting.email)>1}
+							Email : {$setting.email|default:'...'}
+							{/if}
+							{if strlen($setting.nama_kab_kota)>1}
+							{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'...'}
+							{/if}
+							{if strlen($setting.kode_pos)>1}
+							Kode Pos {$setting.kode_pos|default:'...'}
+							{/if}
+							{if strlen($setting.website)>1}
+							<br>Website : {str_replace('-','',$setting.website|default:'')}
+							{/if}
+						</i>
+					</td>
+				</tr>
+				<tr>
+					<td align="center" colspan="3" align="center">
+						<hr style="color: black;height: 4px; margin-bottom:0px">
+						<hr style="color: black;height: 1px; margin-top:3px">
+					</td>
+				</tr> -->
+				{include file="backend/template/kop_surat_kecamatan.html"}
+			</table>
+		</div>
+		
+		<table width="100%" style="margin-bottom: 20px; font-size: 16px">
+			<tr>
+				<td align="center" style="padding-left: 300px;">{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'..........'}, {$data.surat.tanggal_surat|default:'............................'}</td>
+			</tr>
+		</table>
+		<table width="100%" style="margin-bottom: 20px; font-weight: none; font-size: 17px;" cellspacing="0" cellpadding="10">
+			<tr>
+				<td width="95%">
+					<table>
+						<tr>
+							<td valign="top" >Nomor</td>
+							<td valign="top" >:</td>
+							<td valign="top" style="padding-right: 250px;">{if isset($data.surat.info_tambahan.ttd_srikandi) and $data.surat.info_tambahan.ttd_srikandi neq ''}
+						{'${nomor_naskah}'}
+						{else}
+						{$data.surat.no_surat|default:'..................................................'}
+						{/if}</td>
+						</tr>
+						<tr>
+							<td valign="top">Lamp</td>
+							<td valign="top">:</td>
+							<td valign="top" style="padding-right: 250px;"> - </td>
+						</tr>
+						<tr>
+							<td valign="top">Perihal</td>
+							<td valign="top">:</td>
+							<td valign="top" style="padding-right: 250px;">Pemeliharaan Kendaraan Operasional</td>
+						</tr>
+						<tr>
+							<td valign="top" colspan="2">&nbsp;</td>
+						</tr>
+						<tr>
+							<td valign="top">Yth.</td>
+							<td valign="top"></td>
+							<td valign="top" style="padding-left: -30px;">Kepala Dinas Pekerjaan Umum</td>
+						</tr>
+						<tr>
+							<td valign="top">di</td>
+							<td valign="top"></td>
+							<td valign="top"></td>
+						</tr>	
+						<tr>
+							<td valign="top">&nbsp;</td>
+							<td valign="top"></td>
+							<td valign="top" style="padding-left: -65px;">Jalan Urip Sumoharjo No. 8, Makassar</td>
+						</tr>	
+					</table>
+				</td>
+				<td width="30%">
+					<table>
+						<tr>
+							<td valign="top"></td>
+							<td valign="top" colspan="2">&nbsp;</td>
+						</tr>
+						<tr>
+							<td valign="top">&nbsp;</td>
+							<td valign="top">&nbsp;</td>
+							<td valign="top">&nbsp;</td>
+						</tr>
+						<tr>
+							<td valign="top">&nbsp;</td>
+							<td valign="top" colspan="2">&nbsp;</td>
+						</tr>
+						<tr>
+							<td valign="top">&nbsp;</td>
+							<td valign="top">&nbsp;</td>
+							<td valign="top">&nbsp;</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		
+		</table>				
+	
+	<br>
+	<table width="100%" style="margin-bottom: 20px; font-weight: none; font-size: 16px;padding-left: 15px;padding-right: -30px;">
+		<tr>
+			<td align="justify" style="padding-left:-6px;padding-right:50px;padding-bottom: 10px;">
+				Dengan Hormat,
+			</td>
+		</tr>		
+		<tr>
+			<td align="justify" style="padding-left:-6px;padding-right:50px;padding-bottom: 10px;line-height: 1.5;">
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dalam rangka kelancaran pelaksanaan tugas staf kebersihan di wilayah {$data.surat.info_tambahan.asal_kelurahan|default:''}, Kecamatan
+				{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kecamatan)))|default:''}, Kota {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:''}<span style="font-size:20px">&nbsp;</span>maka dengan ini kami memohon kepada Ibu agar dapat diberikan persetujuan pemeliharaan kendaraan operasional tersebut :<span style="font-size:20px">&nbsp;</span>
+			</td>
+		</tr>		
+		<tr>
+			<td>
+				<table width="100%" style="font-weight: none; font-size: 16px;padding-left: -10px;">
+					<tr>
+						<td valign="top">Nama Sopir</td>
+						<td valign="top" style="padding-left:20px;padding-right: 20px;" align="center">:</td>
+						<td valign="top" style="padding-bottom: 10px;">{$data.surat.info_tambahan.nama_sopir|default:'.....................'}</td>
+					</tr>
+					<tr>
+						<td valign="top">Type/Merek</td>
+						<td valign="top" style="padding-left:20px;padding-right: 20px;" align="center">:</td>
+						<td valign="top" style="padding-bottom: 10px;">{$data.surat.info_tambahan.type_merek|default:'.....................'}</td>
+					</tr>
+					<tr>
+						<td valign="top">Nomor Polisi</td>
+						<td valign="top" align="center">:</td>
+						<td valign="top" style="padding-bottom: 10px;">{$data.surat.info_tambahan.nopol|default:'.....................'}</td>
+					</tr>
+					<tr>
+						<td valign="top">Nomor Rangka</td>
+						<td valign="top" align="center">:</td>
+						<td valign="top" style="padding-bottom: 10px;">{$data.surat.info_tambahan.no_rangka|default:'.....................'}</td>
+					</tr>
+					<tr>
+						<td valign="top">Nomor Mesin</td>
+						<td valign="top" align="center">:</td>
+						<td valign="top" style="padding-bottom: 10px;">{$data.surat.info_tambahan.no_mesin|default:'.....................'}</td>
+					</tr>
+					<tr>
+						<td valign="top">Jenis Perbaikan</td>
+						<td valign="top" align="center">:</td>
+						<td valign="top" style="padding-bottom: 10px;">{$data.surat.info_tambahan.jenis_perbaikan|default:'.....................'}</td>
+					</tr>
+				</table> 
+			</td>
+		</tr>
+		<tr>
+			<td align="justify" style="padding-left:-6px;padding-right:50px;padding-bottom: 25px;">
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Demikian permohonan ini, atas persetujuan Ibu kami ucapkan terima kasih.
+			</td>
+		</tr>
+	</table>
+	<table width="100%" style="margin-left: 20px;margin-right: 20px;margin-bottom: 20px; font-weight: none;font-size: 14px">
+		<tr>
+			<td width="50%">
+				&nbsp;
+			</td>
+			<td align="left" width="50%">
+				
+				{ttd_fullkanan($data,$setting)} 
+			</td>
+		</tr>
+	</table>
+		  
+</div>
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SIMLURAH ADMINISTRASI</title>
+    <style>
+		table { width:100%; } 
+		body { font-family: 'arial'; }
+	</style>
+</head>
+<body>
+	<div id='content'>
+		<div style="padding-bottom: 5mm;">
+			<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;">
+				<!-- <tr>
+					<td align="center" rowspan=4 valign="middle" style="width: 150px;">
+						<img src="{$host}__assets/images/logo-makassar.png" style="height:100px" />
+					</td>
+					<td align="center" valign="bottom" style="font-size:22.6px;padding:0px">PEMERINTAH {$setting.nama_kab_kota|upper|default:'.......'}</td>
+					<td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+						<img src="{$host}__assets/images/logo-camat.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';" style="height:100px" alt=" "/>
+					</td>
+				</tr>
+				<tr>
+					<td align="center" style="font-size:22.6px;padding:0px">KECAMATAN {$setting.nama_kecamatan|upper|default:'.......'}</td>
+				</tr>
+				<tr>
+					<td align="center" valign="top" style="font-size:18.6px;padding:0px"></td>
+				</tr>
+				<tr>
+					<td align="center" valign="top" style="font-size:10.6px;padding:0px">
+						<i>
+							{if strlen($setting.alamat)>1}
+							{$setting.alamat|default:'...'}
+							{/if}
+							{if strlen($setting.telp)>1}
+							Telp. {$setting.telp|default:'...'}
+							{/if}
+							{if strlen($setting.faks)>1}
+							Fax. {$setting.faks|default:'...'}
+							{/if}
+							{if strlen($setting.email)>1}
+							Email : {$setting.email|default:'...'}
+							{/if}
+							{if strlen($setting.nama_kab_kota)>1}
+							Kota {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'...'}
+							{/if}
+							{if strlen($setting.kode_pos)>1}
+							Kode Pos {$setting.kode_pos|default:'...'}
+							{/if}
+							{if strlen($setting.website)>1}
+							<br>Website : {str_replace('-','',$setting.website|default:'')}
+							{/if}
+						</i>
+					</td>
+				</tr>
+				<tr>
+					<td align="center" colspan="3">
+						<hr style="color: black;height: 4px; margin-bottom:0px">
+						<hr style="color: black;height: 1px; margin-top:3px">
+					</td>
+				</tr> -->
+				{include file="backend/template/kop_surat_kecamatan.html"}
+				<br>
+				<tr>
+					<td colspan=3 align="center"><b><u>BERITA ACARA PINJAM PAKAI BARANG MILIK DAERAH</u></b></td>
+				</tr>
+				<tr>
+					<td colspan=3 align="center" style="font-size:13.3px">NOMOR: {$data.surat.no_surat|default:'..................................................'}</td>
+				</tr>
+			</table>
+		</div>
+
+	<table width="100%" style="margin-left: 30px;margin-right: 20px;margin-bottom: 10px; font-weight: none; font-size: 14px;line-height: 1.4;">
+		<tr>
+			<td colspan=6 align="left" valign=top style="margin-left: 25px;margin-right: 25px;">Pada hari ini {ucwords(strtolower($data.surat.info_tambahan.hari_pengecekan|default:''))}, Tanggal {ucwords(strtolower($data.surat.info_tambahan.tgl_pengecekan|default:''))} Bulan {ucwords(strtolower($data.surat.info_tambahan.bln_pengecekan|default:''))} Tahun {ucwords(strtolower($data.surat.info_tambahan.thn_pengecekan|default:''))} ({date('d-m-Y',strtotime($data.surat.tgl_surat))|default:'.......'}) Kami yang bertanda tangan dibawah ini :</td>
+		</tr>
+		<tr>
+			<td align="left" valign=top style="width:42px;"></td>
+			<td align="left" valign=top style="width: 80px;">Nama</td>
+			<td align="center" valign=top style="width: 15px;">:</td>
+			<td colspan=3 align="left" valign=top><b>{$data.surat.info_tambahan.nama_pegawai|default:'.....................'}</b></td>
+		</tr>
+		{if $data.surat.info_tambahan.nip_pegawai !=''}
+		<tr>
+			<td align="left" valign=top style="width:42px;"></td>
+			<td align="left" valign=top style="width: 160px;">NIP</td>
+			<td align="center" valign=top style="width: 15px;">:</td>
+			<td align="left" valign=top>{$data.surat.info_tambahan.nip_pegawai|default:'.....................'}</td>
+		</tr>
+		{/if}
+		{if $data.surat.info_tambahan.pangkat !=''}
+		<tr>
+			<td align="left" valign=top></td>
+			<td align="left" valign=top>Pangkat</td>
+			<td align="center" valign=top>:</td>
+			<td colspan=3 align="left" valign=top>{$data.surat.info_tambahan.pangkat|default:'..........'}</td>
+		</tr>
+		{/if}
+		{if $data.surat.info_tambahan.jabatan_pegawai !=''}
+		<tr>
+			<td align="left" valign=top style="width:42px;"></td>
+			<td align="left" valign=top style="width: 160px;">Jabatan</td>
+			<td align="center" valign=top style="width: 15px;">:</td>
+			<td align="left" valign=top><b>{$data.surat.info_tambahan.jabatan_pegawai|default:'.....................'}</b></td>
+		</tr>
+		{/if}
+		{if $data.surat.info_tambahan.unit_kerja !=''}
+		<tr>
+			<td align="left" valign=top style="width:42px;"></td>
+			<td align="left" valign=top style="width: 160px;">Unit Kerja</td>
+			<td align="center" valign=top style="width: 15px;">:</td>
+			<td align="left" valign=top><b>{$data.surat.info_tambahan.unit_kerja|default:'.....................'}</b></td>
+		</tr>
+		{/if}
+		<tr>
+			<td align="left" valign=top style="width:42px;">&nbsp;</td>
+			<td align="left" valign=top style="width: 160px;">&nbsp;</td>
+			<td align="center" valign=top style="width: 15px;">&nbsp;</td>
+			<td align="left" valign=top>Selanjutnya disebut sebagai <b>PIHAK PERTAMA</b></td>
+		</tr>
+	</table>
+	<table width="100%" style="margin-left: 30px;margin-right: 20px;margin-bottom: 10px;font-weight: none; font-size: 14px;line-height: 1.4;">
+		<tr>
+			<td align="left" valign=top style="width:42px;"></td>
+			<td align="left" valign=top style="width: 80px;">Nama</td>
+			<td align="center" valign=top style="width: 15px;">:</td>
+			<td colspan=3 align="left" valign=top><b>{$data.surat.info_tambahan.nama_pegawai2|default:'.....................'}</b></td>
+		</tr>
+		{if $data.surat.info_tambahan.nip_pegawai2 !=''}
+		<tr>
+			<td align="left" valign=top style="width:42px;"></td>
+			<td align="left" valign=top style="width: 160px;">NIP</td>
+			<td align="center" valign=top style="width: 15px;">:</td>
+			<td align="left" valign=top>{$data.surat.info_tambahan.nip_pegawai2|default:'.....................'}</td>
+		</tr>
+		{/if}
+		{if $data.surat.info_tambahan.pangkat2 !=''}
+		<tr>
+			<td align="left" valign=top></td>
+			<td align="left" valign=top>Pangkat</td>
+			<td align="center" valign=top>:</td>
+			<td colspan=3 align="left" valign=top>{$data.surat.info_tambahan.pangkat2|default:'..........'}</td>
+		</tr>
+		{/if}
+		{if $data.surat.info_tambahan.jabatan_pegawai2 !=''}
+		<tr>
+			<td align="left" valign=top style="width:42px;"></td>
+			<td align="left" valign=top style="width: 160px;">Jabatan</td>
+			<td align="center" valign=top style="width: 15px;">:</td>
+			<td align="left" valign=top><b>{$data.surat.info_tambahan.jabatan_pegawai2|default:'.....................'}</b></td>
+		</tr>
+		{/if}
+		{if $data.surat.info_tambahan.unit_kerja2 !=''}
+		<tr>
+			<td align="left" valign=top style="width:42px;"></td>
+			<td align="left" valign=top style="width: 160px;">Unit Kerja</td>
+			<td align="center" valign=top style="width: 15px;">:</td>
+			<td align="left" valign=top><b>{$data.surat.info_tambahan.unit_kerja2|default:'.....................'}</b></td>
+		</tr>
+		{/if}
+		<tr>
+			<td align="left" valign=top style="width:42px;">&nbsp;</td>
+			<td align="left" valign=top style="width: 160px;">&nbsp;</td>
+			<td align="center" valign=top style="width: 15px;">&nbsp;</td>
+			<td align="left" valign=top>Selanjutnya disebut sebagai <b>PIHAK KEDUA</b></td>
+		</tr>
+	</table>
+	<table width="100%" border="0" style="margin-left: 30px;margin-right: 20px;margin-bottom: 10px;font-weight: none; font-size: 14px;line-height: 1.8;">
+		<tr>
+			<td align="justify"><b>PIHAK PERTAMA</b> dan <b>PIHAK KEDUA</b> sepakat mengadakan pinjam pakai Barang Milik Daerah untuk kebutuhan {$data.surat.info_tambahan.alasan_pinjam_barang|default:'.....................'}</td>
+		</tr>
+	</table>
+	<table width="100%" border="1" style="margin-left: 30px;margin-right: 20px;margin-bottom: 10px;border-collapse: collapse;font-size: 13px;line-height: 1.8;">
+		<tr>
+			<td style="width: 3%;" valign="middle" align="center"><b>NO</b></td>
+			<td style="width: 13%;" valign="middle" align="center"><b>Kode Barang</b></td>
+			<td style="width: 20%;" valign="middle" align="center"><b>Nama Barang</b></td>
+			<td style="width: 17%;" valign="middle" align="center"><b>Merek/Tipe</b></td>
+			<td style="width: 12%;" valign="middle" align="center"><b>Nomor Polisi</b></td>
+			<td style="width: 10%;" valign="middle" align="center"><b>Warna</b></td>
+			<td style="width: 10%;" valign="middle" align="center"><b>Tahun</b></td>
+			<td style="width: 15%;" valign="middle" align="center"><b>Harga Perolehan</b></td>
+		</tr>
+		{assign var=no value=1}
+		{foreach from=$data.surat.info_tambahan.serah_terima_barang item}
+		<tr>
+			<td valign="top" align="center">{$no++}</td>
+			<td valign="top" align="center">{$item.kode_barang|default:''}</td>
+			<td valign="top"			   >{ucwords(strtolower($item.nama_barang))|default:''}</td>
+			<td valign="top"               >{ucwords(strtolower($item.merek_barang))|default:''}</td>
+			<td valign="top" align="center">{$item.nopol_barang|default:''}</td>
+			<td valign="top" align="center">{ucwords(strtolower($item.warna_barang))|default:''}</td>
+			<td valign="top" align="center">{$item.tahun_serah_terima|default:''}</td>
+			<td valign="top" align="center">{$item.harga_perolehan|default:''}</td>
+		</tr>
+		{/foreach}
+	</table>
+	{if count($data.surat.info_tambahan.wajib_pihak2)>1}
+	<table width="100%" border="0" style="margin-left: 30px;margin-right: 20px;margin-bottom: 10px;font-weight: none; font-size: 14px;line-height: 1.8;">
+		<tr>
+			<td align="justify"><b>PIHAK KEDUA</b> telah menerima barang yang dimaksud dari <b>PIHAK PERTAMA</b> sesuai dengan yang tersebut di atas. Dalam penyerahan barang investigasi tersebut <b>PIHAK KEDUA</b> berkewajiban untuk :</td>
+		</tr>
+	</table>
+	<table width="100%" border="0" style="margin-left: 30px;margin-right: 20px;margin-bottom: 10px;font-weight: none; font-size: 14px;line-height: 1.4;">
+		{$no=1}
+		{foreach from=$data.surat.info_tambahan.wajib_pihak2 item=st}
+		<tr>
+			<td valign="top">&emsp;&emsp;</td>
+			<td valign="top">{$no++}.</td>
+			<td valign="top">{$st.wajib_pihak2|default:'.....................'}</td>
+		</tr>
+		{/foreach}
+	</table>
+	{else} 
+	<table width="100%" border="0" style="margin-left: 30px;margin-right: 20px;margin-bottom: 10px;font-weight: none; font-size: 14px;line-height: 1.8;">
+		<tr>
+			<td align="justify" style="margin-left: 25px;padding-right:50px">
+				&emsp;&emsp;Sejak Berita Acara ini ditandatangani, maka tanggung jawab pengamanan, pemanfaatan dan pemeliharaan Barang Inventaris 
+				tersebut beralih dari <b>PIHAK PERTAMA</b> kepada <b>PIHAK KEDUA</b>.
+			</td>
+		</tr>
+	</table>
+	{/if}
+	<table width="100%" border="0" style="margin-left: 30px;margin-right: 20px;margin-bottom: 10px;font-weight: none; font-size: 14px;line-height: 1.8;">
+		<tr>
+			<td align="justify" style="margin-left: 25px;padding-right:50px">
+				&emsp;&emsp;Berita Acara ini dibuat dengan sesungguhnya dalam rangkap 2 (dua), satu rangkap dipegang oleh <b>PIHAK PERTAMA</b> dan satu rangkap dipegang oleh <b>PIHAK KEDUA</b> yang masing-masing 
+				mempunyai kekuatan hukum yang sama dan selebihnya untuk tembusan.
+			</td>
+		</tr>
+	</table>
+</table>
+
+<table width="100%" style="margin-left: 30px;margin-right: 20px;margin-bottom: 10px;font-weight: none; font-size: 14px;line-height: 1.8;">
+	
+	<tr>
+	  <td align="left" width="50%" style="padding-left: 2%;" valign="top"><br><b>PIHAK KEDUA</b></td>
+	  <td width="10%" align="right">&nbsp;</td>
+	  <td valign="top" width="40%"><br><b>PIHAK PERTAMA</b></td>
+	</tr>
+	<tr>
+	  <td><br></td>
+	  <td><br></td>
+	  <td><br></td>
+	</tr>
+	<tr>
+	  <td><br></td>
+	  <td><br></td>
+	  <td><br></td>
+	</tr>
+	<tr>
+	  <td><br></td>
+	  <td><br></td>
+	  <td><br></td>
+	</tr>
+	<tr>
+	  <td style="padding-left: 2%;" align="left"><b><u>{$data.surat.info_tambahan.nama_pegawai|default:'.....................'}</u></b></td>
+	  <td>&nbsp;</td>
+	  <td align="left"><b><u>{$data.surat.info_tambahan.nama_pegawai2|default:'.....................'}</u></b></td>
+	</tr>
+	{if $data.surat.info_tambahan.pangkat !=''}
+	<tr>
+	  <td style="padding-left: 2%;" align="left">Pangkat, Gol : {$data.surat.info_tambahan.pangkat|default:'..........'}</td>
+	  <td>&nbsp;</td>
+	  <td align="left">Pangkat, Gol : {$data.surat.info_tambahan.pangkat2|default:'..........'}</td>
+	</tr>
+	<tr>
+	  <td style="padding-left: 2%;" align="left">NIP &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : {$data.surat.info_tambahan.nip_pegawai|default:'..........'}</td>
+	  <td>&nbsp;</td>
+	  <td align="left">NIP &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {$data.surat.info_tambahan.nip_pegawai2|default:'..........'}</td>
+	</tr>
+	{else}
+	<tr>
+		{if $data.surat.info_tambahan.nip_pegawai !=''}
+		<td style="padding-left: 2%;" align="left">NIP &nbsp;&nbsp;&nbsp;&nbsp; : {$data.surat.info_tambahan.nip_pegawai|default:'..........'}</td>
+		{/if}
+		<td>&nbsp;</td>
+		{if $data.surat.info_tambahan.nip_pegawai2 !=''}
+		<td align="left">NIP &nbsp;&nbsp;&nbsp;&nbsp;: {$data.surat.info_tambahan.nip_pegawai2|default:'..........'}</td>
+		{/if}
+	</tr>
+	{/if}
+</table> 
+</div>
+</body>
+</html>

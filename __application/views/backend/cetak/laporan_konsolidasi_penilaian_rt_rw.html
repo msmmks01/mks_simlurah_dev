@@ -1,0 +1,169 @@
+
+{capture name="xtd"}
+  {foreach from=$data.header item=dh}
+    <td valign="top" style="border:1px solid black;text-align:left;width:10%;font-size:4pt">
+      <b>{$dh.xjab}<br>&nbsp;<br>
+      NAMA : {$dh.nama_lengkap}
+    </td>
+  {/foreach}
+{/capture}
+
+
+<table style="width:100%;font-size:6pt;font-family:Calibri;border-collapse:collapse;" border="0" cellspacing="0" cellpadding="4">
+  <tr>
+    <td style="border:1px solid black;width:10%;text-align:center;"  rowspan="3">
+      <img src="{$host}{$setting.logo_kab_kota|default:''}"
+          height="55px"
+          alt="Logo"
+          onerror="this.onerror=null;this.src='{$host}__assets/images/logo-makassar.png'"
+      />
+    </td>
+    <td style="border:1px solid black;width:65%;text-align:center;background-color:rgb(181, 210, 238)"  rowspan="3">
+      <b>
+      INDIKATOR KINERJA KETUA RW & KETUA RT <br>
+      {strtoupper($data.setting.nama_desa)} <br>
+      KECAMATAN {strtoupper($data.setting.nama_kecamatan)} <br>
+      BULAN {strtoupper(getBulan($data.bulan))}
+      </b>
+    </td>
+    <td style="border-top:1px solid black;border-left:1px solid black;border-right:none; width:9%;background-color:rgb(242, 207, 122);" >Sifat</td>
+    <td style="border-top:1px solid black;border-left:none;border-right:none; width:1%;background-color:rgb(242, 207, 122);" >:</td>
+    <td style="border-top:1px solid black;border-left:none;border-right:1px solid black; width:15%;background-color:rgb(242, 207, 122);" ><b>RAHASIA</td>
+  </tr>
+  <tr>
+    <td style="border-right:none;border-left:none;background-color:rgb(242, 207, 122);">Ditetapkan di</td>
+    <td style="border-right:none;border-left:none;background-color:rgb(242, 207, 122);">:</td>
+    <td style="border-right:1px solid black;border-left:none;background-color:rgb(242, 207, 122);">Makassar</td>
+  </tr>
+  <tr>
+    <td style="border-bottom:1px solid black;background-color:rgb(242, 207, 122);">Hari/Tgl</td>
+    <td style="border-bottom:1px solid black;background-color:rgb(242, 207, 122);">:</td>
+    <td style="border-bottom:1px solid black;border-right:1px solid black;background-color:rgb(242, 207, 122);">{tgl_indo_hari($data.tgl_cetak)}</td>
+  </tr>
+</table>
+<table style="width:100%;font-size:6pt;font-family:Calibri;border-collapse:collapse" border="0" cellspacing="0" cellpadding="4">
+  <thead>
+    <tr>
+      <td style="border:1px solid black;text-align:center;width:5%"><b>No</td>
+      <td style="border:1px solid black;text-align:center;width:20%"><b>Indikator Penilaian</td>
+      <td style="border:1px solid black;text-align:center;width:5%"><b>Vol & Sat</td>
+      {$smarty.capture.xtd}
+    </tr>
+  </thead>
+  <tbody>
+       
+    {foreach from=$data.detail item=dt}
+
+      {if $dt.tipe == 'H'}
+        {$warna = 'background-color:rgb(242, 207, 122);'}
+        {$border = 'border:1px solid black;'}
+        {$b = '<b>'}
+        {$xnama = $dt.kategori}
+      {elseif $dt.tipe == 'J'}
+        {$warna = 'background-color:rgb(208, 207, 203);'}
+        {$border = 'border:1px solid black;'}
+        {$b = '<b>'}
+        {$xnama = $dt.uraian}
+      {elseif $dt.tipe == 'R' || $dt.tipe == 'N'}
+          {$warna = ''}
+          {$border = 'border:1px solid black;'}
+          {$b = '<b>'}
+          {$xnama = $dt.uraian}
+      {else}
+        {$warna = ''}
+        {$border = 'border:1px solid black;'}
+        {$b = ''}
+        {$xnama = $dt.uraian}
+      {/if}
+
+      {if $dt.tipe == 'J' || $dt.tipe == 'R' || $dt.tipe == 'N'}
+        <tr>
+            <td valign="center" style="text-align:center;{$warna}{$border}" colspan="2">{$b}{strtoupper($xnama)}</td>
+            <td valign="center" style="text-align:center;{$warna}{$border}">{$b}{number_format($dt.volsat,'0',',','.')}</td>
+            {foreach from=$data.header item=dth}
+              {assign var="fieldName" value="n_`$dth.xid`"}
+              <td valign="center" style="text-align:right;{$warna}{$border}">{$b}{($dt.tipe=='H')?'':number_format($dt[$fieldName],'0',',','.')}</td>
+            {/foreach}
+        </tr>
+      {else}
+        <tr>
+            <td valign="center" style="text-align:center;{$warna}{$border}">{$b}{($dt.tipe=='H' || $dt.tipe=='J')?'':$dt.id}</td>
+            <td valign="center" style="text-align:left;{$warna}{$border}">{$b}{$xnama}</td>
+            <td valign="center" style="text-align:center;{$warna}{$border}">{$b}{$dt.volsat}</td>
+            {foreach from=$data.header item=dth}
+              {assign var="fieldName" value="n_`$dth.xid`"}
+              <td valign="center" style="text-align:right;{$warna}{$border}">{$b}{($dt.tipe=='H')?'':number_format($dt[$fieldName],'0',',','.')}</td>
+            {/foreach}
+        </tr>
+      {/if}
+  {/foreach}
+  </tbody>
+  <tfoot>
+
+  </tfoot>
+</table>
+<table style="width:100%;font-size:6pt;font-family:Calibri;border-collapse:collapse" border="0" cellspacing="0" cellpadding="4">
+  <tr>
+    <td colspan="5" style="border-right:1px solid black;border-left:1px solid black;" >Prestasi yang perlu di catat :</td>
+  </tr>
+  <tr>
+    <td colspan="5" style="border-right:1px solid black;border-left:1px solid black;" >Indisipliner yang perlu di catat :</td>
+  </tr>
+  <tr>
+    <td colspan="5" style="border-right:1px solid black;border-left:1px solid black;border-bottom:1px solid black;" >Saran dan perbaikan :</td>
+  </tr>
+  <tr>
+    <td style="padding: 0px;border-left: 1px solid black;border-right: 1px solid black;" colspan="5">
+      <table style="width: 100%; border-collapse: collapse; margin: 0px;" border="0">
+        <tr>
+          <td valign="top" style="text-align:center;width:33.33%;border:1px solid black;border-left: hidden;">
+            <b>{$data.setting.jabatan_camat|UPPER}</b>
+            <br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>
+            <b><u>{$data.setting.nama_camat}</u></b><br>
+            Nip. {$data.setting.nip_camat}
+          </td>
+          <td valign="top" style="text-align:center;width:33.33%;border:1px solid black;">
+            <b>{$data.setting.jabatan_lurah|UPPER}</b>
+            <br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>
+            <b><u>{$data.setting.nama_lurah}</u></b><br>
+            Nip. {$data.setting.nip_lurah}
+          </td>
+          <td valign="top" style="text-align:center;width:33.33%;border:1px solid black;border-right: hidden;">
+            <b>{($data.setting.jabatan_lsm=='')?'KETUA LPM':$data.setting.jabatan_lsm|UPPER}</b>
+            <br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>
+            <b><u>{$data.setting.nama_lsm}</u></b><br>&nbsp;
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <!-- <tr>
+    <td colspan="5" style="border-right:1px solid black;border-left:1px solid black;border-bottom:1px solid black;" >
+      SKOR PENILAIAN :<br>
+      A : 100, B : 75, C : 50, D : 25
+    </td>
+  </tr> -->
+  <tr>
+    <td colspan="5" style="text-align:center;border-right:1px solid black;border-left:1px solid black;border-bottom:1px solid black;background-color:rgb(208, 207, 203);" >
+      <b>STANDAR NILAI
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align:lelft;border-left:1px solid black;border-right:none;">60 - 70</td>
+    <td style="text-align:left;border-left:none;border-right:none;">= Cukup</td>
+    <td style="text-align:lelft;border-left:none;border-right:none;">&nbsp;</td>
+    <td style="text-align:lelft;border-left:none;border-right:none;">81 - 90</td>
+    <td style="text-align:lelft;border-left:none;border-right:1px solid black;">= Baik</td>
+  </tr>
+  <tr>
+    <td style="text-align:lelft;border-bottom:1px solid black;border-left:1px solid black;border-right:none;">71 - 80</td>
+    <td style="text-align:left;border-bottom:1px solid black;border-left:none;border-right:none;">= Cukup Baik</td>
+    <td style="text-align:lelft;border-bottom:1px solid black;border-left:none;border-right:none;">&nbsp;</td>
+    <td style="text-align:lelft;border-bottom:1px solid black;border-left:none;border-right:none;">91 - 100</td>
+    <td style="text-align:lelft;border-bottom:1px solid black;border-left:none;border-right:1px solid black;">= Sangat Baik</td>
+  </tr>
+</table>
+ {if $data.break eq '1'}
+    <pagebreak></pagebreak>
+  
+    {/if}

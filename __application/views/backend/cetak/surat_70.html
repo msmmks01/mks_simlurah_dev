@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SIMLURAH ADMINISTRASI</title>
+    <style>
+		table { width:100%; } 
+		body { font-family: 'arial'; }
+	</style>
+</head>
+<body>
+	<div id='content'>
+		<div style="padding-bottom: 5mm;">
+			<table cellspacing="0" cellpadding="0" border="0" width="100%" style="border-collapse: collapse;margin-left: 18px;">
+				<tr>
+					<td align="center" rowspan=4 valign="middle" style="width: 150px;padding-left: -55px;">
+						<img src="{$host}__assets/images/logo-makassar.png" style="height:60px" />
+					</td>
+					<td align="center" valign="bottom" style="font-size:16.6px;padding:0px;padding-left: -80px;">PEMERINTAH {$setting.nama_kab_kota|upper|default:'.......'}</td>
+					<!-- <td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+						<img src="{$host}__assets/images/logo-camat.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';" style="height:100px" alt=" "/>
+					</td> -->
+				</tr>
+				<tr>
+					<td align="center" style="font-size:22.6px;padding:0px;padding-left: -80px;">KECAMATAN {$setting.nama_kecamatan|upper|default:'.......'}</td>
+				</tr>
+				<tr>
+					<td align="center" valign="top" style="font-size:16.6px;padding:0px;padding-left: -80px;"></td>
+				</tr>
+				<tr>
+					<td align="center" valign="top" style="font-size:10.6px;padding:0px;padding-left: -80px;">
+						<i>
+							{if strlen($setting.alamat)>1}
+							{$setting.alamat|default:'...'}
+							{/if}
+							{if strlen($setting.telp)>1}
+							Telp. {$setting.telp|default:'...'}
+							{/if}
+							{if strlen($setting.faks)>1}
+							Fax. {$setting.faks|default:'...'}
+							{/if}
+							{if strlen($setting.email)>1}
+							Email : {$setting.email|default:'...'}
+							{/if}
+							{if strlen($setting.nama_kab_kota)>1}
+							{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'...'}
+							{/if}
+							{if strlen($setting.kode_pos)>1}
+							Kode Pos {$setting.kode_pos|default:'...'}
+							{/if}
+							{if strlen($setting.website)>1}
+							<br>Website : {str_replace('-','',$setting.website|default:'')}
+							{/if}
+						</i>
+					</td>
+				</tr>
+				<tr>
+					<td align="center" colspan="3">
+						<hr style="color: black;height: 4px; margin-bottom:0px">
+						<hr style="color: black;height: 1px; margin-top:3px">
+					</td>
+				</tr>
+				<!-- {include file="backend/template/kop_surat_kecamatan.html"} -->
+				<tr>
+					<td colspan="3" align="center">
+					  <b>SURAT KETERANGAN</b><br><b>PENGECEKAN FISIK KENDARAAN DINAS</b>
+					</td>
+				  </tr>
+			</table>
+		</div>
+		<table cellspacing="0" border="0" width="100%" style="margin-left: 15px;border-collapse: collapse; line-height: 1.0;font-size: 12px;margin-top: -20px;" cellpadding="0">
+			<tr>
+				<td colspan="4" valign="top" align="justify" style="padding-top: 20px; line-height: 1.4">
+					<!-- {if $data.surat.info_tambahan.tgl_pengecekanx neq ''}
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pada hari ini, {ucwords(strtolower($data.surat.info_tambahan.hari_pengecekan|default:'........'))} Tanggal {ucwords(strtolower(terbilang_hari({$data.surat.info_tambahan.tgl_pengecekan|default:'........'})))} Bulan {ucwords(strtolower($data.surat.info_tambahan.bln_pengecekan|default:'........'))} Tahun {ucwords(strtolower($data.surat.info_tambahan.thn_pengecekan|default:'........'))} ({date('d-m-Y', strtotime($data.surat.info_tambahan.tgl_pengecekanx))}) telah dilakukan pengecekan fisik kendaraan di Kantor Kecamatan {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kecamatan)))|default:''} yang dilakukan oleh pengurus barang dan pembantu pengurus barang Kantor Kecamatan {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kecamatan)))|default:''} 
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pada hari ini, {ucwords(strtolower($data.surat.info_tambahan.hari_pengecekan|default:'........'))} Tanggal {ucwords(strtolower(terbilang_hari({$data.surat.info_tambahan.tgl_pengecekan|default:'........'})))} Bulan {getBulan($data.surat.info_tambahan.bulan)|default:''} Tahun {ucwords(strtolower(number_to_words($data.surat.tgl_surat|default:'')))} ({date('d-m-Y', strtotime($data.surat.info_tambahan.tgl_pengecekanx))}) telah dilakukan pengecekan fisik kendaraan di Kantor Kecamatan {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kecamatan)))|default:''} yang dilakukan oleh pengurus barang dan pembantu pengurus barang Kantor Kecamatan {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kecamatan)))|default:''} 
+					dengan spesifikasi kendaraan sebagai berikut:
+					{else} -->
+					<!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pada hari ini, &emsp;&emsp;&emsp;&emsp;&emsp; Tanggal &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Bulan {getBulan($data.surat.info_tambahan.bulan)|default:''} Tahun {ucwords(strtolower(number_to_words($data.surat.tgl_surat|default:'')))} (&emsp;&nbsp;-{sprintf("%02d", $data.surat.info_tambahan.bulan)|default:''}-{date('Y', strtotime($data.surat.tgl_surat))}) telah dilakukan pengecekan fisik kendaraan di Kantor Kecamatan {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kecamatan)))|default:''} yang dilakukan oleh pengurus barang dan pembantu pengurus barang Kantor Kecamatan {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kecamatan)))|default:''}  -->
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pada hari ini, {ucwords(strtolower($data.surat.info_tambahan.hari_pengecekan|default:''))} Tanggal {ucwords(strtolower($data.surat.info_tambahan.tgl_pengecekan|default:''))} Bulan {ucwords(strtolower($data.surat.info_tambahan.bln_pengecekan|default:''))} Tahun {ucwords(strtolower($data.surat.info_tambahan.thn_pengecekan|default:''))} ({date('d-m-Y',strtotime($data.surat.tgl_surat))|default:'.......'}) telah dilakukan pengecekan fisik kendaraan di Kantor Kecamatan {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kecamatan)))|default:''} yang dilakukan oleh pengurus barang dan pembantu pengurus barang Kantor Kecamatan {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kecamatan)))|default:''} 
+					dengan spesifikasi kendaraan sebagai berikut:
+					{/if}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<table cellpadding="3" swidth="100%" border="1" style="border-collapse: collapse;font-weight: none; font-size: 10px;padding-left: 20px;">
+						<tr>
+							<td valign="top" width="40%">&nbsp;&nbsp;Nama Pengemudi</td>
+							<td valign="middle" width="60%">&nbsp;&nbsp;<b>{if $data.surat.info_tambahan.nama_sopir eq '-'}Tidak dicantumkan {else}{$data.surat.info_tambahan.nama_sopir|default:''}{/if}</b></td>
+						</tr>
+						<tr>
+							<td valign="top">&nbsp;&nbsp;Wilayah Penugasan</td>
+							<td valign="middle">&nbsp;&nbsp;{$data.surat.info_tambahan.asal_kelurahan|default:''}</td>
+						</tr>
+						<tr>
+							<td valign="top">&nbsp;&nbsp;Jenis Barang</td>
+							<td valign="top">&nbsp;&nbsp;{if $data.surat.info_tambahan.jenis_barang eq '-'}Tidak dicantumkan {else}{$data.surat.info_tambahan.jenis_barang|default:''}{/if}</td>
+						</tr>
+						<tr>
+							<td valign="top">&nbsp;&nbsp;Detail Barang</td>
+							<td valign="top">&nbsp;&nbsp;{if $data.surat.info_tambahan.detail_barang eq '-'}Tidak dicantumkan {else}{$data.surat.info_tambahan.detail_barang|default:''}{/if}</td>
+						</tr>
+						<tr>
+							<td valign="top">&nbsp;&nbsp;Nomor Kode Barang/Register</td>
+							<td valign="top">&nbsp;&nbsp;{$data.surat.info_tambahan.kode_barang|default:''} {if $data.surat.info_tambahan.no_register_kendaraan eq '-'} {else}/ {$data.surat.info_tambahan.no_register_kendaraan|default:''}{/if}</td>
+						</tr>
+						<tr>
+							<td valign="top">&nbsp;&nbsp;Tahun Perolehan</td>
+							<td valign="top">&nbsp;&nbsp;{$data.surat.info_tambahan.tahun_perolehan|default:'.....................'}</td>
+						</tr>
+						<tr>
+							<td valign="top">&nbsp;&nbsp;Nilai Perolehan (Rp)</td>
+							<td valign="top">&nbsp;&nbsp;{number_format($data.surat.info_tambahan.nilai_perolehan,2,',','.')|default:''}</td>
+						</tr>
+						<tr>
+							<td valign="top">&nbsp;&nbsp;Sumber Perolehan</td>
+							<td valign="top">&nbsp;&nbsp;{$data.surat.info_tambahan.sumber_perolehan|default:'.....................'}</td>
+						</tr>
+						<tr>
+							<td valign="top">&nbsp;&nbsp;Dokumen Kepemilikan</td>
+							<td valign="top">&nbsp;&nbsp;{if $data.surat.info_tambahan.dokumen_kepemilikan eq '-'}Tidak dicantumkan {else}{$data.surat.info_tambahan.dokumen_kepemilikan|default:'.....................'}{/if}</td>
+						</tr>
+						<tr>
+							<td valign="top">&nbsp;&nbsp;Merek/Type</td>
+							<td valign="top">&nbsp;&nbsp;{$data.surat.info_tambahan.type_merek|default:'.....................'}</td>
+						</tr>
+						<tr>
+							<td valign="top">&nbsp;&nbsp;Warna</td>
+							<td valign="top">&nbsp;&nbsp;{$data.surat.info_tambahan.warna_kendaraan|default:'.....................'}</td>
+						</tr>
+						<tr>
+							<td valign="top">&nbsp;&nbsp;Nomor Rangka</td>
+							<td valign="top">&nbsp;&nbsp;{$data.surat.info_tambahan.no_rangka|default:'.....................'}</td>
+						</tr>
+						<tr>
+							<td valign="top">&nbsp;&nbsp;Nomor Mesin</td>
+							<td valign="top">&nbsp;&nbsp;{$data.surat.info_tambahan.no_mesin|default:'.....................'}</td>
+						</tr>
+						<tr>
+							<td valign="top">&nbsp;&nbsp;Nomor Polisi</td>
+							<td valign="top">&nbsp;&nbsp;{$data.surat.info_tambahan.nopol|default:'.....................'}</td>
+						</tr>
+						<tr>
+							<td valign="top">&nbsp;&nbsp;Ukuran Silinder</td>
+							<td valign="top">&nbsp;&nbsp;{$data.surat.info_tambahan.ukuran_silinder|default:'.....................'}</td>
+						</tr>
+						<tr>
+							<td valign="top">&nbsp;&nbsp;Kondisi Barang</td>
+							<td valign="top">&nbsp;&nbsp;<b>{$data.surat.info_tambahan.kondisi_kendaraan|default:'.....................'}</b></td>
+						</tr>
+					</table> 
+				</td>
+			</tr>
+			<tr>
+				<td align="justify" width="100%" style="margin-left: 15px;border-collapse: collapse; line-height: 1.5;font-size: 12px;" cellpadding="0" cellspacing="0">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Demikian surat keterangan ini untuk digunakan semestinya.
+					<!-- Permintaan perubahan dari kecamatan || Sabrang -->
+					<!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Berdasarkan Pengecekan Fisik,kendaraan tersebut <b>{$data.surat.info_tambahan.kelayakan_kendaraan|default:'.....................'}</b> untuk diberikan bahan bakar minyak (BBM) Bulan {getBulan($data.surat.info_tambahan.bulan)|default:''}  Tahun {$data.surat.info_tambahan.thn_pengecekanx|default:'........'}. -->
+				</td>
+			</tr>
+		</table>
+		<br>
+		
+	</div>
+	{ttd_fullkanan($data,$setting)}
+</body>
+</html>

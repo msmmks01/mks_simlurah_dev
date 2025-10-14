@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SILURAH - SISTEM INFORMASI KELURAHAN</title>
+
+	{$main_css}
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+	
+	{$main_js}
+	<script>
+		var host = "{$host}";
+	</script>
+	<style type="text/css">
+		body { 
+		  	background-image: url(__assets/images/bck.jpg);
+			background-color: #cccccc;
+			height: 100vh;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+			position: relative;
+			background-position-y: 74%;
+		}
+		.login-box-body{
+			
+			background: #1ab0e5;
+padding: 20px;
+  padding-top: 20px;
+border-top: 0;
+color: #666;
+			
+			}
+		.avatar {
+        /* color: #fff; */
+		margin: 0 auto 10px;
+        text-align: center;
+		width: 75px;
+		height: 85px;
+		/* border-radius: 50%; */
+		/* border: 2px solid #f8a403; */
+		z-index: 9;
+		/* background: white; */
+		padding: 10px;
+		/* box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1); */
+	}
+		.avatar2 {
+        color: #fff;
+		margin: 0 auto 20px;
+        text-align: center;
+		width: 150px;
+		height: 150px;
+		border-radius: 50%;
+		border: 3px solid #f8a403;
+		z-index: 9;
+		background: white;
+		padding: 15px;
+		box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+		display: flex;
+		
+	}
+
+	
+
+
+
+
+/* Medium devices (landscape tablets, 768px and down) */
+
+@media only screen and (max-width:852px) {
+  .nav-link {
+    text-align: center;
+  }
+}
+
+@media screen and (min-width:480px) {
+  .left-side,
+  .right-side {
+    height: 100vh;
+  }
+}
+	
+	
+    .login-form form {
+        color: #434343;
+		border-radius: 10px;
+    	margin-bottom: 15px;
+        background: #fff;
+        opacity: 0.95;
+		border: 1px solid #f3f3f3;
+        box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
+        padding: 30px;
+		/* background-color: rgba(0, 0, 0, 0.2); */
+		
+	}
+	.login-form h4 {
+		text-align: center;
+		font-size: 22px;
+        margin-bottom: 15px;
+	}
+    .login-form .avatar {
+        color: #fff;
+		margin: 0 auto 20px;
+        text-align: center;
+		width: 105px;
+		height: 105px;
+		border-radius: 50%;
+		border: 3px solid #f8a403;
+		z-index: 9;
+		background: #075e54;
+		padding: 15px;
+		box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+	}
+    .login-form .avatar i {
+        font-size: 62px;
+    }
+    .login-form .form-group {
+        margin-bottom: 10px;
+    }
+	.login-form .form-control, .login-form .btn {
+		min-height: 40px;
+		border-radius: 2px; 
+        transition: all 0.5s;
+	}
+	.login-form .close {
+        position: absolute;
+		top: 15px;
+		right: 15px;
+	}
+	.login-form .btn {
+		background: #075e54;
+		border: 3px solid #f8a403;
+		line-height: normal;
+	}
+	.login-form .btn:hover, .login-form .btn:focus {
+		background: #128c7e;
+	}
+    .login-form .checkbox-inline {
+        float: left;
+    }
+    .login-form input[type="checkbox"] {
+        margin-top: 2px;
+    }
+    .login-form .forgot-link {
+        float: right;
+    }
+    .login-form .small {
+        font-size: 14px;
+        color:#f0c672;
+        text-shadow: 0 0 5px #000;
+    }
+    .login-form a {
+        color: #075e54;
+    }
+    .login-form .back a {
+		color: #fff;
+    }
+    [role="button"] {
+    	cursor: pointer;
+    }
+	
+    .d-none {
+    	display:none!important
+    }
+    .d-inline {
+    	display:inline!important
+    }
+    .d-inline-block {
+    	display:inline-block!important
+    }
+    .d-block {
+    	display:block!important
+    }
+    .d-table {
+    	display:table!important
+    }
+    .d-table-row {
+    	display:table-row!important
+    }
+    .d-table-cell {
+    	display:table-cell!important
+    }
+    .d-flex {
+    	display:-ms-flexbox!important;
+    	display:flex!important
+    }
+    .d-inline-flex {
+    	display:-ms-inline-flexbox!important;
+    	display:inline-flex!important
+    }
+    @media (min-width:576px) {
+    	.d-sm-none {
+    		display:none!important
+    	}
+    	.d-sm-inline {
+    		display:inline!important
+    	}
+    	.d-sm-inline-block {
+    		display:inline-block!important
+    	}
+    	.d-sm-block {
+    		display:block!important
+    	}
+    	.d-sm-table {
+    		display:table!important
+    	}
+    	.d-sm-table-row {
+    		display:table-row!important
+    	}
+    	.d-sm-table-cell {
+    		display:table-cell!important
+    	}
+    	.d-sm-flex {
+    		display:-ms-flexbox!important;
+    		display:flex!important
+    	}
+    	.d-sm-inline-flex {
+    		display:-ms-inline-flexbox!important;
+    		display:inline-flex!important
+    	}
+    }
+    @media (min-width:768px) {
+    	.d-md-none {
+    		display:none!important
+    	}
+    	.d-md-inline {
+    		display:inline!important
+    	}
+    	.d-md-inline-block {
+    		display:inline-block!important
+    	}
+    	.d-md-block {
+    		display:block!important
+    	}
+    	.d-md-table {
+    		display:table!important
+    	}
+    	.d-md-table-row {
+    		display:table-row!important
+    	}
+    	.d-md-table-cell {
+    		display:table-cell!important
+    	}
+    	.d-md-flex {
+    		display:-ms-flexbox!important;
+    		display:flex!important
+    	}
+    	.d-md-inline-flex {
+    		display:-ms-inline-flexbox!important;
+    		display:inline-flex!important
+    	}
+    }
+    @media (min-width:992px) {
+    	.d-lg-none {
+    		display:none!important
+    	}
+    	.d-lg-inline {
+    		display:inline!important
+    	}
+    	.d-lg-inline-block {
+    		display:inline-block!important
+    	}
+    	.d-lg-block {
+    		display:block!important
+    	}
+    	.d-lg-table {
+    		display:table!important
+    	}
+    	.d-lg-table-row {
+    		display:table-row!important
+    	}
+    	.d-lg-table-cell {
+    		display:table-cell!important
+    	}
+    	.d-lg-flex {
+    		display:-ms-flexbox!important;
+    		display:flex!important
+    	}
+    	.d-lg-inline-flex {
+    		display:-ms-inline-flexbox!important;
+    		display:inline-flex!important
+    	}
+    }
+    @media (min-width:1200px) {
+    	.d-xl-none {
+    		display:none!important
+    	}
+    	.d-xl-inline {
+    		display:inline!important
+    	}
+    	.d-xl-inline-block {
+    		display:inline-block!important
+    	}
+    	.d-xl-block {
+    		display:block!important
+    	}
+    	.d-xl-table {
+    		display:table!important
+    	}
+    	.d-xl-table-row {
+    		display:table-row!important
+    	}
+    	.d-xl-table-cell {
+    		display:table-cell!important
+    	}
+    	.d-xl-flex {
+    		display:-ms-flexbox!important;
+    		display:flex!important
+    	}
+    	.d-xl-inline-flex {
+    		display:-ms-inline-flexbox!important;
+    		display:inline-flex!important
+    	}
+    }
+    @media print {
+    	.d-print-none {
+    		display:none!important
+    	}
+    	.d-print-inline {
+    		display:inline!important
+    	}
+    	.d-print-inline-block {
+    		display:inline-block!important
+    	}
+    	.d-print-block {
+    		display:block!important
+    	}
+    	.d-print-table {
+    		display:table!important
+    	}
+    	.d-print-table-row {
+    		display:table-row!important
+    	}
+    	.d-print-table-cell {
+    		display:table-cell!important
+    	}
+    	.d-print-flex {
+    		display:-ms-flexbox!important;
+    		display:flex!important
+    	}
+    	.d-print-inline-flex {
+    		display:-ms-inline-flexbox!important;
+    		display:inline-flex!important
+    	}
+    }
+	</style>
+</head>
+<body class="login">
+
+	<div class="container-fluid">
+		<div class="row no-gutters" style="height: 100vh;">
+			<div class="left-side col-md-6 d-none d-lg-block">
+				<div class="container">
+					<div class="row no-gutters justify-content-center">
+						<div class="col-md text-center align-items-center">
+							<div class="form-box-top text-center text-light pt-5 pb-3">
+							</div>
+							<div class="form text-center rounded">
+								<div class="centered">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="right-side col-md-6 text-center" style="display: flex;align-items: center;justify-content: center;height: 100%;">
+				<div class="form text-center rounded">
+					<div class="login-box" style="margin:auto;position: relative;">		
+						<!-- <img src="__assets/images/logo-makassar.png" style="width: 15%;position:absolute;left: 130px;top: 7px;"> -->
+	
+						<!-- <img src="__assets/images/border_gold-1_20x.png" style="width: 18%;position:absolute;right: 130;top: 7px;bottom: 0px;"> -->
+						<!-- <img src="__assets/images/border_gold-1_20x.png" style="width: 25%;position:absolute;right: 0; bottom: 0;transform: rotate(180deg);"> -->
+						<div class="login-box-body " style="padding-top: 10px !important; height: 500px; border-radius: 10px;outline: 1rem double white;-webkit-box-shadow: 0px 0px 48px 23px rgba(250,255,254,0.39);-moz-box-shadow: 0px 0px 48px 23px rgba(250,255,254,0.39);box-shadow: 0px 0px 48px 23px rgba(250,255,254,0.39);">	
+							<div class="login-logo" style="padding:0px; margin-bottom:5px;">
+							
+								<img class="avatar"src="__assets/images/logo-makassar.png" />
+							</div>
+							{if isset($error)}
+							<p class="login-box-msg"><b><font color="red">{$error}</font></b></p>
+							{/if}	
+							
+							<img src="__assets/images/welcome.png" style="width: 60%;right: 0;padding-top: 0px;bottom: 0px;">
+							
+							<!-- <p class="text-center" style=" font-size: 18px; color: black;"><b> Selamat Datang di SIMLURAH </b></p>	 -->
+							<form action="{$host}login-app" method="post">
+								<div class="form-group has-feedback" style="padding-top: 10px">
+									<input type="text" name="user" required class="form-control" style="border-radius:10px ;" placeholder="Username">
+									<span style="top: 10px" class="fa fa-user form-control-feedback"></span>
+
+								</div>
+								<div class="form-group has-feedback">
+									<input type="password" id="pwd" name="pwd" required class="form-control" style="border-radius:10px ;" placeholder="Password">
+									<span onclick="showpass(event)" id="pwd_icon" class="glyphicon glyphicon-eye-close form-control-feedback" role="button" style="pointer-events: all;"></span>
+								</div>
+								<div class="form-group has-feedback">
+									{$year_now = date("Y")}
+										{$year_old = $year_now-2}
+										 
+									<select style="border-radius:10px ;" name="tahun" class="form-control"> 
+										
+											{for $foo=2022 to 2025}
+											{if $foo == $year_now}
+											<option selected value="{$foo}" >
+												{$year_now}</option>
+											{else}
+											<option value="{$foo}">{$foo}
+											</option>
+											{/if}
+										{/for}
+									</select>
+								</div>
+								<br/>
+
+								<div class="row" style="padding-bottom: 10%;">
+
+									<div class="col-xs-12">
+										<button type="submit" class="btn btn-warning btn-block btn-flat" style="border-radius:10px ;">Login</button>
+									</div>
+								</div>
+								<p class="login-box-msg"><b><font color="red">KECAMATAN BIRINGKANAYA<br/> PEMERINTAH KOTA MAKASSAR</font></b></p>
+							</form>
+							
+							<img src="__assets/images/tambah_baik.jpg" style="width: 100%;height: 30;position:absolute;right: 0; bottom: 0;">
+						</div>
+						
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+	<script type="text/javascript">
+		function showpass(event) {
+			if ( document.getElementById("pwd_icon").classList.contains('glyphicon-eye-close')){
+				document.getElementById("pwd_icon").classList.remove('glyphicon-eye-close');
+				document.getElementById("pwd_icon").classList.add('glyphicon-eye-open');
+				document.getElementById("pwd").setAttribute("type", "text");
+			}else{
+				document.getElementById("pwd_icon").classList.remove('glyphicon-eye-open');
+				document.getElementById("pwd_icon").classList.add('glyphicon-eye-close');
+				document.getElementById("pwd").setAttribute("type", "password");
+			}
+		}
+	</script>
+</body>
+</html>

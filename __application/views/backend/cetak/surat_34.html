@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SIMLURAH ADMINISTRASI</title>
+    <style>
+		table { width:100%; } 
+		body { font-family: 'arial'; }
+	</style>
+</head>
+<body>
+	<div id='content'>
+		<div style="padding-bottom: 5mm;">
+			<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;font-family: arial;">
+				<!-- <tr>
+					<td align="center" rowspan=4 valign="middle" style="width: 150px;">
+						<img src="{$host}__assets/images/logo-makassar.png" style="height:100px" />
+					</td>
+					<td align="center" valign="bottom" style="font-size:22.6px;padding:0px">PEMERINTAH {$setting.nama_kab_kota|upper|default:'.......'}</td>
+					{if $setting.status_logo_lainnya eq '1'}
+					<td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+						<img src="{$host}__assets/images/logo-camat.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';"  style="height:100px"/>
+					</td>
+					{else} 
+					<td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+						<img src="{$host}__assets/images/logo-blank.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';"  style="height:100px"/>
+					</td>
+					{/if}
+				</tr>
+				<tr>
+					<td align="center" style="font-size:22.6px;padding:0px">KECAMATAN {$setting.nama_kecamatan|upper|default:'.......'}</td>
+				</tr>
+				<tr>
+					<td align="center" valign="top" style="font-size:18.6px;padding:0px"><b>{$setting.nama_desa|upper|default:'.......'}</b></td>
+				</tr>
+				<tr>
+					<td align="center" valign="top" style="font-size:10.6px;padding:0px">
+						<i>
+							{if strlen($setting.alamat)>1}
+							{$setting.alamat|default:'...'}
+							{/if}
+							{if strlen($setting.telp)>1}
+							Telp. {$setting.telp|default:'...'}
+							{/if}
+							{if strlen($setting.faks)>1}
+							Fax. {$setting.faks|default:'...'}
+							{/if}
+							{if strlen($setting.email)>1}
+							Email : {$setting.email|default:'...'}
+							{/if}
+							{if strlen($setting.nama_kab_kota)>1}
+							{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'...'}
+							{/if}
+							{if strlen($setting.kode_pos)>1}
+							Kode Pos {$setting.kode_pos|default:'...'}
+							{/if}
+							{if strlen($setting.website)>1}
+							<br>Website : {str_replace('-','',$setting.website|default:'')}
+							{/if}
+						</i>
+					</td>
+				</tr>
+				<tr>
+					<td align="center" colspan="3" align="center">
+						<hr style="color: black;height: 4px; margin-bottom:0px">
+						<hr style="color: black;height: 1px; margin-top:3px">
+					</td>
+				</tr> -->
+				{include file="backend/template/kop_surat_kelurahan.html"}
+			</table>
+		</div>
+		
+		<table width="100%" style="margin-bottom: 10px; font-size: 14px;padding-top: -20px">
+			<tr>
+				<td align="center" style="padding-left: 380px;">{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'..........'}, {$data.surat.tanggal_surat|default:'............................'}</td>
+			</tr>
+		</table>
+		<table width="100%" style="margin-bottom: 10px;margin-left: 20px;margin-right: 20px;font-weight: none; font-size: 14px;padding-top: -10px;line-height: 1.2">
+			
+			<tr>
+				<td valign="top" >Nomor</td>
+				<td valign="top" >:</td>
+				<td valign="top" style="padding-right: 250px;">{$data.surat.no_surat|default:'.....................'}</td>
+			</tr>
+			<tr>
+				<td valign="top">Lampiran</td>
+				<td valign="top">:</td>
+				<td valign="top" style="padding-right: 250px;">{$data.surat.info_tambahan.lampiran|default:'.....................'}</td>
+			</tr>
+			<tr>
+				<td valign="top">Perihal</td>
+				<td valign="top">:</td>
+				<td valign="top" style="padding-right: 250px;"><b><i>{$data.surat.info_tambahan.perihal|default:'.....................'}</i></b></td>
+			</tr>
+			<tr>
+				<td valign="top" colspan="2">&nbsp;</td>
+			</tr>
+			{if $data.surat.info_tambahan.kpd_yth !=''}
+			<tr>
+				<td valign="top">Yth.</td>
+				<td valign="top"></td>
+				<td valign="top" style="padding-left: -70px;"><b>{nl2br({$data.surat.info_tambahan.kpd_yth|default:'.....................'})}</b></td>
+			</tr>
+			{else}
+				<tr>
+					<td valign="top"></td>
+					<td valign="top" colspan="2">Bapak/Ibu/Saudara (i)</td>
+				</tr>
+			{/if}
+			<tr>
+				<td valign="top">di</td>
+				<td valign="top"></td>
+				<td valign="top"></td>
+			</tr>	
+			{if $data.surat.info_tambahan.di_undangan != ''}
+			<tr>
+				<td valign="top">&nbsp;</td>
+				<td valign="top"></td>
+				<td valign="top" style="padding-left: -75x;">{$data.surat.info_tambahan.di_undangan|default:'..........'}</td>
+			</tr>
+			{else}
+				<tr>
+					<td valign="top">&nbsp;</td>
+					<td valign="top">&nbsp;</td>
+					<td valign="top">{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'..........'}</td>
+				</tr>
+			{/if}	
+		</table>
+	
+	<br>
+	<table width="100%" style="margin-left: 20px;margin-right: 20px;margin-bottom: 10px; font-weight: none; font-size: 14px;padding-top: -10px;line-height: 1.3" cellspacing="5">
+		<tr>
+			<td align="justify" style="margin-left: 25px;margin-right: 25px;padding-bottom: 10px;">
+				Dengan Hormat
+			</td>
+		</tr>
+		<tr>
+			<td align="justify" style="margin-left: 25px;margin-right: 25px;padding-bottom: 10px;line-height: 1.3">
+				&emsp;&emsp;Menindaklanjuti {$data.surat.info_tambahan.tindak_lanjut_surat|default:'.....................'} {if $data.surat.info_tambahan.no_surat_edaran !=''}Nomor {$data.surat.info_tambahan.no_surat_edaran|default:'.....................'}{/if} {if $data.surat.info_tambahan.tgl_surat_edaran!=''}tanggal {tgl_indo($data.surat.info_tambahan.tgl_surat_edaran)|default:'.....................'}{/if} 
+				maka bersama ini disampaikan kepada Bapak/Ibu yang tersebut di atas kiranya dapat membantu sesuai nama di bawah ini :
+			</td>
+		</tr>
+		{if $data.surat.info_tambahan.pil_surat_penelitian eq 'Instansi/Perusahaan'}
+		<tr>
+			<td>
+				<table width="100%" style="margin-left: 20px;margin-right: 20px;margin-bottom: 10px; font-weight: none; font-size: 14px;padding-top: -10px;line-height: 1.3" cellspacing="5">
+					<tr>
+						<td valign="top">Nama</td>
+						<td valign="top" style="padding-left:20px;padding-right: 20px;" align="center">:</td>
+						<td valign="top" style="padding-bottom: 10px;"><b>{$data.surat.info_tambahan.nama_peneliti|default:'.....................'}</b></td>
+					</tr>
+					<tr>
+						<td valign="top">Pekerjaan</td>
+						<td valign="top" style="padding-left:20px;padding-right: 20px;" align="center">:</td>
+						<td valign="top" style="padding-bottom: 10px;">{$data.surat.info_tambahan.pekerjan_peneliti|default:'.....................'} {if $data.surat.info_tambahan.tgl_undangan_akhir != ''} s/d {tgl_indo($data.surat.info_tambahan.tgl_undangan_akhir)|default:'.....................'} {else} {/if}</td>
+					</tr>
+					<tr>
+						<td valign="top">Alamat Kantor</td>
+						<td valign="top" align="center">:</td>
+						<td valign="top" style="padding-bottom: 10px;">{$data.surat.info_tambahan.alamat_kantor|default:'.....................'}</td>
+					</tr>
+					<tr>
+						<td valign="top">Alamat Rumah</td>
+						<td valign="top" align="center">:</td>
+						<td valign="top" style="padding-bottom: 10px;">{$data.surat.info_tambahan.alamat_rumah_peneliti|default:'.....................'}</td>
+					</tr>
+					<tr>
+						<td valign="top">Judul</td>
+						<td valign="top" align="center">:</td>
+						<td valign="top" style="padding-bottom: 10px;"><b>{$data.surat.info_tambahan.judul_penelitian|default:'.....................'}</b></td>
+					</tr>
+				</table> 
+			</td>
+		</tr>
+		{else} 
+		<tr>
+			<td>
+				<table width="100%" style="margin-left: 20px;margin-right: 20px;margin-bottom: 10px; font-weight: none;padding-top: -10px;font-size: 14px;line-height: 1.3" cellspacing="5">
+					<tr>
+						<td valign="top">Nama</td>
+						<td valign="top" style="padding-left:20px;padding-right: 20px;" align="center">:</td>
+						<td valign="top" style="padding-bottom: 3px;"><b>{$data.surat.info_tambahan.nama_peneliti_mhs|default:'.....................'}</b></td>
+					</tr>
+					<tr>
+						<td valign="top">NIM / Jurusan</td>
+						<td valign="top" style="padding-left:20px;padding-right: 20px;" align="center">:</td>
+						<td valign="top" style="padding-bottom: 3px;">{$data.surat.info_tambahan.nim_peneliti_mhs|default:'.....................'} {if $data.surat.info_tambahan.tgl_undangan_akhir != ''} s/d {tgl_indo($data.surat.info_tambahan.tgl_undangan_akhir)|default:'.....................'} {else} {/if}</td>
+					</tr>
+					<tr>
+						<td valign="top">Pekerjaan</td>
+						<td valign="top" align="center">:</td>
+						<td valign="top" style="padding-bottom: 3px;">{$data.surat.info_tambahan.pekerjaan_peneliti_mhs|default:'.....................'}</td>
+					</tr>
+					<tr>
+						<td valign="top">Alamat</td>
+						<td valign="top" align="center">:</td>
+						<td valign="top" style="padding-bottom: 3px;">{$data.surat.info_tambahan.alamat_peneliti_mhs|default:'.....................'}</td>
+					</tr>
+					<tr>
+						<td valign="top">Judul</td>
+						<td valign="top" align="center">:</td>
+						<td valign="top" style="padding-bottom: 3px;"><b>{$data.surat.info_tambahan.judul_penelitian_mhs|default:'.....................'}</b></td>
+					</tr>
+				</table> 
+			</td>
+		</tr>
+		{/if}
+		<tr>
+			<td align="justify" style="margin-left: 20px;margin-right: 20px;margin-bottom: 10px; font-weight: none;font-size: 14px;line-height: 1.3;" cellspacing="5">
+				&emsp;&emsp;Bermaksud mengadakan <b>Penelitian</b> pada wilayah kerja Bapak/Ibu, dalam rangka <b>{$data.surat.info_tambahan.tujuan_penelitian_mhs|default:'.....................'}</b> yang akan dilaksanakan mulai tanggal <b>{tgl_indo($data.surat.info_tambahan.tgl_awal_penelitian)|default:'.....................'}  sampai dengan {tgl_indo($data.surat.info_tambahan.tgl_akhir_penelitian)|default:'.....................'}</b>.
+			</td>
+		</tr>
+		<tr>
+			<td align="justify" style="margin-left: 20px;margin-right: 20px;margin-bottom: 10px; font-weight: none; font-size: 14px;line-height: 1.3;" cellspacing="5">
+				&emsp;&emsp;Demikian Surat Keterangan ini dibuat untuk dipergunakan seperlunya.
+			</td>
+		</tr>
+		<!-- <tr>
+			<td align="justify" style="margin-left: 20px;margin-right: 20px;margin-bottom: 10px; font-weight: none; font-size: 14px;line-height: 1.3;" cellspacing="5">
+				&emsp;&emsp;Demikian disampaikan dan selanjutnya yang bersangkutan melaporkan hasil penelitian Kepada Walikota Makassar Cq. Kepala Kantor Badan Kesatuan Bangsa Kota Makassar.
+			</td>
+		</tr> -->
+	</table>
+</table>
+
+<table width="100%" style="margin-left: 20px;margin-right: 20px;margin-bottom: 20px; font-weight: none;font-size: 14px">
+	<tr>
+		<td width="50%">
+			&nbsp;
+		</td>
+		<td align="left" width="50%">
+			
+			{ttd_fullkanan($data,$setting)}
+		</td>
+	</tr>
+</table>
+
+<!-- {if $data.surat.info_tambahan.tembusan !=''}
+<div style="padding-left: 10px;padding-top: 70px;">
+	<h5>Tembusan :</h5>
+	<dl>
+		<dt style="font-size: 12px;padding-top: -15px">{nl2br({$data.surat.info_tambahan.tembusan|default:'.....................'})}</dt>
+	</dl>
+</div>
+{else} 
+{/if} -->
+
+	<!-- <p style="line-height: 1.6;text-align: left;margin-left: 10px;margin-right: 10px;padding-top: -20px;font-size: 12px;">
+		{if $data.surat.info_tambahan.catatan_undangan != ''}Catatan : {$data.surat.info_tambahan.catatan_undangan|default:'.....................'}{else}{/if}</p>
+			
+	 -->
+</div>
+</body>
+</html>

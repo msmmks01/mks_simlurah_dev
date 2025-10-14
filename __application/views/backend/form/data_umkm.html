@@ -1,0 +1,340 @@
+<form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/data_umkm" enctype="multipart/form-data" >
+    <input type="hidden" name="id" value="{$data.id|default:''}">
+	<input type="hidden" name="editstatus" value="{$sts|default:'add'}">
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<h3 class="box-title">Form Isian</h3>
+				</div>
+				<div class="box-body">
+					<div class="row">
+						<div class="col-md-12">
+
+							<div class="row" style="margin-bottom:10px;">
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="true" label="Kelurahan" class_width="col-lg-12" type="baca_aja" name="cl_kelurahan_desa_id" id="cl_kelurahan_desa_id" value="{$kelurahan.nama|default:''}"}
+								</div>
+                                <div class="col-md-4">
+									{include file="backend/template/input_form.html" label="Kecamatan" class_width="col-lg-12" type="baca_aja" name="kecamatan" id="kecamatan" value="{$kecamatan.nama|default:''}"}
+								</div>					
+							</div>
+							<div class="row" style="margin-bottom:10px">
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" label="Nama UMKM" class_width="col-lg-12" type="text" name="nama_umkm" id="nama_umkm" required="true" value="{$data.nama_umkm|default:''}"}
+								</div>
+                                <div class="col-md-4">
+									{include file="backend/template/input_form.html" label="Nama Pemilik" class_width="col-lg-12" type="text" name="pemilik" id="pemilik" required="true" value="{$data.pemilik|default:''}"}
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html"
+									label="Jenis UMKM" class_width="col-lg-12" type="select2"
+									required="true" name="jenis" id="jenis"
+									option={$jenis_umkm|default:''} }
+								</div>
+                                <div class="col-md-4">
+									{include file="backend/template/input_form.html" label="No. HP" class_width="col-lg-12" type="pnj_hp" name="telp" id="telp" value="{$data.telp|default:''}"}
+								</div>
+                                <div class="col-md-4">
+									{include file="backend/template/input_form.html" label="NIK" class_width="col-lg-12" type="pnj_karakter" name="nik" id="nik" required="true" value="{$data.nik|default:''}"}
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" label="Koordinat (Ambil Dari Google Map)" 
+									class_width="col-lg-12" type="text" required="true" placeholder="contoh: -5.13935799930719, 119.45180916240452"
+									name="koordinat" id="koordinat"
+									value="{$kor|default:''}"}
+								  </div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html" label="Jumlah Karyawan" class_width="col-lg-12" class="angka" type="angka" name="naker" id="naker" value="{$data.naker|default:''}"}
+								</div>
+							</div>
+                            <div class="row" style="margin-bottom:10px;">
+                                <div class="col-md-8">
+									{include file="backend/template/input_form.html" label="Alamat" class_width="col-lg-12" type="textarea" name="alamat" id="alamat" required="true" value="{$data.alamat|default:''}"}
+								</div>
+                               
+                            </div> 
+							<div class="row" style="margin-bottom:10px;">
+                                
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html"
+									label="Modal" class_width="col-lg-12" type="select2"
+									required="true" name="modal" id="modal"
+									option={$modal|default:''} }
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html"
+									label="Omzet" class_width="col-lg-12" type="select2"
+									required="true" name="obzet" id="obzet"
+									option={$obzet|default:''} }
+								</div>
+								
+                            </div>
+                            <div class="row" style="margin-bottom:10px;">
+                                
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html"
+									label="Sertifikat" class_width="col-lg-12" type="select2"
+									required="true" name="sertifikat" id="sertifikat"
+									option={$sertifikat|default:''} }
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html"
+									label="NIB" class_width="col-lg-12" type="select2"
+									required="true" name="nib" id="nib"
+									option={$nib|default:''} }
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html"
+									label="IUMK" class_width="col-lg-12" type="select2"
+									required="true" name="uimk" id="uimk"
+									option={$uimk|default:''} }
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html"
+									label="SITU" class_width="col-lg-12" type="select2"
+									required="true" name="situ" id="situ"
+									option={$situ|default:''} }
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html"
+									label="TDP" class_width="col-lg-12" type="select2"
+									required="true" name="tdp" id="tdp"
+									option={$tdp|default:''} }
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html"
+									label="PIRT" class_width="col-lg-12" type="select2"
+									required="true" name="pirt" id="pirt"
+									option={$pirt|default:''} }
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html"
+									label="Sertifikat Halal" class_width="col-lg-12" type="select2"
+									required="true" name="s_halal" id="s_halal"
+									option={$s_halal|default:''} }
+								</div>
+                            </div>
+							<div class="row" style="margin-bottom:10px;">
+                                
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html"
+									label="Website" class_width="col-lg-12" type="select2"
+									required="true" name="website" id="website"
+									option={$website|default:''} }
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html"
+									label="Facebook" class_width="col-lg-12" type="select2"
+									required="true" name="facebook" id="facebook"
+									option={$facebook|default:''} }
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html"
+									label="Instagram" class_width="col-lg-12" type="select2"
+									required="true" name="instagram" id="instagram"
+									option={$instagram|default:''} }
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html"
+									label="Tokopedia" class_width="col-lg-12" type="select2"
+									required="true" name="tokopedia" id="tokopedia"
+									option={$tokopedia|default:''} }
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html"
+									label="Shopee" class_width="col-lg-12" type="select2"
+									required="true" name="shopee" id="shopee"
+									option={$shopee|default:''} }
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html"
+									label="Bukalapak" class_width="col-lg-12" type="select2"
+									required="true" name="bukalapak" id="bukalapak"
+									option={$bukalapak|default:''} }
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html"
+									label="Lazada" class_width="col-lg-12" type="select2"
+									required="true" name="lazada" id="lazada"
+									option={$lazada|default:''} }
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html"
+									label="Blibli" class_width="col-lg-12" type="select2"
+									required="true" name="blibli" id="blibli"
+									option={$blibli|default:''} }
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html"
+									label="JD ID" class_width="col-lg-12" type="select2"
+									required="true" name="jd_id" id="jd_id"
+									option={$jd_id|default:''} }
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html"
+									label="Grab" class_width="col-lg-12" type="select2"
+									required="true" name="grab" id="grab"
+									option={$grab|default:''} }
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html"
+									label="Gojek" class_width="col-lg-12" type="select2"
+									required="true" name="gojek" id="gojek"
+									option={$gojek|default:''} }
+								</div>
+								
+                            </div>
+
+
+							<!-- <div class="row">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>STATUS DATA</legend>
+									</fieldset>
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html" required="true" label="Status" class_width="col-lg-12" type="select" name="status_data" id="status_data" option={$status_data|default:''} }
+								</div>
+							</div> -->
+
+							<div class="row">
+								<div class="col-md-12">
+									<hr/>
+									{include file="backend/template/input_form.html" label="Upload File *jpg|jpeg|png|pdf" class_width="col-lg-12" type="file" name="file" id="file" value="{$data.file|default:''}"}
+									<br/>
+									{include file="backend/template/button_save.html" text="Simpan" id_na="save" style_btn="btn-success"  btn_goyz="false"}
+									{include file="backend/template/button_save.html" text="Kembali" click="$('#grid_nya_{$mod}').show();$('#detil_nya_{$mod}').hide();" id_na="cancel" style_btn="btn-danger"  btn_goyz="true"}
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</form>
+
+<script>
+
+	$('#nik').on('keyup', function() {
+		if (this.value.length < 16) {
+			document.getElementById("nik").style.borderColor = "red";
+		}else{
+			document.getElementById("nik").style.borderColor = "green";
+		}
+		
+	});
+
+	$('#nomor_hp').on('keyup', function() {
+		if (this.value.length < 10) {
+			document.getElementById("nomor_hp").style.borderColor = "red";
+		}else{
+			document.getElementById("nomor_hp").style.borderColor = "green";
+		}
+		
+	});
+	$('.angka').autoNumeric('init', {
+		aSep : '.',
+		aDec: ',',
+		mDec: '0'
+	});
+
+	var rulesnya = {
+		pemilik : "required",
+		nama_umkm : "required",
+		nik : "required",
+		jenis : "required",
+		koordinat : "required",
+		sektor_usaha : "required",
+		alamat : "required",
+		modal : "required",
+		obzet : "required",
+		sertifikat : "required",
+		nib : "required",
+		uimk : "required",
+		situ : "required",
+		tdp : "required",
+		pirt : "required",
+		s_halal : "required",
+		website : "required",
+		facebook : "required",
+		instagram : "required",
+		tokopedia : "required",
+		shopee : "required",
+		bukalapak : "required",
+		lazada : "required",
+		blibli : "required",
+		jd_id : "required",
+		grab : "required",
+		gojek : "required"
+	};
+
+	var messagesnya = {
+		pemilik : "<i style='color:red'>Harus Diisi</i>",
+		nama_umkm : "<i style='color:red'>Harus Diisi</i>",
+		nik : "<i style='color:red'>Harus Diisi</i>",
+		jenis : "<i style='color:red'>Harus Diisi</i>",
+		koordinat : "<i style='color:red'>Harus Diisi</i>",
+		sektor_usaha : "<i style='color:red'>Harus Diisi</i>",
+		alamat : "<i style='color:red'>Harus Diisi</i>",
+		modal : "<i style='color:red'>Harus Diisi</i>",
+		obzet : "<i style='color:red'>Harus Diisi</i>",
+		sertifikat : "<i style='color:red'>Harus Diisi</i>",
+		nib : "<i style='color:red'>Harus Diisi</i>",
+		uimk : "<i style='color:red'>Harus Diisi</i>",
+		situ : "<i style='color:red'>Harus Diisi</i>",
+		tdp : "<i style='color:red'>Harus Diisi</i>",
+		pirt : "<i style='color:red'>Harus Diisi</i>",
+		s_halal : "<i style='color:red'>Harus Diisi</i>",
+		website : "<i style='color:red'>Harus Diisi</i>",
+		facebook : "<i style='color:red'>Harus Diisi</i>",
+		instagram : "<i style='color:red'>Harus Diisi</i>",
+		tokopedia : "<i style='color:red'>Harus Diisi</i>",
+		shopee : "<i style='color:red'>Harus Diisi</i>",
+		bukalapak : "<i style='color:red'>Harus Diisi</i>",
+		lazada : "<i style='color:red'>Harus Diisi</i>",
+		blibli : "<i style='color:red'>Harus Diisi</i>",
+		jd_id : "<i style='color:red'>Harus Diisi</i>",
+		grab : "<i style='color:red'>Harus Diisi</i>",
+		gojek : "<i style='color:red'>Harus Diisi</i>"
+	}
+
+	$( "#form_{$acak}" ).validate( {
+		rules: rulesnya,
+		messages: messagesnya,
+		submitHandler: function(form) {
+			var cek = $('#nik').val();
+			var pnj = cek.length;
+			if (pnj < 16) {
+				$.messager.alert(nama_apps,'NIK tidak valid ','error');
+			}else{
+			$.LoadingOverlay("show");
+			submit_form('form_{$acak}',function(r){
+				if(r == 1 ){
+					$.messager.alert(nama_apps,'Data Tersimpan','info');
+					$('#cancel_{$acak}').trigger('click');
+					$('#grid_data_umkm').datagrid('reload');
+				}else{
+					$.messager.alert(nama_apps,'Proses Simpan Data Gagal '+r,'warning');
+				}
+				$.LoadingOverlay("hide", true);
+			});
+			}
+			//*/
+		},
+		errorPlacement: function(error, element) {
+	        var name = element.attr('name');
+	        var errorSelector = '.validation_error_message[for="' + name + '"]';
+	        var $element = $(errorSelector);
+	        if ($element.length) {
+	            $(errorSelector).html(error.html());
+	        } else {
+	            error.insertAfter(element);
+	        }
+	    }
+	} );
+</script>

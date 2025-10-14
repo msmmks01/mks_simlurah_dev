@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SIMLURAH ADMINISTRASI</title>
+    <style>
+      table {
+        width: 100%;
+      }
+      body {
+        font-family: "arial";
+      }
+    </style>
+  </head>
+  <body>
+    <div id="content">
+      <div style="padding-bottom: 5mm">
+        <table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;font-family: arial;">
+		
+		  {include file="backend/template/kop_surat_kelurahan.html"}
+		
+          <tr>
+            <td colspan="3" align="center">
+              <b><u>{$data.surat.info_tambahan.judul_surat_bukti|default:'.....................'}</u></b>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div style="padding-left: 15.44mm; padding-bottom: 2mm; font-size: 16px">
+		{if $data.surat.info_tambahan.ceklis_3ttd neq ''}
+		<table cellpadding="7">
+			{foreach from=$data.surat.info_tambahan.data_foto_dokumen item=pen}
+			<tr>
+				<td colspan="2" align="center">
+					<img src="{$host}/{$pen.file_foto}" width="420" height="270">
+					<br>
+					{$pen.ket_foto}
+				</td>
+			</tr>
+			{/foreach}
+		</table>
+		{else} 
+        <table cellpadding="7">
+			{$total = count($data.surat.info_tambahan.data_foto_dokumen)}
+			{$no=0}
+			{foreach from=$data.surat.info_tambahan.data_foto_dokumen item=pen}
+			{$no = $no + 1}
+			{if $total%2 == '1' && $no == $total}
+				<tr>
+					<td colspan="2" align="center">
+						<img src="{$host}/{$pen.file_foto}" width="300" height="200">
+						<br>
+						{$pen.ket_foto}
+					</td>
+				</tr>
+			{elseif $no%2 == '1'} 
+				<tr>
+					<td align="center">
+						<img src="{$host}/{$pen.file_foto}" width="300" height="200">
+						<br>
+						{$pen.ket_foto}
+					</td>
+			{else} 
+					<td align="center">
+						<img src="{$host}/{$pen.file_foto}" width="300" height="200">
+						<br>
+						{$pen.ket_foto}
+					</td>
+				</tr>
+			{/if}
+			{/foreach}
+		</table>
+      {/if}
+
+	{if $data.surat.info_tambahan.nip_pernyataan !=''}
+	<div
+      style="
+        padding-right: 5.82mm;padding-left: 20.44mm;padding-bottom: 1mm;font-size: 16px;">
+      <table style="border-collapse: collapse; width: 100%" border="0" cellpadding="0">
+        <tr>
+          <td valign="bottom" width="25%"><br/></td>
+          <td valign="bottom" width="20%">&nbsp;</td>
+          <td valign="bottom" width="55%">
+            {ucwords(strtolower(str_replace('KOTA','',$data.pemohon.nama_kota)))|default:''},
+            {$data.surat.tanggal_surat|default:'............................'}
+          </td>
+        </tr>
+		<tr>
+			<td valign="bottom"><br/></td>
+			<td valign="bottom">&nbsp;</td>
+			<td valign="bottom" align="left"><b>{$data.surat.info_tambahan.jabatan|default:'............................'}</b></td>
+		</tr>
+		<tr>
+			<td><br/></td>
+			<td><br/></td>
+			<td><br/></td>
+		</tr>
+		<tr>
+			<td><br/></td>
+			<td><br/></td>
+			<td><br/></td>
+		</tr>
+		<tr>
+			<td><br/></td>
+			<td><br/></td>
+			<td><br/></td>
+		</tr>
+		<tr>
+			<td><br/></td>
+			<td>&nbsp;</td>
+			<td><b><u>{$data.surat.info_tambahan.nama|default:'.....................'}</u></b></td>
+		</tr>
+		<tr>
+			<td><br/></td>
+			<td>&nbsp;</td>
+			<td>Pangkat : {$data.surat.info_tambahan.pangkat|default:'............................'}</td>
+		</tr>
+		<tr>
+			<td><br/></td>
+			<td>&nbsp;</td>
+			<td>Nip : {$data.surat.info_tambahan.nip_pernyataan}</td>
+		</tr>
+	</table>
+	{else} 
+	{/if}
+
+    </div>
+  </body>
+</html>

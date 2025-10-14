@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+    <title></title>
+
+    <style type="text/css">
+      table {
+        width: 100%;
+      }
+      body {
+        font-family: "arial";
+      }
+    </style>
+  </head>
+  <body>
+    <div style="padding-bottom: 5mm;">
+      <table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;">
+        {include file="backend/template/kop_surat_kecamatan.html"}
+        <tr>
+          <td colspan="3" align="center" style="padding-top: 5mm;"> 
+            <b><u>SURAT DISPENSASI CAMAT</u></b>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3" align="center" style="font-size: 13.3px">
+            NOMOR: 
+						{if isset($data.surat.info_tambahan.ttd_srikandi) and $data.surat.info_tambahan.ttd_srikandi neq ''}
+						{'${nomor_naskah}'}
+						{else}
+						{$data.surat.no_surat|default:'..................................................'}
+						{/if}
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div
+      style="padding-right: 5.82mm;padding-left: 15.44mm;padding-bottom: 2mm;font-size: 16px;padding-top: -10px;">
+      <table cellspacing="0" border="0" width="100%" style="border-collapse: collapse; line-height: 1.5">
+        <tr>
+          <td colspan="6" align="left" valign="top">
+            Yang bertanda tangan di bawah ini :
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" style="width: 42px"><br /></td>
+          <td align="left" valign="top" style="width: 80px">Nama</td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td colspan="3" align="left" valign="top">
+            <b>{$data.pemohon.nama|default:'.....................'}</b>
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" style="width: 42px"><br /></td>
+          <td align="left" valign="top" style="width: 80px">NIP</td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td colspan="3" align="left" valign="top">
+            <b>{$data.pemohon.nip|default:'.....................'}</b>
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" style="width: 42px"><br /></td>
+          <td align="left" valign="top" style="width: 80px">Pangkat/Gol.</td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td colspan="3" align="left" valign="top">
+            <b>{$data.pemohon.pangkat|default:'.....................'}</b>
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" style="width: 42px"><br /></td>
+          <td align="left" valign="top" style="width: 80px">Jabatan</td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td colspan="3" align="left" valign="top">
+            <b>{$data.pemohon.jabatan|default:'.....................'}</b>
+          </td>
+        </tr>
+      </table>
+      <table cellspacing="0" border="0" width="100%" style="border-collapse: collapse; line-height: 1.5">
+        <tr>
+          <td colspan="6" align="left" valign="top">
+            Memberikan Izin atau Dispensasi Nikah untuk Melangsungkan Perkawinan antara :
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" style="width: 42px"><b>I.</b></td>
+          <td align="left" valign="top" style="width: 160px"><b>Calon Suami</b></td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td align="left" valign="top"></td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" style="width: 42px"><br/></td>
+          <td align="left" valign="top" style="width: 160px">Nama</td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td align="left" valign="top">
+            {$data.surat.info_tambahan.nama_catin_laki|default:'.....................'}
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"><br/></td>
+          <td align="left" valign="top">Bin</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">
+            {$data.surat.info_tambahan.wali_catin_laki|default:'.....................'}
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"><br /></td>
+          <td align="left" valign="top">Tempat/Tanggal Lahir</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">{$data.surat.info_tambahan.tmt_lahir_catin_laki|default:'.....................'}/{$data.surat.info_tambahan.tgl_lahir_catin_laki|default:'.....................'}</td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"><br /></td>
+          <td align="left" valign="top">Agama</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">{$data.surat.info_tambahan.agama_catin_laki|default:'.....................'}</td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"><br /></td>
+          <td align="left" valign="top">Pekerjaan</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">{$data.surat.info_tambahan.pekerjaan_catin_laki|default:'.....................'}</td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"><br /></td>
+          <td align="left" valign="top">Alamat</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">
+            {$data.surat.info_tambahan.alamat_catin_laki|default:'.....................'}
+          </td>
+        </tr>
+        <tr>
+          <td colspan="6" align="center" valign="bottom"><br /></td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" style="width: 42px"><b>II.</b></td>
+          <td align="left" valign="top" style="width: 160px"><b>Calon Istri</b></td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td align="left" valign="top"></td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" style="width: 42px"><br/></td>
+          <td align="left" valign="top" style="width: 160px">Nama</td>
+          <td align="center" valign="top" style="width: 15px">:</td>
+          <td align="left" valign="top">
+            {$data.surat.info_tambahan.nama_catin_wanita|default:'.....................'}
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"><br/></td>
+          <td align="left" valign="top">Bin</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">
+            {$data.surat.info_tambahan.wali_catin_wanita|default:'.....................'}
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"><br /></td>
+          <td align="left" valign="top">Tempat/Tanggal Lahir</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">{$data.surat.info_tambahan.tmt_lahir_catin_wanita|default:'.....................'}/{$data.surat.info_tambahan.tgl_lahir_catin_wanita|default:'.....................'}</td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"><br /></td>
+          <td align="left" valign="top">Agama</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">{$data.surat.info_tambahan.agama_catin_wanita|default:'.....................'}</td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"><br /></td>
+          <td align="left" valign="top">Pekerjaan</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">{$data.surat.info_tambahan.pekerjaan_catin_wanita|default:'.....................'}</td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"><br /></td>
+          <td align="left" valign="top">Alamat</td>
+          <td align="center" valign="top">:</td>
+          <td align="left" valign="top">
+            {$data.surat.info_tambahan.alamat_catin_wanita|default:'.....................'}
+          </td>
+        </tr>
+        <tr>
+          <td colspan="6" align="center" valign="bottom"><br /></td>
+        </tr>
+        <tr>
+          <td colspan="6" width="100%" valign="top" align="justify" style="padding-top: -20px">
+            Dengan alasan yang dapat diterima sebagaimana yang telah disampaikan kepada Kami, sehingga pemeriksaan dan pelaksanaan Akad Nikahnya <b>dapat dilaksanakan 
+              kurang dari {$data.surat.info_tambahan.waktu_dispen_catin|default:'.......'}.
+          </td>
+        </tr>
+        <tr>
+          <td colspan="6" width="100%" valign="top" align="justify">
+            Demikian Surat Dispensasi ini diberikan atas permintaan yang bersangkutan untuk digunakan sebagaimana mestinya.
+          </td>
+        </tr>
+      </table>
+    </div>
+    <br/>
+   {ttd_1($data,$setting)}
+</html>

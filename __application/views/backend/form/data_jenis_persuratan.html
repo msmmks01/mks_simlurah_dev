@@ -1,0 +1,202 @@
+<form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/cl_jenis_surat" enctype="multipart/form-data" >
+    <input type="hidden" name="id" value="{$data.id|default:''}">
+	<input type="hidden" name="editstatus" value="{$sts|default:'add'}">
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<h3 class="box-title"><strong>Daftar Hashtag :</strong></h3>
+				</div>
+					<div class="box-header with-border">
+						<table width="45%">
+							<tr>
+								<td>#nama_desa</td>
+								<td></td>
+								<td>#nama_anak</td> 
+								<td></td>
+								<td>#no_kk</td>
+							</tr>
+							<tr>
+								<td>#nama_dalam_sertifikat</td>
+								<td></td>
+								<td>#no_sertifikat</td>
+								<td></td>
+								<td>#nama_kecamatan</td>
+							</tr>
+							<tr>
+								<td>#nama_kab_kota</td>
+								<td></td>
+								<td>#rt</td>
+								<td></td>
+								<td>#rw</td>
+							</tr>
+							<tr>
+								<td>#nama_ibu</td>
+								<td></td>
+								<td>#tgl_pernyataan</td>
+								<td></td>
+								<td>#nama_pekerjaan</td>
+							</tr>
+							<tr>
+								<td>#penghasilan</td>
+								<td></td>
+								<td>#istri</td>
+								<td></td>
+								<td>#istri_terbilang</td>
+							</tr>
+							<tr>
+								<td>#anak</td>
+								<td></td>
+								<td>#anak_terbilang</td>
+								<td></td>
+								<td>#nama_suami</td>
+							</tr>
+							<tr>
+								<td>#hari_meninggal</td>
+								<td></td>
+								<td>#tgl_pengantar</td>
+								<td></td>
+								<td>#nama_pemakaman</td>
+							</tr>
+							<tr>
+								<td>#no_surat_keterangan</td>
+								<td></td>
+								<td>#surat_pengantar</td>
+								<td></td>
+								<td>#tgl_kebakaran</td>
+							</tr>
+							<tr>
+								<td>#rincian_kerugian</td>
+								<td></td>
+								<td>#nik</td>
+								<td></td>
+								<td>#peruntukan_surat</td>
+							</tr>
+							<tr>
+								<td>#alamat</td>
+								<td></td>
+								<td>#tgl_surat_pernyataan</td>
+								<td></td>
+								<td>#tgl_pergi</td>
+							</tr>
+							<tr>
+								<td>#satker_polisi</td>
+								<td></td>
+								<td>#no_surat_pengantar</td>
+								<td></td>
+								<td>#tgl_surat_pengantar</td>
+							</tr>
+							<tr>
+								<td>#nama_usaha</td>
+								<td></td>
+								<td>#alamat_usaha</td>
+								<td></td>
+								<td>#usia_kandungan</td>
+							</tr>
+						</table>
+					</div>
+					<br>
+				<div class="box-header with-border">
+					<h3 class="box-title">Form Isian</h3>
+				</div>
+				<div class="box-body">
+					<div class="row">
+						<div class="col-md-12"> 
+							
+							<div class="row" >
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>DATA JENIS PERSURATAN</legend>
+									</fieldset>
+								</div>
+								<div class="col-md-5">
+									{include file="backend/template/input_form.html" required="true" label="Jenis Surat" class_width="col-lg-12" type="text" name="jenis_surat" id="jenis_surat" value="{$data.jenis_surat|default:''}"}
+								</div>
+								
+							</div>
+							<div class="row" style="margin-bottom:10px;">
+								
+								<div class="col-md-12">
+									{include file="backend/template/input_form.html" required="true" label="Teks 1" class_width="col-lg-12" type="textarea" name="teks_1" id="teks_1" value={$data.teks_1|default:''} }
+								</div>
+								
+							</div>
+							<div class="row" style="margin-bottom:10px;">
+								
+								<div class="col-md-12">
+									{include file="backend/template/input_form.html" required="true" label="Teks 2" class_width="col-lg-12" type="textarea" name="teks_2" id="teks_2" value={$data.teks_2|default:''} }
+								</div>
+								
+							</div>
+							<div class="row" style="margin-bottom:10px;">
+								
+								<div class="col-md-12">
+									{include file="backend/template/input_form.html" required="true" label="Teks 3" class_width="col-lg-12" type="textarea" name="teks_3" id="teks_3" value={$data.teks_3|default:''} }
+								</div>
+								
+							</div>
+
+							<div class="row">
+								<div class="col-md-12">
+									<hr />
+									{include file="backend/template/button_save.html" text="Simpan" id_na="save" style_btn="btn-success"  btn_goyz="false"}
+									{include file="backend/template/button_save.html" text="Kembali" click="$('#grid_nya_{$mod}').show();$('#detil_nya_{$mod}').hide();" id_na="cancel" style_btn="btn-danger"  btn_goyz="true"}	
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</form>
+
+<script>
+	var rulesnya = {
+		jenis_surat : "required",
+		teks_1 : "required",
+		teks_2 : "required",
+		teks_3 : "required",
+		
+	};
+
+	var messagesnya = {
+		jenis_surat : "<i style='color:red'>Harus Diisi</i>",
+		teks_1 : "<i style='color:red'>Harus Diisi</i>",
+		teks_2 : "<i style='color:red'>Harus Diisi</i>",
+		teks_3 : "<i style='color:red'>Harus Diisi</i>",
+		
+	}
+
+	$( "#form_{$acak}" ).validate( {
+		rules: rulesnya,
+		messages: messagesnya,
+		submitHandler: function(form) {
+			$.LoadingOverlay("show");
+			submit_form('form_{$acak}',function(r){
+				if(r == 1 ){ 
+					$.messager.alert(nama_apps,'Data Tersimpan','info'); 
+					$('#cancel_{$acak}').trigger('click');
+					$('#grid_data_jenis_persuratan').datagrid('reload');
+				}else{ 
+					$.messager.alert(nama_apps,'Proses Simpan Data Gagal '+r,'warning'); 
+				}
+				$.LoadingOverlay("hide", true);
+			});
+			//*/
+		},
+		errorPlacement: function(error, element) {
+	        var name = element.attr('name');
+	        var errorSelector = '.validation_error_message[for="' + name + '"]';
+	        var $element = $(errorSelector);
+	        if ($element.length) { 
+	            $(errorSelector).html(error.html());
+	        } else {
+	            error.insertAfter(element);
+	        }
+	    }
+	} );
+</script>

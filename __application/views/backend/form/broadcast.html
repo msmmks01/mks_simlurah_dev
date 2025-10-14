@@ -1,0 +1,129 @@
+<form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/broadcast" enctype="multipart/form-data" >
+    <input type="hidden" name="id" value="{$data.id|default:''}">
+	<input type="hidden" name="editstatus" value="{$sts|default:'add'}">
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<h3 class="box-title"><b>FORM BROADCAST</b></h3>
+				</div>
+				<div class="box-body">
+					<div class="row">
+						<div class="col-md-12"> 
+							
+							<div class="row">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>INFORMASI BROADCAST ATAU SURAT EDRAN</legend>
+									</fieldset>
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" label="Tanggal Broadcast" class_width="col-lg-12" type="date" placeholder="dd-mm-yyyy" name="tgl_broadcast" id="tgl_broadcast" value="{$data.tgl_broadcast|default:''}"}
+								</div>
+								<div class="col-md-8">
+									{include file="backend/template/input_form.html" label="Perihal" class_width="col-lg-12" type="text" name="subjek" id="subjek" value="{$data.subjek|default:''}"}
+								</div>
+									<div class="col-md-12">
+										<label>Tujuan Broadcast</label>
+									</div>
+								
+									<div class="col-md-4">
+										<input type="checkbox" onclick="toggle(this);" /> Pilih semua<br/>
+									{foreach from=$data2.kelurahan item=rows key=k}
+										<input type="checkbox" id="tujuan" name="tujuan[]" value="{$rows.id}" /> {$rows.nama|default:'.....................'}<br />
+									{/foreach}
+									</div>
+							<div class="row">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>URAIAN BROADCAST ATAU SURAT EDARAN</legend>
+									</fieldset>
+								</div>
+								<div class="col-md-12">
+									{include file="backend/template/input_form.html" label="Pesan" class_width="col-lg-12" type="textarea_wysig" name="pesan" id="pesan" value="{$data.pesan|default:''}"}
+									<br>
+									{include file="backend/template/input_form.html" label="Upload File" class_width="col-lg-12" type="file" name="file" id="file" value="{$data.file|default:''}"}
+								</div>
+							</div>	
+						</div>
+							
+						<div class="row">
+							<div class="col-md-12">
+								<hr />
+								{include file="backend/template/button_save.html" text="Simpan" id_na="save" style_btn="btn-success"  btn_goyz="false"}
+								{include file="backend/template/button_save.html" text="Kembali" click="$('#grid_nya_{$mod}').show();$('#detil_nya_{$mod}').hide();" id_na="cancel" style_btn="btn-danger"  btn_goyz="true"}
+							</div>
+						</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</form>
+
+<script>
+
+	$('.angka').autoNumeric('init', {
+		aSep : '.',
+		aDec: ',',
+		mDec: '0'
+	});
+	function toggle(source) {
+		var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+		for (var i = 0; i < checkboxes.length; i++) {
+			if (checkboxes[i] != source)
+				checkboxes[i].checked = source.checked;
+		}
+	}
+	var rulesnya = {
+		tgl_broadcast : "required",
+		subjek : "required",
+		nama_kelurahan : "required",
+		pesan : "required"
+	}
+	var messagesnya = {
+		tgl_broadcast : "<i style='color:red'>Harus Diisi</i>",
+		subjek : "<i style='color:red'>Harus Diisi</i>",
+		nama_kelurahan : "<i style='color:red'>Harus Diisi</i>",
+		pesan : "<i style='color:red'>Harus Diisi</i>"
+	}
+	$( "#form_{$acak}" ).validate( {
+		rules: rulesnya,
+		messages: messagesnya,
+		submitHandler: function(form) {
+		
+			$.LoadingOverlay("show");
+			submit_form('form_{$acak}',function(r){
+				if(r == 1 ){ 
+					$.messager.alert(nama_apps,'Data Tersimpan','info'); 
+					$('#cancel_{$acak}').trigger('click');
+					loadUrl(host+'backoffice-grid/broadcast');
+				}
+				else{ 
+					$.messager.alert(nama_apps,'Proses Simpan Data Gagal','warning'); 
+				}
+				$.LoadingOverlay("hide", true);
+			});
+			//*/
+		},
+		errorPlacement: function(error, element) {
+	        var name = element.attr('name');
+	        var errorSelector = '.validation_error_message[for="' + name + '"]';
+	        var $element = $(errorSelector);
+	        if ($element.length) { 
+	            $(errorSelector).html(error.html());
+	        } else {
+	            error.insertAfter(element);
+	        }
+	    }
+	} );
+
+	function upload_file(){
+		alert('lihat');
+	}
+
+</script>

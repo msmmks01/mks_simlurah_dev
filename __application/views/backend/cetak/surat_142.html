@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SIMLURAH ADMINISTRASI</title>
+    <style>
+		table { width:100%; } 
+		body { font-family: 'arial'; }
+	</style>
+</head>
+<body>
+	<div id='content'>
+		<div style="padding-bottom: 5mm;">
+			<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;">
+			
+				{include file="backend/template/kop_surat_kecamatan.html"}
+			</table>
+			<br>
+			<table width="100%" style="margin-bottom: 20px; font-size: 15px">
+				<tr>
+					<td align="center" style="padding-left: 380px;">{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'..........'}, {$data.surat.tanggal_surat|default:'............................'}</td>
+				</tr>
+			</table>
+			<table width="100%" style="margin-left: 25px;margin-right: 25px;margin-bottom: 20px; font-weight: none; font-size: 17px;" cellspacing="0" cellpadding="10">
+				<tr>
+					<td width="95%">
+						<table>
+							<tr>
+								<td valign="top" >Nomor</td>
+								<td valign="top" >:</td>
+								<td valign="top" style="padding-right: 250px;">
+						{if isset($data.surat.info_tambahan.ttd_srikandi) and $data.surat.info_tambahan.ttd_srikandi neq ''}
+						{'${nomor_naskah}'}
+						{else}
+						{$data.surat.no_surat|default:'..................................................'}
+						{/if}</td>
+							</tr>
+							<tr>
+								<td valign="top">Lampiran</td>
+								<td valign="top">:</td>
+								<td valign="top" style="padding-right: 250px;">{$data.surat.info_tambahan.lampiran_undangan_kec|default:'.....................'}</td>
+							</tr>
+							<tr>
+								<td valign="top">Perihal</td>
+								<td valign="top">:</td>
+								<td valign="top" style="padding-right: 250px;"><u><b>{$data.surat.info_tambahan.perihal|default:'.....................'}</b></u></td>
+							</tr>
+							<tr>
+								<td valign="top" colspan="2">&nbsp;</td>
+							</tr>
+							{if $data.surat.info_tambahan.kpd_yth !=''}
+							<tr>
+								<td valign="top">Yth.</td>
+								<td valign="top"></td>
+								<td valign="top" style="padding-left: -30px;"><b>{nl2br({$data.surat.info_tambahan.kpd_yth|default:'.....................'})}</b></td>
+							</tr>
+							{else}
+								<tr>
+									<td valign="top"></td>
+									<td valign="top" colspan="2">Bapak/Ibu/Saudara (i)</td>
+								</tr>
+							{/if}
+							<tr>
+								<td valign="top">di</td>
+								<td valign="top"></td>
+								<td valign="top"></td>
+							</tr>	
+							{if $data.surat.info_tambahan.di_undangan != ''}
+							<tr>
+								<td valign="top">&nbsp;</td>
+								<td valign="top"></td>
+								<td valign="top" style="padding-left: -87x;">{$data.surat.info_tambahan.di_undangan|default:'..........'}</td>
+							</tr>
+							{else}
+								<tr>
+									<td valign="top">&nbsp;</td>
+									<td valign="top">&nbsp;</td>
+									<td valign="top">{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'..........'}</td>
+								</tr>
+							{/if}	
+						</table>
+					</td>
+					<td width="30%">
+						<table>
+							<tr>
+								<td valign="top"></td>
+								<td valign="top" colspan="2">&nbsp;</td>
+							</tr>
+							<tr>
+								<td valign="top">&nbsp;</td>
+								<td valign="top">&nbsp;</td>
+								<td valign="top">&nbsp;</td>
+							</tr>
+							<tr>
+								<td valign="top">&nbsp;</td>
+								<td valign="top" colspan="2">&nbsp;</td>
+							</tr>
+							<tr>
+								<td valign="top">&nbsp;</td>
+								<td valign="top">&nbsp;</td>
+								<td valign="top">&nbsp;</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+
+		<table cellspacing="0" cellpadding="3" border="0" width="100%" style="margin-left: 25px;margin-right: 25px;border-collapse: collapse; line-height: 1.5;font-size: 14px;">
+			<tr>
+				<td align="justify" style="margin-left: 25px;margin-right: 25px;padding-bottom: 10px;line-height: 1.5;">
+					&emsp;&emsp;Berdasarkan DPA SKPD pada Kecamatan {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kecamatan)))|default:''}
+            Kota {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:''} Tahun Anggaran 2025, 
+            Maka dengan ini kami mohon kiranya untuk dapat terlaksananya pekerjaan Penunjang Urusan Pemerintah 
+            Daerah Kabupaten/Kota. Pada Penyedia Jasa Konsultasi untuk dapat melakukan pekerjaan paket dibawah ini :<span style="font-size:20px">&nbsp;</span>
+				</td>
+			</tr>
+		</table>
+
+		<table cellspacing="0" cellpadding="3" border="1" width="100%" style="margin-left: 25px;margin-right: 25px;border-collapse: collapse; line-height: 1.5;font-size: 12px;">
+			
+			<tr>
+				<td style="width: 5%;" valign="middle" align="center"><b>No.</b></td>
+				<td style="width: 10%;" valign="middle" align="center"><b>Kode Rekening</b></td>
+				<td style="width: 20%;" valign="middle" align="center"><b>Kegiatan</b></td>
+				<td style="width: 25%;" valign="middle" align="center"><b>Sub Kegiatan</b></td>
+				<td style="width: 15%;" valign="middle" align="center"><b>Belanja</b></td>
+				<td style="width: 10%;" valign="middle" align="center"><b>Nilai Pagu</b></td>
+				<td style="width: 15%;" valign="middle" align="center"><b>Calon Penyedia</b></td>
+			</tr>
+			{$no=1} {$nox=1} 
+			{foreach from=$data.surat.info_tambahan.data_dokumen item}
+			<tr>
+				<td style="border: hidden;padding-top: 10px; height: 120px" valign="top" align="center"><b>{$no++}.</b></td>
+				<td style="border: hidden;padding-top: 10px" valign="top" align="center">{$item.kd_rek_pengadaan|default:''}</td>
+				<td style="border: hidden;padding-top: 10px" valign="top" align="left">{$item.keg_pengadaan|default:''}</td>
+				<td style="border: hidden;padding-top: 10px" valign="top" align="left">{$item.sub_keg_pengadaan|default:''}</td>
+				<td style="border: hidden;padding-top: 10px" valign="top" align="left">{$item.belanja_pengadaan|default:''}</td>
+				<td style="border: hidden;padding-top: 10px" valign="top" align="right">{$item.nilai_pagu_pengadaan|default:''}</td>
+				<td style="border: hidden;padding-top: 10px" valign="top" align="left">{$item.calon_penyedia_pengadaan|default:''}</td>
+			</tr>
+			{/foreach}
+		</table>
+    <br>
+		<table cellspacing="0" cellpadding="3" border="0" width="100%" style="margin-left: 25px;margin-right: 25px;border-collapse: collapse; line-height: 1.5;font-size: 14px;">
+        <tr>
+          <td align="justify" style="padding-left:-6px;padding-right:50px;line-height: 1.5;">
+            &emsp;&emsp;Bersama ini Kami lampirkan :
+          </td>
+        </tr>
+        <tr>
+          <td align="justify" style="padding-left:-6px;padding-right:50px;line-height: 1.5;">
+            &emsp;&emsp;{nl2br({$data.surat.info_tambahan.dokumen_pengadaan|default:''})}
+          </td>
+			</tr>
+    </table>
+    <br>
+		<table width="100%" style="margin-bottom: 20px; font-weight: none; font-size: 14px">
+			<tr>
+				<td width="55%">
+					&nbsp;
+				</td>
+				<td align="left" width="45%">  
+					{ttd_fullkanan($data,$setting)}
+				</td>
+			</tr>
+		</table>  
+		
+</body>
+</html>

@@ -1,0 +1,121 @@
+<style type="text/css">
+	.border-danger {
+		border-color: #fd0000;
+	}
+
+	.wajib .border-danger::placeholder {
+		color: red;
+	}
+</style>
+<form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/data_surat_edit" enctype="multipart/form-data">
+	<input type="hidden" name="id" value="{$id|default:''}" />
+	<input type="hidden" name="cl_jenis_surat_id" id="cl_jenis_surat_id" value="{$cl_jenis_surat_id|default:''}" />
+	<input type="hidden" name="editstatus" value="edit" />
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<h3 class="box-title"><b>FORM ISIAN {$judul_surat|default:''}</b></h3>
+				</div>
+				<div class="box-body">
+                    <div id="content">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12"> 
+			<hr />
+			{include file="backend/template/button_save.html" text="Simpan" id_na="save"
+			style_btn="btn-success" btn_goyz="false"}
+			{include file="backend/template/button_save.html" text="Kembali"
+			click="loadUrl('backoffice-grid/data_surat');$('#detil_nya_data_surat').html('');editor_destroy();" id_na="cancel"
+			style_btn="btn-danger" btn_goyz="true"}
+		</div>
+	</div>
+
+</form>
+	
+	<!-- <script src="https://cdn.tiny.cloud/1/37fvfeypnziq42r2enryb9hqvcvp3ih7iamzorxrf0rxeebk/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script> -->
+	 <!-- <script src="https://cdn.tiny.cloud/1/uptof5gnkx0r891b8o55bvujnifwym2xixy93ph4flqbt9av/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script> -->
+	  <!-- <script src="https://cdn.tiny.cloud/1/1fcargrtlkhlt9ckrbqoativy97i85l1vokn608qcy8946so/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script> -->
+	  <!-- <script src="https://cdn.tiny.cloud/1/v820i0umnbwyixabet5i5qapyltrsu4gndahuruk5tzs0f7n/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script> -->
+	  <!-- <script src="https://cdn.tiny.cloud/1/v820i0umnbwyixabet5i5qapyltrsu4gndahuruk5tzs0f7n/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script> -->
+	   <!-- <script src="https://cdn.tiny.cloud/1/bf8qik3qs2b6psjnjqskbq7q21c23wah7kjfn2b6d886qgdo/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script> -->
+		<!-- <script src="https://cdn.tiny.cloud/1/bf8qik3qs2b6psjnjqskbq7q21c23wah7kjfn2b6d886qgdo/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script> -->
+		 <script src="https://cdn.tiny.cloud/1/s7ohhya8vhn4wxx5p81745wgizmyznr3kv4kg1jay9boq4fy/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script>
+
+<script>
+
+	var myInterval;
+	$(document).ready(function(e) {
+		myInterval = setInterval(myTimer, 900);
+	});
+
+
+
+	var idx_row = '{$jml_row|default:1}';
+	var combo_penduduk = '{$nik|default:""}';
+	var hubungan_waris = '{$nik|default:""}';
+	var status_waris = '{$nik|default:""}';
+	var data_pindah_penduduk_id = '{$data_pindah_penduduk_id|default:""}';
+	$(".select2nya").select2();
+	var rulesnya = {}
+	var messagesnya = {}
+	$("#form_{$acak}").validate({
+		rules: rulesnya,
+		messages: messagesnya,
+		submitHandler: function (form) {
+			$.LoadingOverlay("show");
+			submit_form('form_{$acak}', function (r) {
+				if (r == 1) {
+					$.messager.alert(nama_apps, 'Data Tersimpan', 'info');
+					$('#cancel_{$acak}').trigger('click');
+					$('#grid_data_surat').datagrid('reload');
+				} else {
+					$.messager.alert(nama_apps, 'Proses Simpan Data Gagal ' + r, 'warning');
+				}
+				$.LoadingOverlay("hide", true);
+			});
+		},
+		errorPlacement: function (error, element) {
+			var name = element.attr('name');
+			var errorSelector = '.validation_error_message[for="' + name + '"]';
+			var $element = $(errorSelector);
+			if ($element.length) {
+				$(errorSelector).html(error.html());
+			} else {
+				error.insertAfter(element);
+			}
+		}
+	});
+
+
+	function editor_destroy(){
+		tinymce.remove();
+	}
+
+	function myTimer() {
+		if (tinymce !== undefined){
+			$.get("{$host}backoffice-cetak/cetak_surat/{$cl_jenis_surat_id|default:''}/null/{$id|default:''}?view",function (html){
+				var textarea = $('<textarea id="editor" name="data_surat">');
+				$('#content').html(textarea);
+				textarea.val(html);
+				tinymce.init({
+					selector: 'textarea#editor',
+					plugins: 'autolink charmap image link lists searchreplace table visualblocks wordcount',
+					toolbar: 'undo redo | fontfamily fontsize | bold italic underline strikethrough | link image table | align lineheight | numlist bullist indent outdent | charmap | removeformat',
+					tinycomments_mode: 'embedded',
+					tinycomments_author: 'Author name',
+					automatic_uploads: true,
+					file_picker_types: 'image',
+					noneditable_noneditable_class: 'mceNonEditable',
+				});
+				clearInterval(myInterval);
+			});
+		}
+	}
+</script>

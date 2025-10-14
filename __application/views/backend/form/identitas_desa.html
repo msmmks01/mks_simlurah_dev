@@ -1,0 +1,397 @@
+<section class="content">
+	<div class="row">
+		<div class="col-lg-12">
+
+			<form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/identitas_desa" enctype="multipart/form-data" >
+				<input type="hidden" name="id" value="{$data.id|default:''}">
+				<input type="hidden" name="editstatus" value="{$sts|default:'add'}">
+				<div class="row">
+					<div class="col-md-12">
+						<!-- { $s = $this->auth['cl_user_group_id'] } -->
+						{if $auth['cl_kelurahan_desa_id'] neq '0'}
+						<div class="box box-primary">
+							<div class="box-header with-border">
+								<h3 class="box-title">Form Identitas Kelurahan</h3> &nbsp;&nbsp; <font color="red" style="font-weight:bold;font-size:10px;">Identitas Digunakan Untuk Profile Kop Surat</font>
+							</div>
+							<div class="box-body">
+								<div class="row">
+									<div class="col-md-12">
+										
+										<div class="row">
+											<div class="col-md-4">
+												{include file="backend/template/input_form.html" label="Provinsi" class_width="col-lg-12" type="select2" name="cl_provinsi_id" id="cl_provinsi_id" option={$cl_provinsi_id|default:''} }
+											</div>
+											<div class="col-md-4">
+												{include file="backend/template/input_form.html" label="Kab/Kota" class_width="col-lg-12" type="select2" name="cl_kab_kota_id" id="cl_kab_kota_id" option={$cl_kab_kota_id|default:''} }
+											</div>
+											<div class="col-md-4">
+												{include file="backend/template/input_form.html" label="Kecamatan" class_width="col-lg-12" type="select2" name="cl_kecamatan_id" id="cl_kecamatan_id" option={$cl_kecamatan_id|default:''} }
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-3">
+												{include file="backend/template/input_form.html" label="Kelurahan" class_width="col-lg-12" type="select2" name="cl_kelurahan_desa_id" id="cl_kelurahan_desa_id" option={$cl_kelurahan_desa_id|default:''} }
+											</div>
+											<div class="col-md-2">
+												{include file="backend/template/input_form.html" required="true" label="Kode Pos" class_width="col-lg-12" type="text" name="kode_pos" id="kode_pos" value="{$data.kode_pos|default:''}"}
+											</div>
+											<div class="col-md-7">
+												{include file="backend/template/input_form.html" required="true" label="Alamat Kantor Kelurahan" class_width="col-lg-12" type="text" name="alamat" id="alamat" value="{$data.alamat|default:''}"}
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-3">
+												{include file="backend/template/input_form.html" required="true" placeholder="(0411)" label="Telepon. (0411)" class_width="col-lg-12" type="text" name="telp" id="telp" value="{$data.telp|default:''}"}
+											</div>
+											<div class="col-md-3">
+												{include file="backend/template/input_form.html" required="true" placeholder="(0411)" label="Faks. (0411)" class_width="col-lg-12" type="text" name="faks" id="faks" value="{$data.faks|default:''}"}
+											</div>
+											<div class="col-md-3">
+												{include file="backend/template/input_form.html" required="true" label="E-mail" class_width="col-lg-12" type="text" name="email" id="email" value="{$data.email|default:''}"}
+											</div>
+											<div class="col-md-3">
+												{include file="backend/template/input_form.html" required="true" placeholder="www." label="Website" class_width="col-lg-12" type="text" name="website" id="website" value="{$data.website|default:''}"}
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-6">
+												{include file="backend/template/input_form.html" required="true" placeholder="Visi Misi Kelurahan" label="Visi Misi" class_width="col-lg-12" type="textarea" name="vis" id="vis" value="{$data.vis|default:''}"}
+											</div>
+											<br>
+											<br>
+											<div class="col-md-6">
+												
+											</div>
+										</div>
+										<hr>
+										<table border="1" style="width: 100%;border-collapse: collapse;">
+											<tr>
+												<td align="center" width="20%" style="height: 21px;">LOGO KOTA MAKASSAR</td>
+												<td align="center" width="60%" rowspan="3">
+													<table style="width: 100%;">
+														<tr>
+															<td align="center" valign="bottom" style="font-size:20.6px;">PEMERINTAH {$setting.nama_kab_kota|upper|default:'.......'}</td>
+														</tr>
+														<tr>
+															<td align="center" valign="top" style="font-size:20.6px;"></td>
+														</tr>
+														<tr>
+															<td align="center" style="font-size:22.6px;padding:0px">KECAMATAN {$setting.nama_kecamatan|upper|default:'.......'}</td>
+														</tr>
+														<tr>
+															<td align="center" valign="top" style="font-size:22.6px;"><b>{$setting.nama_desa|upper|default:'.......'}</b></td>
+														</tr>
+														<tr>
+															<td align="center" valign="top" style="font-size:14.6px;">
+																<i>
+																	{if strlen($setting.alamat)>1}
+																	{$setting.alamat|default:'...'}
+																	{/if}
+																	{if strlen($setting.telp)>1}
+																	Telp. {$setting.telp|default:'...'}
+																	{/if}
+																	{if strlen($setting.faks)>1}
+																	Fax. {$setting.faks|default:'...'}
+																	{/if}
+																	{if strlen($setting.email)>1}
+																	Email : {$setting.email|default:'...'}
+																	{/if}
+																	{if strlen($setting.nama_kab_kota)>1}
+																	{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'...'}
+																	{/if}
+																	{if strlen($setting.kode_pos)>1}
+																	Kode Pos {$setting.kode_pos|default:'...'}
+																	{/if}
+																	{if strlen($setting.website)>1}
+																	<br>Website : {str_replace('-','',$setting.website|default:'')}
+																	{/if}
+																</i>
+															</td>
+														</tr>
+													</table>
+												</td>
+												<td align="center" width="20%">LOGO LAINNYA</td>
+											</tr>
+											<tr>
+												<td align="center" style="padding: 10px 10px;"> <img src="{$host}{$setting.logo_kab_kota|default:''}" width="90px" alt="Logo" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-makassar.png'"> </td>
+												<td align="center" style="padding: 10px 10px;"> <img src="{$host}{$setting.logo_desa|default:''}" width="90px" alt="Logo Lainnya" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png'"> </td>
+											</tr>
+											<tr>
+												<td align="center" style="padding: 10px 10px;border-top: hidden;"><input type="file" name="logo_kab_kota" id="logo_kab_kota"></td>
+												<td align="center" style="padding: 10px 10px;border-top: hidden;">
+													<input type="file" name="logo_desa" id="logo_desa">
+													<div class="form-group" style="margin: 6px 0px 0px 0px;float: left;">
+														{if $data.status_logo_lainnya eq 1}
+														<input type="checkbox" name="status_logo_lainnya" id="status_logo_lainnya" value="1" checked>
+														{else}
+														<input type="checkbox" name="status_logo_lainnya" id="status_logo_lainnya" value="1">
+														{/if}
+														<label for="status_logo_lainnya" style="color:blue">&emsp;<b>AKTIFKAN LOGO</b></label>
+													</div>
+												</td>
+											</tr>
+										</table>
+										<hr>
+										<table border="1" style="width: 20%;border-collapse: collapse;">
+											<tr>
+												<td align="center" width="20%" style="height: 21px;">QR KEASLIAN DOKUMEN</td>													
+											</tr>
+											<tr>
+												<td align="center" style="padding: 10px 10px;"> <img id="qr_kelurahan" src="{$host}{$setting.qr_kelurahan|default:''}" width="90px" alt="-"> 
+													<br>
+													<br>
+													<button type="button" class="btn btn-primary btn-sm" onclick="generate_qr()"><i class="fa fa-qrcode"></i> Generate QR</button>
+													<br>
+													<div class="form-group" style="margin: 6px 0px 0px 0px;float: left;">
+														{if $data.qr_status eq 1}
+														<input type="checkbox" name="qr_status" id="qr_status" value="1" checked>
+														{else}
+														<input type="checkbox" name="qr_status" id="qr_status" value="1">
+														{/if}
+														<label for="qr_status" style="color:blue">&emsp;<b>AKTIFKAN LOGO QR</b></label>
+													</div>
+												</td>
+											
+											</tr>
+										</table>
+										<hr>
+										<div class="row">
+											<div class="col-md-12">
+												<hr />
+												{include file="backend/template/button_save.html" text="Simpan" id_na="save" style_btn="btn-success"  btn_goyz="false"}
+											</div>
+										</div>	
+									</div>
+								</div>
+							</div>
+						</div>
+						{else} 
+						<div class="box box-primary">
+							<div class="box-header with-border">
+								<h3 class="box-title">Form Identitas Kecamatan</h3> &nbsp;&nbsp; <font color="red" style="font-weight:bold;font-size:10px;">Identitas Digunakan Untuk Profile Kop Surat</font>
+							</div>
+							<div class="box-body">
+								<div class="row">
+									<div class="col-md-12">
+										
+										<div class="row">
+											<div class="col-md-4">
+												{include file="backend/template/input_form.html" label="Provinsi" class_width="col-lg-12" type="select2" name="cl_provinsi_id" id="cl_provinsi_id" option={$cl_provinsi_id|default:''} }
+											</div>
+											<div class="col-md-4">
+												{include file="backend/template/input_form.html" label="Kab/Kota" class_width="col-lg-12" type="select2" name="cl_kab_kota_id" id="cl_kab_kota_id" option={$cl_kab_kota_id|default:''} }
+											</div>
+											<div class="col-md-4">
+												{include file="backend/template/input_form.html" label="Kecamatan" class_width="col-lg-12" type="select2" name="cl_kecamatan_id" id="cl_kecamatan_id" option={$cl_kecamatan_id|default:''} }
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-2">
+												{include file="backend/template/input_form.html" required="true" label="Kode Pos" class_width="col-lg-12" type="text" name="kode_pos" id="kode_pos" value="{$data.kode_pos|default:''}"}
+											</div>
+											<div class="col-md-6">
+												{include file="backend/template/input_form.html" required="true" label="Alamat Kantor Kecamatan" class_width="col-lg-12" type="text" name="alamat" id="alamat" value="{$data.alamat|default:''}"}
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-3">
+												{include file="backend/template/input_form.html" required="true" placeholder="(0411)" label="Telepon. (0411)" class_width="col-lg-12" type="text" name="telp" id="telp" value="{$data.telp|default:''}"}
+											</div>
+											<div class="col-md-3">
+												{include file="backend/template/input_form.html" required="true" placeholder="(0411)" label="Faks. (0411)" class_width="col-lg-12" type="text" name="faks" id="faks" value="{$data.faks|default:''}"}
+											</div>
+											<div class="col-md-3">
+												{include file="backend/template/input_form.html" required="true" label="E-mail" class_width="col-lg-12" type="text" name="email" id="email" value="{$data.email|default:''}"}
+											</div>
+											<div class="col-md-3">
+												{include file="backend/template/input_form.html" required="true" placeholder="www." label="Website" class_width="col-lg-12" type="text" name="website" id="website" value="{$data.website|default:''}"}
+											</div>
+										</div>
+										<hr>
+										<table border="1" style="width: 100%;border-collapse: collapse;">
+											<tr>
+												<td align="center" width="20%" style="height: 21px;">LOGO KOTA MAKASSAR</td>
+												<td align="center" width="60%" rowspan="3">
+													<table style="width: 100%;">
+														<tr>
+															<td align="center" valign="bottom" style="font-size:20.6px;">PEMERINTAH {$setting.nama_kab_kota|upper|default:'.......'}</td>
+														</tr>
+														<tr>
+															<td align="center" style="font-size:26.6px;">KECAMATAN {$setting.nama_kecamatan|upper|default:'.......'}</td>
+														</tr>
+														<tr>
+															<td align="center" valign="top" style="font-size:20.6px;"></td>
+														</tr>
+														<tr>
+															<td align="center" valign="top" style="font-size:14.6px;">
+																<i>
+																	{if strlen($setting.alamat)>1}
+																	{$setting.alamat|default:'...'}
+																	{/if}
+																	{if strlen($setting.telp)>1}
+																	Telp. {$setting.telp|default:'...'}
+																	{/if}
+																	<!-- {if strlen($setting.faks)>1}
+																	Fax. {$setting.faks|default:'...'}
+																	{/if}
+																	{if strlen($setting.email)>1}
+																	Email : {$setting.email|default:'...'}
+																	{/if} -->
+																	{if strlen($setting.nama_kab_kota)>1}
+																	{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'...'}
+																	{/if}
+																	{if strlen($setting.kode_pos)>1}
+																	Kode Pos {$setting.kode_pos|default:'...'}
+																	{/if}
+																	<!-- {if strlen($setting.website)>1}
+																	<br>Website : {str_replace('-','',$setting.website|default:'')}
+																	{/if} -->
+																</i>
+															</td>
+														</tr>
+													</table>
+												</td>
+												<td align="center" width="20%">LOGO LAINNYA</td>
+											</tr>
+											<tr>
+												<td align="center" style="padding: 10px 10px;"> <img src="{$host}{$setting.logo_kab_kota|default:''}" width="90px" alt="Logo" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-makassar.png'"> </td>
+												<td align="center" style="padding: 10px 10px;"> <img src="{$host}{$setting.logo_desa|default:''}" width="90px" alt="Logo Lainnya" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png'"> </td>
+											</tr>
+											<tr>
+												<td align="center" style="padding: 10px 10px;border-top: hidden;"><input type="file" name="logo_kab_kota" id="logo_kab_kota"></td>
+												<td align="center" style="padding: 10px 10px;border-top: hidden;">
+													<input type="file" name="logo_desa" id="logo_desa">
+													<div class="form-group" style="margin: 6px 0px 0px 0px;float: left;">
+														{if $data.status_logo_lainnya eq 1}
+														<input type="checkbox" name="status_logo_lainnya" id="status_logo_lainnya" value="1" checked>
+														{else}
+														<input type="checkbox" name="status_logo_lainnya" id="status_logo_lainnya" value="1">
+														{/if}
+														<label for="status_logo_lainnya" style="color:blue">&emsp;<b>AKTIFKAN LOGO</b></label>
+													</div>
+												</td>
+											</tr>
+										</table>
+										<hr>
+										<div class="row">
+											<div class="col-md-6">
+												{include file="backend/template/input_form.html" required="true" placeholder="Profil Kecamatan" label="Profil" class_width="col-lg-12" type="textareabesar" name="profil" id="profil" value="{$data.profil|default:''}"}
+											</div>
+											<div class="col-md-6">
+												{include file="backend/template/input_form.html" label="Upload
+												Foto Pelengkap *jpg|jpeg|png|" class_width="col-lg-12" type="file"
+												name="file" id="file" value="{$data.file|default:''}"}
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<hr />
+												{include file="backend/template/button_save.html" text="Simpan" id_na="save" style_btn="btn-success"  btn_goyz="false"}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						{/if}
+					</div>
+				</div>
+				
+			</form>
+			
+		</div>
+	</div>
+</section>
+
+<script>
+	//$('.select2nya').select2().enable(false);
+	$(".select2nya").select2({
+		disabled: true
+	});
+
+	// $("#ceklis_logo").on('change', function() {
+	// 	if ($(this).is(':checked')) {
+	// 		$(this).attr('value', 'true');
+	// 	} else {
+	// 		$(this).attr('value', 'false');
+	// 	}
+		
+	// 	$('#checkbox-value').text($('#ceklis_logo').val());
+	// });
+
+	var rulesnya = {
+		kode_pos : "required",
+		nama_camat : "required",
+		nip_camat : "required",
+		nama_kepala_desa : "required",
+		nip_kepala_desa : "required",
+		alamat : "required",
+		telp : "required",
+		email : "required",
+		website : "required",
+	};
+
+	var messagesnya = {
+		kode_pos : "<i style='color:red'>Harus Diisi</i>",
+		nama_camat : "<i style='color:red'>Harus Diisi</i>",
+		nip_camat : "<i style='color:red'>Harus Diisi</i>",
+		nama_kepala_desa : "<i style='color:red'>Harus Diisi</i>",
+		nip_kepala_desa : "<i style='color:red'>Harus Diisi</i>",
+		alamat : "<i style='color:red'>Harus Diisi</i>",
+		telp : "<i style='color:red'>Harus Diisi</i>",
+		email : "<i style='color:red'>Harus Diisi</i>",
+		website : "<i style='color:red'>Harus Diisi</i>",
+	}
+
+	$( "#form_{$acak}" ).validate( {
+		rules: rulesnya,
+		messages: messagesnya,
+		submitHandler: function(form) {
+			$.LoadingOverlay("show");
+			submit_form('form_{$acak}',function(r){
+				if(r == 1 ){ 
+					$.messager.alert(nama_apps,'Data Tersimpan','info'); 
+					// location.reload();
+					loadUrl('{$host}backoffice-form/identitas_desa');
+				}else{ 
+					$.messager.alert(nama_apps,'Proses Simpan Data Gagal '+r,'warning'); 
+				}
+				$.LoadingOverlay("hide", true);
+			});
+			//*/
+		},
+		errorPlacement: function(error, element) {
+	        var name = element.attr('name');
+	        var errorSelector = '.validation_error_message[for="' + name + '"]';
+	        var $element = $(errorSelector);
+	        if ($element.length) { 
+	            $(errorSelector).html(error.html());
+	        } else {
+	            error.insertAfter(element);
+	        }
+	    }
+	} );
+
+	function generate_qr() {
+	
+		var url = "{$host}get-qrcode-dokumen";
+		$.LoadingOverlay("show");
+		$.ajax({
+			url: url,
+			type: "POST",
+			dataType: "json",
+			success: function(response) {
+				if (response.status == 'success') {
+					 $('#qr_kelurahan').attr('src', response.qr_code_url);
+				} else {
+					$.messager.alert(nama_apps, response.message, 'error');
+				}
+				$.LoadingOverlay("hide", true);
+			},
+			error: function(xhr, status, error) {
+				console.error(error);
+				$.LoadingOverlay("hide", true);
+			}
+		});
+	}
+</script>

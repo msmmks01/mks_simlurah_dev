@@ -1,0 +1,392 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 5.4.7.2 (Linux)"/>
+	<meta name="author" content="LENOVO"/>
+	<meta name="created" content="2024-06-25T09:11:03"/>
+	<meta name="changedby" content="LENOVO"/>
+	<meta name="changed" content="2024-06-26T08:28:53"/>
+	<meta name="AppVersion" content="16.0300"/>
+	<meta name="DocSecurity" content="0"/>
+	<meta name="HyperlinksChanged" content="false"/>
+	<meta name="LinksUpToDate" content="false"/>
+	<meta name="ScaleCrop" content="false"/>
+	<meta name="ShareDoc" content="false"/>
+	
+	<style type="text/css">
+		body,div,table,thead,tbody,tfoot,tr,th,td,p { font-family:"Calibri"; font-size:x-small }
+		a.comment-indicator:hover + comment { background:#ffd; position:absolute; display:block; border:1px solid black; padding:0.5em;  } 
+		a.comment-indicator { background:red; display:inline-block; border:1px solid black; width:0.5em; height:0.5em;  } 
+		comment { display:none;  } 
+	</style>
+	
+</head>
+
+<body> 
+	{if $data.surat.info_tambahan.no_surat_cuti !=''}
+	<div style="padding-bottom: 5mm;">
+		<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;">
+			<!-- <tr>
+				<td align="center" rowspan=4 valign="middle" style="width: 150px;">
+					<img src="{$host}__assets/images/logo-makassar.png" style="height:100px" />
+				</td>
+				<td align="center" valign="bottom" style="font-size:22.6px;padding:0px">PEMERINTAH {$setting.nama_kab_kota|upper|default:'.......'}</td>
+				{if $setting.status_logo_lainnya eq '1'}
+				<td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+					<img src="{$host}__assets/images/logo-camat.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';"  style="height:100px"/>
+				</td>
+				{else} 
+				<td align="center" rowspan=4 valign="middle"  style="width: 150px;">
+					<img src="{$host}__assets/images/logo-blank.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';"  style="height:100px"/>
+				</td>
+				{/if}
+			</tr>
+			<tr>
+				<td align="center" style="font-size:22.6px;padding:0px">KECAMATAN {$setting.nama_kecamatan|upper|default:'.......'}</td>
+			</tr>
+			<tr>
+				<td align="center" valign="top" style="font-size:18.6px;padding:0px"></td>
+			</tr>
+			<tr>
+				<td align="center" valign="top" style="font-size:10.6px;padding:0px">
+					<i>
+						{if strlen($setting.alamat)>1}
+						{$setting.alamat|default:'...'}
+						{/if}
+						{if strlen($setting.telp)>1}
+						Telp. {$setting.telp|default:'...'}
+						{/if}
+						{if strlen($setting.faks)>1}
+						Fax. {$setting.faks|default:'...'}
+						{/if}
+						{if strlen($setting.email)>1}
+						Email : {$setting.email|default:'...'}
+						{/if}
+						{if strlen($setting.nama_kab_kota)>1}
+						{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'...'}
+						{/if}
+						{if strlen($setting.kode_pos)>1}
+						Kode Pos {$setting.kode_pos|default:'...'}
+						{/if}
+						{if strlen($setting.website)>1}
+						<br>Website : {str_replace('-','',$setting.website|default:'')}
+						{/if}
+					</i>
+				</td>
+			</tr>
+			<tr>
+				<td align="center" colspan="3" align="center">
+					<hr style="color: black;height: 4px; margin-bottom:0px">
+					<hr style="color: black;height: 1px; margin-top:3px">
+				</td>
+			</tr> -->
+			{include file="backend/template/kop_surat_kecamatan.html"}
+		</table>
+	</div>
+	{/if}
+	{if $data.surat.info_tambahan.no_surat_cuti !=''}
+	<table width="100%" style="font-size: 13px;">
+		<tr>
+			<td align="center" style="padding-left: 250px;">{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'..........'}, {$data.surat.tanggal_surat|default:'............................'}</td>
+		</tr>
+	</table>
+	{else}
+	<table width="100%" style="font-size: 13px">
+		<tr>
+			<td align="center" style="padding-left: 250px;">{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'..........'}, {$data.surat.tanggal_surat|default:'............................'}</td>
+		</tr>
+	</table>
+	{/if}
+	<table width="100%" style="margin-left: 25px;font-weight: none; font-size: 13px;padding-top: -10px;" cellspacing="0" cellpadding="2">
+		<tr>
+			<td width="50%">
+				<table>
+					<tr>
+						<td valign="top"></td>
+						<td valign="top" colspan="2">&nbsp;</td>
+					</tr>
+					<tr>
+						<td valign="top">&nbsp;</td>
+						<td valign="top">&nbsp;</td>
+						<td valign="top">&nbsp;</td>
+					</tr>
+					<tr>
+						<td valign="top">&nbsp;</td>
+						<td valign="top" colspan="2">&nbsp;</td>
+					</tr>
+					<tr>
+						<td valign="top">&nbsp;</td>
+						<td valign="top">&nbsp;</td>
+						<td valign="top">&nbsp;</td>
+					</tr>
+				</table>
+			</td>
+			<td width="50%">
+				<table>
+					<tr>
+						<td valign="top" ></td>
+						<td valign="top" ></td>
+						<td valign="top" style="padding-right: 250px;"></td>
+					</tr>
+					<tr>
+						<td valign="top"></td>
+						<td valign="top"></td>
+						<td valign="top" style="padding-right: 250px;"></td>
+					</tr>
+					<tr>
+						<td valign="top"></td>
+						<td valign="top">Kepada</td>
+						<td valign="top" style="padding-right: 250px;"></td>
+					</tr>
+					<tr>
+						<td valign="top">Yth.</td>
+						<td valign="top"></td>
+						<td valign="top" style="padding-left: -60px;">Kepala Badan Kepegawaian dan SDM Daerah Kota Makassar</td>
+					</tr>
+					<tr>
+						<td valign="top">di</td>
+						<td valign="top"></td>
+						<td valign="top"></td>
+					</tr>	
+					<tr>
+						<td valign="top"></td>
+						<td valign="top">{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'..........'}</td>
+						<td valign="top"></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	<table width="100%" style="margin-left: 25px;font-weight: none; font-size: 13px;" cellspacing="0" cellpadding="2">
+		<tr>
+			<td colspan=3 align="center"><b><u>FORMULIR PERMINTAAN DAN PEMBERIAN CUTI</u></b></td>
+		</tr>
+		{if $data.surat.info_tambahan.no_surat_cuti !=''}
+		<tr>
+			<td colspan=3 align="center" style="font-size:13.3px;padding-top: -3px;">NOMOR: {$data.surat.info_tambahan.no_surat_cuti|default:'..................................................'}</td>
+		</tr>
+		{/if}
+	</table>
+	<table width="100%" cellspacing="0" border="0" style="border-collapse: collapse;font-size: 12px;">
+		<colgroup width="265"></colgroup>
+		<colgroup width="213"></colgroup>
+		<colgroup width="261"></colgroup>
+		<colgroup width="219"></colgroup>
+		<colgroup width="34"></colgroup>
+		<colgroup width="115"></colgroup>
+		<tr>
+			<td style="border-top: 1px  solid #000000; border-bottom: 1px solid #000000; border-left: 1px  solid #000000; border-right: 1px  solid #000000" colspan=6 height="15" align="left" valign=bottom><font color="#000000">1. DATA PEGAWAI</font></td>
+			</tr>
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px  solid #000000; border-right: 1px solid #000000" height="15" align="left" valign=middle><font color="#000000">Nama</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><b>{$data.surat.info_tambahan.nama_pegawai|default:'.....................'}</b></font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font color="#000000">NIP</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px  solid #000000" colspan=3 align="left" valign=bottom><font color="#000000"><b>{$data.surat.info_tambahan.nip_pegawai|default:'.....................'}</b></font></td>
+			</tr>
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px  solid #000000; border-right: 1px solid #000000" height="25" align="left" valign=middle><font color="#000000">Jabatan</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font color="#000000"><b>{$data.surat.info_tambahan.jabatan_pegawai|default:'.....................'}</b></font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=top><font color="#000000">Masa Kerja</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="left" valign=top><font color="#000000"><b>{$data.surat.info_tambahan.masa_kerja_pegawai|default:'.....................'}</b></font></td>
+			</tr>
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px  solid #000000; border-right: 1px solid #000000" height="15" align="left" valign=middle><font color="#000000">Unit Kerja</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=5 align="left" valign=bottom><font color="#000000"><b>{$data.surat.info_tambahan.unit_kerja_pegawai|default:'.....................'}</b></font></td>
+			</tr>
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px  solid #000000; border-right: 1px  solid #000000" colspan=6 height="15" align="center" valign=bottom><font color="#000000"><br></font></td>
+			</tr>
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px  solid #000000; border-right: 1px  solid #000000" colspan=6 height="15" align="left" valign=middle><font color="#000000">II. JENIS CUTI YANG DIAMBIL</font></td>
+			</tr>
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px  solid #000000; border-right: 1px solid #000000" height="15" align="left" valign=middle><font color="#000000">1. Cuti Tahunan</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">2. Cuti Besar</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px  solid #000000" colspan=3 align="left" valign=bottom><font color="#000000"><br></font></td>
+			</tr>
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px  solid #000000; border-right: 1px solid #000000" height="15" align="left" valign=bottom><font color="#000000">3. Cuti Sakit</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">4. Cuti Melahirkan</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px  solid #000000" colspan=3 align="left" valign=bottom><font color="#000000"><br></font></td>
+			</tr>
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px  solid #000000; border-right: 1px solid #000000" height="15" align="left" valign=middle><font color="#000000">5. Cuti Karena Alasan Penting</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">6. Cuti di Luar Tanggungan Negara</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px  solid #000000" colspan=3 align="left" valign=bottom><font color="#000000"><br></font></td>
+			</tr>
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px  solid #000000; border-right: 1px  solid #000000" colspan=6 height="15" align="center" valign=bottom><font color="#000000"><br></font></td>
+			</tr>
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px  solid #000000; border-right: 1px  solid #000000" colspan=6 height="15" align="left" valign=bottom><font color="#000000">III. ALASAN CUTI</font></td>
+			</tr>
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px  solid #000000; border-right: 1px  solid #000000" colspan=6 height="15" align="left" valign=bottom><font color="#000000">{$data.surat.info_tambahan.alasan_cuti|default:'.....................'}</font></td>
+			</tr>
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px  solid #000000; border-right: 1px  solid #000000" colspan=6 height="15" align="center" valign=bottom><font color="#000000"><br></font></td>
+			</tr>
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px  solid #000000; border-right: 1px  solid #000000" colspan=6 height="15" align="left" valign=bottom><font color="#000000">IV. LAMANYA CUTI</font></td>
+			</tr>
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px  solid #000000; border-right: 1px solid #000000" height="15" align="center" valign=bottom><font color="#000000">Selama</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font color="#000000">{$data.surat.info_tambahan.lamanya_cuti|default:'.....................'}</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font color="#000000">Mulai Tanggal</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font color="#000000">{tgl_indo($data.surat.info_tambahan.tgl_awal_cuti)|default:'.....................'}</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font color="#000000">s/d</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px  solid #000000" align="center" valign=bottom><font color="#000000">{tgl_indo($data.surat.info_tambahan.tgl_akhir_cuti)|default:'.....................'}</font></td>
+		</tr>
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px  solid #000000; border-right: 1px  solid #000000" colspan=6 height="15" align="center" valign=bottom><font color="#000000"><br></font></td>
+			</tr>
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px  solid #000000; border-right: 1px  solid #000000" colspan=6 height="15" align="left" valign=bottom><font color="#000000">V. CATATAN CUTI</font></td>
+			</tr>
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px  solid #000000; border-right: 1px solid #000000" colspan=3 height="15" align="left" valign=bottom><font color="#000000">1. Cuti Tahunan</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="left" valign=bottom><font color="#000000">2. Cuti Besar</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px  solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
+		</tr>
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px  solid #000000; border-right: 1px solid #000000" height="15" align="center" valign=bottom><font color="#000000">Tahun</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font color="#000000">Sisa</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font color="#000000">Keterangan</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="left" valign=bottom><font color="#000000">3. Cuti Sakit</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px  solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
+		</tr>
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px  solid #000000; border-right: 1px solid #000000" height="15" align="center" valign=bottom sdval="N-2" sdnum="1033;"><font color="#000000">N-2</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font color="#000000">{$data.surat.info_tambahan.sisa_cuti_thn|default:'.....................'}</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">{$data.surat.info_tambahan.ket_cuti_thn|default:''}</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="left" valign=bottom><font color="#000000">4. Cuti Melahirkan</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px  solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
+		</tr>
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px  solid #000000; border-right: 1px solid #000000" height="15" align="center" valign=bottom sdval="N-1" sdnum="1033;"><font color="#000000">N-1</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="left" valign=middle><font color="#000000">5. Cuti Karena Alasan Penting</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px  solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
+		</tr>
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px  solid #000000; border-right: 1px solid #000000" height="15" align="center" valign=bottom sdval="N" sdnum="1033;"><font color="#000000">N</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="left" valign=bottom><font color="#000000">6. Cuti di Luar Tanggungan Negara</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px  solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
+		</tr>
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px  solid #000000; border-right: 1px  solid #000000" colspan=6 height="15" align="center" valign=bottom><font color="#000000"><br></font></td>
+			</tr>
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px  solid #000000; border-right: 1px  solid #000000" colspan=6 height="15" align="left" valign=bottom><font color="#000000">VI. ALAMAT SELAMA MENJALANKAN CUTI</font></td>
+			</tr>
+		<tr>
+			<td style="border-top: 1px solid #000000; border-right: 1px solid #000000" colspan=2 height="15" align="center" valign=bottom><font color="#000000"><br></font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font color="#000000">TELP</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px  solid #000000" colspan=3 align="left" valign=bottom><font color="#000000"><br></font></td>
+			</tr>
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px  solid #000000; border-right: 1px solid #000000" colspan=2 rowspan=4 height="110" align="center" valign=middle><font color="#000000">{$data.surat.info_tambahan.alamat_selama_cuti|default:'.....................'}</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" rowspan=4 align="center" valign=middle><font color="#000000">{$data.surat.info_tambahan.no_hp|default:'.....................'}</font></td>
+			<td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px  solid #000000" colspan=3 align="center" valign=bottom><font color="#000000">Hormat saya,</font></td>
+			</tr>
+		<tr>
+			<td style="border-left: 1px solid #000000;height: 20px; border-right: 1px solid #000000" colspan=3 align="center" valign=bottom><font color="#000000"><br></font></td>
+			</tr>
+		<tr>
+			<td style="border-left: 1px solid #000000; border-right: 1px  solid #000000" colspan=3 align="center" valign=bottom><font color="#000000"><b>{$data.surat.info_tambahan.nama_pegawai|default:'.....................'}</b></font></td>
+			</tr>
+		{if $data.surat.info_tambahan.nip_pegawai != ''}
+		<!-- <tr>
+			<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px  solid #000000" colspan=3 align="center" valign=bottom><font color="#000000">Pangkat : {$data.surat.info_tambahan.jabatan_pegawai|default:'.....................'}</font></td>
+			</tr> -->
+		<tr>
+			<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px  solid #000000" colspan=3 align="center" valign=bottom><font color="#000000">Nip. {$data.surat.info_tambahan.nip_pegawai|default:'.....................'}</font></td>
+			</tr>
+		{/if}
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px  solid #000000; border-right: 1px  solid #000000" colspan=6 height="15" align="center" valign=bottom><font color="#000000"><br></font></td>
+			</tr>
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px  solid #000000; border-right: 1px  solid #000000" colspan=6 height="15" align="left" valign=bottom><font color="#000000">VII. PERTIMBANGAN ATASAN LANGSUNG</font></td>
+			</tr>
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px  solid #000000; border-right: 1px solid #000000" height="15" align="center" valign=bottom><font color="#000000">DISETUJUI</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font color="#000000">PERUBAHAN</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font color="#000000">DITANGGUHKAN</font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px  solid #000000" colspan=3 align="center" valign=bottom><font color="#000000">TIDAK DISETUJUI</font></td>
+			</tr>
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px  solid #000000; border-right: 1px solid #000000" height="15" align="left" valign=bottom><font color="#000000"><br></font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px  solid #000000" colspan=3 align="left" valign=bottom><font color="#000000"><br></font></td>
+			</tr>
+		<tr>
+			<td style="border-top: 1px solid #000000; border-bottom: 1px  solid #000000; border-left: 1px  solid #000000; border-right: 1px solid #000000" colspan=3 rowspan=5 height="120" align="center" valign=bottom><font color="#000000"><br></font></td>
+			<td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px  solid #000000" colspan=3 align="center" valign=middle><font color="#000000"><b>
+                {if count($data.ttd)==1}
+                {$data.ttd[0]['center']}
+                {else}
+                {$data.ttd[0]['center']}<br>{$data.ttd[1]['center']}
+                {/if}</b></font>
+			</td>
+			</tr>
+		<tr>
+			<td style="border-left: 1px solid #000000;height: 20px; border-right: 1px  solid #000000" colspan=3 align="center" valign=middle><font color="#000000"><br></font></td>
+			</tr>
+		<tr>
+			<td style="border-left: 1px solid #000000; border-right: 1px  solid #000000" colspan=3 align="center" valign=middle><font color="#000000"><b>{$data.pemohon.nama|default:'...............................'}</b></font></td>
+			</tr>
+		<tr>
+			<td style="border-bottom: 1px  solid #000000; border-left: 1px solid #000000; border-right: 1px  solid #000000" colspan=3 align="center" valign=bottom><font color="#000000">Pangkat : {$data.pemohon.pangkat|default:'............................'}</font></td>
+			</tr>
+		<tr>
+			<td style="border-bottom: 1px  solid #000000; border-left: 1px solid #000000; border-right: 1px  solid #000000" colspan=3 align="center" valign=bottom><font color="#000000">NIP : {$data.pemohon.nip|default:'...............................'}</font></td>
+			</tr>
+	</table>
+	<table width="100%" style="font-weight: none; font-size: 10px;margin-top: 10px;" cellspacing="0" cellpadding="0">
+		<tr>
+			<td colspan="2">Catatan :</td>
+		</tr>
+		<tr>
+			<td>*</td>
+			<td>Coret yang tidak perlu</td>
+		</tr>
+		<tr>
+			<td>**</td>
+			<td>Pilih salah satu dengan memberi tanda centang (✓)</td>
+		</tr>
+		<tr>
+			<td>***</td>
+			<td>Diisi oleh pejabat yang menangani bidang kepegawaian sebelum PNS mengajukan cuti</td>
+		</tr>
+		<tr>
+			<td>****</td>
+			<td>Diberi tanda centang dan alasannya</td>
+		</tr>	
+		<tr>
+			<td>N</td>
+			<td>Cuti tahun berjalan</td>
+		</tr>
+		<tr>
+			<td>N-1</td>
+			<td>Sisa cuti 1 tahun sebelumnya</td>
+		</tr>	
+		<tr>	
+			<td>N-2</td>
+			<td>Sisa cuti 2 tahun sebelumnya</td>
+		</tr>
+	</table>
+<!-- ************************************************************************** -->
+</body>
+</html>
