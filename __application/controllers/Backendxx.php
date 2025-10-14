@@ -7095,25 +7095,9 @@ class Backendxx extends JINGGA_Controller
 					)
 				";
 			}
-			$res = $this->db->query("SELECT m.max_penilaian_id + b.unique_b_id_rank AS penilaian_id,
-					b.cl_provinsi_id,b.cl_kab_kota_id,
-					b.cl_kecamatan_id,
-					b.cl_kelurahan_desa_id,
-					b.tbl_data_rt_rw_id,
-					b.nik,
-					b.nama_lengkap,
-					b.tgl_surat,
-					b.bulan,
-					b.kategori_penilaian_rt_rw_id,
-					b.kategori,
-					b.uraian,
-					b.satuan,
-					b.target,
-					b.capaian,
-					b.nilai,
-					CURRENT_DATE AS create_date
-					FROM (
-						SELECT 
+			$res = $this->db->query("
+				WITH base AS (
+					SELECT
 						a.cl_provinsi_id,
 						a.cl_kab_kota_id,
 						a.cl_kecamatan_id,
@@ -7131,27 +7115,42 @@ class Backendxx extends JINGGA_Controller
 						a.capaian,
 						a.nilai,
 						a.id AS penilaian_internal_id,
-						@rownum := IF(@prev_b = b.id, @rownum + 1, 1) AS row_num_within_b_id,
-						@rank := IF(@prev_b <> b.id, @rank + 1, @rank) AS unique_b_id_rank,
-						@prev_b := b.id
-						FROM tbl_penilaian_rt_rw a
-						INNER JOIN tbl_data_rt_rw b 
-							ON a.tbl_data_rt_rw_id = b.id 
-						AND a.cl_kelurahan_desa_id = b.cl_kelurahan_desa_id,
-							(SELECT @rownum := 0, @rank := 0, @prev_b := NULL) vars
-						WHERE b.status = 'Aktif'
-						AND a.bulan = $post[bulan_asal]
-						AND b.cl_kecamatan_id = '" . $this->auth['cl_kecamatan_id'] . "'
-						AND b.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "'
-						AND YEAR(a.tgl_surat) = " . $this->auth['tahun'] . "
-						$where
-						ORDER BY b.id, a.id
-					) AS b
-					CROSS JOIN (
-						SELECT COALESCE(MAX(penilaian_id), 0) AS max_penilaian_id
-						FROM tbl_penilaian_rt_rw
-					) AS m
+						ROW_NUMBER() OVER (PARTITION BY b.id ORDER BY a.id) AS row_num_within_b_id,
+						DENSE_RANK() OVER (ORDER BY b.id) AS unique_b_id_rank
+					FROM tbl_penilaian_rt_rw a
+					INNER JOIN tbl_data_rt_rw b ON a.tbl_data_rt_rw_id = b.id AND a.cl_kelurahan_desa_id=b.cl_kelurahan_desa_id
+					WHERE b.status = 'Aktif'
+					AND a.bulan = $post[bulan_asal]
+					AND b.cl_kecamatan_id='" . $this->auth['cl_kecamatan_id'] . "'
+					AND b.cl_kelurahan_desa_id='" . $this->auth['cl_kelurahan_desa_id'] . "'
+					AND YEAR(a.tgl_surat)=" . $this->auth['tahun'] . "
+					$where
+					),
+					max_id AS (
+					SELECT COALESCE(MAX(penilaian_id), 0) AS max_penilaian_id FROM tbl_penilaian_rt_rw
+					)
+					SELECT
+					m.max_penilaian_id + b.unique_b_id_rank AS penilaian_id,
+					b.cl_provinsi_id,
+					b.cl_kab_kota_id,
+					b.cl_kecamatan_id,
+					b.cl_kelurahan_desa_id,
+					b.tbl_data_rt_rw_id,
+					b.nik,
+					b.nama_lengkap,
+					b.tgl_surat,
+					b.bulan,
+					b.kategori_penilaian_rt_rw_id,
+					b.kategori,
+					b.uraian,
+					b.satuan,
+					b.target,
+					b.capaian,
+					b.nilai,
+					CURRENT_DATE AS create_date
+					FROM base b, max_id m
 					ORDER BY (m.max_penilaian_id + b.unique_b_id_rank);
+
 			");
 			$data = [];
 			$penilaian_id_temp = '';
