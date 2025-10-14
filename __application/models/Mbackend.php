@@ -5485,7 +5485,7 @@ class Mbackend extends CI_Model
 				}
 
 				if ($rw != '') {
-					$where .= " AND CAST(a.rw as UNSIGNED)='$rw'";
+					$where .= " AND CAST(a.rw as INT)='$rw'";
 				}
 				if ($bulan != '') {
 					$where .= " AND c.bulan=$bulan";
