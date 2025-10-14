@@ -7095,10 +7095,8 @@ class Backendxx extends JINGGA_Controller
 					)
 				";
 			}
-			$res = $this->db->query("SELECT 
-					m.max_penilaian_id + b.unique_b_id_rank AS penilaian_id,
-					b.cl_provinsi_id,
-					b.cl_kab_kota_id,
+			$res = $this->db->query("SELECT m.max_penilaian_id + b.unique_b_id_rank AS penilaian_id,
+					b.cl_provinsi_id,b.cl_kab_kota_id,
 					b.cl_kecamatan_id,
 					b.cl_kelurahan_desa_id,
 					b.tbl_data_rt_rw_id,
