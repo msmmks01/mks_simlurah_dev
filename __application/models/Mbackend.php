@@ -9172,11 +9172,20 @@ class Mbackend extends CI_Model
 				}
 
 
+				// $arsip = '';
+				// $xdir  = date('Ymd');
+				// if (!is_dir('./__data/' . $xdir)) {
+				// 	mkdir('./__data/' . $xdir, 0755);
+				// }
+
 				$arsip = '';
-				$xdir                     = date('Ymd');
-				if (!is_dir('./__data/' . $xdir)) {
-					mkdir('./__data/' . $xdir, 0755);
+				$xdir = date('Ymd');
+				$path = './__data/' . $xdir;
+
+				if (!is_dir($path)) {
+					mkdir($path, 0755, true);
 				}
+
 
 				$xconfig['upload_path']          = './__data/' . $xdir;
 				$xconfig['allowed_types']        = 'pdf|jpg|png|jpeg';
