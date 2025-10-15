@@ -11925,7 +11925,7 @@ class Mbackend extends CI_Model
 						case "76":
 
 							$sts  = 'MENINGGAL DUNIA';
-							$date = date('Y-m-d H: i: s');
+							$date = date('Y-m-d H:i:s');
 							$up   = $this->auth['nama_lengkap'] . " - Via Data Surat Keterangan Kematian Sekda";
 
 							$penduduk = array(
