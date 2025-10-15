@@ -13807,6 +13807,8 @@ class Mbackend extends CI_Model
 
 							$data['info_tambahan'] = json_encode($array);
 
+							$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
+							$data['tgl_pengantar'] = date('Y-m-d', strtotime($data['tgl_pengantar']));
 							$datax = array(
 								'no_surat' => $data['no_pengantar'],
 								'tgl_surat' => $data['tgl_pengantar'],
@@ -13838,6 +13840,7 @@ class Mbackend extends CI_Model
 
 							$array['tgl_pernyataan'] = $data['tgl_pernyataan'];
 
+							
 							$array['data_dokumen'] = [];
 							for ($i = 0; $i < count($data['nama_dalam_dokumen']); $i++) {
 								$array['data_dokumen'][] = array(
@@ -13885,6 +13888,8 @@ class Mbackend extends CI_Model
 
 							$data['info_tambahan']       = json_encode($array);
 
+							$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
+							$data['tgl_pengantar'] = date('Y-m-d', strtotime($data['tgl_pengantar']));
 							$datax = array(
 								'no_surat' => $data['no_pengantar'],
 								'tgl_surat' => $data['tgl_pengantar'],
@@ -13922,6 +13927,8 @@ class Mbackend extends CI_Model
 
 							$data['info_tambahan'] = json_encode($array);
 
+							$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
+							$data['tgl_pengantar'] = date('Y-m-d', strtotime($data['tgl_pengantar']));
 							$datax = array(
 								'no_surat' => $data['no_pengantar'],
 								'tgl_surat' => $data['tgl_pengantar'],
@@ -13995,6 +14002,8 @@ class Mbackend extends CI_Model
 
 							$data['info_tambahan'] = json_encode($array);
 
+							$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
+							$data['tgl_pengantar'] = date('Y-m-d', strtotime($data['tgl_pengantar']));
 							$datax = array(
 								'no_surat' => $data['no_pengantar'],
 								'tgl_surat' => $data['tgl_pengantar'],
@@ -14042,6 +14051,8 @@ class Mbackend extends CI_Model
 
 							$data['info_tambahan']         = json_encode($array);
 
+							$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
+							$data['tgl_pengantar'] = date('Y-m-d', strtotime($data['tgl_pengantar']));
 							$datax = array(
 								'no_surat' => $data['surat_pengantar'],
 								'tgl_surat' => $data['tgl_pengantar'],
@@ -14080,6 +14091,8 @@ class Mbackend extends CI_Model
 							}
 							$data['info_tambahan'] = json_encode($array);
 
+							$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
+							$data['tgl_pengantar'] = date('Y-m-d', strtotime($data['tgl_pengantar']));
 							$datax = array(
 								'no_surat' => $data['no_pengantar'],
 								'tgl_surat' => $data['tgl_pengantar'],
@@ -14115,6 +14128,8 @@ class Mbackend extends CI_Model
 
 							$data['info_tambahan'] = json_encode($array);
 
+							$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
+							$data['tgl_pengantar'] = date('Y-m-d', strtotime($data['tgl_pengantar']));
 							$datax = array(
 								'no_surat' => $data['no_pengantar'],
 								'tgl_surat' => $data['tgl_pengantar'],
@@ -14155,6 +14170,8 @@ class Mbackend extends CI_Model
 
 							$data['info_tambahan'] = json_encode($array);
 
+							$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
+							$data['tgl_surat_pengantar'] = date('Y-m-d', strtotime($data['tgl_surat_pengantar']));
 							$datax = array(
 								'no_surat' => $data['no_surat_pengantar'],
 								'tgl_surat' => $data['tgl_surat_pengantar'],
@@ -14184,6 +14201,8 @@ class Mbackend extends CI_Model
 
 							$data['info_tambahan'] = json_encode($array);
 
+							$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
+							$data['tgl_pengantar'] = date('Y-m-d', strtotime($data['tgl_pengantar']));
 							$datax = array(
 								'no_surat' => $data['no_pengantar'],
 								'tgl_surat' => $data['tgl_pengantar'],
@@ -14290,6 +14309,8 @@ class Mbackend extends CI_Model
 
 							$data['info_tambahan'] = json_encode($array);
 
+							$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
+							$data['tgl_pengantar'] = date('Y-m-d', strtotime($data['tgl_pengantar']));
 							$datax = array(
 								'no_surat' => $data['no_pengantar'],
 								'tgl_surat' => $data['tgl_pengantar'],
@@ -14405,6 +14426,8 @@ class Mbackend extends CI_Model
 							unset($data['foto_usaha']);
 							$data['info_tambahan'] = json_encode($array);
 
+							$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
+							$data['tgl_pengantar'] = date('Y-m-d', strtotime($data['tgl_pengantar']));
 							$datax = array(
 								'no_surat' => $data['no_pengantar'],
 								'tgl_surat' => $data['tgl_pengantar'],
@@ -14489,6 +14512,8 @@ class Mbackend extends CI_Model
 
 							$data['info_tambahan']    = json_encode($array);
 
+							$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
+							$data['tgl_pengantar'] = date('Y-m-d', strtotime($data['tgl_pengantar']));
 							$datax = array(
 								'no_surat' => $data['no_pengantar'],
 								'tgl_surat' => $data['tgl_pengantar'],
@@ -14547,6 +14572,8 @@ class Mbackend extends CI_Model
 
 							$data['info_tambahan'] = json_encode($array);
 
+							$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
+							$data['tgl_pengantar'] = date('Y-m-d', strtotime($data['tgl_pengantar']));
 							$datax = array(
 								'no_surat' => $data['no_pengantar'],
 								'tgl_surat' => $data['tgl_pengantar'],
@@ -14699,6 +14726,8 @@ class Mbackend extends CI_Model
 
 							$data['info_tambahan'] = json_encode($array);
 
+							$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
+							$data['tgl_pengantar'] = date('Y-m-d', strtotime($data['tgl_pengantar']));
 							$datax = array(
 								'no_surat' => $data['no_pengantar'],
 								'tgl_surat' => $data['tgl_pengantar'],
@@ -14767,6 +14796,8 @@ class Mbackend extends CI_Model
 
 							$data['info_tambahan'] = json_encode($array);
 
+							$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
+							$data['tgl_pengantar'] = date('Y-m-d', strtotime($data['tgl_pengantar']));
 							$datax = array(
 								'no_surat' => $data['no_pengantar'],
 								'tgl_surat' => $data['tgl_pengantar'],
@@ -14814,6 +14845,7 @@ class Mbackend extends CI_Model
 
 							$data['info_tambahan'] = json_encode($array);
 
+							$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
 							$datax = array(
 
 								'cl_jenis_surat_masuk_id' => '3',
@@ -14841,6 +14873,8 @@ class Mbackend extends CI_Model
 
 							$data['info_tambahan'] = json_encode($array);
 
+							$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
+							$data['tgl_pengantar'] = date('Y-m-d', strtotime($data['tgl_pengantar']));
 							$datax = array(
 								'no_surat' => $data['no_pengantar'],
 								'tgl_surat' => $data['tgl_pengantar'],
@@ -14897,6 +14931,8 @@ class Mbackend extends CI_Model
 
 							$data['info_tambahan'] = json_encode($array);
 
+							$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
+							$data['tgl_pengantar'] = date('Y-m-d', strtotime($data['tgl_pengantar']));
 							$datax = array(
 								'no_surat' => $data['no_pengantar'],
 								'tgl_surat' => $data['tgl_pengantar'],
@@ -14926,6 +14962,8 @@ class Mbackend extends CI_Model
 
 							$data['info_tambahan'] = json_encode($array);
 
+							$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
+							$data['tgl_pengantar'] = date('Y-m-d', strtotime($data['tgl_pengantar']));
 							$datax = array(
 								'no_surat' => $data['no_pengantar'],
 								'tgl_surat' => $data['tgl_pengantar'],
@@ -14987,6 +15025,8 @@ class Mbackend extends CI_Model
 
 							$data['info_tambahan'] = json_encode($array);
 
+							$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
+							$data['tgl_pengantar'] = date('Y-m-d', strtotime($data['tgl_surat_pengantar']));
 							$datax = array(
 								'no_surat' => $data['no_pengantar'],
 								'tgl_surat' => $data['tgl_pengantar'],
@@ -15062,6 +15102,8 @@ class Mbackend extends CI_Model
 
 							$data['info_tambahan'] = json_encode($array);
 
+							$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
+							$data['tgl_pengantar'] = date('Y-m-d', strtotime($data['tgl_pengantar']));
 							$datax = array(
 								'no_surat' => $data['no_pengantar'],
 								'tgl_surat' => $data['tgl_pengantar'],
