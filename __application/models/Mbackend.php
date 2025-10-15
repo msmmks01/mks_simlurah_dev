@@ -14551,7 +14551,7 @@ class Mbackend extends CI_Model
 						case "12":
 
 							$sts  = 'PINDAH DOMISILI';
-							$date = date('Y-m-d H: i: s');
+							$date = date('Y-m-d H:i:s');
 							$up   = $this->auth['nama_lengkap'] . " - Via Data Surat Keterangan Pindah Penduduk";
 							for ($i = 0; $i < count($data['nama_pindah_penduduk']); $i++) {
 								$penduduk = array(
