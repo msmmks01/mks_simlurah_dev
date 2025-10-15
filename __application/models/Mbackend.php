@@ -9164,6 +9164,12 @@ class Mbackend extends CI_Model
 				if (isset($data['tgl_surat']) && $data['tgl_surat'] != '') {
 					$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
 				}
+				if (isset($data['tgl_pernyataan']) && $data['tgl_pernyataan'] != '') {
+					$data['tgl_pernyataan'] = date('Y-m-d', strtotime($data['tgl_pernyataan']));
+				}
+				if (isset($data['tgl_pengantar']) && $data['tgl_pengantar'] != '') {
+					$data['tgl_pengantar'] = date('Y-m-d', strtotime($data['tgl_pengantar']));
+				}
 
 				$arsip = '';
 				$xdir                     = date('Ymd');
