@@ -9162,9 +9162,18 @@ class Mbackend extends CI_Model
 				$data['user_id'] = $this->auth['id'];
 				$data['data_surat'] = null;
 
-				if (isset($data['tgl_surat']) && $data['tgl_surat'] != '') {
-					$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
+				// if (isset($data['tgl_surat']) && $data['tgl_surat'] != '') {
+				// 	$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
+				// }
+				if (!empty($data['tgl_surat'])) {
+					$tgl = DateTime::createFromFormat('d-m-Y', $data['tgl_surat']);
+					if ($tgl) {
+						$data['tgl_surat'] = $tgl->format('Y-m-d');
+					} else {
+						$data['tgl_surat'] = null; // jika format tidak sesuai
+					}
 				}
+
 				if (isset($data['tgl_pernyataan']) && $data['tgl_pernyataan'] != '') {
 					$data['tgl_pernyataan'] = date('Y-m-d', strtotime($data['tgl_pernyataan']));
 				}
