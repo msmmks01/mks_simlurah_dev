@@ -9158,6 +9158,7 @@ class Mbackend extends CI_Model
 				break;
 
 			case "data_surat":
+				$data = $this->input->post();
 				$data['user_id'] = $this->auth['id'];
 				$data['data_surat'] = null;
 
