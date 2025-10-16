@@ -16076,6 +16076,8 @@ class Mbackend extends CI_Model
 					$data['status']       = 'Aktif';
 					$data['create_by']    = $this->auth['username'];
 					$data['create_date']  = date('Y-m-d H:i:s');
+					$data['update_by']    = $this->auth['username'];
+					$data['update_date']  = date('Y-m-d H:i:s');
 				}
 
 				break;
