@@ -15026,7 +15026,7 @@ class Mbackend extends CI_Model
 							$data['info_tambahan'] = json_encode($array);
 
 							$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
-							$data['tgl_pengantar'] = date('Y-m-d', strtotime($data['tgl_surat_pengantar']));
+							$data['tgl_pengantar'] = date('Y-m-d', strtotime($data['tgl_pengantar']));
 							$datax = array(
 								'no_surat' => $data['no_pengantar'],
 								'tgl_surat' => $data['tgl_pengantar'],
