@@ -16093,11 +16093,7 @@ class Mbackend extends CI_Model
 					$data['update_by']    = $this->auth['username'];
 					$data['update_date']  = date('Y-m-d H:i:s');
 					
-					// 🔹 Pastikan id_penandatanganan ada nilai (jika tabel tidak auto increment)
-					if ($sts_crud == "add") {
-						$cek_id = $this->db->query("SELECT IFNULL(MAX(id_penandatanganan),0)+1 AS id FROM tbl_data_penandatanganan")->row()->id;
-						$data['id_penandatanganan'] = $cek_id;
-					}
+					
 				}
 
 				break;
