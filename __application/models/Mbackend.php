@@ -9224,6 +9224,20 @@ class Mbackend extends CI_Model
 					$data['id_penandatanganan'] = $ceknip;
 				}
 
+				// 🔹 Jika belum ada id_penandatanganan, ambil otomatis penandatangan aktif di kelurahan user
+				if (empty($data['id_penandatanganan'])) {
+					$penanda = $this->db->query("
+						SELECT id_penandatanganan 
+						FROM tbl_data_penandatanganan 
+						WHERE status='Aktif' 
+						AND cl_kelurahan_desa_id = '".$this->auth['cl_kelurahan_desa_id']."' 
+						LIMIT 1
+					")->row_array();
+
+					$data['id_penandatanganan'] = $penanda ? $penanda['id_penandatanganan'] : null;
+				}
+
+
 				// if (isset($data['id'])) {
 				// 	$nik = $data['nik'];
 				// 	$ceknik = $this->db->query("SELECT id from tbl_data_penduduk where nik='$nik' and tbl_data_penduduk_id=")->row('id');
