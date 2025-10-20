@@ -4993,7 +4993,7 @@ class Backendxx extends JINGGA_Controller
 				);
 
 				$this->setting = $this->db->select('a.*,b.nip,b.nama,b.pangkat,b.jabatan')->where($array_setting)
-					->join('tbl_data_penandatanganan b', "a.cl_kecamatan_id=b.cl_kecamatan_id and a.cl_kelurahan_desa_id=b.cl_kelurahan_desa_id", 'left')
+					->join('tbl_data_penandatanganan b', "a.cl_kecamatan_id=b.cl_kecamatan_id and a.cl_kelurahan_desa_id=b.cl_kelurahan_desa_id and b.tingkat_jabatan='2.1' AND b.status='Aktif'", 'left')
 					->get("tbl_setting_apps a")->row_array();
 
 				$this->nsmarty->assign("setting", $this->setting);

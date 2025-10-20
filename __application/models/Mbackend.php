@@ -16098,7 +16098,6 @@ class Mbackend extends CI_Model
 
 				break;
 
-
 			case "data_kendaraan":
 				$data['nilai_perolehan'] = str_replace(",", "", @$data['nilai_perolehan']);
 
