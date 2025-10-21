@@ -31,7 +31,8 @@
 		<td style="border: 1px solid white;" colspan=10 height="19" align="center" valign=middle data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;KECAMATAN BIRINGKANAYA&quot;}"><b><font face="Arial" color="#000000">{$rows.kelurahan|upper}</font></b></td>
 		</tr>
 	<tr>
-		<td style="border: 1px solid white;" colspan=10 height="19" align="center" valign=middle data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;LAPORAN BULAN : 09 SEPTEMBER 2025&quot;}"><font face="Arial" color="#000000">LAPORAN BULAN : {bln_aja($rows.periode_cetak)|upper} {thn_aja($rows.periode_cetak)}</font></td>
+		<!-- <td style="border: 1px solid white;" colspan=10 height="19" align="center" valign=middle data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;LAPORAN BULAN : 09 SEPTEMBER 2025&quot;}"><font face="Arial" color="#000000">LAPORAN BULAN : {bln_aja($rows.periode_cetak)|upper} {thn_aja($rows.periode_cetak)}</font></td> -->
+		<td style="border: 1px solid white;" colspan=10 height="19" align="center" valign=middle data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;LAPORAN BULAN : 09 SEPTEMBER 2025&quot;}"><font face="Arial" color="#000000">LAPORAN BULAN : {$rows.bulan|upper}</font></td>
 		</tr>
 	{/foreach}
 	<tr>

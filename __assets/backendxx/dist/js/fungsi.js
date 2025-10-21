@@ -1440,12 +1440,20 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
           align: "left",
         },
 
+        // {
+        //   field: "bulan_indo",
+        //   title: "Bulan",
+        //   width: 150,
+        //   halign: "center",
+        //   align: "center",
+        // },
+
         {
-          field: "bulan_indo",
-          title: "Bulan",
+          field: "bulan",
+          title: "Periode",
           width: 150,
           halign: "center",
-          align: "center",
+          align: "left",
         },
 
         {

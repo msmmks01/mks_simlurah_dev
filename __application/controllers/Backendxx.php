@@ -3280,6 +3280,8 @@ class Backendxx extends JINGGA_Controller
 				$kel = $this->db->get_where('cl_kelurahan_desa', array('id' => $this->auth['cl_kelurahan_desa_id']))->row_array();
 				$this->nsmarty->assign('kel', $kel);
 
+				$this->nsmarty->assign("bulan", $this->lib->fillcombo("pilih_bulan", "return", ($sts == "edit" ? $data["bulan"] : "")));
+
 				break;
 
 			case "data_ekspedisi":
@@ -4257,9 +4259,7 @@ class Backendxx extends JINGGA_Controller
 
 			case "data_rekap_bulan":
 
-				$opt .= "<option value='a.jml_lk_wni'>Laki-laki</option>";
-
-				$opt .= "<option value='a.jml_pr_wni'>Perempuan</option>";
+				$opt .= "<option value='nama_bulan'>Bulan</option>";
 
 				break;
 
@@ -5290,6 +5290,7 @@ class Backendxx extends JINGGA_Controller
 
 			case "laporan_rekap_bulan":
 				$nip = $this->input->get('nip');
+				$bulan = $this->input->get('bulan');
 				$tgl_cetak = $this->input->get('tanggal');
 				$tgl_cetak = $tgl_cetak ? (date('Y-m-d', strtotime($tgl_cetak))) : (date("Y-m-d"));
 				$array_setting = array(
@@ -5305,7 +5306,10 @@ class Backendxx extends JINGGA_Controller
 
 				$this->nsmarty->assign("setting", $this->setting);
 				$this->nsmarty->assign("tgl_cetak", $tgl_cetak);
-				$data = $this->mbackend->getdata('laporan_rekap_bulan', 'result_array');
+
+				// $data = $this->mbackend->getdata('laporan_rekap_bulan', 'result_array');
+				$data = $this->mbackend->getdata('laporan_rekap_bulan', 'result_array', ['bulan' => $bulan]);
+
 				
 				$filename = "laporan-rekap-bulan-" . date('YmdHis');
 

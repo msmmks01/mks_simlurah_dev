@@ -2400,12 +2400,15 @@ class Mbackend extends CI_Model
 
 			case "laporan_rekap_bulan":
 
+				$param = $p1; // ambil dari controller
+    			$bulan = isset($param['bulan']) ? (int)$param['bulan'] : null;
 				$desa_id = $this->input->post('kelurahan_id');
 				$rt = $this->input->post('rt');
 				$rw = $this->input->post('rw');
 				$rt_get = $this->input->get('rt');
 				$rw_get = $this->input->get('rw');
 
+				$where = "WHERE 1=1";
 
 				if ($rt_get) {
 					$where .= "and a.rt like '%" . $rt_get . "%'";
@@ -2439,55 +2442,42 @@ class Mbackend extends CI_Model
 				}
 
 
+				$sql = "SELECT 
+						a.cl_kelurahan_desa_id,
+						b.nama AS kelurahan,
+						a.bulan,
+						DATE_FORMAT(MAX(a.create_date), '%d-%m-%Y %H:%i') AS tanggal_buat,
 
-				$sql = "SELECT a.*,
-							a.cl_kelurahan_desa_id,
-							DATE_FORMAT(MAX(a.create_date), '%d-%m-%Y %H:%i') AS tanggal_buat,
-							SUM(a.jml_lk_wni + a.jml_lk_wna) AS jml_lk,
-							SUM(a.jml_pr_wni + a.jml_pr_wna) AS jml_pr,
-							SUM(a.lahir_lk_wni + a.lahir_lk_wna) AS jml_lahir_lk,
-							SUM(a.lahir_pr_wni + a.lahir_pr_wna) AS jml_lahir_pr,
-							SUM(a.mati_lk_wni + a.mati_lk_wna) AS jml_mati_lk,
-							SUM(a.mati_pr_wni + a.mati_pr_wna) AS jml_mati_pr,
-							SUM(a.datang_lk_wni + a.datang_lk_wna) AS jml_datang_lk,
-							SUM(a.datang_pr_wni + a.datang_pr_wna) AS jml_datang_pr,
-							SUM(a.pindah_lk_wni + a.pindah_lk_wna) AS jml_pindah_lk,
-							SUM(a.pindah_pr_wni + a.pindah_pr_wna) AS jml_pindah_pr,
-							SUM(a.jml_lk_wni + a.lahir_lk_wni - a.mati_lk_wni + a.datang_lk_wni - a.pindah_lk_wni) AS jml_akhir_lk_wni,
-							SUM(a.jml_pr_wni + a.lahir_pr_wni - a.mati_pr_wni + a.datang_pr_wni - a.pindah_pr_wni) AS jml_akhir_pr_wni,
-							SUM(a.jml_lk_wna + a.lahir_lk_wna - a.mati_lk_wna + a.datang_lk_wna - a.pindah_lk_wna) AS jml_akhir_lk_wna,
-							SUM(a.jml_pr_wna + a.lahir_pr_wna - a.mati_pr_wna + a.datang_pr_wna - a.pindah_pr_wna) AS jml_akhir_pr_wna,
-							SUM(a.lahir_lk_wni + a.lahir_pr_wni + a.lahir_lk_wna + a.lahir_pr_wna) AS jml_lahir,
-							SUM(a.mati_lk_wni + a.mati_pr_wni + a.mati_lk_wna + a.mati_pr_wna) AS jml_mati,
-							SUM(a.datang_lk_wni + a.datang_pr_wni + a.datang_lk_wna + a.datang_pr_wna) AS jml_datang,
-							SUM(a.pindah_lk_wni + a.pindah_pr_wni + a.pindah_lk_wna + a.pindah_pr_wna) AS jml_datang,
-							
-							SUM(
-								a.jml_lk_wni + a.jml_lk_wna + a.lahir_lk_wni + a.lahir_lk_wna - a.mati_lk_wni - a.mati_lk_wna + a.datang_lk_wni + a.datang_lk_wna - a.pindah_lk_wni - a.pindah_lk_wna
-							) AS jml_lk2,
-							SUM(
-								a.jml_pr_wni + a.jml_pr_wna + a.lahir_pr_wni + a.lahir_pr_wna - a.mati_pr_wni - a.mati_pr_wna + a.datang_pr_wni + a.datang_pr_wna - a.pindah_pr_wni - a.pindah_pr_wna
-							) AS jml_pr2,
-							SUM(
-								a.kk_bln_ini + a.kk_lahir - a.kk_kematian + a.kk_pendatang - a.kk_pindah
-							) AS jml_kk2
-						FROM tbl_data_rekap_bulanan a
-						LEFT JOIN cl_kelurahan_desa b ON b.id = a.cl_kelurahan_desa_id
+						SUM(a.jml_lk_wni + a.jml_lk_wna) AS pend_awal_lk,
+						SUM(a.jml_pr_wni + a.jml_pr_wna) AS pend_awal_pr,
 
-						$where
+						SUM(a.lahir_lk_wni + a.lahir_lk_wna) AS lahir_lk,
+						SUM(a.lahir_pr_wni + a.lahir_pr_wna) AS lahir_pr,
 
-						and a.cl_provinsi_id = '" . $this->auth['cl_provinsi_id'] . "'
+						SUM(a.mati_lk_wni + a.mati_lk_wna) AS mati_lk,
+						SUM(a.mati_pr_wni + a.mati_pr_wna) AS mati_pr,
 
-						and a.cl_kab_kota_id = '" . $this->auth['cl_kab_kota_id'] . "'
+						SUM(a.datang_lk_wni + a.datang_lk_wna) AS datang_lk,
+						SUM(a.datang_pr_wni + a.datang_pr_wna) AS datang_pr,
 
-						and a.cl_kecamatan_id = '" . $this->auth['cl_kecamatan_id'] . "'
+						SUM(a.pindah_lk_wni + a.pindah_lk_wna) AS pindah_lk,
+						SUM(a.pindah_pr_wni + a.pindah_pr_wna) AS pindah_pr,
 
-						ORDER BY a.id DESC
+						SUM(a.jml_lk_wni + a.lahir_lk_wni - a.mati_lk_wni + a.datang_lk_wni - a.pindah_lk_wni) AS pend_akhir_lk_wni,
+						SUM(a.jml_pr_wni + a.lahir_pr_wni - a.mati_pr_wni + a.datang_pr_wni - a.pindah_pr_wni) AS pend_akhir_pr_wni,
 
-					";
+						SUM(a.kk_bln_ini + a.kk_lahir - a.kk_kematian + a.kk_pendatang - a.kk_pindah) AS jml_kk
 
-				//echo $sql;exit;
+					FROM tbl_data_rekap_bulanan a
+					LEFT JOIN cl_kelurahan_desa b ON b.id = a.cl_kelurahan_desa_id
+					$where
+					AND a.cl_provinsi_id = '73'
+					AND a.cl_kab_kota_id = '7371'
+					AND a.cl_kecamatan_id = '7371110'
+					GROUP BY a.cl_kelurahan_desa_id, b.nama, a.bulan
+					ORDER BY a.id DESC";
 
+				//echo $sql;exit;  
 				break;
 
 			case "laporan_ekspedisi":
@@ -4811,7 +4801,7 @@ class Mbackend extends CI_Model
 				break;
 			//end Tbl Data User
 
-			//end Data Lorong
+			//Data Lorong
 			case "data_lorong":
 
 				if (in_array($this->auth['cl_user_group_id'], [2, 4, 5])) {
@@ -4838,41 +4828,47 @@ class Mbackend extends CI_Model
 				break;
 			//end Data Lorong
 
-			//end Data Rekap Bulanan
+			//Data Rekap Bulanan
 			case "data_rekap_bulan":
 
 				if (in_array($this->auth['cl_user_group_id'], [2, 4, 5])) {
-
-					$where .= "and cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "' ";
+					$where .= " AND a.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "' ";
 				}
+
 				$kelurahan = $this->input->post('kelurahan');
 				if ($kelurahan) {
-
-					$where .= "and a.cl_kelurahan_desa_id = '" . $kelurahan . "'";
+					$where .= " AND a.cl_kelurahan_desa_id = '" . $kelurahan . "'";
 				}
 
+				// Filter berdasarkan kolom 'bulan' (jika ada input)
+				$bulan = $this->input->post('bulan');
+				if ($bulan) {
+					$where .= " AND a.bulan = '" . (int)$bulan . "'";
+				}
 
-				$sql = " SELECT *,
-							(CASE MONTH(tgl_cetak)
-							WHEN 1 THEN 'Januari'
-							WHEN 2 THEN 'Februari'
-							WHEN 3 THEN 'Maret'
-							WHEN 4 THEN 'April'
-							WHEN 5 THEN 'Mei'
-							WHEN 6 THEN 'Juni'
-							WHEN 7 THEN 'Juli'
-							WHEN 8 THEN 'Agustus'
-							WHEN 9 THEN 'September'
-							WHEN 10 THEN 'Oktober'
-							WHEN 11 THEN 'November'
-							WHEN 12 THEN 'Desember'
-						END) AS bulan_indo FROM tbl_data_rekap_bulanan a
+				// Query tetap menggunakan tgl_cetak untuk menampilkan nama bulan
+				$sql = "SELECT a.*, 
+							(CASE MONTH(a.tgl_cetak)
+								WHEN 1 THEN 'Januari'
+								WHEN 2 THEN 'Februari'
+								WHEN 3 THEN 'Maret'
+								WHEN 4 THEN 'April'
+								WHEN 5 THEN 'Mei'
+								WHEN 6 THEN 'Juni'
+								WHEN 7 THEN 'Juli'
+								WHEN 8 THEN 'Agustus'
+								WHEN 9 THEN 'September'
+								WHEN 10 THEN 'Oktober'
+								WHEN 11 THEN 'November'
+								WHEN 12 THEN 'Desember'
+							END) AS bulan_indo
+						FROM tbl_data_rekap_bulanan a
+						$where
+						ORDER BY id DESC"
+						;
 
-					$where
+			break;
 
-				";
-
-				break;
 			//end Data Rekap Bulanan
 
 			//Data Ekspedisi
@@ -16266,9 +16262,16 @@ class Mbackend extends CI_Model
 					$data['tgl_cetak'] = date('Y-m-d', strtotime($data['tgl_cetak']));
 				}
 
-				if (isset($data['periode_cetak']) && $data['periode_cetak'] != '') {
-					$data['periode_cetak'] = date('Y-m-d', strtotime($data['periode_cetak']));
+				// if (isset($data['periode_cetak']) && $data['periode_cetak'] != '') {
+				// 	$data['periode_cetak'] = date('Y-m-d', strtotime($data['periode_cetak']));
+				// }
+
+				if (isset($data['bulan']) && $data['bulan'] !== '') {
+					
+				} else {
+					$data['bulan'] = null; // atau 0, sesuai kebutuhan DB
 				}
+
 
 				$table = "tbl_data_rekap_bulanan";
 
@@ -16474,7 +16477,6 @@ class Mbackend extends CI_Model
 				}
 
 				break;
-
 
 
 			case "data_tempat_ibadah":

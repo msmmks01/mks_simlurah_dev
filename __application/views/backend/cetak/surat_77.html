@@ -749,7 +749,7 @@
     {elseif $data.pemohon.nama_lengkap neq '' && $data.surat.info_tambahan.ceklis_ttd_imam eq '' && count($data.surat.info_tambahan.data_saksi)=='' && $data.surat.info_tambahan.ceklis_ttd_pejabat neq ''}
       <table width="100%" border="0" style="margin-left: 55px;margin-right: 20px;font-weight: none; font-size: 14px;font-family: arial;padding-top: -15px;">
         <tr>
-          <td valign="bottom" style="padding-left: 20px;" width="50%">Mengetahui,</td>
+          <td valign="bottom" style="padding-left: 20px;" width="50%">Teregister Oleh :</td>
           <td valign="bottom" width="5%">&nbsp;</td>
           <td valign="top" width="45%">
           {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'.......'},
@@ -1338,7 +1338,7 @@
     {elseif $data.surat.info_tambahan.nama_wali neq '' && $data.surat.info_tambahan.ceklis_ttd_imam eq '' && count($data.surat.info_tambahan.data_saksi)=='' && $data.surat.info_tambahan.ceklis_ttd_pejabat neq ''}
     <table width="100%" border="0" style="margin-left: 55px;margin-right: 20px;font-weight: none; font-size: 14px;font-family: arial;padding-top: -15px;">
         <tr>
-          <td valign="bottom" style="padding-left: 20px;" width="50%">Mengetahui,</td>
+          <td valign="bottom" style="padding-left: 20px;" width="50%">Teregister Oleh :</td>
           <td valign="bottom" width="5%">&nbsp;</td>
           <td valign="top" width="45%">
           {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'.......'},

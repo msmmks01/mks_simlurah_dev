@@ -19,10 +19,13 @@
 								<div class="col-md-3">
 									{include file="backend/template/input_form.html" label="Kecamatan" class_width="col-lg-12" type="baca_aja" name="kecamatan" id="kecamatan" value="{$kec.nama|default:''}"}
 								</div>
-								<div class="col-md-3">
+								<!-- <div class="col-md-3">
 									{include file="backend/template/input_form.html" required="true" label="Periode Rekap Bulnan" class_width="col-lg-12" type="date" 
 									placeholder="dd-mm-yyyy" limit="true" startDate="{$startDate}" endDate="{$endDate}" name="periode_cetak" id="periode_cetak"
 									value="{$data.periode_cetak|default:''}"}
+								</div> -->
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" label="Periode Rekap Bulnan" class_width="col-lg-12" type="select" name="bulan" id="bulan" option={$bulan|default:''} }
 								</div>
 								<div class="col-md-3">
 									{include file="backend/template/input_form.html" required="true" label="Tgl. Cetak" class_width="col-lg-12" type="date" 
@@ -265,7 +268,7 @@
 				if(r == 1 ){
 					$.messager.alert(nama_apps,'Data Tersimpan','info');
 					$('#cancel_{$acak}').trigger('click');
-					$('#grid_data_lorong').datagrid('reload');
+					$('#grid_data_rekap_bulan').datagrid('reload');
 				}else{
 					$.messager.alert(nama_apps,'Proses Simpan Data Gagal '+r,'warning');
 				}
