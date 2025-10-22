@@ -22,6 +22,7 @@ class Login extends JINGGA_Controller
 		$this->load->model('mbackend');
 		$user = $this->db->escape_str($this->input->post('user'));
 		$pass = $this->db->escape_str($this->input->post('pwd'));
+
 		$tahun = $this->db->escape_str($this->input->post('tahun'));
 		$error = false;
 		//echo  $this->encrypt->encode('administrator');exit;
@@ -29,6 +30,7 @@ class Login extends JINGGA_Controller
 			//CEK LDAP
 			$cek_user = $this->mbackend->getdata('data_login', 'row_array', $user);
 			$cek_user['tahun'] = $tahun;
+
 			// echo "<pre>";print_r($cek_user);exit;
 			if (count($cek_user) > 0) {
 				if ($pass == $this->encrypt->decode($cek_user['password'])) {
@@ -107,33 +109,33 @@ class Login extends JINGGA_Controller
 	}
 
 	public function do_login_mr()
-    {
-        $username = $this->input->post('username_mr');
-        $password = $this->input->post('password_mr');
+	{
+		$username = $this->input->post('username_mr');
+		$password = $this->input->post('password_mr');
 
-        // panggil API App A
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "http://app.kotamakassar.id/auth/login_api"); // ganti dengan URL App A
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
-            'username' => $username,
-            'password' => $password
-        ]));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		// panggil API App A
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, "http://app.kotamakassar.id/auth/login_api"); // ganti dengan URL App A
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
+			'username' => $username,
+			'password' => $password
+		]));
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-        $response = curl_exec($ch);
-        curl_close($ch);
+		$response = curl_exec($ch);
+		curl_close($ch);
 
-        $result = json_decode($response, true);
+		$result = json_decode($response, true);
 		var_dump($username);
 		exit();
-        if ($result['status']) {
-            // sukses → bisa redirect langsung ke App A
-            redirect("http://app.kotamakassar.id/admin"); 
-        } else {
-            // gagal → tampilkan error
-            $this->session->set_flashdata('error', $result['message']);
-            redirect('login');
-        }
-    }
+		if ($result['status']) {
+			// sukses → bisa redirect langsung ke App A
+			redirect("http://app.kotamakassar.id/admin");
+		} else {
+			// gagal → tampilkan error
+			$this->session->set_flashdata('error', $result['message']);
+			redirect('login');
+		}
+	}
 }

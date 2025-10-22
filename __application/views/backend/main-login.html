@@ -1,342 +1,647 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login SIMLURAH</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        transition: background 0.6s ease;
+      }
+      .bg-anim {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        overflow: hidden;
+      }
+      .circle {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.3;
+        animation: move 20s linear infinite;
+      }
+      @keyframes move {
+        from {
+          transform: translateY(0) rotate(0deg);
+        }
+        to {
+          transform: translateY(-1000px) rotate(360deg);
+        }
+      }
+      .login-card {
+        max-width: 800px; /* Lebarkan card */
+        width: 100%;
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+        padding: 2rem;
+        display: flex; /* Tambahkan flex display */
+      }
+      .logo-circle {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: #fff;
+        margin-bottom: 1rem;
+      }
+      .login-form {
+        width: 50%;
+        padding-right: 1rem;
+      }
+      .login-image {
+        width: 50%;
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px;
+      }
 
-<head>
-	<title>SIMLURAH</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link
-		href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-		rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-	<style>
-		* {
-			font-family: "Poppins", sans-serif;
-		}
+      .bg-cover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        z-index: 1;
+      }
 
-		.bg-danger-400 {
-			background-color: rgba(220, 53, 69, 1) !important;
-		}
+      .overlay-blur {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(1px); /* efek blur */
+        background: rgba(0, 0, 0, 0.4); /* overlay gelap */
+        z-index: 2;
+      }
 
-		.bg-white-400 {
-			background-color: white !important;
-		}
+      .content-center {
+        z-index: 3;
+        color: #fff;
+      }
 
-		.tab-content-login {
-			display: none;
-		}
+      .nav-tabs {
+        border-bottom: none;
+        display: flex;
+        justify-content: center; /* rata tengah */
+        gap: 6px; /* jarak antar tab lebih kecil */
+        flex-wrap: nowrap; /* tetap 1 baris */
+      }
 
-		.active {
-			display: block;
-		}
-	</style>
-</head>
+      .nav-tabs .nav-item {
+        flex: 1; /* bagi rata lebar setiap tab */
+        min-width: 0; /* biar tidak melar */
+      }
 
-<body>
-	<main
-		style=" background-image: url('__assets/images/bck.jpg'); background-position: center; background-size: cover;">
-		<div class="container">
-			<div class="row min-vh-100">
-				<div class="col-lg-7 col-md-12 col-12 d-lg-block d-md-none d-none"></div>
-				<div class="col-lg-5 col-md-12 col-12 d-flex align-items-center">
-					<div
-						class="card w-100 my-auto mx-lg-5 mx-1 bg-transparent border-0 animate__animated animate__zoomIn">
-						<div class="card-header p-0 border-0">
-							<ul class="nav nav-tabs border-0">
-								<li class="nav-item border-0">
-									<a class="tab-login nav-link rounded-top-4 border-0 bg-danger-400 active bg-white-400 disabled simlurah"
-										href="#simlurah">SIMLURAH</a>
-								</li>
-								<li class="nav-item border-0">
-									<a class="tab-login nav-link rounded-top-4 border-0 bg-danger-400 text-white"
-										href="#retribusi">RETRIBUSI
-										KEBERSIHAN</a>
-								</li>
-								<!-- <li class="nav-item border-0">
-									<a class="tab-login nav-link rounded-top-4 border-0 bg-danger-400 text-white"
-										href="#mr">MANAGEMENT REPORT</a>
-								</li> -->
-							</ul>
-						</div>
-						<div class="card-body bg-white-400 rounded-bottom-4 rounded-end-4 overflow-hidden">
-							<div id="simlurah" class="tab-content-login animate__animated animate__fadeInRightBig active">
-								<div class="row mb-4 justify-content-center">
-									<div class="col-3">
-										<img src="https://simlurahdev.kotamakassar.id/__assets/images/logo-makassar.png"
-											alt="" class="img-fluid mb-2">
-									</div>
-									<div class="col-12 text-center">
-										<h5 class="simlurah">SIMLURAH</h5>
-										<h5>KECAMATAN {strtoupper(nm_client())}</h5>
-									</div>
-									{if isset($error)}
-									<div class="col-12 text-center text-danger">
-										{$error}
-									</div>
-									{/if}
-								</div>
-								<form action="{$host}login-app" method="post" class="px-4">
-									<div class="mb-3">
-										<label for="username" class="form-label">Username</label>
-										<input type="text" id="username" name="user" class="form-control"
-											placeholder="Username">
-									</div>
-									<div class="mb-3">
-										<label for="password" class="form-label">Password</label>
-										<input type="password" id="password" name="pwd" class="form-control"
-											placeholder="Username">
-									</div>
-									<div class="mb-3">
-										<label for="password" class="form-label">Tahun</label>
-										<select name="tahun" id="tahun" class="form-control">
-											<option value="2025">2025</option>
-											<option value="2024">2024</option>
-											<option value="2023">2023</option>
-											<option value="2022">2022</option>
-										</select>
-									</div>
-									<div class="Years">
+      .nav-tabs .nav-link {
+        border: 2px dashed #ddd;
+        border-radius: 10px;
+        padding: 6px 8px; /* lebih kecil */
+        background-color: #fff;
+        color: #333;
+        font-size: 0.85rem; /* perkecil teks */
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        white-space: nowrap; /* cegah teks pecah ke bawah */
+      }
 
-										<div class="YearsSlider">
-											<div class="indicator">
+      .nav-tabs .nav-link img {
+        width: 18px; /* perkecil icon */
+        margin-right: 4px;
+      }
 
-											</div>
-											<ul>
-											</ul>
-										</div>
-									</div>
-									<div class="d-block mb-3">
-										<button type="submit" class="btn btn-primary w-100">LOGIN</button>
-									</div>
-								</form>
-								<div class="row justify-content-center align-items-center">
-									<div class="col-3">
-										<img src="https://pn-boyolali.go.id/id/wp-content/uploads/2022/09/Logo_BerAKHLAK-1024x390.png"
-											alt="" class="img-fluid">
-									</div>
-									<div class="col-3">
-										<img src="https://pdparkir.id/wp-content/uploads/2023/10/LOGO-ILOVEMC.png"
-											alt="" class="img-fluid">
-									</div>
-								</div>
-							</div>
+      .nav-tabs .nav-link.active {
+        border-color: #0d6efd;
+        color: #0d6efd;
+      }
 
-							<div id="retribusi" class="tab-content-login animate__animated animate__fadeOutLeftBig">
-								<div class="row mb-4 justify-content-center">
-									<div class="col-3">
-										<img src="https://simlurahdev.kotamakassar.id/__assets/images/logo-makassar.png"
-											alt="" class="img-fluid mb-2">
-									</div>
-									<div class="col-12 text-center">
-										<h5>RETRIBUSI KEBERSIHAN</h5>
-										<h5>KECAMATAN {strtoupper(nm_client())}</h5>
-									</div>
-								</div>
-								<form id="fm-retribusi" action="{$host}get-token-retribusi" method="post"
-									class="px-4 mb-1" target="_self">
-									<div class="mb-3">
-										<label for="username" class="form-label">Username</label>
-										<input type="email" id="username" name="email" class="form-control"
-											placeholder="Username" required>
-									</div>
-									<div class="mb-5">
-										<label for="password" class="form-label">Password</label>
-										<input type="password" id="password" name="password" class="form-control"
-											placeholder="Username" required>
-									</div>
-									<div class="d-block mb-3 mt-5 mb-5">
-										<button type="submit" class="btn btn-primary w-100">LOGIN</button>
-									</div>
-								</form>
-								<div class="row justify-content-center align-items-center">
-									<div class="col-3">
-										<img src="https://pn-boyolali.go.id/id/wp-content/uploads/2022/09/Logo_BerAKHLAK-1024x390.png"
-											alt="" class="img-fluid">
-									</div>
-									<div class="col-3">
-										<img src="https://pdparkir.id/wp-content/uploads/2023/10/LOGO-ILOVEMC.png"
-											alt="" class="img-fluid">
-									</div>
-								</div>
-							</div>
-							
-							<div id="mr" class="tab-content-login animate__animated animate__fadeInRightBig">
-								<div class="row mb-4 justify-content-center">
-									<div class="col-3">
-										<img src="https://simlurahdev.kotamakassar.id/__assets/images/logo-makassar.png"
-											alt="" class="img-fluid mb-2">
-									</div>
-									<div class="col-12 text-center">
-										<h5 class="simlurah">MANAGEMENT REPORT</h5>
-										<h5>KECAMATAN {strtoupper(nm_client())}</h5>
-									</div>
-									{if isset($error)}
-									<div class="col-12 text-center text-danger">
-										{$error}
-									</div>
-									{/if}
-								</div>
+      .nav-tabs .nav-link:hover {
+        background-color: #f8f9fa;
+      }
 
-								<form id="fm-mr" action="{$host}do_login_mr" method="post" class="px-4 mb-1" target="_self">
-									<div class="mb-3">
-										<label for="username_mr" class="form-label">Username</label>
-										<input type="text" id="username_mr" name="username_mr" class="form-control"
-											placeholder="Username" required>
-									</div>
-									<div class="mb-5">
-										<label for="password_mr" class="form-label">Password</label>
-										<input type="password" id="password_mr" name="password_mr" class="form-control"
-											placeholder="Password" required>
-									</div>
-									<div class="d-block mb-3 mt-5 mb-5">
-										<button type="submit" class="btn btn-primary w-100">LOGIN</button>
-									</div>
-								</form>
+      @media (max-width: 991.98px) {
+        .login-card {
+          flex-direction: column;
+          max-width: 400px;
+        }
+        .login-form {
+          width: 100%;
+          padding-right: 0;
+        }
+        .login-image {
+          display: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body style="background: linear-gradient(135deg, #4facfe, #00f2fe)">
+    <!-- Background animasi -->
+    <div class="bg-anim">
+      <div
+        class="circle bg-light"
+        style="width: 100px; height: 100px; top: 70%; left: 10%"
+      ></div>
+      <div
+        class="circle bg-white"
+        style="
+          width: 150px;
+          height: 150px;
+          top: 80%;
+          left: 60%;
+          animation-duration: 25s;
+        "
+      ></div>
+      <div
+        class="circle bg-light"
+        style="
+          width: 80px;
+          height: 80px;
+          top: 60%;
+          left: 80%;
+          animation-duration: 30s;
+        "
+      ></div>
+    </div>
 
-								<div class="row justify-content-center align-items-center">
-									<div class="col-3">
-										<img src="https://pn-boyolali.go.id/id/wp-content/uploads/2022/09/Logo_BerAKHLAK-1024x390.png"
-											alt="" class="img-fluid">
-									</div>
-									<div class="col-3">
-										<img src="https://pdparkir.id/wp-content/uploads/2023/10/LOGO-ILOVEMC.png"
-											alt="" class="img-fluid">
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</main>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
-		</script>
-	<script src="https://code.jquery.com/jquery-3.7.1.min.js"
-		integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-	<script>
-		if (localStorage.getItem('cl_user_group_id')==null || localStorage.getItem('cl_user_group_id')==2) {
-			$('.simlurah').text('SIMLURAH');
-		}else if(localStorage.getItem('cl_user_group_id')!=2){
-			$('.simlurah').text('SIMKECAMATAN');
-		}
-		// $('.tab-login').click(function (e) {
-		// 	$('.tab-login').removeClass('active');
-		// 	$('.tab-login').removeClass('disabled');
-		// 	$('.tab-login').removeClass('bg-white-400');
-		// 	$('.tab-login').addClass('text-white');
-		// 	$(this).addClass('active');
-		// 	$(this).addClass('disabled');
-		// 	$(this).addClass('bg-white-400');
-		// 	$(this).removeClass('text-white');
-		// 	var activeDiv = $(".tab-content-login.active");
-		// 	var nextDiv = $(".tab-content-login").not(activeDiv).first();
+    <!-- Card -->
+    <div class="login-card">
+      <div class="login-form text-center">
+        <!-- Logo -->
+        <!-- Bagian Atas -->
+        <!-- <div class="mb-3">
+          <img
+            src="./assets/Simlurah Color.svg"
+            alt="Logo Tambahan"
+            style="height: 50px"
+          />
+        </div> -->
+        <div id="logoBox" class="logo-circle bg-info">
+          <i class="bi bi-file-earmark-text"></i>
+        </div>
+        <h4 id="titleBox" class="fw-bold mb-3">SIMLURAH</h4>
 
-		// 	activeDiv.removeClass("active").addClass("animate__fadeOutLeftBig");
+        <!-- Tabs -->
+        <ul class="nav nav-tabs justify-content-center mb-3" id="loginTabs">
+          <li class="nav-item">
+            <a
+              class="nav-link active d-flex align-items-center"
+              data-bs-toggle="tab"
+              href="#simlurah"
+            >
+              <img
+                src="__fo/assets/agreement.gif"
+                style="width: 25px; margin-right: 6px"
+                alt="Simlurah"
+              />
+              Simlurah
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link d-flex align-items-center"
+              data-bs-toggle="tab"
+              href="#retribusi"
+            >
+              <img
+                src="__fo/assets/recycle.gif"
+                style="width: 25px; margin-right: 6px"
+                alt="Retribusi"
+              />
+              Retribusi
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link d-flex align-items-center"
+              data-bs-toggle="tab"
+              href="#monitoring"
+            >
+              <img
+                src="__fo/assets/analytics.gif"
+                style="width: 25px; margin-right: 6px"
+                alt="Monitoring"
+              />
+              Monitoring
+            </a>
+          </li>
+        </ul>
 
-		// 	nextDiv.removeClass("animate__fadeOutLeftBig").addClass("active animate__fadeInRightBig");
-		// });
+        <!-- Tab Content -->
+        <div class="tab-content">
+          <!-- Simlurah -->
+          <div class="tab-pane fade show active" id="simlurah">
+            <div
+              class="alert alert-primary small rounded-pill px-3 py-2 d-flex align-items-center"
+            >
+              <i class="bi bi-bank2 me-2"></i>
+              Akses sistem pelayanan administrasi kelurahan
+            </div>
+            {if isset($error)}
+            <div class="col-12 text-center text-danger">{$error}</div>
+            {/if}
+            <form action="{$host}login-app" method="post">
+              <!-- Username / NIP -->
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-info text-white">
+                  <i class="bi bi-person"></i>
+                </span>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Masukkan NIP atau Username"
+                  id="username"
+                  name="user"
+                />
+              </div>
 
-		$('.tab-login').click(function (e) {
-			e.preventDefault();
+              <!-- Password -->
 
-			// reset tab tombol
-			$('.tab-login').removeClass('active disabled bg-white-400').addClass('text-white');
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-info text-white">
+                  <i class="bi bi-lock"></i>
+                </span>
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="Masukkan Password"
+                  id="password"
+                  name="pwd"
+                />
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  id="togglePassword"
+                >
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
 
-			// aktifkan tombol yg dipilih
-			$(this).addClass('active disabled bg-white-400').removeClass('text-white');
+              <!-- Tahun -->
+              <div class="mb-3">
+                <label
+                  for="tahun"
+                  class="form-label d-flex align-items-start fw-semibold"
+                  >Tahun</label
+                >
+                <select name="tahun" id="tahun" class="form-select">
+                  <option value="2025">2025</option>
+                  <option value="2024">2024</option>
+                  <option value="2023">2023</option>
+                  <option value="2022">2022</option>
+                </select>
+              </div>
 
-			// sembunyikan semua tab content
-			$('.tab-content-login').removeClass('active animate__fadeInRightBig').addClass('d-none');
+              <button
+                type="submit"
+                class="btn btn-info text-white w-100 shadow-sm"
+              >
+                <i class="bi bi-box-arrow-in-right me-1"></i> Masuk ke SIMLURAH
+              </button>
+            </form>
+          </div>
 
-			// ambil target id dari href
-			var targetId = $(this).attr('href');
+          <!-- Retribusi -->
+          <div class="tab-pane fade" id="retribusi">
+            <div class="alert alert-success small">
+              ♻️ Sistem pengelolaan retribusi kebersihan
+            </div>
+            <!-- Username / NIP -->
+            <form
+              id="fm-retribusi"
+              action="{$host}get-token-retribusi"
+              method="post"
+              class="px-4 mb-1"
+              target="_self"
+            >
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-success text-white">
+                  <i class="bi bi-person"></i>
+                </span>
+                <input
+                  type="email"
+                  class="form-control"
+                  placeholder="Masukkan NIP atau Username"
+                  id="username"
+                  name="email"
+                />
+              </div>
 
-			// tampilkan tab content sesuai target
-			$(targetId)
-				.removeClass('d-none animate__fadeOutLeftBig')
-				.addClass('active animate__fadeInRightBig');
-		});
+              <!-- Password -->
+              <div class="input-group mb-5">
+                <span class="input-group-text bg-success text-white">
+                  <i class="bi bi-lock"></i>
+                </span>
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="Masukkan Password"
+                  id="password_retribusi"
+                  name="password"
+                />
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  id="togglePassword_retribusi"
+                >
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
+              <button type="submit" class="btn btn-success w-100">
+                <i class="bi bi-box-arrow-in-right me-1"></i> Masuk ke Sistem
+                Retribusi
+              </button>
+            </form>
+          </div>
+          <!-- Monitoring -->
+          <div class="tab-pane fade" id="monitoring">
+            <div class="alert alert-warning small">
+              📊 Dashboard monitoring dan pelaporan kelurahan
+            </div>
+            <form
+              id="fm-mr"
+              action="{$host}do_login_mr"
+              method="post"
+              class="px-4 mb-1"
+              target="_self"
+            >
+              <input
+                type="text"
+                class="form-control mb-3"
+                placeholder="Admin ID / Supervisor Code"
+                id=""
+              />
+              <input
+                type="password"
+                class="form-control mb-3"
+                placeholder="Access Code"
+              />
+              <div class="alert alert-danger small">
+                ⚠️ Akses terbatas untuk Kecamatan dan Admin
+              </div>
+              <button
+                type="submit"
+                class="btn w-100"
+                style="
+                  background: linear-gradient(90deg, #7b2ff7, #f107a3);
+                  color: white;
+                "
+              >
+                Akses Dashboard MR
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
 
-		$(document).ready(function(e) {
-			$('#fm-retribusi').submit(function(e) {
-				e.preventDefault();
-				var btn = $('[type="submit"]');
-				formdata = new FormData(this);
-				$.ajax({
-					url: $('#fm-retribusi').attr('action'),
-					type: $('#fm-retribusi').attr('method'),
-					data: formdata,
-					processData: false,
-					contentType: false,
-					cache: false,
-					async: true,
-					dataType: "json",
-					beforeSend: function(e) {
-						btn.text('Verifikasi...').prop('disabled', true);
-					},
-					success: function(data) {
-						if (data.status == 'success') {
-							let url = data.data.redirect_url;
-							url = url.replace('retribusi_sampah', 'retribusi_sampah');
-							location.href = url;
-						} else {
-							alert(data.message);
-						}
-						btn.text('LOGIN').prop('disabled', false);
-					},
+      <!-- Image Column -->
+      <div class="login-image position-relative text-center text-white">
+        <!-- Background -->
+        <div
+          class="bg-cover"
+          id="tabImage"
+          style="background-image: url('__assets/images/bck.jpg')"
+        ></div>
 
-					error: function(xhr, status, error) {
-						alert("Gagal menghubungi server: " + xhr.responseText);
-						btn.text('LOGIN').prop('disabled', false);
-					}
-				});
-			});
+        <!-- Overlay blur -->
+        <div class="overlay-blur"></div>
 
-			//Fungsi MR
-			$('#fm-mr').submit(function(e) {
-				e.preventDefault();
-				var btn = $('[type="submit"]');
-				
-				formdata = new FormData(this);
+        <!-- Konten Tengah -->
+        <div
+          class="content-center position-absolute top-50 start-50 translate-middle"
+        >
+          <img src="__fo/assets/logo_qr.png" alt="Logo" style="width: 90px" />
+          <h5 class="fw-bold mt-3">PEMERINTAH KOTA MAKASSAR</h5>
+          <h6 class="fw-semibold mb-4">KECAMATAN {strtoupper(nm_client())}</h6>
+          <i class="small shadow-sm p-1 rounded d-block bg-dark bg-opacity-50">
+            Makassar Menuju Kota yang Unggul, Inklusif, Aman dan Berkelanjutan.
+          </i>
+          <a href="{$host}beranda" class="btn btn-outline-light btn-sm mt-4">
+            <i class="bi bi-house-door me-1"></i> Kembali ke Beranda
+          </a>
+        </div>
+      </div>
+    </div>
 
-				$.ajax({
-					url: $('#fm-mr').attr('action'),
-					type: $('#fm-mr').attr('method'),
-					data: formdata,
-					processData: false,
-					contentType: false,
-					cache: false,
-					async: true,
-					dataType: "json",
-					beforeSend: function(e) {
-						btn.text('Verifikasi...').prop('disabled', true);
-					},
-					success: function(data) {
-						if (data.status == 'success') {
-							// let url = data.data.redirect_url;
-							// url = url.replace('retribusi_sampah', 'retribusi_sampah/index.php');
-							// location.href = url;
-						} else {
-							alert(data.message);
-						}
-						btn.text('LOGIN').prop('disabled', false);
-					},
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    {literal}
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const body = document.body;
+        const logoBox = document.getElementById("logoBox");
+        const titleBox = document.getElementById("titleBox");
+        const tabImage = document.getElementById("tabImage");
 
-					error: function(xhr, status, error) {
-						alert("Gagal menghubungi server: " + xhr.responseText);
-						btn.text('LOGIN').prop('disabled', false);
-					}
-				});
-			});
-		});
+        const tabData = {
+          simlurah: {
+            bg: "linear-gradient(135deg, #4facfe, #00f2fe)",
+            color: "bg-info",
+            icon: "bi bi-file-earmark-text",
+            title: "SIMLURAH",
+            image: "__fo/assets/bck.jpg",
+          },
+          retribusi: {
+            bg: "linear-gradient(135deg, #43e97b, #38f9d7)",
+            color: "bg-success",
+            icon: "bi bi-trash",
+            title: "RETRIBUSI KEBERSIHAN",
+            image: "__fo/assets/retribusi_bg.jpg",
+          },
+          monitoring: {
+            bg: "linear-gradient(135deg, #7b2ff7, #f107a3)",
+            color: "bg-danger",
+            icon: "bi bi-bar-chart-line",
+            title: "MR MANAGEMENT",
+            image: "__fo/assets/monitoring_bg.jpg",
+          },
+        };
 
-	</script>
-</body>
+        // --- EVENT GANTI TAB ---
+        document.querySelectorAll("#loginTabs a").forEach((tab) => {
+          tab.addEventListener("shown.bs.tab", function (e) {
+            const id = e.target.getAttribute("href").substring(1);
+            applyTabStyle(id);
+          });
+        });
 
+        // --- FUNGSI UNTUK UPDATE STYLE SESUAI TAB ---
+        function applyTabStyle(tabName) {
+          const data = tabData[tabName];
+          if (!data) return;
+
+          body.style.background = data.bg;
+          logoBox.className = "logo-circle " + data.color;
+          logoBox.innerHTML = `<i class="${data.icon}"></i>`;
+          titleBox.textContent = data.title;
+          tabImage.style.backgroundImage = `url('${data.image}')`;
+        }
+
+        // --- AKTIFKAN TAB DARI PARAMETER URL ---
+        const params = new URLSearchParams(window.location.search);
+        const tabName = params.get("tab");
+
+        if (tabName) {
+          // Nonaktifkan semua tab dulu
+          document.querySelectorAll("#loginTabs .nav-link").forEach((link) => {
+            link.classList.remove("active");
+          });
+          document.querySelectorAll(".tab-pane").forEach((tab) => {
+            tab.classList.remove("active", "show");
+          });
+
+          // Aktifkan tab yang sesuai
+          const targetLink = document.querySelector(
+            `#loginTabs a[href="#${tabName}"]`
+          );
+          const targetTab = document.querySelector(`.tab-pane#${tabName}`);
+
+          if (targetLink && targetTab) {
+            targetLink.classList.add("active");
+            targetTab.classList.add("active", "show");
+
+            // 🔥 Panggil juga efek gaya sesuai tab
+            applyTabStyle(tabName);
+          }
+        }
+
+        // --- TOGGLE PASSWORD (SIMLURAH) ---
+        const togglePassword = document.querySelector("#togglePassword");
+        const password = document.querySelector("#password");
+        if (togglePassword) {
+          togglePassword.addEventListener("click", function () {
+            const type =
+              password.getAttribute("type") === "password"
+                ? "text"
+                : "password";
+            password.setAttribute("type", type);
+            this.querySelector("i").classList.toggle("bi-eye");
+            this.querySelector("i").classList.toggle("bi-eye-slash");
+          });
+        }
+
+        // --- TOGGLE PASSWORD (RETRIBUSI) ---
+        const togglePassword_retribusi = document.querySelector(
+          "#togglePassword_retribusi"
+        );
+        const password_retribusi = document.querySelector(
+          "#password_retribusi"
+        );
+        if (togglePassword_retribusi) {
+          togglePassword_retribusi.addEventListener("click", function () {
+            const typer =
+              password_retribusi.getAttribute("type") === "password"
+                ? "text"
+                : "password";
+            password_retribusi.setAttribute("type", typer);
+            this.querySelector("i").classList.toggle("bi-eye");
+            this.querySelector("i").classList.toggle("bi-eye-slash");
+          });
+        }
+      });
+    </script>
+    {/literal}
+
+    <script>
+      $(document).ready(function (e) {
+        $("#fm-retribusi").submit(function (e) {
+          e.preventDefault();
+          var btn = $('[type="submit"]');
+          formdata = new FormData(this);
+          $.ajax({
+            url: $("#fm-retribusi").attr("action"),
+            type: $("#fm-retribusi").attr("method"),
+            data: formdata,
+            processData: false,
+            contentType: false,
+            cache: false,
+            async: true,
+            dataType: "json",
+            beforeSend: function (e) {
+              btn.text("Verifikasi...").prop("disabled", true);
+            },
+            success: function (data) {
+              if (data.status == "success") {
+                let url = data.data.redirect_url;
+                url = url.replace("retribusi_sampah", "retribusi_sampah");
+                location.href = url;
+              } else {
+                alert(data.message);
+              }
+              btn.text("LOGIN").prop("disabled", false);
+            },
+
+            error: function (xhr, status, error) {
+              alert("Gagal menghubungi server: " + xhr.responseText);
+              btn.text("LOGIN").prop("disabled", false);
+            },
+          });
+        });
+
+        //Fungsi MR
+        $("#fm-mr").submit(function (e) {
+          e.preventDefault();
+          var btn = $('[type="submit"]');
+
+          formdata = new FormData(this);
+
+          $.ajax({
+            url: $("#fm-mr").attr("action"),
+            type: $("#fm-mr").attr("method"),
+            data: formdata,
+            processData: false,
+            contentType: false,
+            cache: false,
+            async: true,
+            dataType: "json",
+            beforeSend: function (e) {
+              btn.text("Verifikasi...").prop("disabled", true);
+            },
+            success: function (data) {
+              if (data.status == "success") {
+                // let url = data.data.redirect_url;
+                // url = url.replace('retribusi_sampah', 'retribusi_sampah/index.php');
+                // location.href = url;
+              } else {
+                alert(data.message);
+              }
+              btn.text("LOGIN").prop("disabled", false);
+            },
+
+            error: function (xhr, status, error) {
+              alert("Gagal menghubungi server: " + xhr.responseText);
+              btn.text("LOGIN").prop("disabled", false);
+            },
+          });
+        });
+      });
+    </script>
+  </body>
 </html>

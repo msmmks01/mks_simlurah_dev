@@ -1,0 +1,86 @@
+#map {
+	width: 100%;
+	height: 450px;
+	position: relative;
+}
+
+.container-map .row {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.container-map .col-12 {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+/* Style untuk tombol thumb */
+.thumb {
+	width: 80px;
+	height: 80px;
+	position: relative;
+	overflow: hidden; /* Memastikan gambar tidak keluar dari batas */
+	border-radius: 5px;
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
+	cursor: pointer;
+	background-color: #333; /* Warna latar belakang gelap */
+}
+
+.thumb img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover; /* Memastikan gambar memenuhi area */
+	transition: opacity 0.3s ease; /* Efek transisi untuk opacity */
+}
+
+.thumb:hover img {
+	opacity: 0.8; /* Efek hover */
+}
+
+.thumb-label {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	background-color: rgba(
+		0,
+		0,
+		0,
+		0.7
+	); /* Latar belakang label semi-transparan */
+	color: white;
+	text-align: center;
+	font-size: 12px;
+	padding: 3px;
+}
+
+/* Style untuk tombol fokus */
+.leaflet-control-zoom-in {
+	background-color: white;
+	border: none;
+	border-radius: 4px;
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+	cursor: pointer;
+}
+
+.leaflet-control-zoom-in span {
+	font-size: 20px;
+	color: #333;
+}
+
+/* Style untuk container tombol fokus dan thumbnail */
+.leaflet-top.leaflet-right {
+	display: flex; /* Menggunakan flexbox */
+	flex-direction: column; /* Mengatur posisi vertikal */
+	align-items: flex-end; /* Mengatur posisi horizontal */
+	margin-top: 10px; /* Jarak dari atas */
+	margin-right: 10px; /* Jarak dari kanan */
+}
+
+.leaflet-control-attribution {
+	display: none !important;
+}

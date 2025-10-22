@@ -1,0 +1,609 @@
+body {
+  background: #f5f9ff; /* warna dasar lebih terang */
+  color: #333;
+  font-family: "Poppins", sans-serif;
+  scroll-behavior: smooth;
+}
+
+.container-map {
+  width: 100%; /* Membuat container memenuhi lebar halaman */
+  padding-left: 0; /* Menghilangkan padding kiri */
+  padding-right: 0; /* Menghilangkan padding kanan */
+  margin-left: 0; /* Menghilangkan margin kiri */
+  margin-right: 0; /* Menghilangkan margin kanan */
+}
+
+/* Navbar */
+.navbar {
+  margin-top: 20px;
+  background: transparent;
+  transition: background 0.3s ease;
+}
+.navbar.scrolled {
+  background: rgba(255, 255, 255, 0.95);
+}
+.navbar-nav .nav-link {
+  color: #ffffff !important;
+  margin-left: 15px;
+}
+.navbar-brand {
+  font-weight: bold;
+  color: #0077cc !important;
+}
+
+.navbar.scrolled {
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.navbar.scrolled .navbar-brand img {
+  content: url("assets/Simlurah Color.svg");
+}
+
+.navbar.scrolled .navbar-nav .nav-link {
+  color: #333 !important;
+  margin-left: 15px;
+}
+/* Hero Section */
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero-slider {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero-slider img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+.hero-slider img.active {
+  opacity: 1;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Overlay gelap */
+  z-index: 1;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+.hero h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #fff; /* Warna putih */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+.highlight {
+  color: #0077cc;
+}
+
+.logo_tengah {
+  width: 150px;
+  /* Efek Kaca */
+  background: rgba(255, 255, 255, 0.2); /* Latar belakang semi-transparan */
+  border-radius: 16px; /* Sudut membulat */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
+  backdrop-filter: blur(5px); /* Efek blur di belakang elemen */
+  -webkit-backdrop-filter: blur(5px); /* Untuk kompatibilitas Safari */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Border tipis */
+  padding: 10px; /* Ruang di sekitar logo */
+}
+
+/* Efek tambahan (opsional) */
+.logo_tengah:hover {
+  transform: scale(1.05); /* Memperbesar sedikit saat dihover */
+  transition: all 0.3s ease; /* Transisi halus */
+}
+
+/* Card Section */
+.card-service {
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 20px;
+  color: #444;
+  box-shadow: 0 0 10px rgba(0, 119, 204, 0.2);
+  transition: transform 0.3s ease;
+  animation: bounce 3s infinite;
+}
+.card-service:hover {
+  transform: translateY(-10px);
+}
+
+/* Bounce Animation */
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Button Style */
+.btn-main {
+  background: #0077cc;
+  color: #fff;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 500;
+}
+.btn-main:hover {
+  background: #005fa3;
+}
+
+.btn-outline-main {
+  border: 2px solid #0077cc;
+  color: #0077cc;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 500;
+}
+.btn-outline-main:hover {
+  background: #0077cc;
+  color: #fff;
+}
+
+/* Section Styling */
+section {
+  position: relative;
+  padding: 100px 0;
+}
+#about,
+#services,
+#contact {
+  background: #f9fcff;
+}
+
+/* About Section */
+.about .content .who-we-are {
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  color: #0077cc;
+}
+.about .content h3 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+.about .content ul {
+  list-style: none;
+  padding: 0;
+}
+.about .content ul li {
+  padding-bottom: 10px;
+}
+.about .content ul i {
+  font-size: 1.25rem;
+  margin-right: 4px;
+  color: #0077cc;
+}
+.about .content p:last-child {
+  margin-bottom: 0;
+}
+.about .content .read-more {
+  background: #0077cc;
+  color: #fff;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  padding: 12px 24px;
+  border-radius: 5px;
+  transition: 0.3s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.about .content .read-more i {
+  font-size: 18px;
+  margin-left: 5px;
+  line-height: 0;
+  transition: 0.3s;
+}
+.about .content .read-more:hover {
+  background: #005fa3;
+  padding-right: 19px;
+}
+.about .content .read-more:hover i {
+  margin-left: 10px;
+}
+.about .about-images img {
+  border-radius: 10px;
+}
+
+@media (max-width: 991px) {
+  .about-images {
+    display: none;
+  }
+}
+
+/* Footer */
+.footer {
+  position: relative;
+  background: url("assets/footer-bg.svg") repeat-x;
+  color: #ccc;
+  padding: 80px 0 30px;
+}
+.footer .footer-logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+}
+.footer .footer-logo span {
+  background: linear-gradient(45deg, #3b82f6, #33ea7f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.footer h5 {
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+.footer a {
+  color: #aaa;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 8px;
+  transition: 0.3s;
+}
+.footer a:hover {
+  color: #fff;
+}
+.footer .social-icons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  margin-right: 10px;
+  border: 1px solid #777;
+  border-radius: 8px;
+  color: #fff;
+  transition: 0.3s;
+}
+.footer .social-icons a:hover {
+  background: linear-gradient(45deg, #3b82f6, #9333ea);
+  border-color: transparent;
+}
+/* Wave Effect */
+.footer-wave {
+  position: absolute;
+  top: -70px;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: url("__fo/assets/footer-bg.svg") repeat-x;
+  background-size: cover;
+} /* Icon Box with Animated Blob */
+.img-box {
+  position: relative;
+  display: inline-block; /* supaya ngikut ukuran gambar */
+}
+.img-box img {
+  position: relative;
+  height: 380px; /* atur sesuai kebutuhan */
+  z-index: 1;
+} /* Blob di belakang img */
+.img-box .blob {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 400px;
+  background: rgba(237, 237, 237, 0.403); /* warna blob */
+  border-radius: 60% 40% 70% 30% / 40% 50% 60% 50%;
+  transform: translate(-50%, -50%);
+  animation: blob-anim 6s ease-in-out infinite;
+  z-index: 0;
+}
+.icon-box {
+  position: relative;
+  display: inline-block; /* supaya ngikut ukuran gambar */
+}
+.icon-box i {
+  position: relative;
+  z-index: 1;
+  width: 50px;
+  margin-right: 6px;
+} /* Blob di belakang img */
+.icon-box .blob {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70px;
+  height: 70px;
+  background: rgba(113, 113, 113, 0.362); /* warna blob */
+  border-radius: 60% 40% 70% 30% / 40% 50% 60% 50%;
+  transform: translate(-50%, -50%);
+  animation: blob-anim 6s ease-in-out infinite;
+  z-index: 0;
+} /* Animasi blob */
+@keyframes blob-anim {
+  0%,
+  100% {
+    border-radius: 60% 40% 70% 30% / 40% 50% 60% 50%;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  33% {
+    border-radius: 40% 60% 30% 70% / 60% 30% 40% 70%;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+  66% {
+    border-radius: 50% 50% 60% 40% / 50% 60% 30% 60%;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+}
+/* Responsive Design */
+@media (max-width: 992px) {
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+  section {
+    padding: 70px 0;
+  }
+}
+@media (max-width: 768px) {
+  .navbar-nav .nav-link {
+    margin-left: 0;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .hero {
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .hero h1 {
+    font-size: 2rem;
+  }
+  .img-box img {
+    width: 140px;
+  }
+  .img-box .blob {
+    width: 160px;
+    height: 160px;
+  }
+}
+@media (max-width: 576px) {
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+  .btn-main,
+  .btn-outline-main {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+  .footer {
+    text-align: center;
+  }
+  .footer .social-icons {
+    margin-top: 15px;
+  }
+}
+
+/* Panah animasi */
+.arrow-path {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.arrow-wave {
+  position: absolute;
+  font-size: 28px;
+  color: #00d4ff;
+  opacity: 0.8;
+}
+
+/* Panah kiri → kanan */
+.arrow-wave.left {
+  offset-path: path("M 0 600 Q 300 100, 500 300 T 1000 0");
+  offset-rotate: auto;
+  animation: moveArrowLeft 7s ease-in-out infinite;
+}
+
+@keyframes moveArrowLeft {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
+/* Panah kanan → kiri */
+.arrow-wave.right {
+  offset-path: path("M 1000 600 Q 700 100, 500 300 T 0 0");
+  offset-rotate: auto;
+  animation: moveArrowRight 9s ease-in-out infinite;
+  animation-delay: 5s; /* biar bergantian */
+}
+
+@keyframes moveArrowRight {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
+.who-we-are {
+  display: inline-block; /* biar border cuma selebar teks */
+  border-bottom: 5px solid #00d4ff; /* garis di bawah teks */
+  padding-bottom: 4px;
+  font-weight: 600;
+  font-size: 18px;
+}
+/* Card Floating */
+/* Card Floating */
+.floating-cards {
+  position: relative;
+  width: 100%;
+  margin-top: -100px; /* Pull card up */
+  z-index: 10;
+  padding: 0px !important;
+}
+
+.floating-card {
+  background: #fff;
+  border-radius: 16px; /* More rounded edges */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Softer shadow */
+  padding: 15px 15px; /* Increased padding for better spacing */
+  transition: transform 0.3s ease, box-shadow 0.3s ease,
+    background-color 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  overflow: hidden; /* Keeps content neat within rounded borders */
+}
+
+/* Hover Effect with Gradient Border */
+.floating-card:hover {
+  transform: translateY(-15px); /* Increased hover movement */
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2); /* More pronounced shadow */
+  background: #f8f9fa; /* Subtle background change on hover */
+  border: 2px solid #42b7f1; /* Soft blue border on hover */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Title Styling */
+.floating-card .card-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 12px;
+  text-transform: uppercase; /* Adds emphasis */
+  letter-spacing: 1px;
+}
+
+/* Text Styling */
+.floating-card p {
+  color: #555;
+  line-height: 1.8;
+  font-size: 1rem;
+  font-family: "Roboto", sans-serif; /* More modern font */
+}
+
+/* Button/Link Styling */
+.floating-card a {
+  display: inline-block;
+  padding: 12px 25px;
+  background-color: #42b7f1; /* Lighter blue for the button */
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 15px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Hover Effect for Button */
+.floating-card a:hover {
+  background-color: #007bff; /* Darker blue for hover effect */
+  transform: translateY(-2px); /* Button lifts slightly on hover */
+}
+
+/* ========== RESPONSIVE FIXES ========== */
+
+/* Tablet */
+@media (max-width: 992px) {
+  .floating-cards {
+    margin-top: -70px;
+    gap: 25px;
+    padding: 0 15px;
+  }
+
+  .floating-card {
+    max-width: 480px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 752px) {
+  .floating-cards {
+    margin-top: -40px;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px; /* Jarak antar card di mobile */
+    padding: 0 10px;
+  }
+
+  .floating-card {
+    width: 100%;
+    max-width: 100%;
+    padding: 18px;
+    margin-bottom: 10px; /* Tambahan margin bawah biar gak nempel */
+  }
+
+  .floating-card .card-title {
+    font-size: 1.1rem;
+  }
+
+  .floating-card p {
+    font-size: 0.95rem;
+  }
+
+  .floating-card a {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Style tombol melayang */
+#backToTop {
+  position: fixed;
+  bottom: 40px; /* jarak dari bawah */
+  right: 40px; /* jarak dari kanan */
+  z-index: 1000;
+  background-color: #0a192f;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  display: none; /* default tersembunyi */
+}
+
+#backToTop:hover {
+  background-color: #1f3b6f;
+  transform: translateY(-5px);
+}
+
+.arrow-up {
+  display: inline-block;
+  transform: rotate(-90deg); /* putar 90° ke kiri sehingga menghadap atas */
+  font-size: 24px;
+}

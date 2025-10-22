@@ -1,11 +1,13 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-$route['default_controller'] = 'backendxx';
+$route['default_controller'] = 'beranda';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 //Routing Global
 $route['obackendpage'] = 'backendxx';
+$route['halaman-login'] = 'beranda/login_app';
+$route['login-apx'] = 'beranda/tes';
 $route['login-app'] = 'login/loginnya';
 $route['logout-app'] = 'login/logoutnya';
 $route['get-token-retribusi'] = 'login/get_token_retribusi';

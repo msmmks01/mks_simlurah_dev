@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>SIMLURAH</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <style>
+      * {
+        font-family: "Poppins", sans-serif;
+      }
+
+      .bg-danger-400 {
+        background-color: rgba(220, 53, 69, 1) !important;
+      }
+
+      .bg-white-400 {
+        background-color: white !important;
+      }
+
+      .tab-content-login {
+        display: none;
+      }
+
+      .active {
+        display: block;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main
+      style="
+        background-image: url('__assets/images/bck.jpg');
+        background-position: center;
+        background-size: cover;
+      "
+    >
+      <div class="container">
+        <div class="row min-vh-100">
+          <div
+            class="col-lg-7 col-md-12 col-12 d-lg-block d-md-none d-none"
+          ></div>
+          <div class="col-lg-5 col-md-12 col-12 d-flex align-items-center">
+            <div
+              class="card w-100 my-auto mx-lg-5 mx-1 bg-transparent border-0 animate__animated animate__zoomIn"
+            >
+              <div class="card-header p-0 border-0">
+                <ul class="nav nav-tabs border-0">
+                  <li class="nav-item border-0">
+                    <a
+                      class="tab-login nav-link rounded-top-4 border-0 bg-danger-400 active bg-white-400 disabled simlurah"
+                      href="#simlurah"
+                      >SIMLURAH</a
+                    >
+                  </li>
+                  <li class="nav-item border-0">
+                    <a
+                      class="tab-login nav-link rounded-top-4 border-0 bg-danger-400 text-white"
+                      href="#retribusi"
+                      >RETRIBUSI KEBERSIHAN</a
+                    >
+                  </li>
+                  <!-- <li class="nav-item border-0">
+									<a class="tab-login nav-link rounded-top-4 border-0 bg-danger-400 text-white"
+										href="#mr">MANAGEMENT REPORT</a>
+								</li> -->
+                </ul>
+              </div>
+              <div
+                class="card-body bg-white-400 rounded-bottom-4 rounded-end-4 overflow-hidden"
+              >
+                <div
+                  id="simlurah"
+                  class="tab-content-login animate__animated animate__fadeInRightBig active"
+                >
+                  <div class="row mb-4 justify-content-center">
+                    <div class="col-3">
+                      <img
+                        src="https://simlurahdev.kotamakassar.id/__assets/images/logo-makassar.png"
+                        alt=""
+                        class="img-fluid mb-2"
+                      />
+                    </div>
+                    <div class="col-12 text-center">
+                      <h5 class="simlurah">SIMLURAH</h5>
+                      <h5>KECAMATAN {strtoupper(nm_client())}</h5>
+                    </div>
+                    {if isset($error)}
+                    <div class="col-12 text-center text-danger">{$error}</div>
+                    {/if}
+                  </div>
+                  <form action="{$host}login-app" method="post" class="px-4">
+                    <div class="mb-3">
+                      <label for="username" class="form-label">Username</label>
+                      <input
+                        type="text"
+                        id="username"
+                        name="user"
+                        class="form-control"
+                        placeholder="Username"
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="password" class="form-label">Password</label>
+                      <input
+                        type="password"
+                        id="password"
+                        name="pwd"
+                        class="form-control"
+                        placeholder="Username"
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="password" class="form-label">Tahun</label>
+                      <select name="tahun" id="tahun" class="form-control">
+                        <option value="2025">2025</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                      </select>
+                    </div>
+                    <div class="Years">
+                      <div class="YearsSlider">
+                        <div class="indicator"></div>
+                        <ul></ul>
+                      </div>
+                    </div>
+                    <div class="d-block mb-3">
+                      <button type="submit" class="btn btn-primary w-100">
+                        LOGIN
+                      </button>
+                 
+                    </div>
+                  </form>
+                  <div class="row justify-content-center align-items-center">
+                    <div class="col-3">
+                      <img
+                        src="https://pn-boyolali.go.id/id/wp-content/uploads/2022/09/Logo_BerAKHLAK-1024x390.png"
+                        alt=""
+                        class="img-fluid"
+                      />
+                    </div>
+                    <div class="col-3">
+                      <img
+                        src="https://pdparkir.id/wp-content/uploads/2023/10/LOGO-ILOVEMC.png"
+                        alt=""
+                        class="img-fluid"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  id="retribusi"
+                  class="tab-content-login animate__animated animate__fadeOutLeftBig"
+                >
+                  <div class="row mb-4 justify-content-center">
+                    <div class="col-3">
+                      <img
+                        src="https://simlurahdev.kotamakassar.id/__assets/images/logo-makassar.png"
+                        alt=""
+                        class="img-fluid mb-2"
+                      />
+                    </div>
+                    <div class="col-12 text-center">
+                      <h5>RETRIBUSI KEBERSIHAN</h5>
+                      <h5>KECAMATAN {strtoupper(nm_client())}</h5>
+                    </div>
+                  </div>
+                  <form
+                    id="fm-retribusi"
+                    action="{$host}get-token-retribusi"
+                    method="post"
+                    class="px-4 mb-1"
+                    target="_self"
+                  >
+                    <div class="mb-3">
+                      <label for="username" class="form-label">Username</label>
+                      <input
+                        type="email"
+                        id="username"
+                        name="email"
+                        class="form-control"
+                        placeholder="Username"
+                        required
+                      />
+                    </div>
+                    <div class="mb-5">
+                      <label for="password" class="form-label">Password</label>
+                      <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        class="form-control"
+                        placeholder="Username"
+                        required
+                      />
+                    </div>
+                    <div class="d-block mb-3 mt-5 mb-5">
+                      <button type="submit" class="btn btn-primary w-100">
+                        LOGIN
+                      </button>
+                    </div>
+                  </form>
+                  <div class="row justify-content-center align-items-center">
+                    <div class="col-3">
+                      <img
+                        src="https://pn-boyolali.go.id/id/wp-content/uploads/2022/09/Logo_BerAKHLAK-1024x390.png"
+                        alt=""
+                        class="img-fluid"
+                      />
+                    </div>
+                    <div class="col-3">
+                      <img
+                        src="https://pdparkir.id/wp-content/uploads/2023/10/LOGO-ILOVEMC.png"
+                        alt=""
+                        class="img-fluid"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  id="mr"
+                  class="tab-content-login animate__animated animate__fadeInRightBig"
+                >
+                  <div class="row mb-4 justify-content-center">
+                    <div class="col-3">
+                      <img
+                        src="https://simlurahdev.kotamakassar.id/__assets/images/logo-makassar.png"
+                        alt=""
+                        class="img-fluid mb-2"
+                      />
+                    </div>
+                    <div class="col-12 text-center">
+                      <h5 class="simlurah">MANAGEMENT REPORT</h5>
+                      <h5>KECAMATAN {strtoupper(nm_client())}</h5>
+                    </div>
+                    {if isset($error)}
+                    <div class="col-12 text-center text-danger">{$error}</div>
+                    {/if}
+                  </div>
+
+                  <form
+                    id="fm-mr"
+                    action="{$host}do_login_mr"
+                    method="post"
+                    class="px-4 mb-1"
+                    target="_self"
+                  >
+                    <div class="mb-3">
+                      <label for="username_mr" class="form-label"
+                        >Username</label
+                      >
+                      <input
+                        type="text"
+                        id="username_mr"
+                        name="username_mr"
+                        class="form-control"
+                        placeholder="Username"
+                        required
+                      />
+                    </div>
+                    <div class="mb-5">
+                      <label for="password_mr" class="form-label"
+                        >Password</label
+                      >
+                      <input
+                        type="password"
+                        id="password_mr"
+                        name="password_mr"
+                        class="form-control"
+                        placeholder="Password"
+                        required
+                      />
+                    </div>
+                    <div class="d-block mb-3 mt-5 mb-5">
+                      <button type="submit" class="btn btn-primary w-100">
+                        LOGIN
+                      </button>
+                    </div>
+                  </form>
+
+                  <div class="row justify-content-center align-items-center">
+                    <div class="col-3">
+                      <img
+                        src="https://pn-boyolali.go.id/id/wp-content/uploads/2022/09/Logo_BerAKHLAK-1024x390.png"
+                        alt=""
+                        class="img-fluid"
+                      />
+                    </div>
+                    <div class="col-3">
+                      <img
+                        src="https://pdparkir.id/wp-content/uploads/2023/10/LOGO-ILOVEMC.png"
+                        alt=""
+                        class="img-fluid"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      if (
+        localStorage.getItem("cl_user_group_id") == null ||
+        localStorage.getItem("cl_user_group_id") == 2
+      ) {
+        $(".simlurah").text("SIMLURAH");
+      } else if (localStorage.getItem("cl_user_group_id") != 2) {
+        $(".simlurah").text("SIMKECAMATAN");
+      }
+      // $('.tab-login').click(function (e) {
+      // 	$('.tab-login').removeClass('active');
+      // 	$('.tab-login').removeClass('disabled');
+      // 	$('.tab-login').removeClass('bg-white-400');
+      // 	$('.tab-login').addClass('text-white');
+      // 	$(this).addClass('active');
+      // 	$(this).addClass('disabled');
+      // 	$(this).addClass('bg-white-400');
+      // 	$(this).removeClass('text-white');
+      // 	var activeDiv = $(".tab-content-login.active");
+      // 	var nextDiv = $(".tab-content-login").not(activeDiv).first();
+
+      // 	activeDiv.removeClass("active").addClass("animate__fadeOutLeftBig");
+
+      // 	nextDiv.removeClass("animate__fadeOutLeftBig").addClass("active animate__fadeInRightBig");
+      // });
+
+      $(".tab-login").click(function (e) {
+        e.preventDefault();
+
+        // reset tab tombol
+        $(".tab-login")
+          .removeClass("active disabled bg-white-400")
+          .addClass("text-white");
+
+        // aktifkan tombol yg dipilih
+        $(this)
+          .addClass("active disabled bg-white-400")
+          .removeClass("text-white");
+
+        // sembunyikan semua tab content
+        $(".tab-content-login")
+          .removeClass("active animate__fadeInRightBig")
+          .addClass("d-none");
+
+        // ambil target id dari href
+        var targetId = $(this).attr("href");
+
+        // tampilkan tab content sesuai target
+        $(targetId)
+          .removeClass("d-none animate__fadeOutLeftBig")
+          .addClass("active animate__fadeInRightBig");
+      });
+
+      $(document).ready(function (e) {
+        $("#fm-retribusi").submit(function (e) {
+          e.preventDefault();
+          var btn = $('[type="submit"]');
+          formdata = new FormData(this);
+          $.ajax({
+            url: $("#fm-retribusi").attr("action"),
+            type: $("#fm-retribusi").attr("method"),
+            data: formdata,
+            processData: false,
+            contentType: false,
+            cache: false,
+            async: true,
+            dataType: "json",
+            beforeSend: function (e) {
+              btn.text("Verifikasi...").prop("disabled", true);
+            },
+            success: function (data) {
+              if (data.status == "success") {
+                let url = data.data.redirect_url;
+                url = url.replace("retribusi_sampah", "retribusi_sampah");
+                location.href = url;
+              } else {
+                alert(data.message);
+              }
+              btn.text("LOGIN").prop("disabled", false);
+            },
+
+            error: function (xhr, status, error) {
+              alert("Gagal menghubungi server: " + xhr.responseText);
+              btn.text("LOGIN").prop("disabled", false);
+            },
+          });
+        });
+
+        //Fungsi MR
+        $("#fm-mr").submit(function (e) {
+          e.preventDefault();
+          var btn = $('[type="submit"]');
+
+          formdata = new FormData(this);
+
+          $.ajax({
+            url: $("#fm-mr").attr("action"),
+            type: $("#fm-mr").attr("method"),
+            data: formdata,
+            processData: false,
+            contentType: false,
+            cache: false,
+            async: true,
+            dataType: "json",
+            beforeSend: function (e) {
+              btn.text("Verifikasi...").prop("disabled", true);
+            },
+            success: function (data) {
+              if (data.status == "success") {
+                // let url = data.data.redirect_url;
+                // url = url.replace('retribusi_sampah', 'retribusi_sampah/index.php');
+                // location.href = url;
+              } else {
+                alert(data.message);
+              }
+              btn.text("LOGIN").prop("disabled", false);
+            },
+
+            error: function (xhr, status, error) {
+              alert("Gagal menghubungi server: " + xhr.responseText);
+              btn.text("LOGIN").prop("disabled", false);
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
