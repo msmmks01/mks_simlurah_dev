@@ -1454,8 +1454,15 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
           width: 150,
           halign: "center",
           align: "left",
+          formatter: function(value, row, index) {
+            if (!value) return "-";
+            const namaBulan = [
+              "", "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+              "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+            ];
+            return namaBulan[parseInt(value)] || "-";
+          }
         },
-
         {
           field: "jml_lk_wni",
           title: "Data Laki-laki",
@@ -5183,6 +5190,12 @@ async function kumpulAction(type, p1, p2, p3, p4, p5) {
       break;
 
     case "export_laporan_rekap_bulan":
+      var row = $('#grid_data_rekap_bulan').datagrid('getSelected'); // ambil baris aktif
+      if (!row) {
+          $.messager.alert("SIMLURAH", "Pilih data rekap terlebih dahulu!", "error");
+          return;
+      }
+
       param["rt"] = $("#rt_" + p1).val();
 
       param["rw"] = $("#rw_" + p1).val();
@@ -5191,14 +5204,18 @@ async function kumpulAction(type, p1, p2, p3, p4, p5) {
 
       param["nip"] = $("#nip").val();
 
-      if ($("#nip").val() == "" || $("#nip").val() == null) {
+      if (!$("#nip").val()) {
         $.messager.alert("SIMLURAH", "Please Select TTD First!", "error");
-      } else {
-        var url = host + "backoffice-cetak/laporan_rekap_bulan?" + $.param(param);
+        return;
+    }
 
-        window.open(url, "_blank");
-      }
-      break;
+    // kirim id rekap dari baris yang dipilih
+    param["id"] = row.id;
+// alert(row.id);
+
+    var url = host + "backoffice-cetak/laporan_rekap_bulan?" + $.param(param);
+    window.open(url, "_blank");
+    break;
 
     case "export_laporan_ekspedisi":
       param["rt"] = $("#rt_" + p1).val();

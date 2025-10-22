@@ -5297,7 +5297,8 @@ class Backendxx extends JINGGA_Controller
 					'a.cl_provinsi_id'  => $this->auth['cl_provinsi_id'],
 					'a.cl_kab_kota_id'  => $this->auth['cl_kab_kota_id'],
 					'a.cl_kecamatan_id' => $this->auth['cl_kecamatan_id'],
-					'b.nip' => $nip
+					'b.nip' => $nip,
+					
 				);
 
 				$this->setting = $this->db->select('a.*,b.nip,b.nama,b.pangkat,b.jabatan')->where($array_setting)
@@ -5308,9 +5309,41 @@ class Backendxx extends JINGGA_Controller
 				$this->nsmarty->assign("tgl_cetak", $tgl_cetak);
 
 				// $data = $this->mbackend->getdata('laporan_rekap_bulan', 'result_array');
-				$data = $this->mbackend->getdata('laporan_rekap_bulan', 'result_array', ['bulan' => $bulan]);
+				// $data = $this->mbackend->getdata('laporan_rekap_bulan', 'result_array', [
+				// 			'bulan' => $bulan,
+				// 			'id' => $this->input->get('id')
+				// 		]);
 
-				
+				$data = $this->mbackend->getdata('laporan_rekap_bulan', 'result_array', $p3);
+
+				if (!empty($data)) {
+					// ambil bulan dari data pertama (atau sesuaikan indeksnya)
+					$bulan_angka = isset($data[0]['bulan']) ? (int)$data[0]['bulan'] : null;
+
+					// daftar nama bulan
+					$nama_bulan = [
+						1 => 'Januari', 
+						2 => 'Februari', 
+						3 => 'Maret',
+						4 => 'April', 
+						5 => 'Mei', 
+						6 => 'Juni',
+						7 => 'Juli', 
+						8 => 'Agustus', 
+						9 => 'September',
+						10 => 'Oktober', 
+						11 => 'November', 
+						12 => 'Desember'
+					];
+
+					// ambil nama bulan berdasarkan angka
+					$data[0]['nama_bulan'] = isset($nama_bulan[$bulan_angka]) ? $nama_bulan[$bulan_angka] : '-';
+
+					// tahun ambil dari tgl_cetak atau dari data
+					$tahun = date('Y');
+					$data[0]['periode_bulan_tahun'] = strtoupper($data[0]['nama_bulan'] . ' ' . $tahun);
+				}
+
 				$filename = "laporan-rekap-bulan-" . date('YmdHis');
 
 				$temp = "backend/cetak/laporan_rekap_bulan.html";
