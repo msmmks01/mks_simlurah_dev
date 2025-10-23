@@ -1873,7 +1873,7 @@ class Backendxx extends JINGGA_Controller
 				switch ($data['cl_jenis_surat_id']) {
 
 					case "147":
-						
+
 						$this->nsmarty->assign("alasan_izin_pegawai_id", $this->lib->fillcombo("alasan_izin_pegawai", "return", ($sts == "edit" ? $data_info["alasan_izin_pegawai"] : "")));
 
 						$this->nsmarty->assign("pilih_golonganx", $this->lib->fillcombo("pilih_golonganx", "return", ($sts == "edit" ? $data_info["pangkat"] : "")));
@@ -2190,7 +2190,7 @@ class Backendxx extends JINGGA_Controller
 						$this->nsmarty->assign("nik", $this->lib->fillcombo("data_penduduk", "return", ($sts == "edit" ? $data["tbl_data_penduduk_id"] : "")));
 
 						break;
-					
+
 					case "103":
 
 						$this->nsmarty->assign("ceklis_ttd_pejabat", ($data_info['ceklis_ttd_pejabat'] == true ? 'checked=true' : ''));
@@ -4071,7 +4071,7 @@ class Backendxx extends JINGGA_Controller
 
 		$post = array();
 		foreach ($_POST as $k => $v) {
-			
+
 			if ($this->input->post($k) != "") {
 
 				$post[$k] = $this->input->post($k);
@@ -5298,7 +5298,7 @@ class Backendxx extends JINGGA_Controller
 					'a.cl_kab_kota_id'  => $this->auth['cl_kab_kota_id'],
 					'a.cl_kecamatan_id' => $this->auth['cl_kecamatan_id'],
 					'b.nip' => $nip,
-					
+
 				);
 
 				$this->setting = $this->db->select('a.*,b.nip,b.nama,b.pangkat,b.jabatan')->where($array_setting)
@@ -5322,17 +5322,17 @@ class Backendxx extends JINGGA_Controller
 
 					// daftar nama bulan
 					$nama_bulan = [
-						1 => 'Januari', 
-						2 => 'Februari', 
+						1 => 'Januari',
+						2 => 'Februari',
 						3 => 'Maret',
-						4 => 'April', 
-						5 => 'Mei', 
+						4 => 'April',
+						5 => 'Mei',
 						6 => 'Juni',
-						7 => 'Juli', 
-						8 => 'Agustus', 
+						7 => 'Juli',
+						8 => 'Agustus',
 						9 => 'September',
-						10 => 'Oktober', 
-						11 => 'November', 
+						10 => 'Oktober',
+						11 => 'November',
 						12 => 'Desember'
 					];
 
@@ -5527,7 +5527,7 @@ class Backendxx extends JINGGA_Controller
 
 				$this->setting = $this->db->select('a.*')
 					->where($array_setting)
-			
+
 					->join('tbl_data_penandatanganan b', "a.nip_kepala_desa=b.nip and a.cl_kecamatan_id=b.cl_kecamatan_id and a.cl_kelurahan_desa_id=b.cl_kelurahan_desa_id", 'left')
 					->join('tbl_data_surat c', 'a.cl_kelurahan_desa_id=c.cl_kelurahan_desa_id and c.id_penandatanganan', 'inner')
 					->get("tbl_setting_apps a")->row_array();
@@ -5592,7 +5592,6 @@ class Backendxx extends JINGGA_Controller
 					} else {
 						echo "Gagal membuat $zip_filename";
 					}
-
 				} else if (in_array($p1, ['66', '69', '125'])) {
 					$this->hasil_output2('pdf', $mod, $data, $filename, $temp, [
 						'mode' => 'utf-8',
@@ -6059,31 +6058,52 @@ class Backendxx extends JINGGA_Controller
 
 				$setting = $this->db->get_where('tbl_setting_apps', $arraynya)->row_array();
 				if ($setting['qr_status'] == 1 && $setting['qr_kelurahan'] != '' && $dataSurat['surat']['info_tambahan']['ttd_srikandi'] != 'on') {
+					$kode_unik = $dataSurat['surat']['kode_unik'];
+				
+					$setting = "" . $this->auth['cl_kelurahan_desa_id'] . "";
+
+					$randomized_string = randomize_letters($setting);
+					// URL untuk QR code
+					$url_verifikasi = base_url("cek-dokumen/") . $randomized_string . "?kode=" . urlencode($kode_unik);
+
+					// 🧩 Path temporary file (bisa disesuaikan)
+					$temp_qr = tempnam(sys_get_temp_dir(), 'qr_') . '.png';
+
+					// Include library QR Code
+					require_once APPPATH . 'third_party/phpqrcode/qrlib.php';
+
+					// Buat QR Code ke file sementara
+					QRcode::png($url_verifikasi, $temp_qr, QR_ECLEVEL_H, 4, 1);
+
+					// Ubah QR jadi base64 supaya bisa disisipkan langsung di HTML/PDF
+					$qr_base64 = 'data:image/png;base64,' . base64_encode(file_get_contents($temp_qr));
+
+					// 🧾 Footer PDF dengan QR
 					$cFoot = "
-						<table style=\"font-size:8;\">
-							<tr>
-								<td>
-								<img src=\"" . FCPATH . "" . $setting['qr_kelurahan'] . "\" width=\"35px\">
-								</td>
-								<td>
-								Catatan :<br>
-								• Sesuai Undang-Undang Nomor 24 Tahun 2013 tentang Administrasi Kependudukan, pemalsuan dokumen kependudukan merupakan tindak pidana.<br>
-								• Keaslian dokumen ini dapat diverifikasi melalui pemindaian QR Code di samping.<br>
-								• Masukkan kode unik surat : <b>" . $dataSurat['surat']['kode_unik'] . "</b>
-								</td>
-							</tr>
-							<tr>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td style=\"text-align: right; font-size: 8px;\">
+							<table style=\"font-size:8;\">
+								<tr>
+									<td>
+										<img src=\"" . $qr_base64 . "\" width=\"55px\">
+									</td>
+									<td>
+										Catatan :<br>
+										• Sesuai Undang-Undang Nomor 24 Tahun 2013 tentang Administrasi Kependudukan, pemalsuan dokumen kependudukan merupakan tindak pidana.<br>
+										• Keaslian dokumen ini dapat diverifikasi melalui pemindaian QR Code di samping.<br>
+										• Masukkan kode unik surat : <b>" . $kode_unik . "</b>
+									</td>
+								</tr>
+								<tr>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td style=\"text-align: right; font-size: 8px;\">
 										<b>.::PRINTED BY SIMLURAH::.</b>
-								</td>
-							</tr>
-							<tr>
-								<td colspan=\"4\">&nbsp;</td>
-							</tr>
-						</table>";
+									</td>
+								</tr>
+								<tr>
+									<td colspan=\"4\">&nbsp;</td>
+								</tr>
+							</table>";
 				} else {
 					if ($dataSurat['surat']['info_tambahan']['ttd_srikandi'] == 'on') {
 						$cFoot = "<table style=\"font-size:8;\">
@@ -6682,14 +6702,14 @@ class Backendxx extends JINGGA_Controller
 	// function get_opsi_ttd($kel)
 	// {
 	// 	$sql = "
-	
+
 	// 					SELECT nip as id, nama as txt
-	
+
 	// 					FROM tbl_data_penandatanganan 
 
 	// 					where cl_kelurahan_desa_id = '$kel'
-	
-	
+
+
 	// 				";
 	// 	$res = $this->db->query($sql)->result();
 	// 	foreach ($res as $row) {
@@ -6896,7 +6916,7 @@ class Backendxx extends JINGGA_Controller
 			$res['user_id'] = $this->auth['id'];
 			$sql = $this->db->insert('cl_jenis_surat_favorit', $res);
 		}
-		
+
 		if ($sql) {
 			echo json_encode([
 				'stat' => true,

@@ -377,6 +377,12 @@
     <script src="<?= base_url() ?>__assets/backendxx/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="<?= base_url() ?>__assets/backendxx/dist/js/loading-overlay.js"></script>
     <script>
+        var kode = '<?= $kode ?>';
+        if (kode != '') {
+            $('#kode_unik').val(kode);
+            $.LoadingOverlay("show");
+            postData(kode);
+        }
         $('#informasi_dokumen').hide();
 
         document.getElementById('search-button').addEventListener('click', function() {
@@ -405,19 +411,19 @@
                     if (response.status === 'success') {
                         $('#informasi_dokumen').show();
                         $('#data_dokumen').html(response.content);
-                    //    setTimeout(function () {
-                    //        $('.kop-surat').hide();
-                    //         $('#ttd').hide();
-                    //     }, 3000);
-                    // setTimeout(function () {
-                    //     $('.kop-surat, #ttd').hide();
-                    // }, 3000);
-                    setTimeout(function () {
-                        console.log("Jumlah .kop-surat:", $('.kop-surat').length);
-                        console.log("Jumlah #ttd:", $('#ttd').length);
+                        //    setTimeout(function () {
+                        //        $('.kop-surat').hide();
+                        //         $('#ttd').hide();
+                        //     }, 3000);
+                        // setTimeout(function () {
+                        //     $('.kop-surat, #ttd').hide();
+                        // }, 3000);
+                        setTimeout(function() {
+                            console.log("Jumlah .kop-surat:", $('.kop-surat').length);
+                            console.log("Jumlah #ttd:", $('#ttd').length);
 
-                        $('.kop-surat, #ttd').hide();
-                    }, 2000);
+                            $('.kop-surat, #ttd').hide();
+                        }, 2000);
 
                         $.LoadingOverlay("hide", true);
 

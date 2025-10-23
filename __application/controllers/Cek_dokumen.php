@@ -133,6 +133,11 @@ class Cek_dokumen extends JINGGA_Controller
     function view_dokumen()
     {
         $encrypted_setting = $this->uri->segment(2);
+        $kode = $this->input->get('kode', true);
+        $data['kode'] = '';
+        if ($kode) {
+            $data['kode'] = $kode;
+        }
         $decrypted_setting = preg_replace('/[^0-9]/', '', $encrypted_setting);
         if (empty($decrypted_setting)) {
             show_404();
@@ -208,14 +213,14 @@ class Cek_dokumen extends JINGGA_Controller
         if ($data['data_surat'] <> '') {
             $htmlcontent = $data['data_surat'];
         } else {
-            if ($p1==143) {
+            if ($p1 == 143) {
                 $htmlcontent = '';
                 $i = 1;
                 foreach ($data['surat']['info_tambahan']['pemohon'] as $row) {
                     $data_temp = $data;
-                    $row['nama_status_sktm'] = $this->db->where('id',$row['status_sktm'])->get('cl_status_kawin')->row('nama_status_kawin');
-                    $row['nama_agama_sktm'] = $this->db->where('id',$row['agama_sktm'])->get('cl_agama')->row('nama_agama');
-                    $row['nama_pekerjaan_sktm'] = $this->db->where('id',$row['pekerjaan_sktm'])->get('cl_jenis_pekerjaan')->row('nama_pekerjaan');
+                    $row['nama_status_sktm'] = $this->db->where('id', $row['status_sktm'])->get('cl_status_kawin')->row('nama_status_kawin');
+                    $row['nama_agama_sktm'] = $this->db->where('id', $row['agama_sktm'])->get('cl_agama')->row('nama_agama');
+                    $row['nama_pekerjaan_sktm'] = $this->db->where('id', $row['pekerjaan_sktm'])->get('cl_jenis_pekerjaan')->row('nama_pekerjaan');
                     $data_temp['surat']['info_tambahan']['pemohon'] = $row;
                     // $this->nsmarty->assign('mod', $mod);
                     $this->nsmarty->assign('data', $data_temp);
@@ -225,10 +230,9 @@ class Cek_dokumen extends JINGGA_Controller
                     }
                     $i++;
                 }
-            }else{
+            } else {
                 $htmlcontent = $this->nsmarty->fetch($temp);
             }
-
         }
 
 
