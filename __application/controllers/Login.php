@@ -110,12 +110,13 @@ class Login extends JINGGA_Controller
 
 	public function do_login_mr()
 	{
+
 		$username = $this->input->post('username_mr');
 		$password = $this->input->post('password_mr');
 
 		// panggil API App A
 		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, "http://app.kotamakassar.id/auth/login_api");
+		curl_setopt($ch, CURLOPT_URL, "https://app.kotamakassar.id/auth/login_api");
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
 			'username' => $username,
@@ -130,7 +131,7 @@ class Login extends JINGGA_Controller
 
 		if ($result['status']) {
 			// sukses → bisa redirect langsung ke App A
-			redirect("http://app.kotamakassar.id/admin");
+			redirect("https://app.kotamakassar.id/admin");
 		} else {
 			// gagal → tampilkan error
 			$this->session->set_flashdata('error', $result['message']);
