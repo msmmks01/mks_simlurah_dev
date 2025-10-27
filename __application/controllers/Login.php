@@ -115,7 +115,7 @@ class Login extends JINGGA_Controller
 
 		// panggil API App A
 		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, "http://app.kotamakassar.id/auth/login_api"); // ganti dengan URL App A
+		curl_setopt($ch, CURLOPT_URL, "http://app.kotamakassar.id/auth/login_api");
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
 			'username' => $username,
@@ -127,8 +127,7 @@ class Login extends JINGGA_Controller
 		curl_close($ch);
 
 		$result = json_decode($response, true);
-		var_dump($username);
-		exit();
+
 		if ($result['status']) {
 			// sukses → bisa redirect langsung ke App A
 			redirect("http://app.kotamakassar.id/admin");
