@@ -113,7 +113,6 @@ class Login extends JINGGA_Controller
 
 		$username = $this->input->post('username_mr');
 		$password = $this->input->post('password_mr');
-
 		// panggil API App A
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, "https://app.kotamakassar.id/auth/login_api");
