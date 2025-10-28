@@ -127,16 +127,14 @@ hr.horizontal {
 								</div>
 								
 								</div>
-							
 							<br>
 							<div class="box-body">
 								<div class="row">
 									<div class="col-md-8">
-
 										<div class="box box-success">
-										<div class="box-header with-border">
-										<h3 class="box-title">Statistik Berdasarkan Agama</h3>
-										<div class="box-tools pull-right">
+											<div class="box-header with-border">
+												<h3 class="box-title">Statistik Berdasarkan Agama</h3>
+											<div class="box-tools pull-right">
 										<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
 										</button>
 										<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -159,13 +157,13 @@ hr.horizontal {
 														{else}
 														<i class="fa fa-male"></i>
 														{/if}
-														</span>
-													<div class="info-box-content">
-													<span class="info-box-text">{$rows.keterangan|upper|default:''}</span>
-													<span class="info-box-number">{$rows.total|number_format:0:",":"."|default:''} <small>Orang</small></span>
-													<hr class="dark horizontal my-0 mt-3 mx-2">
-													<span class="progress-description">
 													</span>
+													<div class="info-box-content">
+														<span class="info-box-text">{$rows.keterangan|upper|default:''}</span>
+															<span class="info-box-number">{$rows.total|number_format:0:",":"."|default:''} <small>Orang</small></span>
+																<hr class="dark horizontal my-0 mt-3 mx-2">
+															<span class="progress-description">
+														</span>
 													</div>
 												</a>
 												{/foreach}

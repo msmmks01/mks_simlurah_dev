@@ -16,7 +16,6 @@ $route['get-qrcode-dokumen'] = 'cek_dokumen/get_qrcode_dokumen';
 $route['cek-dokumen/(:any)'] = 'cek_dokumen/view_dokumen/$1/$2/$3';
 $route['validasi-dokumen'] = 'cek_dokumen/cek_validasi';
 
-
 $route['backoffice-grid/(:any)'] = 'backendxx/get_grid/$1';
 $route['backoffice-grid-report/(:any)'] = 'backendxx/get_grid_report/$1';
 $route['backoffice-getdatachart'] = 'backendxx/get_chart';
@@ -50,4 +49,5 @@ $route['simpan-survei-kepuasan'] = 'backendxx/simpan_survei';
 
 $route['get-data-penilaian-rt-rw-id'] = 'backendxx/get_data_penilaian_rt_rw_id';
 $route['salin-data-penilaian-rt-rw']['post'] = 'backendxx/salin_data_penilaian_rt_rw';
+$route['salin-data-rekap-bulanan']['post'] = 'backendxx/salin_data_rekap_bulanan';
 $route['get-data-penduduk']['post'] = 'backendxx/get_data_penduduk';

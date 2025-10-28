@@ -307,6 +307,24 @@ class Backendxx extends JINGGA_Controller
 
 				$this->nsmarty->assign("kelurahan", $this->lib->fillcombo("kelurahan_report", "return", ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0" ? $this->auth["cl_kelurahan_desa_id"] : ""), ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0" ? $this->auth["cl_kelurahan_desa_id"] : "")));
 				$this->nsmarty->assign("nip_id", $this->lib->fillcombo("data_penandatangananx", "return", ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0" ? $this->auth["cl_kelurahan_desa_id"] : ""), ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0" ? $this->auth["cl_kelurahan_desa_id"] : "")));
+
+				$list_bulan = array(
+					'' => '--- Pilih ---',
+					'1' => 'Januari',
+					'2' => 'Februari',
+					'3' => 'Maret',
+					'4' => 'April',
+					'5' => 'Mei',
+					'6' => 'Juni',
+					'7' => 'Juli',
+					'8' => 'Agustus',
+					'9' => 'September',
+					'10' => 'Oktober',
+					'11' => 'November',
+					'12' => 'Desember'
+				);
+				$this->nsmarty->assign('list_bulan', $list_bulan);
+
 				break;
 			case "data_dasawisma":
 
@@ -5981,6 +5999,7 @@ class Backendxx extends JINGGA_Controller
 	function hasil_output($p1, $mod, $data, $filename, $temp, $ukuran = "LEGAL", $output = 'I', $draft = false, $jenis_ttd = '')
 	{
 		switch ($p1) {
+
 			case "pdf":
 				// var_dump('exit');
 				// exit();
@@ -7282,4 +7301,53 @@ class Backendxx extends JINGGA_Controller
 			]);
 		}
 	}
+
+	public function salin_data_rekap_bulanan()
+	{
+		$bulan_asal = $this->input->post('bulan_asal');
+		$bulan_tujuan = $this->input->post('bulan_tujuan');
+		$tgl_cetak = $this->input->post('tgl_cetak');
+		$ganti = $this->input->post('ganti'); // checkbox
+
+		// Ambil data dari bulan asal
+		$data_asal = $this->db->get_where('tbl_data_rekap_bulanan', [
+			'bulan' => $bulan_asal,
+			'cl_kelurahan_desa_id' => $this->auth['cl_kelurahan_desa_id']
+		])->result_array();
+
+		if (empty($data_asal)) {
+			echo json_encode(['status' => false, 'message' => 'Data bulan asal tidak ditemukan!']);
+			return;
+		}
+
+		// Jika data tujuan sudah ada
+		$data_tujuan = $this->db->get_where('tbl_data_rekap_bulanan', [
+			'bulan' => $bulan_tujuan,
+			'cl_kelurahan_desa_id' => $this->auth['cl_kelurahan_desa_id']
+		])->result_array();
+
+		if (!empty($data_tujuan)) {
+			if ($ganti == '1') {
+				// hapus dulu data bulan tujuan
+				$this->db->where([
+					'bulan' => $bulan_tujuan,
+					'cl_kelurahan_desa_id' => $this->auth['cl_kelurahan_desa_id']
+				])->delete('tbl_data_rekap_bulanan');
+			} else {
+				echo json_encode(['status' => false, 'message' => 'Data bulan tujuan sudah ada!']);
+				return;
+			}
+		}
+
+		// duplikasi data asal -> bulan tujuan
+		foreach ($data_asal as $row) {
+			unset($row['id']); // hilangkan ID agar auto increment baru
+			$row['bulan'] = $bulan_tujuan;
+			$row['create_date'] = date('Y-m-d H:i:s');
+			$this->db->insert('tbl_data_rekap_bulanan', $row);
+		}
+
+		echo json_encode(['status' => true, 'message' => 'Data berhasil disalin ke bulan ' . $bulan_tujuan]);
+	}
+
 }
