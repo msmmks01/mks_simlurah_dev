@@ -1,46 +1,82 @@
 <!DOCTYPE html>
-
 <html>
 <head>
-	
-	<title>Jumlah Responden SKM</title>
-	
+	<title>Laporan Survei Kepuasan Masyarakat</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			font-size: 14px;
+		}
+		table {
+			border-collapse: collapse;
+			width: 100%;
+		}
+		/* khusus untuk tabel rekap data SKM saja */
+		table.tabel-skm th,
+		table.tabel-skm td {
+			border: 0.5px solid #000;
+			padding: 4px;
+		}
+		/* Warna header tabel SKM */
+		table.tabel-skm th {
+			background-color: #dce6f1; /* biru muda lembut */
+			text-align: center;
+			height: 30px;
+		}
+		.header-table {
+			margin-bottom: 20px;
+			text-align: center;
+		}
+		.header-table td {
+			border: none;
+			font-weight: bold;
+		}
+		.footer-table td {
+			border: none;
+			text-align: center;
+			padding-top: 10px;
+		}
+	</style>
 </head>
 
 <body>
-<table style="width: 100%;border-collapse: collapse;" cellspacing="0" border="1" ></table> 
-  <tr>
-    <td style="border: hidden; font-family: Arial; font-size: 10pt;" align="center" valign="top">
-      <b>JUMLAH RESPONDEN SKM</b>
-    </td>
-  </tr>
-</table>
-<table style="width: 100%;border-collapse: collapse;font-family: Arial; font-size: 10pt;padding-top: 10px;" cellspacing="0" border="1">
-	<tr>
-		<td align="center" valign="middle"><b>No</b></td>
-		<td align="center" valign="middle"><b>KARAKTERISTIK</b></td>
-		<td align="center" valign="middle"><b>INDIKATOR</b></td>
-		<td align="center" valign="middle"><b>JUMLAH</b></td>
-		<td align="center" valign="middle"><b>PERSENTASE</b></td>
-	</tr>
+	<table class="header-table" border="0">
+		<tr>
+			<td><font>LAPORAN SURVEI KEPUASAN MASYARAKAT KECAMATAN {$setting.nama_kecamatan|upper|default:'.......'}</font></td>
+		</tr>
+		<tr>
+			<td><font>TAHUN {$tahun} TABEL REKAPITULASI RESPONDEN</font></td>
+		</tr>
+	</table>
 
-	{assign var="no" value=1}
-	{assign var="last_kategori" value=""}
-	{foreach from=$data.laporan_hasil_skm2 item=row}
-	<tr>
-		{if $row.urutan_kategori != $last_kategori}
-			<td rowspan="{$data.rowspan_kategori[$row.urutan_kategori]}" align="center" valign="middle">{$no}</td>
-			{assign var="no" value=$no+1}
-			{assign var="last_kategori" value=$row.urutan_kategori}
-			<td align="left" rowspan="{$data.rowspan_kategori[$row.urutan_kategori]}" valign="middle">{$row.kategori}</td>
-		{/if}
-
-		<td align="left" valign="middle">{$rowspan_kategori} {$row.nama_kategori}</td>
-		<td align="right" valign="middle">{$row.jumlah}</td>
-		<td align="right" valign="middle">{$row.persentase}%</td>
-	</tr>
-	{/foreach}
-</table>
+	<table class="tabel-skm" style="font-size: 12px;">
+		<tr>
+			<th>No</th>
+			<th>Umur</th>
+			<th>Jenis Kelamin</th>
+			<th>Pendidikan</th>
+			<th>Pekerjaan</th>
+			<th>Loket</th>
+			<th>Layanan</th>
+		</tr>
+		{assign var=idx value=1}
+		{foreach from=$data.laporan_hasil_skm2 item=row}
+		<tr>
+			<td align="center">{$idx}</td>
+			<td align="center">{$row.umur}</td>
+			<td align="center">{$row.kategori}</td>
+			<td align="center">{ucwords(strtolower($row.pendidikan))}</td>
+			<td align="left">{$row.pekerjaan}</td>
+			{if $auth.cl_user_group_id neq '3'}
+			<td align="center">Kecamatan {ucwords(strtolower($row.kecamatan))}</td>
+			{else}
+			<td align="center">Kelurahan {ucwords(strtolower($row.kelurahan))}</td>
+			{/if}
+			<td align="left">Layanan {ucwords(strtolower($row.layanan))}</td>
+		</tr>
+		{assign var=idx value=$idx+1}
+		{/foreach}
+	</table>
 </body>
 
 </html>

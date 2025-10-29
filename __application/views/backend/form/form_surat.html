@@ -20310,6 +20310,19 @@
 									id="tgl_pernyataan" value="{$data_info.tgl_pernyataan|default:''}"}
 								</div>
 							</div>
+							<br>
+							<legend style="font-size: 14px;color: red;padding-top: 10px;"></legend>
+							<div class="row">
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" placeholder="Diisi Jika diperlukan / Kosongkan" required="false" label="Nama Pelapor"
+									class_width="col-lg-12" type="text" name="nm_pelapor_kematian" id="nm_pelapor_kematian"
+									value="{$data_info.nm_pelapor_kematian|default:''}"}
+								</div>
+							</div>
+							<div class="form-group">
+								<input type="checkbox" name="ceklis_ttd_pelapor" id="ceklis_ttd_pelapor">
+								<label for="ceklis_ttd_pelapor" style="color:red"><b>Centang jika Pelapor Bertandatangan</b></label>
+							</div>
 							<div class="row" style="margin-bottom:5px;">
 								<div class='col-md-12'>
 									<fieldset class='form-group'>

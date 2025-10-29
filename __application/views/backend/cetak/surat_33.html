@@ -63,7 +63,7 @@
         ({ubah_kata($data.surat.info_tambahan.jml_anak)|default:'.....................'|default:'.....................'})
         orang anak, yaitu :{/if}
       </p>
-      <table width="100%" style="font-size: 12px; padding-left: 60px; padding-top: -10px" cellpadding="2">
+      <table width="100%" style="font-size: 12px; padding-left: 60px; padding-top: -10px;line-height: 1.2;" cellpadding="2">
         {$no=1} {foreach from=$data.surat.info_tambahan.data_ahli_waris
         item=pen} {if $pen.hubungan_waris == 'ANAK'}
         <tr>
@@ -130,7 +130,7 @@
         </tr>
       </table>
 
-      <table width="100%" border="0" style="font-size: 13px; padding-left: 65px; padding-top: 15px" cellpadding="4">
+      <table width="100%" border="0" style="font-size: 13px; padding-left: 65px; padding-top: 15px" cellpadding="2">
         <tr>
           <td>Para ahli waris tersebut :</td>
         </tr>

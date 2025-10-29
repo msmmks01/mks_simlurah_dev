@@ -607,93 +607,111 @@ class Mbackend extends CI_Model
 					$xkel = $this->input->get('kelurahan_id', true);
 				}
 
-				$sql = " SELECT 
-							'Jenis Kelamin' AS kategori,
-							CASE
-								WHEN a.jenis_kelamin = 'L' THEN 'Laki-laki'
-								WHEN a.jenis_kelamin = 'P' THEN 'Perempuan'
-								ELSE 'Tidak Diketahui'
-							END AS nama_kategori,
-							COUNT(*) AS jumlah,
-							ROUND(COUNT(*) * 100.0 / total.total_responden, 2) AS persentase,
-							1 AS urutan_kategori,
-							CASE a.jenis_kelamin
-								WHEN 'Laki-laki' THEN 1
-								WHEN 'Perempuan' THEN 2
-								ELSE 99
-							END AS urutan_sub
-							FROM tbl_penilaian_skm a
-							CROSS JOIN (
-							SELECT COUNT(*) AS total_responden 
-							FROM tbl_penilaian_skm 
-							WHERE cl_kecamatan_id = '$xkec' AND cl_kelurahan_desa_id = '$xkel'
-							) AS total
-							WHERE a.cl_kecamatan_id = '$xkec' AND a.cl_kelurahan_desa_id = '$xkel'
-							GROUP BY a.jenis_kelamin
+				// $sql = " SELECT 
+				// 			'Jenis Kelamin' AS kategori,
+				// 			CASE
+				// 				WHEN a.jenis_kelamin = 'L' THEN 'Laki-laki'
+				// 				WHEN a.jenis_kelamin = 'P' THEN 'Perempuan'
+				// 				ELSE 'Tidak Diketahui'
+				// 			END AS nama_kategori,
+				// 			COUNT(*) AS jumlah,
+				// 			ROUND(COUNT(*) * 100.0 / total.total_responden, 2) AS persentase,
+				// 			1 AS urutan_kategori,
+				// 			CASE a.jenis_kelamin
+				// 				WHEN 'Laki-laki' THEN 1
+				// 				WHEN 'Perempuan' THEN 2
+				// 				ELSE 99
+				// 			END AS urutan_sub
+				// 			FROM tbl_penilaian_skm a
+				// 			CROSS JOIN (
+				// 			SELECT COUNT(*) AS total_responden 
+				// 			FROM tbl_penilaian_skm 
+				// 			WHERE cl_kecamatan_id = '$xkec' AND cl_kelurahan_desa_id = '$xkel'
+				// 			) AS total
+				// 			WHERE a.cl_kecamatan_id = '$xkec' AND a.cl_kelurahan_desa_id = '$xkel'
+				// 			GROUP BY a.jenis_kelamin
 
-							UNION ALL
+				// 			UNION ALL
 
-							SELECT 
-							'Pendidikan' AS kategori,
-							nama_pendidikan AS nama_kategori,
-							0 AS jumlah,
-							0 AS persentase,
-							2 AS urutan_kategori,
-							CASE nama_pendidikan
-								WHEN 'SD/SEDERAJAT' THEN 1
-								WHEN 'TAMAT SD/SEDERAJAT' THEN 2
-								WHEN 'SLTP/SEDERAJAT' THEN 3
-								WHEN 'SLTA/SEDERAJAT' THEN 4
-								WHEN 'DIPLOMA I/II' THEN 5
-								WHEN 'AKADEMI/DIPLOMA III/S.MUDA' THEN 6
-								WHEN 'DIPLOMA IV/STRATA I' THEN 7
-								WHEN 'STRATA II' THEN 8
-								WHEN 'STRATA III' THEN 9
-								WHEN 'TIDAK TAMAT/BELUM TAMAT SD/SEDERAJAT' THEN 10
-								WHEN 'TIDAK/BELUM SEKOLAH' THEN 11
-								ELSE 99
-							END AS urutan_sub
-							FROM cl_pendidikan
+				// 			SELECT 
+				// 			'Pendidikan' AS kategori,
+				// 			nama_pendidikan AS nama_kategori,
+				// 			0 AS jumlah,
+				// 			0 AS persentase,
+				// 			2 AS urutan_kategori,
+				// 			CASE nama_pendidikan
+				// 				WHEN 'SD/SEDERAJAT' THEN 1
+				// 				WHEN 'TAMAT SD/SEDERAJAT' THEN 2
+				// 				WHEN 'SLTP/SEDERAJAT' THEN 3
+				// 				WHEN 'SLTA/SEDERAJAT' THEN 4
+				// 				WHEN 'DIPLOMA I/II' THEN 5
+				// 				WHEN 'AKADEMI/DIPLOMA III/S.MUDA' THEN 6
+				// 				WHEN 'DIPLOMA IV/STRATA I' THEN 7
+				// 				WHEN 'STRATA II' THEN 8
+				// 				WHEN 'STRATA III' THEN 9
+				// 				WHEN 'TIDAK TAMAT/BELUM TAMAT SD/SEDERAJAT' THEN 10
+				// 				WHEN 'TIDAK/BELUM SEKOLAH' THEN 11
+				// 				ELSE 99
+				// 			END AS urutan_sub
+				// 			FROM cl_pendidikan
 
-							UNION ALL
+				// 			UNION ALL
 
-							SELECT 
-							'Pekerjaan' AS kategori,
-							c.nama_pekerjaan AS nama_kategori,
-							COUNT(*) AS jumlah,
-							ROUND(COUNT(*) * 100.0 / total.total_responden, 2) AS persentase,
-							3 AS urutan_kategori,
-							1 AS urutan_sub
-							FROM tbl_penilaian_skm a
-							LEFT JOIN cl_jenis_pekerjaan c ON c.id = a.cl_jenis_pekerjaan_id
-							CROSS JOIN (
-							SELECT COUNT(*) AS total_responden 
-							FROM tbl_penilaian_skm 
-							WHERE cl_kecamatan_id = '$xkec' AND cl_kelurahan_desa_id = '$xkel'
-							) AS total
-							WHERE a.cl_kecamatan_id = '$xkec' AND a.cl_kelurahan_desa_id = '$xkel'
-							GROUP BY c.nama_pekerjaan
+				// 			SELECT 
+				// 			'Pekerjaan' AS kategori,
+				// 			c.nama_pekerjaan AS nama_kategori,
+				// 			COUNT(*) AS jumlah,
+				// 			ROUND(COUNT(*) * 100.0 / total.total_responden, 2) AS persentase,
+				// 			3 AS urutan_kategori,
+				// 			1 AS urutan_sub
+				// 			FROM tbl_penilaian_skm a
+				// 			LEFT JOIN cl_jenis_pekerjaan c ON c.id = a.cl_jenis_pekerjaan_id
+				// 			CROSS JOIN (
+				// 			SELECT COUNT(*) AS total_responden 
+				// 			FROM tbl_penilaian_skm 
+				// 			WHERE cl_kecamatan_id = '$xkec' AND cl_kelurahan_desa_id = '$xkel'
+				// 			) AS total
+				// 			WHERE a.cl_kecamatan_id = '$xkec' AND a.cl_kelurahan_desa_id = '$xkel'
+				// 			GROUP BY c.nama_pekerjaan
 
-							UNION ALL
+				// 			UNION ALL
 
-							SELECT 
-							'Jenis Layanan' AS kategori,
-							e.jenis_surat AS nama_kategori,
-							COUNT(*) AS jumlah,
-							ROUND(COUNT(*) * 100.0 / total.total_responden, 2) AS persentase,
-							4 AS urutan_kategori,
-							1 AS urutan_sub
-							FROM tbl_penilaian_skm a
-							LEFT JOIN cl_jenis_surat e ON e.id = a.cl_jenis_surat_id
-							CROSS JOIN (
-							SELECT COUNT(*) AS total_responden 
-							FROM tbl_penilaian_skm 
-							WHERE cl_kecamatan_id = '$xkec' AND cl_kelurahan_desa_id = '$xkel'
-							) AS total
-							WHERE a.cl_kecamatan_id = '$xkec' AND a.cl_kelurahan_desa_id = '$xkel'
-							GROUP BY e.jenis_surat
+				// 			SELECT 
+				// 			'Jenis Layanan' AS kategori,
+				// 			e.jenis_surat AS nama_kategori,
+				// 			COUNT(*) AS jumlah,
+				// 			ROUND(COUNT(*) * 100.0 / total.total_responden, 2) AS persentase,
+				// 			4 AS urutan_kategori,
+				// 			1 AS urutan_sub
+				// 			FROM tbl_penilaian_skm a
+				// 			LEFT JOIN cl_jenis_surat e ON e.id = a.cl_jenis_surat_id
+				// 			CROSS JOIN (
+				// 			SELECT COUNT(*) AS total_responden 
+				// 			FROM tbl_penilaian_skm 
+				// 			WHERE cl_kecamatan_id = '$xkec' AND cl_kelurahan_desa_id = '$xkel'
+				// 			) AS total
+				// 			WHERE a.cl_kecamatan_id = '$xkec' AND a.cl_kelurahan_desa_id = '$xkel'
+				// 			GROUP BY e.jenis_surat
 
-							ORDER BY urutan_kategori, urutan_sub, jumlah DESC";
+				// 			ORDER BY urutan_kategori, urutan_sub, jumlah DESC
+				// ";		
+				$sql ="SELECT a.*,b.nama_pendidikan AS pendidikan,c.nama_pekerjaan AS pekerjaan,d.jenis_surat AS layanan,e.nama AS kelurahan, f.nama AS kecamatan,
+						CASE
+							WHEN a.jenis_kelamin = 'L' THEN 'Laki-laki'
+							WHEN a.jenis_kelamin = 'P' THEN 'Perempuan'
+							ELSE 'Tidak Diketahui'
+						END AS kategori
+						FROM tbl_penilaian_skm a
+						LEFT JOIN cl_pendidikan b ON a.cl_pendidikan_id = b.id
+						LEFT JOIN cl_jenis_pekerjaan c ON a.cl_jenis_pekerjaan_id = c.id
+						LEFT JOIN cl_jenis_surat d ON a.cl_jenis_surat_id=d.id
+						LEFT JOIN cl_kelurahan_desa e ON a.cl_kelurahan_desa_id=e.id
+						LEFT JOIN cl_kecamatan f ON a.cl_kecamatan_id=f.id
+						WHERE a.cl_kecamatan_id =  '$xkec'
+						AND a.cl_kelurahan_desa_id = '$xkel'
+						GROUP BY a.sesi_id
+						ORDER BY a.id;
+				";
 				break;
 
 			case "laporan_wamis":
@@ -10158,6 +10176,10 @@ class Mbackend extends CI_Model
 							$array['pernyataan_dari'] = $data['pernyataan_dari'];
 
 							$array['tgl_pernyataan'] = $data['tgl_pernyataan'];
+
+							$array['nm_pelapor_kematian'] = $data['nm_pelapor_kematian'];
+
+							$array['ceklis_ttd_pelapor'] = isset($data['ceklis_ttd_pelapor']);
 
 							$data['info_tambahan'] = json_encode($array);
 

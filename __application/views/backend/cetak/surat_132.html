@@ -193,7 +193,72 @@
 				<td colspan=4 align="justify" valign=top>Demikian Surat Keterangan Kematian ini dibuat dan dipergunakan <b>{$data.surat.info_tambahan.keperluan_surat|default:'sebagaimana mestinya'}</b> {if $data.surat.info_tambahan.no_pengantar_sekda !=''}berdasarkan surat pengantar dari RT/RW Nomor {$data.surat.info_tambahan.no_pengantar_sekda|default:'.....................'} Tanggal {tgl_indo({$data.surat.info_tambahan.tgl_pernyataan_sekda|default:'.......'})}{/if} {if $data.surat.info_tambahan.pernyataan_dari !=''} dan sesuai surat pernyataan dari {$data.surat.info_tambahan.pernyataan_dari|default:'......'} tanggal {$data.surat.info_tambahan.tgl_pernyataan|default:'......'}{/if}.</td>
 			</tr>
 		</table>
-	</div>	
-	{ttd_1($data,$setting)}
+	</div>
+	{if $data.surat.info_tambahan.ceklis_ttd_pelapor neq ''}
+      <div style="padding-right: 5.82mm;padding-left: 20.44mm;padding-bottom: 1mm;">
+        <table style="border-collapse: collapse; width: 100%" border="0" cellpadding="0">
+          <tr>
+            <td valign="bottom" width="25%"><br/></td>
+            <td valign="bottom" width="20%">&nbsp;</td>
+            <td valign="bottom" width="55%">
+              {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'.......'},
+              {$data.surat.tanggal_surat|default:'............................'}
+            </td>
+          </tr>
+          <tr>
+            <td valign="bottom"><b>Imam Kelurahan</b></td>
+            <td valign="bottom">&nbsp;</td>
+            <td valign="bottom" align="left">
+              <b>
+                {if count($data.ttd)==1}
+                {$data.ttd[0]['center']}
+                {else}
+                {$data.ttd[0]['center']}<br>{$data.ttd[1]['center']}
+                {/if}
+            </b>
+            </td>
+          </tr>
+          <tr>
+            <td><br/></td>
+            <td><br/></td>
+            <td><br/></td>
+          </tr>
+          <tr>
+            <td><br/></td>
+            <td><br/></td>
+            <td><br/></td>
+          </tr>
+          <tr>
+            <td><br/></td>
+            <td><br/></td>
+            <td><br/></td>
+          </tr>
+          <tr>
+            <td>
+              <b><u>{$data.surat.info_tambahan.nm_pelapor_kematian|default:'.....................'}</u></b>
+            </td>
+            <td>&nbsp;</td>
+            <td>
+              <b><u>{$data.pemohon.nama|default:'...............................'}</u></b>
+            </td>
+          </tr>
+          <tr>
+            <td><br/></td>
+            <td>&nbsp;</td>
+            <td align="left">
+              Pangkat :
+              {$data.pemohon.pangkat|default:'............................'}
+            </td>
+          </tr>
+          <tr>
+            <td><br/></td>
+            <td>&nbsp;</td>
+            <td align="left">
+              NIP : {$data.pemohon.nip|default:'...............................'}
+            </td>
+          </tr>
+        </table>
+      </div>
+      {else} {ttd_1($data,$setting)} {/if}
 </body>
 </html>

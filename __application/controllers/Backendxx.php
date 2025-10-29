@@ -2041,6 +2041,8 @@ class Backendxx extends JINGGA_Controller
 
 					case "132":
 
+						$this->nsmarty->assign("ceklis_ttd_pelapor", ($data_info['ceklis_ttd_pelapor'] == true ? 'checked=true' : ''));
+
 						$this->nsmarty->assign("jenis_kelamin_bayi", $this->lib->fillcombo("jenis_kelamin", "return", ($sts == "edit" ? $data_info["jenis_kelamin_bayi"] : "")));
 
 						break;
@@ -4995,6 +4997,33 @@ class Backendxx extends JINGGA_Controller
 
 				break;
 
+			case "laporan_hasil_skm2":
+				$tahun = $this->input->get('tahun');
+				$kelurahan_id = $this->input->get('kelurahan_id');
+				$kecamatan_id = $this->input->get('kecamatan_id'); // dari JS
+
+				if (empty($tahun) || !is_numeric($tahun)) {
+					$tahun = date('Y');
+				}
+				if (!empty($kelurahan_id)) {
+					$array_setting['a.cl_kelurahan_desa_id'] = $kelurahan_id;
+				}
+				if (!empty($kecamatan_id)) {
+					$array_setting['a.cl_kecamatan_id'] = $kecamatan_id;
+				}
+
+
+				// Debug log ke log file atau browser
+				log_message('debug', "SKM PARAM: tahun=$tahun, kec=$kecamatan_id, kel=$kelurahan_id");
+
+				$data['laporan_hasil_skm2'] =  $this->mbackend->getdata('laporan_hasil_skm2', 'result_array', $tahun, $kecamatan_id, $kelurahan_id);
+
+				$filename = "laporan-hasil-skm2-" . date('YmdHis');
+				$temp = "backend/cetak/laporan_hasil_skm2.html";
+
+				$this->hasil_output('pdf', $mod, $data, $filename, $temp, "LEGAL-P");
+
+				break;
 
 			case "laporan_staff":
 
