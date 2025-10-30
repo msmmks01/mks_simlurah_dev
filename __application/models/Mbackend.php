@@ -16105,43 +16105,44 @@ class Mbackend extends CI_Model
 					}
 					$data['cl_kelurahan_desa_id'] = $cl_kelurahan_desa_id;
 
-					$nip     = $this->input->post('nip');
-					$jabatan = $this->input->post('jabatan');
+					// $nip     = $this->input->post('nip');
+					// $jabatan = $this->input->post('jabatan');
 
-					// 🔹 Nonaktifkan jabatan lama hanya untuk kelurahan yang sama
-					$this->db->where(array(
-						'nip'              => $nip,
-						'cl_provinsi_id'       => $this->auth['cl_provinsi_id'],
-						'cl_kab_kota_id'       => $this->auth['cl_kab_kota_id'],
-						'cl_kecamatan_id'      => $this->auth['cl_kecamatan_id'],
-						'cl_kelurahan_desa_id' => $this->auth['cl_kelurahan_desa_id'],
-						'status'               => 'Aktif'
-					));
-					$this->db->update('tbl_data_penandatanganan', [
-						'status'      => 'Tidak Aktif',
-						'update_by'   => $this->auth['username'],
-						'update_date' => date('Y-m-d H:i:s')
-					]);
+					// // 🔹 Nonaktifkan jabatan lama hanya untuk kelurahan yang sama
+					// $this->db->where(array(
+					// 	'nip'              => $nip,
+					// 	'cl_provinsi_id'       => $this->auth['cl_provinsi_id'],
+					// 	'cl_kab_kota_id'       => $this->auth['cl_kab_kota_id'],
+					// 	'cl_kecamatan_id'      => $this->auth['cl_kecamatan_id'],
+					// 	'cl_kelurahan_desa_id' => $this->auth['cl_kelurahan_desa_id'],
+					// 	'status'               => 'Aktif'
+					// ));
+					// $this->db->update('tbl_data_penandatanganan', [
+					// 	'status'      => 'Tidak Aktif',
+					// 	'update_by'   => $this->auth['username'],
+					// 	'update_date' => date('Y-m-d H:i:s')
+					// ]);
 
-					    // Cek data lama dengan nip yang sama dan status aktif
-					$this->db->where('nip', $nip);
-					$this->db->where('status', 'Aktif');
-					$Zquery = $this->db->get('tbl_data_penandatanganan');
+					//     // Cek data lama dengan nip yang sama dan status aktif
+					// $this->db->where('nip', $nip);
+					// $this->db->where('status', 'Aktif');
+					// $Zquery = $this->db->get('tbl_data_penandatanganan');
 
-					if ($Zquery->num_rows() > 0) {
-						$row = $Zquery->row();
-						// Jika kelurahan lama berbeda, update data lama jadi tidak aktif
-						if ($row->cl_kelurahan_desa_id != $this->auth['cl_kelurahan_desa_id']) {
-							$this->db->where('nip', $nip);
-							$this->db->where('status', 'Aktif');
-							$this->db->update('tbl_data_penandatanganan', [
-								'status' => 'Tidak Aktif',
-								'tingkat_jabatan' => ''
-							]);
-						}
-					}
+					// if ($Zquery->num_rows() > 0) {
+					// 	$row = $Zquery->row();
+					// 	// Jika kelurahan lama berbeda, update data lama jadi tidak aktif
+					// 	if ($row->cl_kelurahan_desa_id != $this->auth['cl_kelurahan_desa_id']) {
+					// 		$this->db->where('nip', $nip);
+					// 		$this->db->where('status', 'Aktif');
+					// 		$this->db->update('tbl_data_penandatanganan', [
+					// 			'status' => 'Tidak Aktif',
+					// 			'tingkat_jabatan' => ''
+					// 		]);
+					// 	}
+					// }
 
 					// 🔹 Data baru diset sebagai Aktif
+					// $data['status']       = 'Aktif';
 					$data['create_by']    = $this->auth['username'];
 					$data['create_date']  = date('Y-m-d H:i:s');
 					$data['update_by']    = $this->auth['username'];
@@ -17400,13 +17401,49 @@ class Mbackend extends CI_Model
 					}
 				} else if ($table == "tbl_data_penandatanganan") {
 
+					$nip     = $this->input->post('nip');
+					$jabatan = $this->input->post('jabatan');
 					$kec = $this->auth['cl_kelurahan_desa_id'];
 					$cek = $this->db->select('nip')->get_where('tbl_data_penandatanganan', array('nip' => $nip, 'cl_kelurahan_desa_id' => $kec, 'status' => 'Aktif'));
+					
 					if ($cek->num_rows() > 0) {
 						return '2';
 					} else {
+						
+						$this->db->where(array(
+							'jabatan'              => $jabatan,
+							'cl_provinsi_id'       => $this->auth['cl_provinsi_id'],
+							'cl_kab_kota_id'       => $this->auth['cl_kab_kota_id'],
+							'cl_kecamatan_id'      => $this->auth['cl_kecamatan_id'],
+							'cl_kelurahan_desa_id' => $this->auth['cl_kelurahan_desa_id'],
+							'status'               => 'Aktif'
+						));
+						$this->db->update('tbl_data_penandatanganan', [
+							'status'      => 'Tidak Aktif',
+							'update_by'   => $this->auth['username'],
+							'update_date' => date('Y-m-d H:i:s')
+						]);
+
+							// Cek data lama dengan nip yang sama dan status aktif
+						$this->db->where('nip', $nip);
+						$this->db->where('status', 'Aktif');
+						$Zquery = $this->db->get('tbl_data_penandatanganan');
+
+						if ($Zquery->num_rows() > 0) {
+							$row = $Zquery->row();
+							// Jika kelurahan lama berbeda, update data lama jadi tidak aktif
+								if ($row->cl_kelurahan_desa_id != $this->auth['cl_kelurahan_desa_id']) {
+									$this->db->where('nip', $nip);
+									$this->db->where('status', 'Aktif');
+									$this->db->update('tbl_data_penandatanganan', [
+										'status' => 'Tidak Aktif',
+										'tingkat_jabatan' => ''
+									]);
+								}
+						}
 
 						$insert = $this->db->insert($table, $data);
+
 					}
 				} else if ($table == "tbl_data_kendaraan") {
 
