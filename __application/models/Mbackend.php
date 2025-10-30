@@ -16110,7 +16110,7 @@ class Mbackend extends CI_Model
 
 					// 🔹 Nonaktifkan jabatan lama hanya untuk kelurahan yang sama
 					$this->db->where(array(
-						'jabatan'              => $jabatan,
+						'nip'              => $nip,
 						'cl_provinsi_id'       => $this->auth['cl_provinsi_id'],
 						'cl_kab_kota_id'       => $this->auth['cl_kab_kota_id'],
 						'cl_kecamatan_id'      => $this->auth['cl_kecamatan_id'],
