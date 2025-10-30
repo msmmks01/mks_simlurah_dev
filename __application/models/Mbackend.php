@@ -16142,7 +16142,6 @@ class Mbackend extends CI_Model
 					}
 
 					// 🔹 Data baru diset sebagai Aktif
-					$data['status']       = 'Aktif';
 					$data['create_by']    = $this->auth['username'];
 					$data['create_date']  = date('Y-m-d H:i:s');
 					$data['update_by']    = $this->auth['username'];
