@@ -136,4 +136,55 @@
 	        }
 	    }
 	} );
+
+	// $("#form_{$acak}").validate({
+	// 	rules: rulesnya,
+	// 	messages: messagesnya,
+	// 	submitHandler: function(form) {
+	// 		var nip = $('#nip').val();
+	// 		var panjangNip = nip.length;
+
+	// 		if (panjangNip != 16 && panjangNip != 18) {
+	// 		$.messager.alert(nama_apps, 'NIP tidak valid', 'error');
+	// 		return false;
+	// 		}
+
+	// 		$.LoadingOverlay("show");
+
+	// 		// ✅ Fungsi submit_form dijalankan hanya setelah form valid & tombol simpan ditekan
+	// 		submit_form('form_{$acak}', function(r){
+	// 		console.log("Response dari server:", r);
+
+	// 		try {
+	// 			var res = (typeof r === "string") ? JSON.parse(r) : r;
+
+	// 			if (res.status === "success") {
+	// 			$.messager.alert(nama_apps, res.message, 'info'); 
+	// 			$('#cancel_{$acak}').trigger('click');
+	// 			$('#grid_data_penandatanganan').datagrid('reload');
+	// 			} else if (res.status === "warning") {
+	// 			$.messager.alert(nama_apps, res.message || 'Peringatan saat menyimpan data.', 'warning');
+	// 			} else {
+	// 			$.messager.alert(nama_apps, res.message || 'Terjadi kesalahan saat menyimpan data.', 'error');
+	// 			}
+	// 		} catch (e) {
+	// 			$.messager.alert(nama_apps, 'Proses Simpan Data Gagal (format tidak dikenali): ' + r, 'error');
+	// 		}
+
+	// 		$.LoadingOverlay("hide", true);
+	// 		});
+	// 	},
+	// 	errorPlacement: function(error, element) {
+	// 		var name = element.attr('name');
+	// 		var errorSelector = '.validation_error_message[for="' + name + '"]';
+	// 		var $element = $(errorSelector);
+	// 		if ($element.length) { 
+	// 		$(errorSelector).html(error.html());
+	// 		} else {
+	// 		error.insertAfter(element);
+	// 		}
+	// 	}
+	// 	});
+
+
 </script>

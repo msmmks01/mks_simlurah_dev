@@ -16063,78 +16063,78 @@ class Mbackend extends CI_Model
 
 				break;
 
-			// case "data_penandatanganan":
-			// 	$sql = "SELECT nm_golongan AS id, CONCAT(pangkat,', ',nm_golongan) AS txt FROM cl_golongan";
-			// 	$data_pegawai = $this->db->query($sql)->row_array();
-
-			// 	$array['pangkat'] = $data_pegawai['txt'];
-
-			// 	$table = "tbl_data_penandatanganan";
-
-			// 	if ($sts_crud == "add" || $sts_crud == "edit") {
-
-			// 		$data['cl_provinsi_id'] = $this->auth['cl_provinsi_id'];
-
-			// 		$data['cl_kab_kota_id'] = $this->auth['cl_kab_kota_id'];
-
-			// 		$data['cl_kecamatan_id'] = $this->auth['cl_kecamatan_id'];
-
-			// 		$data['cl_kelurahan_desa_id'] = $this->auth['cl_kelurahan_desa_id'];
-
-			// 		$nip = $this->input->post('nip');
-			// 	}
-			// 	break;
-
 			case "data_penandatanganan":
-				$sql = "SELECT nm_golongan AS id, CONCAT(pangkat, ', ', nm_golongan) AS txt FROM cl_golongan";
+				$sql = "SELECT nm_golongan AS id, CONCAT(pangkat,', ',nm_golongan) AS txt FROM cl_golongan";
 				$data_pegawai = $this->db->query($sql)->row_array();
 
 				$array['pangkat'] = $data_pegawai['txt'];
+
 				$table = "tbl_data_penandatanganan";
 
 				if ($sts_crud == "add" || $sts_crud == "edit") {
 
-					$data['cl_provinsi_id']  = $this->auth['cl_provinsi_id'];
-					$data['cl_kab_kota_id']  = $this->auth['cl_kab_kota_id'];
+					$data['cl_provinsi_id'] = $this->auth['cl_provinsi_id'];
+
+					$data['cl_kab_kota_id'] = $this->auth['cl_kab_kota_id'];
+
 					$data['cl_kecamatan_id'] = $this->auth['cl_kecamatan_id'];
 
-					// 🔹 Ambil kelurahan dari input, jika kosong pakai kelurahan user login
-					$cl_kelurahan_desa_id = $this->input->post('cl_kelurahan_desa_id');
-					if (empty($cl_kelurahan_desa_id) || $cl_kelurahan_desa_id == 0) {
-						$cl_kelurahan_desa_id = $this->auth['cl_kelurahan_desa_id'];
-					}
-					$data['cl_kelurahan_desa_id'] = $cl_kelurahan_desa_id;
+					$data['cl_kelurahan_desa_id'] = $this->auth['cl_kelurahan_desa_id'];
 
-					$nip     = $this->input->post('nip');
-					$jabatan = $this->input->post('jabatan');
-
-					// 🔹 Nonaktifkan jabatan lama hanya untuk kelurahan yang sama
-					$this->db->where(array(
-						'jabatan'              => $jabatan,
-						'cl_provinsi_id'       => $this->auth['cl_provinsi_id'],
-						'cl_kab_kota_id'       => $this->auth['cl_kab_kota_id'],
-						'cl_kecamatan_id'      => $this->auth['cl_kecamatan_id'],
-						'cl_kelurahan_desa_id' => $cl_kelurahan_desa_id,
-						'status'               => 'Aktif'
-					));
-					$this->db->update('tbl_data_penandatanganan', [
-						'status'      => 'Tidak Aktif',
-						'update_by'   => $this->auth['username'],
-						'update_date' => date('Y-m-d H:i:s')
-					]);
-
-					// 🔹 Data baru diset sebagai Aktif
-					$data['status']       = 'Aktif';
-					$data['create_by']    = $this->auth['username'];
-					$data['create_date']  = date('Y-m-d H:i:s');
-					$data['update_by']    = $this->auth['username'];
-					$data['update_date']  = date('Y-m-d H:i:s');
-					
-					
+					$nip = $this->input->post('nip');
 				}
-
 				break;
 
+			// case "data_penandatanganan":
+			// 	$sql = "SELECT nm_golongan AS id, CONCAT(pangkat, ', ', nm_golongan) AS txt FROM cl_golongan";
+			// 	$data_pegawai = $this->db->query($sql)->row_array();
+
+			// 	$array['pangkat'] = $data_pegawai['txt'];
+			// 	$table = "tbl_data_penandatanganan";
+
+			// 	if ($sts_crud == "add" || $sts_crud == "edit") {
+
+			// 		$data['cl_provinsi_id']  = $this->auth['cl_provinsi_id'];
+			// 		$data['cl_kab_kota_id']  = $this->auth['cl_kab_kota_id'];
+			// 		$data['cl_kecamatan_id'] = $this->auth['cl_kecamatan_id'];
+
+			// 		// 🔹 Ambil kelurahan dari input, jika kosong pakai kelurahan user login
+			// 		$cl_kelurahan_desa_id = $this->input->post('cl_kelurahan_desa_id');
+			// 		if (empty($cl_kelurahan_desa_id) || $cl_kelurahan_desa_id == 0) {
+			// 			$cl_kelurahan_desa_id = $this->auth['cl_kelurahan_desa_id'];
+			// 		}
+			// 		$data['cl_kelurahan_desa_id'] = $cl_kelurahan_desa_id;
+
+			// 		$nip     = $this->input->post('nip');
+			// 		$jabatan = $this->input->post('jabatan');
+
+			// 		// 🔹 Nonaktifkan jabatan lama hanya untuk kelurahan yang sama
+			// 		$this->db->where(array(
+			// 			'jabatan'              => $jabatan,
+			// 			'cl_provinsi_id'       => $this->auth['cl_provinsi_id'],
+			// 			'cl_kab_kota_id'       => $this->auth['cl_kab_kota_id'],
+			// 			'cl_kecamatan_id'      => $this->auth['cl_kecamatan_id'],
+			// 			'cl_kelurahan_desa_id' => $cl_kelurahan_desa_id,
+			// 			'status'               => 'Aktif'
+			// 		));
+			// 		$this->db->update('tbl_data_penandatanganan', [
+			// 			'status'      => 'Tidak Aktif',
+			// 			'update_by'   => $this->auth['username'],
+			// 			'update_date' => date('Y-m-d H:i:s')
+			// 		]);
+
+			// 		// 🔹 Data baru diset sebagai Aktif
+			// 		$data['status']       = 'Aktif';
+			// 		$data['create_by']    = $this->auth['username'];
+			// 		$data['create_date']  = date('Y-m-d H:i:s');
+			// 		$data['update_by']    = $this->auth['username'];
+			// 		$data['update_date']  = date('Y-m-d H:i:s');
+					
+					
+			// 	}
+
+			// 	break;
+			
 			case "data_kendaraan":
 				$data['nilai_perolehan'] = str_replace(",", "", @$data['nilai_perolehan']);
 
