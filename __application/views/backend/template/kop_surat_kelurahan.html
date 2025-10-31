@@ -40,6 +40,12 @@
         {if strlen($setting.alamat)>1}
         {$setting.alamat|default:'...'}
         {/if}
+        {if strlen($setting.nama_kab_kota)>1}
+        {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'...'}
+        {/if}
+        {if strlen($setting.nama_kab_kota)>1}
+            <br>
+        {/if}
         {if strlen($setting.telp)>1}
         Telp. {$setting.telp|default:'...'}
         {/if}
@@ -49,12 +55,7 @@
         {if strlen($setting.email)>1}
         Email : {$setting.email|default:'...'}
         {/if}
-        {if strlen($setting.telp)==0 && strlen($setting.faks)==0 && strlen($setting.nama_kab_kota)>1}
-            <br>
-        {/if}
-        {if strlen($setting.nama_kab_kota)>1}
-        {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'...'}
-        {/if}
+        
         {if strlen($setting.kode_pos)>1}
         Kode Pos {$setting.kode_pos|default:'...'}
         {/if}
