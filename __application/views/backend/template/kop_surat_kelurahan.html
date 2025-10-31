@@ -43,11 +43,11 @@
         {if strlen($setting.nama_kab_kota)>1}
         {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'...'}
         {/if}
-        {if strlen($setting.nama_kab_kota)>1}
-            <br>
-        {/if}
         {if strlen($setting.telp)>1}
         Telp. {$setting.telp|default:'...'}
+        {/if}
+        {if strlen($setting.telp)>1}
+            <br>
         {/if}
         {if strlen($setting.faks)>1}
         Fax. {$setting.faks|default:'...'}
