@@ -1887,11 +1887,7 @@ class Mbackend extends CI_Model
 				ORDER BY
 				LPAD(B.rw, 3, '0') ASC,
 				LPAD(B.rt, 3, '0') ASC,
-				A.id DESC;
-	
-					";
-
-
+				A.id DESC";
 
 				//echo $sql;exit;
 
