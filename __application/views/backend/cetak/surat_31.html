@@ -112,7 +112,7 @@
 								<td valign="top" style="padding-bottom: 5px;"><b>{$data.pemohon.nama_lengkap|default:'.....................'}</b></td>
 							</tr>
 							<tr>
-								<td valign="top">No. KTP / NIK</td>
+								<td valign="top">NIK</td>
 								<td valign="top" align="center">:</td>
 								<td valign="top" style="padding-bottom: 5px;">{$data.pemohon.nik|default:'.....................'}</td>
 							</tr>
@@ -150,7 +150,7 @@
 	<tr>
 		<td align="justify" style="padding-left:70px;padding-bottom: 10px;font-family: arial;">
 			Benar yang tersebut namanya di atas adalah orang tua/wali siswa atas nama <b>{$data.surat.info_tambahan.nama_anak|default:'.....................'}</b>
-			yang berdasarkan dari Kartu Keluarga yang sama dengan NO.KK {$data.pemohon.no_kk|default:'.....................'} dan sesuai pengantar Nomor {$data.surat.info_tambahan.no_pengantar|default:'.....................'} Tanggal {tgl_indo({$data.surat.info_tambahan.tgl_pengantar|default:'.....................'})}.<br>
+			yang berdasarkan dari Kartu Keluarga yang sama dengan NO.KK {$data.surat.info_tambahan.no_kk_ortu|default:'.....................'} dan sesuai pengantar Nomor {$data.surat.info_tambahan.no_pengantar|default:'.....................'} Tanggal {tgl_indo({$data.surat.info_tambahan.tgl_pengantar|default:'.....................'})}.<br>
 			Demikian surat keterangan ini diberikan dan dipergunakan <b>{$data.surat.info_tambahan.keperluan_surat|default:'sebagaimana mestinya'}</b>.
 		</td>
 	</tr>

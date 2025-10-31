@@ -13851,6 +13851,8 @@ class Mbackend extends CI_Model
 
 							$array['tgl_pengantar'] = $data['tgl_pengantar'];
 
+							$array['no_kk_ortu'] = $data['no_kk_ortu'];
+
 							$array['keperluan_surat'] = $data['keperluan_surat'];
 
 							$data['info_tambahan'] = json_encode($array);

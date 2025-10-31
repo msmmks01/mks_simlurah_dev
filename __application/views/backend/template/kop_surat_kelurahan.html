@@ -49,6 +49,9 @@
         {if strlen($setting.email)>1}
         Email : {$setting.email|default:'...'}
         {/if}
+        {if strlen($setting.telp)==0 && strlen($setting.faks)==0 && strlen($setting.nama_kab_kota)>1}
+            <br>
+        {/if}
         {if strlen($setting.nama_kab_kota)>1}
         {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'...'}
         {/if}
