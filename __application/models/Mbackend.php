@@ -1845,9 +1845,7 @@ class Mbackend extends CI_Model
 
 
 
-				$sql = "
-	
-					SELECT A.*,CONCAT(LEFT(A.no_kk,13),'xxx') AS no_kk2, B.nama_lengkap as nama_kepala_keluarga,
+				$sql = "SELECT A.*,CONCAT(LEFT(A.no_kk,13),'xxx') AS no_kk2, B.nama_lengkap as nama_kepala_keluarga,
 
 					C.total as jumlah_anggota_keluarga,
 
@@ -1886,7 +1884,10 @@ class Mbackend extends CI_Model
 
 				$where
 
-				ORDER BY A.id DESC
+				ORDER BY
+				LPAD(B.rw, 3, '0') ASC,
+				LPAD(B.rt, 3, '0') ASC,
+				A.id DESC;
 	
 					";
 
