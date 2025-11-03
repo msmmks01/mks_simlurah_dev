@@ -1845,7 +1845,7 @@ class Mbackend extends CI_Model
 
 
 
-				$sql = "SELECT A.*,CONCAT(LEFT(A.no_kk,13),'xxx') AS no_kk2, B.nama_lengkap as nama_kepala_keluarga,
+				$sql = "SELECT A.*,CONCAT(LEFT(A.no_kk,13),'xxx') AS no_kk2, B.nama_lengkap as nama_kepala_keluarga,B.alamat AS alamat_kepala_keluarga,
 
 					C.total as jumlah_anggota_keluarga,
 
@@ -1859,7 +1859,7 @@ class Mbackend extends CI_Model
 
 				LEFT JOIN (
 
-					SELECT no_kk, rw, rt,nama_lengkap
+					SELECT no_kk, rw, rt,nama_lengkap,alamat
 
 					FROM tbl_data_penduduk
 
