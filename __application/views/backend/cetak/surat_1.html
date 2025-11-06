@@ -175,13 +175,13 @@
             <td valign="bottom"><b>Imam Kelurahan</b></td>
             <td valign="bottom">&nbsp;</td>
             <td valign="bottom" align="left">
-              <b>
+              
                 {if count($data.ttd)==1}
                 {$data.ttd[0]['center']}
                 {else}
                 {$data.ttd[0]['center']}<br>{$data.ttd[1]['center']}
                 {/if}
-            </b>
+            
             </td>
           </tr>
           <tr>
@@ -201,19 +201,11 @@
           </tr>
           <tr>
             <td>
-              <b
-                ><u
-                  >{$data.surat.info_tambahan.imam_kelurahan_opsi|default:'.....................'}</u
-                ></b
-              >
+              <b><u>{$data.surat.info_tambahan.imam_kelurahan_opsi|default:'.....................'}</u></b>
             </td>
             <td>&nbsp;</td>
             <td>
-              <b
-                ><u
-                  >{$data.pemohon.nama|default:'...............................'}</u
-                ></b
-              >
+              {$data.pemohon.nama|default:'...............................'}
             </td>
           </tr>
           <tr>

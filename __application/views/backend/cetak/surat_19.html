@@ -232,15 +232,15 @@
 				</td>
 			</tr>
 				<tr>
-					<td valign="bottom"><b>Nama Pemohon</b></td>
+					<td valign="bottom">Nama Pemohon</td>
 					<td valign="bottom" align="left">
-						<b>
+						
 							{if count($data.ttd)==1}
 							{$data.ttd[0]['center']}
 							{else}
 							{$data.ttd[0]['center']}<br>{$data.ttd[1]['center']}
 							{/if}
-							</b>
+							
 					</td>
 					</tr>
 				<tr>
@@ -257,10 +257,10 @@
 				</tr>
 				<tr>
 					<td>
-						<b><u>{$data.pemohon.nama_lengkap|default:'.....................'}</u></b>
+						{$data.pemohon.nama_lengkap|default:'.....................'}
 					</td>
 					<td>
-						<b><u>{$data.pemohon.nama|default:'...............................'}</u></b>
+						{$data.pemohon.nama|default:'...............................'}
 					</td>
 				</tr>
 				<tr>

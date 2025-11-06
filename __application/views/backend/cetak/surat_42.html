@@ -151,7 +151,7 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td><b>{if count($data.ttd)==1}{$data.ttd[0]['center']}{else}{$data.ttd[0]['center']}<br>{$data.ttd[1]['center']}</b>
+				<td>{if count($data.ttd)==1}{$data.ttd[0]['center']}{else}{$data.ttd[0]['center']}<br>{$data.ttd[1]['center']}
 				{/if}</td>
 				<td></td>
 			</tr>
@@ -163,7 +163,7 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td><b><u>{$data.pemohon.nama|default:'...............................'}</u></b></td>
+				<td>{$data.pemohon.nama|default:'...............................'}</td>
 				<td></td>
 			</tr>
 			<tr>
@@ -194,7 +194,7 @@
 						</tr>
 					</table>
 					<br/>
-					<b><u>{$data.pemohon.nama_lengkap|default:'.....................'}</u></b>
+					{$data.pemohon.nama_lengkap|default:'.....................'}
 				</td>
 			</tr>
 		</table>
@@ -226,7 +226,7 @@
 			</tr>
 			<tr>
 				{foreach from=$data.surat.info_tambahan.data_saksi item=pen}
-				<td align="center"><u><b>{$pen.nama|default:'.....................'}</b></u></td> 
+				<td align="center">{$pen.nama|default:'.....................'}</td> 
 				<td></td>
 				{/foreach}
 			</tr>
@@ -250,7 +250,7 @@
 					{$data.surat.tanggal_surat|default:'............................'}</td>
 			</tr>
 			<tr>
-				<td valign="top"><b>{if count($data.ttd)==1}{$data.ttd[0]['center']}{else}{$data.ttd[0]['center']}<br>{$data.ttd[1]['center']}</b>
+				<td valign="top">{if count($data.ttd)==1}{$data.ttd[0]['center']}{else}{$data.ttd[0]['center']}<br>{$data.ttd[1]['center']}
 				{/if}</td>
 				<td valign="top">&nbsp;</td>
 				<td valign="top" align="left">Yang Menyatakan</td>
@@ -277,9 +277,9 @@
 				<td><br/></td>
 			</tr>
 			<tr>
-				<td><b><u>{$data.pemohon.nama|default:'...............................'}</u></b></td>
+				<td>{$data.pemohon.nama|default:'...............................'}</td>
 				<td>&nbsp;</td>
-				<td><b><u>{$data.pemohon.nama_lengkap|default:''}</u></b></td>
+				<td>{$data.pemohon.nama_lengkap|default:''}</td>
 			</tr>
 			<tr>
 				<td>Pangkat : {$data.pemohon.pangkat|default:'............................'}</td>
@@ -309,7 +309,7 @@
 						</tr>
 					</table>
 					<br/>
-					<b><u>{$data.pemohon.nama_lengkap|default:'.....................'}</u></b>
+					{$data.pemohon.nama_lengkap|default:'.....................'}
 				</td>
 			</tr>
 		</table>

@@ -70,11 +70,12 @@
 			</tr>
 			<tr>
 				<td colspan=3 align="center" style="font-size:13.3px">NOMOR: 
-						{if isset($data.surat.info_tambahan.ttd_srikandi) and $data.surat.info_tambahan.ttd_srikandi neq ''}
-						{'${nomor_naskah}'}
-						{else}
-						{$data.surat.no_surat|default:'..................................................'}
-						{/if}</td>
+					{if isset($data.surat.info_tambahan.ttd_srikandi) and $data.surat.info_tambahan.ttd_srikandi neq ''}
+					{'${nomor_naskah}'}
+					{else}
+					{$data.surat.no_surat|default:'..................................................'}
+					{/if}
+				</td>
 			</tr>
 		</table>
 	</div>

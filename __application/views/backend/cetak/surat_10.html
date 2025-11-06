@@ -222,7 +222,7 @@
           <tr>
             <td valign="top">Imam Kelurahan</td>
             <td>&nbsp;</td>
-            <td valign="top" align="left"><b>{if count($data.ttd)==1}{$data.ttd[0]['center']}{else}{$data.ttd[0]['center']}<br>{$data.ttd[1]['center']}</b>
+            <td valign="top" align="left">{if count($data.ttd)==1}{$data.ttd[0]['center']}{else}{$data.ttd[0]['center']}<br>{$data.ttd[1]['center']}
                 {/if}</td>
           </tr>
           <tr>
@@ -247,11 +247,11 @@
           </tr>
           <tr>
             <td>
-              <b><u>{$data.surat.info_tambahan.nama_imam_kel|default:'...............................'}</u></b>
+              {$data.surat.info_tambahan.nama_imam_kel|default:'...............................'}
             </td>
             <td><br/></td>
             <td>
-              <b><u>{$data.pemohon.nama|default:'.....................'}</u></b>
+              {$data.pemohon.nama|default:'.....................'}
             </td>
           </tr>
           <tr>

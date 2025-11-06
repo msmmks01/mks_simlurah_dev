@@ -306,7 +306,7 @@ class Backendxx extends JINGGA_Controller
 			case "data_rekap_bulan":
 
 				$this->nsmarty->assign("kelurahan", $this->lib->fillcombo("kelurahan_report", "return", ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0" ? $this->auth["cl_kelurahan_desa_id"] : ""), ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0" ? $this->auth["cl_kelurahan_desa_id"] : "")));
-				$this->nsmarty->assign("nip_id", $this->lib->fillcombo("data_penandatangananx", "return", ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0" ? $this->auth["cl_kelurahan_desa_id"] : ""), ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0" ? $this->auth["cl_kelurahan_desa_id"] : "")));
+				$this->nsmarty->assign("nip_id", $this->lib->fillcombo("data_penandatanganan_5", "return", ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0" ? $this->auth["cl_kelurahan_desa_id"] : ""), ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0" ? $this->auth["cl_kelurahan_desa_id"] : "")));
 
 				$list_bulan = array(
 					'' => '--- Pilih ---',
@@ -5348,9 +5348,25 @@ class Backendxx extends JINGGA_Controller
 
 				);
 
-				$this->setting = $this->db->select('a.*,b.nip,b.nama,b.pangkat,b.jabatan')->where($array_setting)
-					->join('tbl_data_penandatanganan b', "a.cl_kecamatan_id=b.cl_kecamatan_id and a.cl_kelurahan_desa_id=b.cl_kelurahan_desa_id ", 'left')
-					->get("tbl_setting_apps a")->row_array();
+				// $this->setting = $this->db->select('a.*,b.nip,b.nama,b.pangkat,if(jabatan="Lurah","Lurah","a.n Lurah")jabatan')->where($array_setting)
+				// 	->join('tbl_data_penandatanganan b', "a.cl_kecamatan_id=b.cl_kecamatan_id and a.cl_kelurahan_desa_id=b.cl_kelurahan_desa_id ", 'left')
+				// 	->get("tbl_setting_apps a")->row_array();
+				$this->setting = $this->db->select('
+									a.*, 
+									b.nip,
+									b.nama,
+									b.pangkat,
+									IF(b.jabatan = "Lurah", "Lurah", "a.n Lurah") AS jabatan_ttd,
+									b.jabatan AS jabatan_asli
+								')
+								->where($array_setting)
+								->join(
+									'tbl_data_penandatanganan b', 
+									"a.cl_kecamatan_id=b.cl_kecamatan_id AND a.cl_kelurahan_desa_id=b.cl_kelurahan_desa_id",
+									'left'
+								)
+								->get("tbl_setting_apps a")
+								->row_array();
 
 				$this->nsmarty->assign("setting", $this->setting);
 				$this->nsmarty->assign("tgl_cetak", $tgl_cetak);

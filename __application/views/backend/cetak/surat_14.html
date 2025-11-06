@@ -173,9 +173,9 @@
 				<td>Pengirim,</td>
 			</tr>
 			<tr>
-			  <td align="left" style="padding-left: 2%;" valign="top"><br><b>...........................................</b></td>
-			  <td width="27%" align="right">&nbsp;<b>{if count($data.ttd)==1}{$data.ttd[0]['start']}{else}{$data.ttd[0]['start']}{/if}</b></td>
-			  <td valign="top"><br><b>{if count($data.ttd)==1}{$data.ttd[0]['center']}{else}{$data.ttd[0]['center']}<br>{$data.ttd[1]['center']}</b>{/if}
+			  <td align="left" style="padding-left: 2%;" valign="top"><br>...........................................</td>
+			  <td width="27%" align="right">&nbsp;{if count($data.ttd)==1}{$data.ttd[0]['start']}{else}{$data.ttd[0]['start']}{/if}</td>
+			  <td valign="top"><br>{if count($data.ttd)==1}{$data.ttd[0]['center']}{else}{$data.ttd[0]['center']}<br>{$data.ttd[1]['center']}{/if}
 			</td>
 			</tr>
 			<tr>
@@ -200,11 +200,11 @@
 			</tr>
 			<tr>
 			  <td style="padding-left: 2%;">
-				<b><u>............................................</u></b>
+				............................................		
 			  </td>
 			  <td><br/></td>
 			  <td>
-				<b><u>{$data.pemohon.nama|default:'...............................'}</u></b>
+				{$data.pemohon.nama|default:'...............................'}	
 			  </td>
 			</tr>
 			<tr>

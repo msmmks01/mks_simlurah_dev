@@ -8181,6 +8181,16 @@ class Mbackend extends CI_Model
 					
 				";
 
+			case "data_penandatanganan_5":
+				$sql = "SELECT nip AS id, nama as txt
+				FROM tbl_data_penandatanganan a
+				WHERE a.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "'
+				AND a.tingkat_jabatan IN ('2.1','2.2','2.3.1','2.3.2','2.3.3')
+				AND a.STATUS = 'Aktif'
+			";
+			break;
+
+
 			case "data_penandatanganan_2":
 
 				$sql = "SELECT nip as id, nama as txt

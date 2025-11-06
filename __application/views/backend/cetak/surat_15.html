@@ -193,13 +193,13 @@ n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 				   <tr>
 					   <td valign="bottom"><b>Pimpinan Perusahaan</b></td>
 					   <td valign="bottom" align="left">
-						<b>
+
 							{if count($data.ttd)==1}
 							{$data.ttd[0]['center']}
 							{else}
 							{$data.ttd[0]['center']}<br>{$data.ttd[1]['center']}
 							{/if}
-						 </b>
+	
 						</td>
 				   </tr>
 				   <tr>
@@ -216,10 +216,10 @@ n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 				   </tr>
 				   <tr>
 					   <td>
-						   <b><u>{$data.surat.info_tambahan.pj|default:'.....................'}</u></b>
+						   {$data.surat.info_tambahan.pj|default:'.....................'}
 					   </td>
 					   <td>
-						   <b><u>{$data.pemohon.nama|default:'...............................'}</u></b>
+						   {$data.pemohon.nama|default:'...............................'}
 					   </td>
 				   </tr>
 				   <tr>

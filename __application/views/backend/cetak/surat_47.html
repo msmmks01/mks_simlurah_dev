@@ -176,13 +176,13 @@
 				   <tr>
 					   <td valign="bottom" style="padding-left: -7px;"><b>{$data.surat.info_tambahan.jabatan_camat|default:'.....................'}</b></td>
 					   <td valign="bottom" align="left">
-						<b>
+						
 							{if count($data.ttd)==1}
 							{$data.ttd[0]['center']}
 							{else}
 							{$data.ttd[0]['center']}<br>{$data.ttd[1]['center']}
 							{/if}
-						 </b>
+						 
 					</td>
 				   </tr>
 				   <tr>
@@ -199,10 +199,10 @@
 				   </tr>
 				   <tr>
 					   <td style="padding-left: -7px;">
-						   <b><u>{$data.surat.info_tambahan.nama_camat|default:'.....................'}</u></b>
+						   {$data.surat.info_tambahan.nama_camat|default:'.....................'}
 					   </td>
 					   <td>
-						   <b><u>{$data.pemohon.nama|default:'...............................'}</u></b>
+						   {$data.pemohon.nama|default:'...............................'}
 					   </td>
 				   </tr>
 				   <tr>

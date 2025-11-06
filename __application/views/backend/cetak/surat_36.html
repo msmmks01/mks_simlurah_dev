@@ -173,18 +173,18 @@
 					Nomor: {$data.surat.no_surat|default:'...................'} <br/>
 					
 					<span style="font-size:2px">&nbsp;</span><br/>
-					<b>
+					
 						{if count($data.ttd)==1}
 						{$data.ttd[0]['center']}
 						{else}
 						{$data.ttd[0]['center']}<br>{$data.ttd[1]['center']}
 						{/if}
-					 </b>  
+					   
 					<br/>  
 					<br/>
 					<br/>
 			
-					<b><u>{$data.pemohon.nama|default:'...............................'}</u></b>
+					{$data.pemohon.nama|default:'...............................'}
 					<br/>
 					Pangkat : {$data.pemohon.pangkat|default:'............................'}
 					<br/>
