@@ -5361,10 +5361,12 @@ class Backendxx extends JINGGA_Controller
 								')
 								->where($array_setting)
 								->join(
-									'tbl_data_penandatanganan b', 
-									"a.cl_kecamatan_id=b.cl_kecamatan_id AND a.cl_kelurahan_desa_id=b.cl_kelurahan_desa_id",
-									'left'
-								)
+											'tbl_data_penandatanganan b', 
+											"a.cl_kecamatan_id=b.cl_kecamatan_id 
+											AND a.cl_kelurahan_desa_id=b.cl_kelurahan_desa_id 
+											AND b.status='Aktif'",
+											'left'
+										)
 								->get("tbl_setting_apps a")
 								->row_array();
 
