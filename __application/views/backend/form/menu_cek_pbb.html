@@ -1,0 +1,57 @@
+<style>
+body {
+    background-color: #f4f6f9;
+    background-image: radial-gradient(#dfe9f3 1px, transparent 1px);
+    background-size: 30px 30px;
+}
+
+.container-pbb {
+    background: white;
+    max-width: 700px;
+    margin: 80px auto;
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.container-pbb h3 {
+    text-align: center;
+    color: #2d6a4f;
+    margin-bottom: 20px;
+}
+
+.form-inline label {
+    font-weight: 600;
+    margin-right: 8px;
+}
+
+.form-inline input[type="text"] {
+    border: 1px solid #ccc;
+    padding: 6px 8px;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #198754;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #157347;
+}
+</style>
+
+<div class="container-pbb">
+  <h3>{$data.judul}</h3>
+  <form method="post" action="{$base_url}pbb/get_data_pbb" class="form-inline" style="text-align:center;">
+    <label for="nop">NOP:</label>
+    <input type="text" name="nop" id="nop" value="{$data.nop|default:''}" />
+    <label for="tahun">Tahun:</label>
+    <input type="text" name="tahun" id="tahun" value="{$data.tahun|default:''}" />
+    <button type="submit">Cek Data</button>
+  </form>
+</div>

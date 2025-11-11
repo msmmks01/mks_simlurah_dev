@@ -155,12 +155,12 @@
 				</tr>
 				{if $data.surat.info_tambahan.jenis_domisili eq 'Tetap'}
 				<tr>
-					<td colspan=4 valign=top align="justify" style="padding-top: -10px">Yang tersebut namanya di atas adalah penduduk {$data.pemohon.nama_kelurahan|default:'........'} Kecamatan {ucwords(strtolower(str_replace('KOTA','',$data.pemohon.nama_kecamatan)))|default:''} Kota {ucwords(strtolower(str_replace('KOTA','',$data.pemohon.nama_kota)))|default:''} dan berdomisili Tetap pada alamat tersebut di atas sesuai pengantar Nomor {$data.surat.info_tambahan.no_pengantar|default:'.....................'} Tanggal {tgl_indo({$data.surat.info_tambahan.tgl_pengantar|default:'.....................'})}.
+					<td colspan=4 valign=top align="justify" style="padding-top: -10px">Yang tersebut namanya di atas adalah penduduk {$data.pemohon.nama_kelurahan|default:'........'} Kecamatan {ucwords(strtolower(str_replace('KOTA','',$data.pemohon.nama_kecamatan)))|default:''} Kota {ucwords(strtolower(str_replace('KOTA','',$data.pemohon.nama_kota)))|default:''} dan berdomisili Tetap pada alamat tersebut di atas sesuai pengantar Nomor {$data.surat.info_tambahan.no_pengantar|default:'.....................'} Tanggal {tgl_indo({$data.surat.info_tambahan.tgl_pengantar|default:'.....................'})}{if $data.surat.info_tambahan.no_capil !=''}, dan sesuai yang tertera pada Keterangan Penduduk Non Permanen dengan Nomor {$data.surat.info_tambahan.no_capil} yang dikeluarkan oleh Dinas Kependudukan dan Pencatatan Sipil.{else}.{/if}
 					</td>
 				</tr>
 				{elseif $data.surat.info_tambahan.jenis_domisili eq 'Sementara'}
 				<tr>
-					<td colspan=4 valign=top align="justify" style="padding-top: -10px">Yang tersebut namanya di atas adalah penduduk yang berdomisili Sementara pada alamat tersebut di atas sesuai pengantar Nomor {$data.surat.info_tambahan.no_pengantar|default:'.....................'} Tanggal {tgl_indo({$data.surat.info_tambahan.tgl_pengantar|default:'.....................'})}.
+					<td colspan=4 valign=top align="justify" style="padding-top: -10px">Yang tersebut namanya di atas adalah penduduk yang berdomisili Sementara pada alamat tersebut di atas sesuai pengantar Nomor {$data.surat.info_tambahan.no_pengantar|default:'.....................'} Tanggal {tgl_indo({$data.surat.info_tambahan.tgl_pengantar|default:'.....................'})}{if $data.surat.info_tambahan.no_capil !=''}, dan sesuai yang tertera pada Keterangan Penduduk Non Permanen dengan Nomor {$data.surat.info_tambahan.no_capil} yang dikeluarkan oleh Dinas Kependudukan dan Pencatatan Sipil.{else}.{/if}
 					</td>
 				</tr>
 				{/if}

@@ -1,59 +1,70 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Login extends JINGGA_Controller
+class Pbb extends JINGGA_Controller
 {
-
 	function __construct()
 	{
 		parent::__construct();
 		$this->load->library(array('encrypt', 'lib'));
-
-		$this->nsmarty->assign("main_css", $this->lib->assetsmanager('css', 'login'));
-		$this->nsmarty->assign("main_js", $this->lib->assetsmanager('js', 'login'));
 	}
 
 	public function index()
 	{
-		$this->nsmarty->display('backend/main-login.html');
+		$this->nsmarty->assign('base_url', base_url());
+		$this->nsmarty->assign('data', array(
+			'judul' => 'CEK MENU PBB',
+			'hasil' => null
+		));
+		$this->nsmarty->display('backend/form/menu_cek_pbb.html');
 	}
 
-	function get_data_pbb()
+	public function get_data_pbb()
 	{
-		$data = $this->input->post(null, true);
-		$curl = curl_init();
+		$nop   = trim($this->input->post('nop'));
+		$tahun = $this->input->post('tahun') ? $this->input->post('tahun') : date('Y');
 
-		curl_setopt_array($curl, array(
-		CURLOPT_URL => 'https://pakinta.makassarkota.go.id/api/data/check',
-		CURLOPT_RETURNTRANSFER => true,
-		CURLOPT_ENCODING => '',
-		CURLOPT_MAXREDIRS => 10,
-		CURLOPT_TIMEOUT => 0,
-		CURLOPT_FOLLOWLOCATION => true,
-		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-		CURLOPT_CUSTOMREQUEST => 'POST',
-		CURLOPT_POSTFIELDS =>'{
-			"jenis_pajak":"pbbp2",
-			"nop":"737103000801603340",
-			"tahun_pajak":"2025",
-			"merchant":"MSM"
-		}',
-		CURLOPT_HTTPHEADER => array(
-			'Content-Type: application/json',
-			'Authorization: 8f5f90ec1ba148d8cb39fc9749993f6b'
-		),
+		$payload = json_encode(array(
+			"jenis_pajak" => "pbbp2",
+			"nop" => $nop,
+			"tahun_pajak" => $tahun,
+			"merchant" => "MSM"
 		));
 
-		$response = curl_exec($curl);
+		$ch = curl_init();
+		curl_setopt_array($ch, array(
+			CURLOPT_URL => 'https://pakinta.makassarkota.go.id/api/data/check',
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_POST => true,
+			CURLOPT_POSTFIELDS => $payload,
+			CURLOPT_HTTPHEADER => array(
+				'Content-Type: application/json',
+				'Authorization: 8f5f90ec1ba148d8cb39fc9749993f6b'
+			),
+		));
 
-		curl_close($curl);
+		$response = curl_exec($ch);
+		$curl_error = curl_error($ch);
+		curl_close($ch);
 
-		if (curl_errno($curl)) {
-			echo json_encode(array('status' => 'error', 'message' => "cURL Error (" . curl_errno($curl) . "): " . curl_error($curl)));
+		if ($curl_error) {
+			$result = array('status' => 'error', 'message' => $curl_error);
 		} else {
-			echo $response;
+			$result = json_decode($response, true);
 		}
-		curl_close($curl);
+
+		// kirim hasil ke view
+		$data = array(
+			'judul' => 'CEK MENU PBB',
+			'nop'   => $nop,
+			'tahun' => $tahun,
+			'hasil' => $result
+		);
+
+		// ✅ tambahkan baris ini
+		$this->nsmarty->assign('base_url', base_url());
+
+		$this->nsmarty->assign('data', $data);
+		$this->nsmarty->display('backend/form/menu_cek_pbb.html');
 	}
 
-	
 }
