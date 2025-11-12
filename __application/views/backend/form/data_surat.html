@@ -27941,6 +27941,12 @@
 		rules: rulesnya,
 		messages: messagesnya,
 		submitHandler: function (form) {
+
+			// 🔹 Panggil fungsi beforeSend
+			if (!beforeSend()) {
+				return false; // stop proses kalau ada input wajib kosong
+			}
+
 			var nik = $('#nik').val();
 			var jenis_surat = $('#cl_jenis_surat_id').val();
 			var nwajib = 0;
@@ -27971,6 +27977,7 @@
 					$.messager.alert(nama_apps, 'Proses Simpan Data Gagal ' + r, 'warning');
 				}
 				$.LoadingOverlay("hide", true);
+				$('#save').prop('disabled', false).text('Simpan');
 			});
 			//*/
 		},
@@ -27986,5 +27993,11 @@
 			}
 		}
 	});
+
+	function beforeSend() {
+		$('#save').prop('disabled', true).text('Menyimpan...');
+		console.log('beforeSend: semua input valid, siap kirim data...');
+		return true;
+	};
 
 </script>
