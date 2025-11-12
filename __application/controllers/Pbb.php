@@ -12,7 +12,7 @@ class Pbb extends JINGGA_Controller
 	{
 		$this->nsmarty->assign('base_url', base_url());
 		$this->nsmarty->assign('data', array(
-			'judul' => 'CEK MENU PBB',
+			'judul' => 'CEK PBB',
 			'hasil' => null
 		));
 		$this->nsmarty->display('backend/form/menu_cek_pbb.html');
@@ -20,8 +20,16 @@ class Pbb extends JINGGA_Controller
 
 	public function get_data_pbb()
 	{
+		// pastikan ini dipanggil via POST
 		$nop   = trim($this->input->post('nop'));
 		$tahun = $this->input->post('tahun') ? $this->input->post('tahun') : date('Y');
+
+		// jika nop kosong, kembalikan error JSON langsung
+		if (empty($nop)) {
+			header('Content-Type: application/json');
+			echo json_encode(['status' => 'error', 'message' => 'NOP harus diisi.']);
+			return;
+		}
 
 		$payload = json_encode(array(
 			"jenis_pajak" => "pbbp2",
@@ -40,31 +48,43 @@ class Pbb extends JINGGA_Controller
 				'Content-Type: application/json',
 				'Authorization: 8f5f90ec1ba148d8cb39fc9749993f6b'
 			),
+			// opsi timeout
+			CURLOPT_CONNECTTIMEOUT => 10,
+			CURLOPT_TIMEOUT => 20,
 		));
 
+		// untuk development lokal (XAMPP) jika sertifikat bermasalah:
+		// Hanya pakai ini untuk test di localhost. Hapus di production.
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+
 		$response = curl_exec($ch);
+		$curl_errno = curl_errno($ch);
 		$curl_error = curl_error($ch);
+		$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		curl_close($ch);
 
-		if ($curl_error) {
-			$result = array('status' => 'error', 'message' => $curl_error);
-		} else {
-			$result = json_decode($response, true);
+		header('Content-Type: application/json');
+
+		if ($curl_errno) {
+			echo json_encode(['status' => 'error', 'message' => 'cURL Error: '.$curl_error]);
+			return;
 		}
 
-		// kirim hasil ke view
-		$data = array(
-			'judul' => 'CEK MENU PBB',
-			'nop'   => $nop,
-			'tahun' => $tahun,
-			'hasil' => $result
-		);
+		// coba decode response API — jika sudah JSON, kirim balik apa adanya
+		$decoded = json_decode($response, true);
+		if (json_last_error() === JSON_ERROR_NONE) {
+			// jika API mengirim struktur berbeda, kita normalisasi sedikit
+			if (!isset($decoded['status'])) {
+				// asumsi: jika ada 'data' maka sukses
+				$decoded['status'] = isset($decoded['data']) ? 'success' : 'unknown';
+			}
+			echo json_encode($decoded);
+			return;
+		}
 
-		// ✅ tambahkan baris ini
-		$this->nsmarty->assign('base_url', base_url());
-
-		$this->nsmarty->assign('data', $data);
-		$this->nsmarty->display('backend/form/menu_cek_pbb.html');
+		// kalau bukan JSON, kirim raw dalam field message (untuk debugging)
+		echo json_encode(['status' => 'error', 'message' => 'Response API bukan JSON: '.substr($response,0,500)]);
 	}
 
 }

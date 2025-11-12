@@ -1,57 +1,222 @@
 <style>
 body {
-    background-color: #f4f6f9;
-    background-image: radial-gradient(#dfe9f3 1px, transparent 1px);
-    background-size: 30px 30px;
+  background-color: #f4f6f9;
+  background-image: radial-gradient(#dfe9f3 1px, transparent 1px);
+  background-size: 30px 30px;
+  font-family: "Segoe UI", sans-serif;
 }
 
 .container-pbb {
-    background: white;
-    max-width: 700px;
-    margin: 80px auto;
-    padding: 30px 40px;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  position: relative;
+  background: white;
+  max-width: 700px;
+  margin: 80px auto;
+  padding: 40px 50px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
+/* Tombol kembali di pojok kanan atas */
+.btn-kembali {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  background-color: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: background 0.2s ease-in-out;
+}
+.btn-kembali:hover {
+  background-color: #0056b3;
+}
+
+/* Judul */
 .container-pbb h3 {
-    text-align: center;
-    color: #2d6a4f;
-    margin-bottom: 20px;
+  text-align: center;
+  color: #2d6a4f;
+  margin-bottom: 25px;
+  font-size: 22px;
+}
+
+/* Form Input */
+.form-inline {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  text-align: center;
 }
 
 .form-inline label {
-    font-weight: 600;
-    margin-right: 8px;
+  font-weight: bold;
+  margin-right: 6px;
+  color: #2d6a4f;
 }
 
-.form-inline input[type="text"] {
-    border: 1px solid #ccc;
-    padding: 6px 8px;
-    border-radius: 5px;
+.form-inline input[type="text"],
+.form-inline select {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  width: 180px;
+  transition: all 0.2s ease;
+  background-color: #f9fafb;
 }
 
-button {
-    background-color: #198754;
-    color: white;
-    border: none;
-    padding: 6px 14px;
-    border-radius: 5px;
-    cursor: pointer;
+.form-inline input[type="text"]:focus,
+.form-inline select:focus {
+  border-color: #198754;
+  box-shadow: 0 0 6px rgba(25, 135, 84, 0.4);
+  outline: none;
+  background-color: #fff;
 }
 
-button:hover {
-    background-color: #157347;
+.form-inline button {
+  background-color: #198754;
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.form-inline button:hover {
+  background-color: #157347;
+  transform: scale(1.05);
+}
+
+/* Hasil Box */
+.result-box {
+  margin-top: 25px;
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 20px;
+  border: 1px solid #dce3e8;
+}
+.result-box h4 {
+  color: #2d6a4f;
+  margin-bottom: 10px;
+}
+.result-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.result-table th, .result-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  font-size: 14px;
+}
+.result-table th {
+  background-color: #198754;
+  color: white;
+  text-align: left;
 }
 </style>
 
 <div class="container-pbb">
-  <h3>{$data.judul}</h3>
-  <form method="post" action="{$base_url}pbb/get_data_pbb" class="form-inline" style="text-align:center;">
-    <label for="nop">NOP:</label>
-    <input type="text" name="nop" id="nop" value="{$data.nop|default:''}" />
-    <label for="tahun">Tahun:</label>
-    <input type="text" name="tahun" id="tahun" value="{$data.tahun|default:''}" />
-    <button type="submit">Cek Data</button>
+  <!-- {if $auth.cl_user_group_id eq '2'}
+    <a href="{$base_url}obackendpage" class="btn-kembali">← Kembali</a>
+  {elseif $auth.cl_user_group_id neq '3'}
+    <a href="{$base_url}obackendpage" class="btn-kembali">← Kembali</a>
+  {/if} -->
+
+  <h3>{$data.judul|default:'CEK MENU PBB'}</h3>
+
+  <form id="formCekPBB" class="form-inline">
+    <div>
+      <label for="nop">NOP:</label>
+      <input type="text" name="nop" id="nop" value="{$data.nop|default:''}" required />
+    </div>
+
+    <div>
+      <label for="tahun">Tahun:</label>
+      <select name="tahun" id="tahun" required>
+        {assign var="tahun_sekarang" value=$smarty.now|date_format:"%Y"}
+        {section name=tahun loop=11}
+          {assign var="t" value=$tahun_sekarang-$smarty.section.tahun.index}
+          <option value="{$t}" {if isset($data.tahun) && $data.tahun == $t}selected{/if}>{$t}</option>
+        {/section}
+      </select>
+    </div>
+
+    <button type="submit">🔍 Cek Data</button>
   </form>
+
+  <div id="hasilPBB" style="margin-top:20px;"></div>
 </div>
+
+<!-- set base URL ke JS (Smarty akan mengganti {$base_url} di sini) -->
+<script>
+  var BASE_URL = '{$base_url}';
+</script>
+
+{literal}
+<script>
+document.getElementById('formCekPBB').addEventListener('submit', function(e){
+  e.preventDefault();
+  const hasilBox = document.getElementById('hasilPBB');
+  hasilBox.innerHTML = '<p style="text-align:center;color:#666">🔄 Memproses...</p>';
+
+  const form = e.currentTarget;
+  const fd = new FormData(form);
+
+  fetch(BASE_URL + 'pbb/get_data_pbb', {
+    method: 'POST',
+    body: fd,
+    credentials: 'same-origin'
+  })
+  .then(function(res){
+    // pastikan kita dapat JSON
+    return res.json();
+  })
+  .then(function(data){
+    if (!data) {
+      hasilBox.innerHTML = '<p style="color:red">Tidak ada data dari server.</p>';
+      return;
+    }
+
+    if (data.status && data.status === 'success') {
+      // kadang API menaruh detail di data.data atau langsung di data
+      var d = data.data ? data.data : data;
+      var nama = d.nama || d.NAMA || '-';
+      var alamat = d.alamat || d.ALAMAT || '-';
+      var jumlah = d.jumlah_tagihan || d.total || d.jumlah || '0';
+      var statusBayar = d.status_pembayaran || d.STATUS_PEMBAYARAN || '-';
+
+      hasilBox.innerHTML = `
+        <div class="result-box">
+          <h4>Hasil Cek PBB</h4>
+          <table class="result-table">
+            <tr><th>NOP</th><td>${fd.get('nop')}</td></tr>
+            <tr><th>Tahun Pajak</th><td>${fd.get('tahun')}</td></tr>
+            <tr><th>Nama Wajib Pajak</th><td>${nama}</td></tr>
+            <tr><th>Alamat Objek Pajak</th><td>${alamat}</td></tr>
+            <tr><th>Jumlah Tagihan</th><td>Rp ${jumlah}</td></tr>
+            <tr><th>Status</th>
+              <td>${statusBayar === 'LUNAS' ? '<span style="color:green;font-weight:bold">LUNAS</span>' : '<span style="color:red;font-weight:bold">BELUM BAYAR</span>'}</td>
+            </tr>
+          </table>
+        </div>`;
+    } else {
+      // tampilkan pesan error yang dikirim controller
+      var msg = data.message || data.msg || 'Data tidak ditemukan atau format respons tidak sesuai.';
+      hasilBox.innerHTML = `<div class="result-box"><h4 style="color:red">${msg}</h4></div>`;
+    }
+  })
+  .catch(function(err){
+    console.error(err);
+    hasilBox.innerHTML = '<p style="color:red">Terjadi kesalahan saat mengambil data.</p>';
+  });
+});
+</script>
+{/literal}
