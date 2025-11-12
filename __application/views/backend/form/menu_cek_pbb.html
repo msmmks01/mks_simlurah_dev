@@ -2,7 +2,7 @@
 body {
   background-color: #f4f6f9;
   background-image: radial-gradient(#dfe9f3 1px, transparent 1px);
-  background-size: 30px 30px;
+  background-size: 40px 40px;
   font-family: "Segoe UI", sans-serif;
 }
 
@@ -48,7 +48,7 @@ body {
   justify-content: center;
   align-items: center;
   gap: 15px;
-  margin-top: 20px;
+  margin-top: 30px;
   flex-wrap: wrap;
   text-align: center;
 }
@@ -190,10 +190,16 @@ document.getElementById('formCekPBB').addEventListener('submit', function(e){
       // kadang API menaruh detail di data.data atau langsung di data
       var d = data.data ? data.data : data;
       var nama = d.nama_wp || d.NAMA_WP || '-';
+      var rt = d.rt_op || d.RT_OP || '-';
+      var rw = d.rw_op || d.RW_OP || '-';
       var alamat = d.alamat_op || d.ALAMAT_OP || '-';
       // var jumlah = d.jumlah_tagihan || d.total || d.jumlah || '0';
-      var statusBayar = d.status_pembayaran || d.STATUS_PEMBAYARAN || '-';
-
+      var statusBayar = d.status || d.STATUS || '-';
+      var tgl_rekam_bayar = d.tgl_rekam_bayar || d.TGL_REKAM_BAYAR || '-';
+      var t_bayar='';
+      if(statusBayar == 'LUNAS'){
+         t_bayar = `<tr><th>Tgl. Bayar</th><td>${tgl_rekam_bayar}</td></tr>`;
+      }
       hasilBox.innerHTML = `
         <div class="result-box">
           <h4>Hasil Cek PBB</h4>
@@ -201,10 +207,13 @@ document.getElementById('formCekPBB').addEventListener('submit', function(e){
             <tr><th>NOP</th><td>${fd.get('nop')}</td></tr>
             <tr><th>Tahun Pajak</th><td>${fd.get('tahun')}</td></tr>
             <tr><th>Nama Wajib Pajak</th><td>${nama}</td></tr>
+            <tr><th>RT</th><td>${rt}</td></tr>
+            <tr><th>RW</th><td>${rw}</td></tr>
             <tr><th>Alamat Objek Pajak</th><td>${alamat}</td></tr>
             <tr><th>Status</th>
               <td>${statusBayar === 'LUNAS' ? '<span style="color:green;font-weight:bold">LUNAS</span>' : '<span style="color:red;font-weight:bold">BELUM BAYAR</span>'}</td>
             </tr>
+            ${t_bayar}
           </table>
         </div>`;
     } else {
