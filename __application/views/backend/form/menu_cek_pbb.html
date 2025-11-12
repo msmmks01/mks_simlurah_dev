@@ -180,6 +180,7 @@ document.getElementById('formCekPBB').addEventListener('submit', function(e){
     return res.json();
   })
   .then(function(data){
+    console.log(data);
     if (!data) {
       hasilBox.innerHTML = '<p style="color:red">Tidak ada data dari server.</p>';
       return;
@@ -188,9 +189,9 @@ document.getElementById('formCekPBB').addEventListener('submit', function(e){
     if (data.status && data.status === 'success') {
       // kadang API menaruh detail di data.data atau langsung di data
       var d = data.data ? data.data : data;
-      var nama = d.nama || d.NAMA || '-';
-      var alamat = d.alamat || d.ALAMAT || '-';
-      var jumlah = d.jumlah_tagihan || d.total || d.jumlah || '0';
+      var nama = d.nama_wp || d.NAMA_WP || '-';
+      var alamat = d.alamat_op || d.ALAMAT_OP || '-';
+      // var jumlah = d.jumlah_tagihan || d.total || d.jumlah || '0';
       var statusBayar = d.status_pembayaran || d.STATUS_PEMBAYARAN || '-';
 
       hasilBox.innerHTML = `
@@ -201,7 +202,6 @@ document.getElementById('formCekPBB').addEventListener('submit', function(e){
             <tr><th>Tahun Pajak</th><td>${fd.get('tahun')}</td></tr>
             <tr><th>Nama Wajib Pajak</th><td>${nama}</td></tr>
             <tr><th>Alamat Objek Pajak</th><td>${alamat}</td></tr>
-            <tr><th>Jumlah Tagihan</th><td>Rp ${jumlah}</td></tr>
             <tr><th>Status</th>
               <td>${statusBayar === 'LUNAS' ? '<span style="color:green;font-weight:bold">LUNAS</span>' : '<span style="color:red;font-weight:bold">BELUM BAYAR</span>'}</td>
             </tr>

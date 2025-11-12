@@ -31,39 +31,36 @@ class Pbb extends JINGGA_Controller
 			return;
 		}
 
-		$payload = json_encode(array(
-			"jenis_pajak" => "pbbp2",
-			"nop" => $nop,
-			"tahun_pajak" => $tahun,
-			"merchant" => "MSM"
-		));
+		$payload = '{
+				"jenis_pajak":"pbbp2",
+				"nop":"'.$nop.'",
+				"tahun_pajak":"'.$tahun.'",
+				"merchant":"MSM"
+			}';
 
-		$ch = curl_init();
-		curl_setopt_array($ch, array(
+		$curl = curl_init();
+
+			curl_setopt_array($curl, array(
 			CURLOPT_URL => 'https://pakinta.makassarkota.go.id/api/data/check',
 			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_POST => true,
-			CURLOPT_POSTFIELDS => $payload,
+			CURLOPT_ENCODING => '',
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 0,
+			CURLOPT_FOLLOWLOCATION => true,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => 'POST',
+			 CURLOPT_POSTFIELDS =>$payload,
 			CURLOPT_HTTPHEADER => array(
 				'Content-Type: application/json',
 				'Authorization: 8f5f90ec1ba148d8cb39fc9749993f6b'
 			),
-			// opsi timeout
-			CURLOPT_CONNECTTIMEOUT => 10,
-			CURLOPT_TIMEOUT => 20,
-		));
+			));
 
-		// untuk development lokal (XAMPP) jika sertifikat bermasalah:
-		// Hanya pakai ini untuk test di localhost. Hapus di production.
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+			$response = curl_exec($curl);
 
-		$response = curl_exec($ch);
-		$curl_errno = curl_errno($ch);
-		$curl_error = curl_error($ch);
-		$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-		curl_close($ch);
-
+curl_close($curl);
+		var_dump($response);
+		exit();
 		header('Content-Type: application/json');
 
 		if ($curl_errno) {
@@ -73,6 +70,7 @@ class Pbb extends JINGGA_Controller
 
 		// coba decode response API — jika sudah JSON, kirim balik apa adanya
 		$decoded = json_decode($response, true);
+	
 		if (json_last_error() === JSON_ERROR_NONE) {
 			// jika API mengirim struktur berbeda, kita normalisasi sedikit
 			if (!isset($decoded['status'])) {
@@ -80,6 +78,7 @@ class Pbb extends JINGGA_Controller
 				$decoded['status'] = isset($decoded['data']) ? 'success' : 'unknown';
 			}
 			echo json_encode($decoded);
+			
 			return;
 		}
 
