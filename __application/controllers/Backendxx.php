@@ -986,7 +986,19 @@ class Backendxx extends JINGGA_Controller
 				$jenis_surat = $this->db->get_where('cl_jenis_surat', array('id' => $idx))->row_array();
 				switch ($idx) {
 
-						case "151":
+					case "152":
+
+						$this->nsmarty->assign("agama_wali", $this->lib->fillcombo("agama", "return"));
+
+						$this->nsmarty->assign("status_wali", $this->lib->fillcombo("status_kawin", "return"));
+
+						$this->nsmarty->assign("pekerjaan_wali", $this->lib->fillcombo("jenis_pekerjaan", "return"));
+
+						$this->nsmarty->assign("nik_id", $this->lib->fillcombo("data_penduduk", "return"));
+
+						break;
+
+					case "151":
 
 						$this->nsmarty->assign("agama_wali", $this->lib->fillcombo("agama", "return"));
 
@@ -1921,6 +1933,20 @@ class Backendxx extends JINGGA_Controller
 
 
 				switch ($data['cl_jenis_surat_id']) {
+
+					case "152":
+
+						$this->nsmarty->assign("agama_wali", $this->lib->fillcombo("agama", "return", ($sts == "edit" ? $data_info["agama_wali"] : "")));
+
+						$this->nsmarty->assign("status_wali", $this->lib->fillcombo("status_kawin", "return", ($sts == "edit" ? $data_info["status_wali"] : "")));
+
+						$this->nsmarty->assign("pekerjaan_wali", $this->lib->fillcombo("jenis_pekerjaan", "return", ($sts == "edit" ? $data_info["pekerjaan_wali"] : "")));
+
+						$this->nsmarty->assign("ceklis_ttd_pejabat", ($data_info['ceklis_ttd_pejabat'] == true ? 'checked=true' : ''));
+
+						$this->nsmarty->assign("nik", $this->lib->fillcombo("data_penduduk", "return", ($sts == "edit" ? $data["tbl_data_penduduk_id"] : "")));
+
+						break;
 
 					case "151":
 

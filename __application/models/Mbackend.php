@@ -58,7 +58,6 @@ class Mbackend extends CI_Model
 		}
 
 
-
 		switch ($type) {
 
 			// Modul Laporan
@@ -3793,7 +3792,123 @@ class Mbackend extends CI_Model
 
 				$dibu = array();
 
-				$sql = "SELECT
+				// $sql = "SELECT
+				// 		b.*,
+				// 		f.nama_pekerjaan,
+				// 		g.nama_agama AS agama,
+				// 		a.nip,
+				// 		a.masa_berlaku,
+				// 		a.status_usaha,
+				// 		i.nama,
+				// 		i.jabatan,
+				// 		i.pangkat,
+				// 		h.nama_status_kawin AS status_kawin,
+				// 		e.nama AS nama_kelurahan,
+				// 		d.nama AS nama_kecamatan,
+				// 		c.nama AS nama_kota,
+				// 		CONCAT(
+				// 		DAY ( b.tgl_lahir ),
+				// 		' ',
+				// 		CASE
+				// 			MONTH ( b.tgl_lahir ) 
+				// 			WHEN 1 THEN
+				// 			'Januari' 
+				// 			WHEN 2 THEN
+				// 			'Februari' 
+				// 			WHEN 3 THEN
+				// 			'Maret' 
+				// 			WHEN 4 THEN
+				// 			'April' 
+				// 			WHEN 5 THEN
+				// 			'Mei' 
+				// 			WHEN 6 THEN
+				// 			'Juni' 
+				// 			WHEN 7 THEN
+				// 			'Juli' 
+				// 			WHEN 8 THEN
+				// 			'Agustus' 
+				// 			WHEN 9 THEN
+				// 			'September' 
+				// 			WHEN 10 THEN
+				// 			'Oktober' 
+				// 			WHEN 11 THEN
+				// 			'November' 
+				// 			WHEN 12 THEN
+				// 			'Desember' 
+				// 		END,
+				// 		' ',
+				// 		YEAR ( b.tgl_lahir ) 
+				// 		) AS tanggal_lahir,
+				// 		a.data_surat,
+				// 		j.nm_golongan,
+				// 		a.tgl_surat 
+				// 		FROM tbl_data_surat a
+				// 		LEFT JOIN (
+				// 			SELECT
+				// 			*,(
+				// 			'0' 
+				// 			) wn,
+				// 			'' AS nama_wn,
+				// 			'' AS keperluan_passport,
+				// 			'' AS tgl_kel_passport,
+				// 			'' AS tgl_akhir_passport,
+				// 			'' AS alamat_asal,
+				// 			'' AS jenis_passport 
+				// 			FROM
+				// 			tbl_data_penduduk UNION
+				// 			SELECT
+				// 			id,
+				// 			no_pengenalan,
+				// 			'' AS cl_status_hubingan_keluarga_id,
+				// 			no_passport,
+				// 			nama_lengkap,
+				// 			tempat_lahir,
+				// 			tgl_lahir,
+				// 			jenis_kelamin,
+				// 			agama,
+				// 			'' AS status_kawin,
+				// 			'' AS pendidikan,
+				// 			'' AS gol_darah,
+				// 			cl_jenis_pekerjaan_id,
+				// 			'' AS golongan_darah,
+				// 			cl_provinsi_id,
+				// 			cl_kab_kota_id,
+				// 			cl_kecamatan_id,
+				// 			cl_kelurahan_desa_id,
+				// 			rt,
+				// 			rw,
+				// 			alamat,
+				// 			kode_pos,
+				// 			'' AS status_data,
+				// 			create_date,
+				// 			create_by,
+				// 			update_date,
+				// 			update_by,
+				// 			FILE,(
+				// 			'1' 
+				// 			) wn,
+				// 			kewarganegaraan AS nama_wn,
+				// 			keperluan AS keperluan_passport,
+				// 			tgl_kel_passport AS tgl_kel_passport,
+				// 			tgl_akhir_passport AS tgl_akhir_passport,
+				// 			alamat_asal AS alamat_asal,
+				// 			jenis_passport AS jenis_passport 
+				// 			FROM
+				// 			tbl_data_penduduk_asing
+				// 		)b ON a.tbl_data_penduduk_id=b.id
+				// 		LEFT JOIN cl_kab_kota c ON c.id = a.cl_kab_kota_id
+				// 		LEFT JOIN cl_kecamatan d ON d.id = a.cl_kecamatan_id
+				// 		LEFT JOIN cl_kelurahan_desa e ON e.id = a.cl_kelurahan_desa_id
+				// 		LEFT JOIN cl_jenis_pekerjaan f ON f.id = b.cl_jenis_pekerjaan_id
+				// 		LEFT JOIN cl_agama g ON g.id = b.agama
+				// 		LEFT JOIN cl_status_kawin h ON h.id = b.status_kawin
+				// 		LEFT JOIN tbl_data_penandatanganan i ON i.id = a.id_penandatanganan
+				// 		LEFT JOIN cl_golongan j ON i.pangkat = j.pangkat
+				// 		WHERE a.id = '" . $p3 . "'
+				// ";
+
+				$sql = "SELECT 
+						a.id,
 						b.*,
 						f.nama_pekerjaan,
 						g.nama_agama AS agama,
@@ -3808,59 +3923,64 @@ class Mbackend extends CI_Model
 						d.nama AS nama_kecamatan,
 						c.nama AS nama_kota,
 						CONCAT(
-						DAY ( b.tgl_lahir ),
-						' ',
-						CASE
-							MONTH ( b.tgl_lahir ) 
-							WHEN 1 THEN
-							'Januari' 
-							WHEN 2 THEN
-							'Februari' 
-							WHEN 3 THEN
-							'Maret' 
-							WHEN 4 THEN
-							'April' 
-							WHEN 5 THEN
-							'Mei' 
-							WHEN 6 THEN
-							'Juni' 
-							WHEN 7 THEN
-							'Juli' 
-							WHEN 8 THEN
-							'Agustus' 
-							WHEN 9 THEN
-							'September' 
-							WHEN 10 THEN
-							'Oktober' 
-							WHEN 11 THEN
-							'November' 
-							WHEN 12 THEN
-							'Desember' 
-						END,
-						' ',
-						YEAR ( b.tgl_lahir ) 
+							DAY(b.tgl_lahir), ' ',
+							CASE MONTH(b.tgl_lahir)
+								WHEN 1 THEN 'Januari' WHEN 2 THEN 'Februari' WHEN 3 THEN 'Maret'
+								WHEN 4 THEN 'April' WHEN 5 THEN 'Mei' WHEN 6 THEN 'Juni'
+								WHEN 7 THEN 'Juli' WHEN 8 THEN 'Agustus' WHEN 9 THEN 'September'
+								WHEN 10 THEN 'Oktober' WHEN 11 THEN 'November' WHEN 12 THEN 'Desember'
+							END, ' ', YEAR(b.tgl_lahir)
 						) AS tanggal_lahir,
 						a.data_surat,
 						j.nm_golongan,
-						a.tgl_surat 
-						FROM tbl_data_surat a
-						LEFT JOIN (
-							SELECT
-							*,(
-							'0' 
-							) wn,
+						a.tgl_surat
+					FROM tbl_data_surat a
+					LEFT JOIN (
+						SELECT
+							id,
+							nik,
+							no_kk,
+							cl_status_hubungan_keluarga_id,
+							'' AS no_passport,            
+							nama_lengkap,
+							tempat_lahir,
+							tgl_lahir,
+							jenis_kelamin,
+							agama,
+							status_kawin,
+							pendidikan,
+							gol_darah,
+							cl_jenis_pekerjaan_id,
+							cl_provinsi_id,
+							cl_kab_kota_id,
+							cl_kecamatan_id,
+							cl_kelurahan_desa_id,
+							rt,
+							rw,
+							alamat,
+							kode_pos,
+							status_data,
+							create_date,
+							create_by,
+							update_date,
+							update_by,
+							file,
+							'0' AS wn,
 							'' AS nama_wn,
 							'' AS keperluan_passport,
 							'' AS tgl_kel_passport,
 							'' AS tgl_akhir_passport,
 							'' AS alamat_asal,
-							'' AS jenis_passport 
-							FROM
-							tbl_data_penduduk UNION
-							SELECT
+							'' AS jenis_passport
+						FROM tbl_data_penduduk
+
+						UNION ALL
+
+						SELECT
 							id,
-							no_pengenalan,
-							'' AS cl_status_hubingan_keluarga_id,
+							'' AS nik,
+							no_pengenalan AS no_kk,
+							'' AS cl_status_hubungan_keluarga_id,
 							no_passport,
 							nama_lengkap,
 							tempat_lahir,
@@ -3871,7 +3991,6 @@ class Mbackend extends CI_Model
 							'' AS pendidikan,
 							'' AS gol_darah,
 							cl_jenis_pekerjaan_id,
-							'' AS golongan_darah,
 							cl_provinsi_id,
 							cl_kab_kota_id,
 							cl_kecamatan_id,
@@ -3885,28 +4004,25 @@ class Mbackend extends CI_Model
 							create_by,
 							update_date,
 							update_by,
-							FILE,(
-							'1' 
-							) wn,
+							file,
+							'1' AS wn,
 							kewarganegaraan AS nama_wn,
 							keperluan AS keperluan_passport,
-							tgl_kel_passport AS tgl_kel_passport,
-							tgl_akhir_passport AS tgl_akhir_passport,
-							alamat_asal AS alamat_asal,
-							jenis_passport AS jenis_passport 
-							FROM
-							tbl_data_penduduk_asing
-						)b ON a.tbl_data_penduduk_id=b.id
-						LEFT JOIN cl_kab_kota c ON c.id = a.cl_kab_kota_id
-						LEFT JOIN cl_kecamatan d ON d.id = a.cl_kecamatan_id
-						LEFT JOIN cl_kelurahan_desa e ON e.id = a.cl_kelurahan_desa_id
-						LEFT JOIN cl_jenis_pekerjaan f ON f.id = b.cl_jenis_pekerjaan_id
-						LEFT JOIN cl_agama g ON g.id = b.agama
-						LEFT JOIN cl_status_kawin h ON h.id = b.status_kawin
-						LEFT JOIN tbl_data_penandatanganan i ON i.id = a.id_penandatanganan
-						LEFT JOIN cl_golongan j ON i.pangkat = j.pangkat
-						WHERE a.id = '" . $p3 . "'
-
+							tgl_kel_passport,
+							tgl_akhir_passport,
+							alamat_asal,
+							jenis_passport
+						FROM tbl_data_penduduk_asing
+					) b ON a.tbl_data_penduduk_id = b.id
+					LEFT JOIN cl_kab_kota c ON c.id = a.cl_kab_kota_id
+					LEFT JOIN cl_kecamatan d ON d.id = a.cl_kecamatan_id
+					LEFT JOIN cl_kelurahan_desa e ON e.id = a.cl_kelurahan_desa_id
+					LEFT JOIN cl_jenis_pekerjaan f ON f.id = b.cl_jenis_pekerjaan_id
+					LEFT JOIN cl_agama g ON g.id = b.agama
+					LEFT JOIN cl_status_kawin h ON h.id = b.status_kawin
+					LEFT JOIN tbl_data_penandatanganan i ON i.id = a.id_penandatanganan
+					LEFT JOIN cl_golongan j ON i.pangkat = j.pangkat
+					WHERE a.id = '" . $p3 . "'
 				";
 
 				$data = $this->db->query($sql)->row_array();
@@ -4268,59 +4384,173 @@ class Mbackend extends CI_Model
 					";
 				}
 
+				// $sql = "SELECT A.*, B.nama_lengkap, B.nik as nik_id, C.jenis_surat,
 
+				// 		E.nama as kecamatan, F.nama as kelurahan,
 
-				$sql = "
+				// 		CONCAT(
+				// 			DAY(A.tgl_surat),' ',
+				// 			CASE MONTH(A.tgl_surat) 
+				// 			  WHEN 1 THEN 'Januari' 
+				// 			  WHEN 2 THEN 'Februari' 
+				// 			  WHEN 3 THEN 'Maret' 
+				// 			  WHEN 4 THEN 'April' 
+				// 			  WHEN 5 THEN 'Mei' 
+				// 			  WHEN 6 THEN 'Juni' 
+				// 			  WHEN 7 THEN 'Juli' 
+				// 			  WHEN 8 THEN 'Agustus' 
+				// 			  WHEN 9 THEN 'September'
+				// 			  WHEN 10 THEN 'Oktober' 
+				// 			  WHEN 11 THEN 'November' 
+				// 			  WHEN 12 THEN 'Desember' 
+				// 			END,' ',
+				// 			YEAR(A.tgl_surat)
+				// 		) AS tanggal_surat,
 
-					SELECT A.*, B.nama_lengkap, B.nik as nik_id, C.jenis_surat,
+				// 		DATE_FORMAT(A.create_date, '%d-%m-%Y %H:%i') as tanggal_buat,A.file,G.nama as nama_ttd,G.jabatan as jabatan_ttd
 
-						E.nama as kecamatan, F.nama as kelurahan,
+				// 	FROM tbl_data_surat A
 
+				// 	LEFT JOIN (
+				// 		SELECT *,('0')wn,'' AS nama_wn,'' AS keperluan_passport,'' AS tgl_kel_passport,'' AS tgl_akhir_passport,'' AS alamat_asal,'' AS jenis_passport 
+				// 		FROM tbl_data_penduduk 
+				// 		WHERE cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "'
+				// 		UNION
+				// 		SELECT id,no_pengenalan,'' AS cl_status_hubingan_keluarga_id,no_passport,nama_lengkap,tempat_lahir,tgl_lahir,jenis_kelamin,agama,'' AS status_kawin,'' AS pendidikan,'' AS gol_darah,cl_jenis_pekerjaan_id,'' AS golongan_darah,cl_provinsi_id,cl_kab_kota_id,cl_kecamatan_id,cl_kelurahan_desa_id,rt,rw,alamat,kode_pos,'' AS status_data,create_date,create_by,update_date,update_by,FILE,('1')wn ,kewarganegaraan AS nama_wn,keperluan AS keperluan_passport,tgl_kel_passport AS tgl_kel_passport,tgl_akhir_passport AS tgl_akhir_passport,alamat_asal AS alamat_asal,jenis_passport AS jenis_passport
+				// 		FROM tbl_data_penduduk_asing 
+				// 		WHERE cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "'
+				// 	) B  ON B.id = A.tbl_data_penduduk_id AND A.cl_kelurahan_desa_id=B.cl_kelurahan_desa_id
+
+				// 	LEFT JOIN cl_jenis_surat C ON C.id = A.cl_jenis_surat_id
+
+				// 	LEFT JOIN cl_kecamatan E ON E.id = A.cl_kecamatan_id
+
+				// 	LEFT JOIN cl_kelurahan_desa F ON F.id = A.cl_kelurahan_desa_id
+					
+				// 	LEFT JOIN tbl_data_penandatanganan G ON A.nip=G.nip AND A.cl_kelurahan_desa_id=G.cl_kelurahan_desa_id
+
+				// 	$where AND A.status_esign=0
+
+				// 	ORDER BY A.id DESC
+
+				// ";
+
+				$sql ="SELECT  A.*,
+						B.nama_lengkap,
+						B.nik AS nik_id,        -- nik dari penduduk lokal (atau '' jika baris dari penduduk_asing)
+						B.no_passport AS no_passport, -- passport dari penduduk asing (atau '' jika baris dari penduduk lokal)
+						C.jenis_surat,
+						E.nama AS kecamatan,
+						F.nama AS kelurahan,
 						CONCAT(
 							DAY(A.tgl_surat),' ',
-							CASE MONTH(A.tgl_surat) 
-							  WHEN 1 THEN 'Januari' 
-							  WHEN 2 THEN 'Februari' 
-							  WHEN 3 THEN 'Maret' 
-							  WHEN 4 THEN 'April' 
-							  WHEN 5 THEN 'Mei' 
-							  WHEN 6 THEN 'Juni' 
-							  WHEN 7 THEN 'Juli' 
-							  WHEN 8 THEN 'Agustus' 
-							  WHEN 9 THEN 'September'
-							  WHEN 10 THEN 'Oktober' 
-							  WHEN 11 THEN 'November' 
-							  WHEN 12 THEN 'Desember' 
+							CASE MONTH(A.tgl_surat)
+							WHEN 1 THEN 'Januari' WHEN 2 THEN 'Februari' WHEN 3 THEN 'Maret'
+							WHEN 4 THEN 'April' WHEN 5 THEN 'Mei' WHEN 6 THEN 'Juni'
+							WHEN 7 THEN 'Juli' WHEN 8 THEN 'Agustus' WHEN 9 THEN 'September'
+							WHEN 10 THEN 'Oktober' WHEN 11 THEN 'November' WHEN 12 THEN 'Desember'
 							END,' ',
 							YEAR(A.tgl_surat)
 						) AS tanggal_surat,
+						DATE_FORMAT(A.create_date, '%d-%m-%Y %H:%i') AS tanggal_buat,
+						A.file,
+						G.nama AS nama_ttd,
+						G.jabatan AS jabatan_ttd
+						FROM tbl_data_surat A
 
-						DATE_FORMAT(A.create_date, '%d-%m-%Y %H:%i') as tanggal_buat,A.file,G.nama as nama_ttd,G.jabatan as jabatan_ttd
-
-					FROM tbl_data_surat A
-
-					LEFT JOIN (
-						SELECT *,('0')wn,'' AS nama_wn,'' AS keperluan_passport,'' AS tgl_kel_passport,'' AS tgl_akhir_passport,'' AS alamat_asal,'' AS jenis_passport 
-						FROM tbl_data_penduduk 
+						LEFT JOIN (
+						/* SUBQUERY B: kedua SELECT harus punya jumlah & urutan kolom identik.
+							Kita sertakan kedua kolom penting: nik & no_passport */
+						SELECT
+							id,
+							nik,                 -- ada di tbl_data_penduduk
+							'' AS no_pengenalan, -- placeholder (kolom no_pengenalan ada di tabel asing)
+							'' AS no_passport,   -- placeholder (tidak ada passport di penduduk lokal)
+							nama_lengkap,
+							tempat_lahir,
+							tgl_lahir,
+							jenis_kelamin,
+							agama,
+							status_kawin,
+							pendidikan,
+							gol_darah,
+							cl_jenis_pekerjaan_id,
+							golongan_darah,
+							cl_provinsi_id,
+							cl_kab_kota_id,
+							cl_kecamatan_id,
+							cl_kelurahan_desa_id,
+							rt,
+							rw,
+							alamat,
+							kode_pos,
+							status_data,
+							create_date,
+							create_by,
+							update_date,
+							update_by,
+							file,
+							'0' AS wn,
+							'' AS nama_wn,
+							'' AS keperluan_passport,
+							'' AS tgl_kel_passport,
+							'' AS tgl_akhir_passport,
+							'' AS alamat_asal,
+							'' AS jenis_passport
+						FROM tbl_data_penduduk
 						WHERE cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "'
-						UNION
-						SELECT id,no_pengenalan,'' AS cl_status_hubingan_keluarga_id,no_passport,nama_lengkap,tempat_lahir,tgl_lahir,jenis_kelamin,agama,'' AS status_kawin,'' AS pendidikan,'' AS gol_darah,cl_jenis_pekerjaan_id,'' AS golongan_darah,cl_provinsi_id,cl_kab_kota_id,cl_kecamatan_id,cl_kelurahan_desa_id,rt,rw,alamat,kode_pos,'' AS status_data,create_date,create_by,update_date,update_by,FILE,('1')wn ,kewarganegaraan AS nama_wn,keperluan AS keperluan_passport,tgl_kel_passport AS tgl_kel_passport,tgl_akhir_passport AS tgl_akhir_passport,alamat_asal AS alamat_asal,jenis_passport AS jenis_passport
-						FROM tbl_data_penduduk_asing 
+
+						UNION ALL
+
+						SELECT
+							id,
+							'' AS nik,           -- tidak ada nik di tabel penduduk_asing -> placeholder ''
+							no_pengenalan,
+							no_passport,         -- passport dari penduduk asing
+							nama_lengkap,
+							tempat_lahir,
+							tgl_lahir,
+							jenis_kelamin,
+							agama,
+							'' AS status_kawin,
+							'' AS pendidikan,
+							'' AS gol_darah,
+							cl_jenis_pekerjaan_id,
+							'' AS golongan_darah,
+							cl_provinsi_id,
+							cl_kab_kota_id,
+							cl_kecamatan_id,
+							cl_kelurahan_desa_id,
+							rt,
+							rw,
+							alamat,
+							kode_pos,
+							'' AS status_data,
+							create_date,
+							create_by,
+							update_date,
+							update_by,
+							file,
+							'1' AS wn,
+							kewarganegaraan AS nama_wn,
+							keperluan AS keperluan_passport,
+							tgl_kel_passport,
+							tgl_akhir_passport,
+							alamat_asal,
+							jenis_passport
+						FROM tbl_data_penduduk_asing
 						WHERE cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "'
-					) B ON B.id = A.tbl_data_penduduk_id AND A.cl_kelurahan_desa_id=B.cl_kelurahan_desa_id
+						) B
+						ON B.id = A.tbl_data_penduduk_id
+						AND A.cl_kelurahan_desa_id = B.cl_kelurahan_desa_id
 
-					LEFT JOIN cl_jenis_surat C ON C.id = A.cl_jenis_surat_id
+						LEFT JOIN cl_jenis_surat C ON C.id = A.cl_jenis_surat_id
+						LEFT JOIN cl_kecamatan E ON E.id = A.cl_kecamatan_id
+						LEFT JOIN cl_kelurahan_desa F ON F.id = A.cl_kelurahan_desa_id
+						LEFT JOIN tbl_data_penandatanganan G ON A.nip = G.nip AND A.cl_kelurahan_desa_id = G.cl_kelurahan_desa_id
 
-					LEFT JOIN cl_kecamatan E ON E.id = A.cl_kecamatan_id
-
-					LEFT JOIN cl_kelurahan_desa F ON F.id = A.cl_kelurahan_desa_id
-					
-					LEFT JOIN tbl_data_penandatanganan G ON A.nip=G.nip AND A.cl_kelurahan_desa_id=G.cl_kelurahan_desa_id
-
-					$where AND A.status_esign=0
-
-					ORDER BY A.id DESC
-
+						$where AND A.status_esign = 0
+						ORDER BY A.id DESC
 				";
 				break;
 			//End Data Surat
@@ -9512,23 +9742,19 @@ class Mbackend extends CI_Model
 
 					switch ($data['cl_jenis_surat_id']) {
 
-						case "151":
+						case "152":
 
 							$array['nama_wali'] = $data['nama_wali'];
-
 							$array['tempat_lahir_wali'] = $data['tempat_lahir_wali'];
-
 							$array['tgl_lahir_wali'] = $data['tgl_lahir_wali'];
-
 							$array['agama_wali'] = $data['agama_wali'];
-
 							$array['pekerjaan_wali'] = $data['pekerjaan_wali'];
-
 							$array['status_wali'] = $data['status_wali'];
-
 							$array['alamat_wali'] = $data['alamat_wali'];
 
-							$array['nama_baru'] = $data['nama_baru'];
+							$array['alamat_domisili_pernyataan'] = $data['alamat_domisili_pernyataan'];
+							$array['lama_tinggal'] = $data['lama_tinggal'];
+							$array['alamat_asal'] = $data['alamat_asal'];
 
 							$array['keperluan_surat_pernyataan'] = $data['keperluan_surat_pernyataan'];
 
