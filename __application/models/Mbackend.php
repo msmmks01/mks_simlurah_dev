@@ -4444,87 +4444,87 @@ class Mbackend extends CI_Model
 						FROM tbl_data_surat A
 
 						LEFT JOIN (
-						/* SUBQUERY B: kedua SELECT harus punya jumlah & urutan kolom identik.
-							Kita sertakan kedua kolom penting: nik & no_passport */
-						SELECT
-							id,
-							nik,                 -- ada di tbl_data_penduduk
-							'' AS no_pengenalan, -- placeholder (kolom no_pengenalan ada di tabel asing)
-							'' AS no_passport,   -- placeholder (tidak ada passport di penduduk lokal)
-							nama_lengkap,
-							tempat_lahir,
-							tgl_lahir,
-							jenis_kelamin,
-							agama,
-							status_kawin,
-							pendidikan,
-							gol_darah,
-							cl_jenis_pekerjaan_id,
-							golongan_darah,
-							cl_provinsi_id,
-							cl_kab_kota_id,
-							cl_kecamatan_id,
-							cl_kelurahan_desa_id,
-							rt,
-							rw,
-							alamat,
-							kode_pos,
-							status_data,
-							create_date,
-							create_by,
-							update_date,
-							update_by,
-							file,
-							'0' AS wn,
-							'' AS nama_wn,
-							'' AS keperluan_passport,
-							'' AS tgl_kel_passport,
-							'' AS tgl_akhir_passport,
-							'' AS alamat_asal,
-							'' AS jenis_passport
-						FROM tbl_data_penduduk
-						WHERE cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "'
+							SELECT
+								id,
+								nik,
+								'' AS no_pengenalan,
+								'' AS no_passport,
+								nama_lengkap,
+								tempat_lahir,
+								tgl_lahir,
+								jenis_kelamin,
+								agama,
+								status_kawin,
+								pendidikan,
+								gol_darah,
+								cl_jenis_pekerjaan_id,
+								golongan_darah,
+								cl_provinsi_id,
+								cl_kab_kota_id,
+								cl_kecamatan_id,
+								cl_kelurahan_desa_id,
+								rt,
+								rw,
+								alamat,
+								kode_pos,
+								status_data,
+								nop,                 -- 🔥 ditambahkan di sini
+								create_date,
+								create_by,
+								update_date,
+								update_by,
+								file,
+								'0' AS wn,
+								'' AS nama_wn,
+								'' AS keperluan_passport,
+								'' AS tgl_kel_passport,
+								'' AS tgl_akhir_passport,
+								'' AS alamat_asal,
+								'' AS jenis_passport
+							FROM tbl_data_penduduk
+							WHERE cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "'
 
-						UNION ALL
+							UNION ALL
 
-						SELECT
-							id,
-							'' AS nik,           -- tidak ada nik di tabel penduduk_asing -> placeholder ''
-							no_pengenalan,
-							no_passport,         -- passport dari penduduk asing
-							nama_lengkap,
-							tempat_lahir,
-							tgl_lahir,
-							jenis_kelamin,
-							agama,
-							'' AS status_kawin,
-							'' AS pendidikan,
-							'' AS gol_darah,
-							cl_jenis_pekerjaan_id,
-							'' AS golongan_darah,
-							cl_provinsi_id,
-							cl_kab_kota_id,
-							cl_kecamatan_id,
-							cl_kelurahan_desa_id,
-							rt,
-							rw,
-							alamat,
-							kode_pos,
-							'' AS status_data,
-							create_date,
-							create_by,
-							update_date,
-							update_by,
-							file,
-							'1' AS wn,
-							kewarganegaraan AS nama_wn,
-							keperluan AS keperluan_passport,
-							tgl_kel_passport,
-							tgl_akhir_passport,
-							alamat_asal,
-							jenis_passport
-						FROM tbl_data_penduduk_asing
-						WHERE cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "'
+							SELECT
+								id,
+								'' AS nik,
+								no_pengenalan,
+								no_passport,
+								nama_lengkap,
+								tempat_lahir,
+								tgl_lahir,
+								jenis_kelamin,
+								agama,
+								'' AS status_kawin,
+								'' AS pendidikan,
+								'' AS gol_darah,
+								cl_jenis_pekerjaan_id,
+								'' AS golongan_darah,
+								cl_provinsi_id,
+								cl_kab_kota_id,
+								cl_kecamatan_id,
+								cl_kelurahan_desa_id,
+								rt,
+								rw,
+								alamat,
+								kode_pos,
+								'' AS status_data,
+								nop,                 -- 🔥 ditambahkan di sini
+								create_date,
+								create_by,
+								update_date,
+								update_by,
+								file,
+								'1' AS wn,
+								kewarganegaraan AS nama_wn,
+								keperluan AS keperluan_passport,
+								tgl_kel_passport,
+								tgl_akhir_passport,
+								alamat_asal,
+								jenis_passport
+							FROM tbl_data_penduduk_asing
+							WHERE cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "'
 						) B
 						ON B.id = A.tbl_data_penduduk_id
 						AND A.cl_kelurahan_desa_id = B.cl_kelurahan_desa_id
