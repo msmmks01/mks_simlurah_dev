@@ -1788,60 +1788,45 @@ class Mbackend extends CI_Model
 
 			case "laporan_keluarga":
 
-				$desa_id = $this->input->post('kelurahan_id');
+				// Ambil param dari controller, bukan GET
+				$desa_id = isset($p1['kelurahan']) ? $p1['kelurahan'] : "";
+				$rt      = isset($p1['rt']) ? $p1['rt'] : "";
+				$rw      = isset($p1['rw']) ? $p1['rw'] : "";
 
-				$rt = $this->input->post('rt');
+				$where = " WHERE 1=1 ";
+				
+				
+				if (!empty($desa_id)) {
 
-				$rw = $this->input->post('rw');
-
-				$rt_get = $this->input->get('rt');
-
-				$rw_get = $this->input->get('rw');
-
-
-
-				if ($rt_get) {
-
-					$where .= "and A.rt like '%" . $rt_get . "%'";
-				}
-
-				if ($rw_get) {
-
-					$where .= "and A.rw like '%" . $rw_get . "%'";
-				}
-
-
-
-				if ($rt) {
-
-					$where .= "and A.rt like '%" . $rt . "%'";
-				}
-
-				if ($rw) {
-
-					$where .= "and A.rw like '%" . $rw . "%'";
-				}
-
-
-
-				if ($desa_id) {
-
-					$where .= "and A.cl_kelurahan_desa_id = '" . $desa_id . "'";
+					$where .= " AND A.cl_kelurahan_desa_id = '" . $desa_id . "'";
 				} else {
 
 					if ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0") {
 
-						$where .= "and A.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "'";
+						$where .= " AND A.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "'";
 					}
-
 
 
 					if ($this->input->get('kelurahan_id')) {
 
-						$where .= "and A.cl_kelurahan_desa_id = '" . $this->input->get('kelurahan_id') . "'";
+						$where .= " AND A.cl_kelurahan_desa_id = '" . $this->input->get('kelurahan_id') . "'";
 					}
 				}
 
+				// // Filter kelurahan
+				// if (!empty($desa_id)) {
+				// 	$where .= " AND A.cl_kelurahan_desa_id = '$desa_id' ";
+				// }
+
+				  // Filter RT dari tabel B
+				if (!empty($rt)) {
+					$where .= " AND B.rt = '$rt' ";
+				}
+
+				// Filter RW dari tabel B
+				if (!empty($rw)) {
+					$where .= " AND B.rw = '$rw' ";
+				}
 
 
 				$sql = "SELECT A.*,CONCAT(LEFT(A.no_kk,13),'xxx') AS no_kk2, B.nama_lengkap as nama_kepala_keluarga,B.alamat AS alamat_kepala_keluarga,
@@ -4672,11 +4657,7 @@ class Mbackend extends CI_Model
 					$where .= "and A.cl_kelurahan_desa_id = '" . $kelurahan . "'";
 				}
 
-
-
-				$sql = "
-
-					SELECT A.*, B.nama_lengkap as nama_kepala_keluarga,
+				$sql = "SELECT A.*, B.nama_lengkap as nama_kepala_keluarga, B.rw AS rw_penduduk, B.rt AS rt_penduduk,
 
 						C.total as jumlah_anggota_keluarga,
 
@@ -4688,7 +4669,7 @@ class Mbackend extends CI_Model
 
 					LEFT JOIN (
 
-						SELECT no_kk, nama_lengkap
+						SELECT no_kk, nama_lengkap, rw, rt
 
 						FROM tbl_data_penduduk
 
@@ -4713,7 +4694,13 @@ class Mbackend extends CI_Model
 
 					$where
 
-					ORDER BY A.id DESC
+					ORDER BY CASE 
+							WHEN (B.rw IS NULL OR B.rw = '' OR B.rt IS NULL OR B.rt = '') THEN 1
+							ELSE 0
+						END ASC,
+						LPAD(B.rw, 3, '0') ASC,
+						LPAD(B.rt, 3, '0') ASC,
+						A.id DESC
 
 				";
 				break;
@@ -9742,6 +9729,120 @@ class Mbackend extends CI_Model
 
 					switch ($data['cl_jenis_surat_id']) {
 
+						case "155":
+
+							$array['nama_domisili_tanpa_nik'] = $data['nama_domisili_tanpa_nik'];
+							$array['tempat_lahir_domisili'] = $data['tempat_lahir_domisili'];
+							$array['tgl_lahir_domisili'] = $data['tgl_lahir_domisili'];
+							$array['jenis_kelamin_domisili'] = $data['jenis_kelamin_domisili'];
+							$array['agama_domisili'] = $data['agama_domisili'];
+							$array['alamat_domisili_tanpa_nik'] = $data['alamat_domisili_tanpa_nik'];
+
+							$array['masa_berlaku'] = $data['masa_berlaku'];
+							$array['jenis_domisili'] = $data['jenis_domisili'];
+							$array['no_pengantar'] = $data['no_pengantar'];
+							$array['tgl_pengantar'] = $data['tgl_pengantar'];
+							$array['keperluan_surat'] = $data['keperluan_surat'];
+
+							$array['no_capil'] = $data['no_capil'];
+
+							if ($data['tbl_data_penduduk_id_penjamin'] <> '') {
+								$res = $this->db->where('id', $data['tbl_data_penduduk_id_penjamin'])->get('tbl_data_penduduk')->row();
+								$array['id_penjamin'] = $data['tbl_data_penduduk_id_penjamin'];
+								$array['nama_penjamin']   = $res->nama_lengkap;
+								$array['nik_penjamin']    = $res->nik;
+								$array['alamat_penjamin'] = $res->alamat;
+							}
+
+							$array['alamat_domisili'] = $data['alamat_domisili'];
+
+							unset($data['tbl_data_penduduk_id_penjamin']);
+
+
+							$data['info_tambahan'] = json_encode($array);
+
+							$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
+							$data['tgl_pengantar'] = date('Y-m-d', strtotime($data['tgl_pengantar']));
+							$datax = array(
+								'no_surat' => $data['no_pengantar'],
+								'tgl_surat' => $data['tgl_pengantar'],
+								'perihal' => $data['keperluan_surat'],
+								'cl_jenis_surat_masuk_id' => '3',
+								'cl_sifat_surat_masuk_id' => '1',
+								'asal_surat' => $this->auth['nama_lengkap'],
+								'tujuan' => 'Warga',
+								'tgl_diterima' => $data['tgl_surat'],
+								'no_agenda' => '',
+								'cl_provinsi_id' => $this->auth['cl_provinsi_id'],
+								'cl_kab_kota_id' => $this->auth['cl_kab_kota_id'],
+								'cl_kecamatan_id' => $this->auth['cl_kecamatan_id'],
+								'cl_kelurahan_desa_id' => $this->auth['cl_kelurahan_desa_id'],
+							);
+							$insert = $this->db->insert('tbl_data_surat_masuk', $datax);
+
+							break;
+
+						case "154":
+							$array['nama_siswa'] = $data['nama_siswa'];
+							$array['nama_sekolah'] = $data['nama_sekolah'];
+							$array['id_bank'] = $data['id_bank'];
+							$array['tahun_terima_pip'] = $data['tahun_terima_pip'];
+
+							$array['no_reg_lurah'] = $data['no_reg_lurah'];
+							$array['ceklis_ttd_pejabat'] = isset($data['ceklis_ttd_pejabat']);
+
+							$array['data_saksi'] = [];
+							if (isset($data['nama_saksi'])) {
+								for ($i = 0; $i < count($data['nama_saksi']); $i++) {
+									$array['data_saksi'][] = array(
+										'nama' => $data['nama_saksi'][$i],
+										'pekerjaan' => $data['pekerjaan_saksi'][$i],
+									);
+								}
+							}
+							unset($data['nama_saksi']);
+							unset($data['pekerjaan_saksi']);
+
+							$data['info_tambahan'] = json_encode($array);
+
+							break;
+
+
+						case "153":
+
+							$array['nama_wali'] = $data['nama_wali'];
+							$array['tempat_lahir_wali'] = $data['tempat_lahir_wali'];
+							$array['tgl_lahir_wali'] = $data['tgl_lahir_wali'];
+							$array['agama_wali'] = $data['agama_wali'];
+							$array['pekerjaan_wali'] = $data['pekerjaan_wali'];
+							$array['status_wali'] = $data['status_wali'];
+							$array['alamat_wali'] = $data['alamat_wali'];
+
+							$array['nama_usaha'] = $data['nama_usaha'];
+
+							$array['keperluan_surat_pernyataan'] = $data['keperluan_surat_pernyataan'];
+							$array['no_pengantar_pernyataan'] = $data['no_pengantar_pernyataan'];
+							$array['tgl_pengantar_pernyataan'] = $data['tgl_pengantar_pernyataan'];
+							$array['no_reg_lurah'] = $data['no_reg_lurah'];
+
+							$array['ceklis_ttd_pejabat'] = isset($data['ceklis_ttd_pejabat']);
+
+							$array['data_saksi'] = [];
+							if (isset($data['nama_saksi'])) {
+								for ($i = 0; $i < count($data['nama_saksi']); $i++) {
+									$array['data_saksi'][] = array(
+										'nama' => $data['nama_saksi'][$i],
+										'pekerjaan' => $data['pekerjaan_saksi'][$i],
+									);
+								}
+							}
+							unset($data['nama_saksi']);
+							unset($data['pekerjaan_saksi']);
+
+							$data['info_tambahan'] = json_encode($array);
+
+							break;
+
 						case "152":
 
 							$array['nama_wali'] = $data['nama_wali'];
@@ -9983,6 +10084,8 @@ class Mbackend extends CI_Model
 							$array['unit_kerja'] = $data['unit_kerja'];
 
 							$array['tempat_kerja_tujuan'] = $data['tempat_kerja_tujuan'];
+
+							$array['ceklis_kop_ns'] = $data['ceklis_kop_ns'];
 
 							$data['info_tambahan'] = json_encode($array);
 
@@ -14452,9 +14555,9 @@ class Mbackend extends CI_Model
 
 							$array['rincian_kerugian'] = $data['rincian_kerugian'];
 
-							$array['no_pengantar']     = $data['no_pengantar'];
+							$array['no_pengantar_kebakaran']     = $data['no_pengantar_kebakaran'];
 
-							$array['tgl_pengantar']    = $data['tgl_pengantar'];
+							$array['tgl_pengantar_kebakaran']    = $data['tgl_pengantar_kebakaran'];
 
 							$array['peruntukan_surat'] = $data['peruntukan_surat'];
 
@@ -14466,10 +14569,10 @@ class Mbackend extends CI_Model
 							$data['info_tambahan'] = json_encode($array);
 
 							$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
-							$data['tgl_pengantar'] = date('Y-m-d', strtotime($data['tgl_pengantar']));
+							$data['tgl_pengantar_kebakaran'] = date('Y-m-d', strtotime($data['tgl_pengantar_kebakaran']));
 							$datax = array(
-								'no_surat' => $data['no_pengantar'],
-								'tgl_surat' => $data['tgl_pengantar'],
+								'no_surat' => $data['no_pengantar_kebakaran'],
+								'tgl_surat' => $data['tgl_pengantar_kebakaran'],
 								'perihal' => $data['peruntukan_surat'],
 								'cl_jenis_surat_masuk_id' => '3',
 								'cl_sifat_surat_masuk_id' => '1',

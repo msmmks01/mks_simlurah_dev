@@ -770,6 +770,37 @@ $mod eq 'data_surat'}
         </div>
       </div>
 
+      {elseif $mod eq 'laporan_keluarga'}
+    <div class="row" style="margin-bottom: 5px">
+
+        <div class="col-lg-1" style="margin-top: 3px">
+            <label>Filter RT :</label>
+        </div>
+        <div class="col-lg-1">
+            <input type="text" name="rt_{$acak}" id="rt_{$acak}" class="form-control input-sm"/>
+        </div>
+
+        <div class="col-lg-1" style="margin-top: 3px">
+            <label>Filter RW :</label>
+        </div>
+        <div class="col-lg-1">
+            <input type="text" name="rw_{$acak}" id="rw_{$acak}" class="form-control input-sm"/>
+        </div>
+
+        <div class="col-lg-2">
+            <select name="kelurahan_{$acak}" id="kelurahan_{$acak}" class="form-control input-sm">
+                {$kelurahan|default:''}
+            </select>
+        </div>
+
+        <div class="col-lg-2">
+            <a href="javascript:void(0)" class="btn-flat btn-success btn-sm"
+              onClick="kumpulAction('export_laporan_keluarga','{$acak}');">
+              <i class="fa fa-print"></i> Cetak
+            </a>
+        </div>
+    </div>
+
       {elseif $mod eq 'laporan_ktp'}
       <div class="row" style="margin-bottom: 5px">
         <div class="col-lg-1" style="margin-top: 3px">
@@ -1584,11 +1615,11 @@ $mod eq 'data_surat'}
             {if $button_cetak_keluarga|default:'' eq 'true'} &nbsp;
             <a
               href="javascript:void(0)"
-              title="Cetak"
+              title="Cetakx"
               class="btn-flat btn-warning btn-sm"
-              onClick="kumpulAction('export_laporan_keluarga');"
+              onClick="kumpulAction('export_laporan_keluarga','{$acak}');"
             >
-              <i class="fa fa-print"></i> Cetak
+              <i class="fa fa-print"></i> xCetak
             </a>
             {/if}
             <!-- {if $button_cetak_penilaian_skm|default:'' eq 'true'} &nbsp;

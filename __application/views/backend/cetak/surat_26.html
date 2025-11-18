@@ -156,12 +156,14 @@
 			</tr>
 			
 			<tr>
-				<td colspan=4 valign=top align="justify">Adalah benar bahwa yang bersangkutan telah mengalami musibah kebakaran rumah pada Tanggal {$data.surat.info_tambahan.tgl_kebakaran|default:'.......'} sesuai surat pengantar Nomor {$data.surat.info_tambahan.no_pengantar|default:'.....................'} Tanggal {tgl_indo({$data.surat.info_tambahan.tgl_pengantar|default:'.....................'})}. 
+				<td colspan=4 valign=top align="justify">Adalah benar bahwa yang bersangkutan telah mengalami musibah kebakaran rumah pada Tanggal {$data.surat.info_tambahan.tgl_kebakaran|default:'.......'} 
+					{if $data.surat.info_tambahan.no_pengantar_kebakaran !=''}
+                    sesuai surat pengantar Nomor {$data.surat.info_tambahan.no_pengantar_kebakaran|default:'.....................'} Tanggal {tgl_indo({$data.surat.info_tambahan.tgl_pengantar_kebakaran|default:'.....................'})}{/if}.
 				{if $data.surat.info_tambahan.rincian_kerugian neq ''}
 					Dengan perkiraan kerugian sebesar <b>Rp. {$data.surat.info_tambahan.rincian_kerugian|default:'.....................'}</b>. 
 				{/if}
 				{if count($data.surat.info_tambahan.data_barang_terbakar) gt 0}
-					Adapun barang / surat - surat penting yang ikut terbakar antara lain:
+					Adapun barang / surat - surat penting yang ikut terbakar antara lain :
 				{/if}
 				</td>
 			</tr>

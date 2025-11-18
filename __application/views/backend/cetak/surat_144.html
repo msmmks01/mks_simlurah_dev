@@ -17,11 +17,16 @@
   <body>
     <div style="padding-bottom: 5mm;">
       <table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;">
+        {if $data.surat.info_tambahan.ceklis_kop_ns !=''}
+         {include file="backend/template/kop_surat_kecamatan.html"}
+        {else}
+        <br>
         <tr>
           <td colspan="3" align="center" style="padding-top: 10mm;"> 
             <b><u>SURAT PERNYATAAN SIAP MELEPAS</u></b>
           </td>
         </tr>
+        {/if}
       </table>
     </div>
     <div

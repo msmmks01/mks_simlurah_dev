@@ -1,0 +1,205 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
+	<title>SURAT KETERANGAN BERDOMISILI</title>
+	
+	
+	<style type="text/css">
+		table { width:100%; } 
+		body { font-family: 'arial'; }
+	</style>	
+</head>
+	<body>
+		<div style="padding-bottom: 5mm;">
+			<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;">
+				
+				{include file="backend/template/kop_surat_kelurahan.html"}
+				<tr>
+					<td colspan=3 align="center"><b><u>SURAT KETERANGAN DOMISILI</u></b></td>
+				</tr>
+				<tr>
+					<td colspan=3 align="center" style="font-size:13.3px">NOMOR: 
+						{if isset($data.surat.info_tambahan.ttd_srikandi) and $data.surat.info_tambahan.ttd_srikandi neq ''}
+						{'${nomor_naskah}'}
+						{else}
+						{$data.surat.no_surat|default:'..................................................'}
+						{/if}
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div style="padding-right: 5.82mm;padding-left: 15.44mm; padding-bottom: 2mm; font-size: 16px;padding-top: -10px;">
+			<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse; line-height: 1.5;">
+				<tr>
+					<td colspan=6 align="left" valign=top>Yang bertanda tangan di bawah ini :</td>
+				</tr>
+				<tr>
+					<td align="left" valign=top style="width:42px;"><br></td>
+					<td align="left" valign=top style="width: 80px;">Nama</td>
+					<td align="center" valign=top style="width: 15px;">:</td>
+					<td colspan=3 align="left" valign=top>{$data.pemohon.nama|default:'.....................'}</td>
+				</tr>
+				<tr>
+					<td align="left" valign=top><br></td>
+					<td align="left" valign=top>Jabatan</td>
+					<td align="center" valign=top>:</td>
+					<td colspan=3 align="left" valign=top>{$data.pemohon.jabatan|default:'.....................'}</td>
+				</tr>
+			</table>
+			<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse; line-height: 1.5;font-size: 15px">
+				<tr>
+					<td colspan="4" align="left" valign=top>Dengan ini menerangkan bahwa :</td>
+				</tr>
+				<tr>
+					<td align="left" valign=top style="width:42px;"><br></td>
+					<td align="left" valign=top style="width: 175px;">Nama</td>
+					<td align="center" valign=top style="width: 15px;">:</td>
+					<td align="left" valign=top><b>{$data.surat.info_tambahan.nama_domisili_tanpa_nik|default:'..........'}</b></td>
+				</tr>
+				<tr>
+					<td align="left" valign=top><br></td>
+					<td align="left" valign=top>Tempat / Tanggal Lahir</td>
+					<td align="center" valign=top>:</td>
+					<td align="left" valign=top>{ucwords(strtolower($data.surat.info_tambahan.tempat_lahir_domisili))|default:'...'}, {tgl_indo($data.surat.info_tambahan.tgl_lahir_domisili)|default:''}</td>
+				</tr>
+				<tr>
+					<td align="left" valign=top><br></td>
+					<td align="left" valign=top>Jenis Kelamin</td>
+					<td align="center" valign=top>:</td>
+					<td align="left" valign=top>{$data.surat.info_tambahan.jenis_kelamin_domisili|default:'..........'}</td>
+				</tr>
+				<tr>
+					<td align="left" valign=top><br></td>
+					<td align="left" valign=top>Agama</td>
+					<td align="center" valign=top>:</td>
+					<td align="left" valign=top>{$data.surat.info_tambahan.agama_domisili|default:'..........'}</td>
+				</tr>
+				<tr>
+					<td align="left" valign=top><br></td>
+					<td align="left" valign=top>Alamat</td>
+					<td align="center" valign=top>:</td>
+					<td align="left" valign=top>{$data.surat.info_tambahan.alamat_domisili_tanpa_nik|default:'..........'}</td>
+				</tr>
+				
+				{if $data.surat.info_tambahan.jenis_domisili eq 'Sementara' && $data.surat.info_tambahan.nama_penjamin !=''}
+				<tr>
+					<td colspan=6 align="left" valign=top>Penjamin :</td>
+				</tr>
+				<tr>
+					<td align="left" valign=top style="width:42px;"><br></td>
+					<td align="left" valign=top style="width: 160px;">Nama</td>
+					<td align="center" valign=top style="width: 15px;">:</td>
+					<td align="left" valign=top><b>{$data.surat.info_tambahan.nama_penjamin|default:'.....................'}</b></td>
+				</tr>
+				<tr>
+					<td align="left" valign=top><br></td>
+					<td align="left" valign=top>NIK</td>
+					<td align="center" valign=top>:</td>
+					<td align="left" valign=top>{$data.surat.info_tambahan.nik_penjamin|default:'.....................'}</td>
+				</tr>
+				<tr>
+					<td align="left" valign=top><br></td>
+					<td align="left" valign=top>Alamat</td>
+					<td align="center" valign=top>:</td>
+					<td align="left" valign=top>{$data.surat.info_tambahan.alamat_penjamin|default:'.....................'}</td>
+				</tr>
+				{/if}
+				{if $data.surat.info_tambahan.masa_berlaku neq ''}
+				<tr>
+					<td align="left" valign=top><br></td>
+					<td align="left" valign=top>Masa Berlaku</td>
+					<td align="center" valign=top>:</td>
+					<td align="left" valign=top><b>{$data.surat.info_tambahan.masa_berlaku|default:'.....................'}</b></td>
+				</tr>
+				{/if}
+				<tr>
+					<td colspan=4 align="center" valign=bottom><br></td>
+				</tr>
+				{if $data.surat.info_tambahan.jenis_domisili eq 'Tetap'}
+				<tr>
+					<td colspan=4 valign=top align="justify" style="padding-top: -10px">Yang tersebut namanya di atas adalah penduduk {$data.pemohon.nama_kelurahan|default:'........'} Kecamatan {ucwords(strtolower(str_replace('KOTA','',$data.pemohon.nama_kecamatan)))|default:''} Kota {ucwords(strtolower(str_replace('KOTA','',$data.pemohon.nama_kota)))|default:''} dan berdomisili Tetap pada alamat tersebut di atas sesuai pengantar Nomor {$data.surat.info_tambahan.no_pengantar|default:'.....................'} Tanggal {tgl_indo({$data.surat.info_tambahan.tgl_pengantar|default:'.....................'})}{if $data.surat.info_tambahan.no_capil !=''}, dan sesuai yang tertera pada Keterangan Penduduk Non Permanen dengan Nomor {$data.surat.info_tambahan.no_capil} yang dikeluarkan oleh Dinas Kependudukan dan Pencatatan Sipil.{else}.{/if}
+					</td>
+				</tr>
+				{elseif $data.surat.info_tambahan.jenis_domisili eq 'Sementara'}
+				<tr>
+					<td colspan=4 valign=top align="justify" style="padding-top: -10px">Yang tersebut namanya di atas adalah penduduk yang berdomisili Sementara pada alamat tersebut di atas sesuai pengantar Nomor {$data.surat.info_tambahan.no_pengantar|default:'.....................'} Tanggal {tgl_indo({$data.surat.info_tambahan.tgl_pengantar|default:'.....................'})}{if $data.surat.info_tambahan.no_capil !=''}, dan sesuai yang tertera pada Keterangan Penduduk Non Permanen dengan Nomor {$data.surat.info_tambahan.no_capil} yang dikeluarkan oleh Dinas Kependudukan dan Pencatatan Sipil.{else}.{/if}
+					</td>
+				</tr>
+				{/if}
+				<tr>
+					<td colspan=4 align="left" valign=top style="padding-top: 10px;">Demikian surat keterangan ini diberikan dan dipergunakan <b>{$data.surat.info_tambahan.keperluan_surat|default:'sebagaimana mestinya'}</b>.</td>
+				</tr>
+			</table>
+		</div>
+		{if $data.surat.info_tambahan.nama_penjamin neq ''}
+		<div style="padding-right: 5.82mm;padding-left: 20.44mm; padding-bottom: 1mm; font-size: 16px;">
+			<table style="border-collapse: collapse;width: 100%;" border="0" cellpadding="0">
+				<tr>
+					<td valign="bottom" width="35%"><br></td>
+					<td valign="bottom" width="10%">&nbsp;</td>
+					<td valign="bottom" width="55%">
+						{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'.......'}, {$data.surat.tanggal_surat|default:'............................'}
+					</td>
+				</tr>
+				<tr>
+					<td valign="bottom"><b>Penjamin</b></td>
+					<td valign="bottom">&nbsp;</td>
+					<td valign="bottom" align="left">
+
+							{if count($data.ttd)==1}
+							{$data.ttd[0]['center']}
+							{else}
+							{$data.ttd[0]['center']}<br>{$data.ttd[1]['center']}
+							{/if}
+
+					</td>
+				</tr>
+				<tr>
+					<td><br></td>
+					<td><br></td>
+					<td><br></td>
+				</tr>
+				<tr>
+					<td><br></td>
+					<td><br></td>
+					<td><br></td>
+				</tr>
+				<tr>
+					<td><br></td>
+					<td><br></td>
+					<td><br></td>
+				</tr>
+				<tr>
+					<td>
+						{$data.surat.info_tambahan.nama_penjamin|default:'.....................'}
+					</td>
+					<td>&nbsp;</td>
+					<td>
+						{$data.pemohon.nama|default:'...............................'}
+					</td>
+				</tr>
+				<tr>
+					<td><br></td>
+					<td>&nbsp;</td>
+					<td align="left">
+						Pangkat : {$data.pemohon.pangkat|default:'............................'}
+					</td>
+				</tr>
+				<tr>
+					<td><br></td>
+					<td>&nbsp;</td>
+					<td align="left">
+						NIP : {$data.pemohon.nip|default:'...............................'}
+					</td>
+				</tr>
+			</table>
+		</div>
+		{else}
+		{ttd_1($data,$setting)}
+		{/if}
+	</body>
+
+</html>

@@ -986,6 +986,37 @@ class Backendxx extends JINGGA_Controller
 				$jenis_surat = $this->db->get_where('cl_jenis_surat', array('id' => $idx))->row_array();
 				switch ($idx) {
 
+					case "155":
+
+						$this->nsmarty->assign("jenis_domisili_id", $this->lib->fillcombo("jenis_domisili", "return"));
+
+						$this->nsmarty->assign("jenis_kelamin_domisili", $this->lib->fillcombo("jenis_kelamin", "return"));
+
+						$this->nsmarty->assign("agama_domisili", $this->lib->fillcombo("agama", "return"));
+
+						$this->nsmarty->assign("nik_id", $this->lib->fillcombo("data_penduduk", "return"));
+
+						break;
+
+					case "154":
+
+						$this->nsmarty->assign("nik_id", $this->lib->fillcombo("data_penduduk", "return"));
+
+						break;
+
+
+					case "153":
+
+						$this->nsmarty->assign("agama_wali", $this->lib->fillcombo("agama", "return"));
+
+						$this->nsmarty->assign("status_wali", $this->lib->fillcombo("status_kawin", "return"));
+
+						$this->nsmarty->assign("pekerjaan_wali", $this->lib->fillcombo("jenis_pekerjaan", "return"));
+
+						$this->nsmarty->assign("nik_id", $this->lib->fillcombo("data_penduduk", "return"));
+
+						break;
+
 					case "152":
 
 						$this->nsmarty->assign("agama_wali", $this->lib->fillcombo("agama", "return"));
@@ -1934,6 +1965,42 @@ class Backendxx extends JINGGA_Controller
 
 				switch ($data['cl_jenis_surat_id']) {
 
+					case "155":
+
+						$this->nsmarty->assign("jenis_domisili_id", $this->lib->fillcombo("jenis_domisili", "return", ($sts == "edit" ? $data_info["jenis_domisili"] : "")));
+
+						$this->nsmarty->assign("jenis_kelamin_domisili", $this->lib->fillcombo("jenis_kelamin", "return", ($sts == "edit" ? $data_info["jenis_kelamin_domisili"] : "")));
+
+						$this->nsmarty->assign("agama_domisili", $this->lib->fillcombo("agama", "return", ($sts == "edit" ? $data_info["agama_domisili"] : "")));
+
+						$this->nsmarty->assign("nik_id", $this->lib->fillcombo("data_penduduk", "return", ($sts == "edit" ? $data["tbl_data_penduduk_id"] : "")));
+
+						$this->nsmarty->assign("nik_id_penjamin", $this->lib->fillcombo("data_penduduk", "return", ($sts == "edit" ? @$data_info["id_penjamin"] : "")));
+
+						break;
+
+					case "154":
+
+						$this->nsmarty->assign("ceklis_ttd_pejabat", ($data_info['ceklis_ttd_pejabat'] == true ? 'checked=true' : ''));
+
+						$this->nsmarty->assign("nik", $this->lib->fillcombo("data_penduduk", "return", ($sts == "edit" ? $data["tbl_data_penduduk_id"] : "")));
+
+						break;
+
+					case "153":
+
+						$this->nsmarty->assign("agama_wali", $this->lib->fillcombo("agama", "return", ($sts == "edit" ? $data_info["agama_wali"] : "")));
+
+						$this->nsmarty->assign("status_wali", $this->lib->fillcombo("status_kawin", "return", ($sts == "edit" ? $data_info["status_wali"] : "")));
+
+						$this->nsmarty->assign("pekerjaan_wali", $this->lib->fillcombo("jenis_pekerjaan", "return", ($sts == "edit" ? $data_info["pekerjaan_wali"] : "")));
+
+						$this->nsmarty->assign("ceklis_ttd_pejabat", ($data_info['ceklis_ttd_pejabat'] == true ? 'checked=true' : ''));
+
+						$this->nsmarty->assign("nik", $this->lib->fillcombo("data_penduduk", "return", ($sts == "edit" ? $data["tbl_data_penduduk_id"] : "")));
+
+						break;
+
 					case "152":
 
 						$this->nsmarty->assign("agama_wali", $this->lib->fillcombo("agama", "return", ($sts == "edit" ? $data_info["agama_wali"] : "")));
@@ -2019,6 +2086,7 @@ class Backendxx extends JINGGA_Controller
 						break;
 
 					case "144":
+						$this->nsmarty->assign("ceklis_kop_ns", ($data_info['ceklis_kop_ns'] == true ? 'checked=true' : ''));
 						$this->nsmarty->assign("pendidikan_pemohon", $this->lib->fillcombo("jenis_pendidikan", "return", ($sts == "edit" ? $data_info["pendidikan_pemohon"] : "")));
 						break;
 
@@ -4287,7 +4355,9 @@ class Backendxx extends JINGGA_Controller
 
 				$opt .= "<option value='A.no_kk'>No. KK</option>";
 
-				$opt .= "<option value='A.B.nama_lengkap'>Nama Kepala Keluarga</option>";
+				$opt .= "<option value='B.nama_lengkap'>Nama Kepala Keluarga</option>";
+
+				$opt .= "<option value='B.rw'>RW</option>";
 
 				break;
 
@@ -5226,7 +5296,15 @@ class Backendxx extends JINGGA_Controller
 
 			case "laporan_keluarga":
 
-				$data = $this->mbackend->getdata('laporan_keluarga', 'result_array');
+				$rw = $this->input->get('rw');
+				$rt = $this->input->get('rt');
+				$desa_id = $this->input->get('kelurahan');
+
+				$data = $this->mbackend->getdata('laporan_keluarga', 'result_array', [
+					'rw' => $rw,
+					'rt' => $rt,
+					'kelurahan' => $desa_id
+				]);
 
 				$filename = "laporan-keluarga-" . date('YmdHis');
 

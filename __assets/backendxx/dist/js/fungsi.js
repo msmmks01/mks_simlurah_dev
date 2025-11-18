@@ -1383,6 +1383,22 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
         },
 
         {
+          field: "rw_penduduk",
+          title: "RW",
+          width: 100,
+          halign: "center",
+          align: "center",
+        },
+        
+        {
+          field: "rt_penduduk",
+          title: "RT",
+          width: 100,
+          halign: "center",
+          align: "center",
+        },
+
+        {
           field: "tanggal_buat",
           title: "Tgl. Input",
           width: 150,
@@ -5495,18 +5511,74 @@ async function kumpulAction(type, p1, p2, p3, p4, p5) {
       }
       break;
 
+    // case "export_laporan_keluarga":
+
+    //   param["rt"] = $("#rt_" + p1).val();
+    //   param["rw"] = $("#rw_" + p1).val();
+    //   param["kelurahan"] = $("#kelurahan_" + p1).val();
+
+
+    //   var url = host + "backoffice-cetak/laporan_keluarga?" + $.param(param);
+    //   window.open(url, "_blank");
+
+    //   break;
+
+    // case "export_laporan_keluarga":
+    //      var rw = "";
+    //      var kat = $("#kat_" + p1).val();
+
+    //     if (kat == "B.rw_") {
+    //        rw = $("#key_" + p1).val();
+    //     }
+
+    //     var param = {};
+    //     param["rt"] = $("#rt_" + p1).val();
+    //     param["rw"] = $("#rw_" + p1).val();
+    //     param["kelurahan"] = $("#kelurahan_" + p1).val();
+
+    //      if (kat == "B.rw_") {
+    //       param["rw"] = rw;
+    //     } else {
+    //       param["rw"] = $("#rw_" + p1).val();
+    //     }
+
+    //     var url = host + "backoffice-cetak/laporan_keluarga?" + $.param(param);
+    //     window.open(url, "_blank");
+
+    //     break;
+
     case "export_laporan_keluarga":
-      param["rt"] = $("#rt_" + p1).val();
 
+        var rw = "";
+        var rt = "";
+        var kelurahan = "";
+
+        var kat = $("#kat_" + p1).val();
+
+      if (kat == "B.rw") {
+        rw = $("#key_" + p1).val();
+      } else if (kat == "B.rt") {
+        nama_lengkap = $("#key_" + p1).val();
+      }
+
+       var param = {};
       param["rw"] = $("#rw_" + p1).val();
+      param["rt"] = $("#rt_" + p1).val();
+      param["kelurahan"] = $("#kelurahan_" + p1).val();
 
-      param["kelurahan_id"] = $("#kelurahan_" + p1).val();
+       // 👇 Bagian penting: rw disesuaikan dengan kategori
+      if (kat == "B.rw") {
+        param["rw"] = rw;
+      } else {
+        param["rw"] = $("#rw_" + p1).val();
+      }
 
       var url = host + "backoffice-cetak/laporan_keluarga?" + $.param(param);
-
       window.open(url, "_blank");
 
       break;
+
+
 
     // case "export_laporan_persuratan":
     //   param["rt"] = $("#rt_" + p1).val();
@@ -5523,9 +5595,7 @@ async function kumpulAction(type, p1, p2, p3, p4, p5) {
 
     case "export_laporan_retribusi":
       param["rt"] = $("#rt_" + p1).val();
-
       param["rw"] = $("#rw_" + p1).val();
-
       param["kelurahan_id"] = $("#kelurahan_" + p1).val();
       param["nip"] = $("#nip").val();
 

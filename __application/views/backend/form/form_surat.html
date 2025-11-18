@@ -11,7 +11,7 @@
 	}
 </style>
 <form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/data_surat" enctype="multipart/form-data">
-	<input type="hidden" name="id" value="{$data.id|default:''}" />
+	<input type="hidden" name="id" value="{$data.id|default:''}"/>
 	<input type="hidden" name="editstatus" value="{$sts|default:'add'}" />
 	<input type="hidden" name="cl_jenis_surat_id" id="cl_jenis_surat_id" value="{$idx|default:''}" />
 	<input type="hidden" name="tbl_data_penduduk_id_lama" id="tbl_data_penduduk_id_lama"
@@ -3302,14 +3302,14 @@
 							</div>
 							<div class="row">
 								<div class="col-md-3">
-									{include file="backend/template/input_form.html" required="true" label="No.
-									Pengantar" class_width="col-lg-12" type="text" name="no_pengantar" id="no_pengantar"
-									value="{$data_info.no_pengantar|default:''}"}
+									{include file="backend/template/input_form.html" required="false" label="No.
+									Pengantar" class_width="col-lg-12" type="text" name="no_pengantar_kebakaran" id="no_pengantar_kebakaran"
+									value="{$data_info.no_pengantar_kebakaran|default:''}"}
 								</div>
 								<div class="col-md-3">
-									{include file="backend/template/input_form.html" required="true" label="Tgl. Surat
-									Pengantar" class_width="col-lg-12" type="date" placeholder="dd-mm-yyyy" name="tgl_pengantar"
-									id="tgl_pengantar" value="{$data_info.tgl_pengantar|default:''}"}
+									{include file="backend/template/input_form.html" required="false" label="Tgl. Surat
+									Pengantar" class_width="col-lg-12" type="date" placeholder="dd-mm-yyyy" name="tgl_pengantar_kebakaran"
+									id="tgl_pengantar_kebakaran" value="{$data_info.tgl_pengantar_kebakaran|default:''}"}
 								</div>
 								<div class="col-md-6">
 									{include file="backend/template/input_form.html" required="false" label="Peruntukan
@@ -22291,7 +22291,13 @@
 									value="{$data_info.tempat_kerja_tujuan|default:''}"}
 								</div>
 							</div>
-						
+							<br>
+							<div class="col-md-8">
+								<div class="form-group">
+									<input type="checkbox" name="ceklis_kop_ns" id="ceklis_kop_ns">
+									<label for="ceklis_kop_ns" style="color:greenyellow"><b>Centang jika Cetak menggunakan KOP dan Nomor Surat</b></label>
+								</div>
+							</div>
 							<div class="row" style="margin-bottom:5px;">
 								<div class='col-md-12'>
 									<fieldset class='form-group'>
@@ -23690,6 +23696,516 @@
 							</div>
 							{/if}
 							<!-- end Surat Pernyataan Pindah Domisili Kelurahan --> 
+
+							<!-- Surat Pernyataan Domisili Perusahaan Kelurahan --> 
+							{if $idx eq '153'}
+							<div class="row">
+								<div class='col-md-12'>
+									<fieldset class='form-group'> 
+										<legend
+											style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>
+											INFORMASI PEMOHON</legend>
+									</fieldset>
+								</div>
+								<div class="col-md-6">
+									{include file="backend/template/input_form.html" required="true" label="Nama
+									Pemohon" class_width="col-lg-12" type="text" name="nama_pemohon" id="nama_pemohon"
+									value="{$data.nama_pemohon|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="false" label="No. HP (WA)
+									Aktif" class_width="col-lg-12" type="pnj_hp" name="no_hp" id="no_hp"
+									value="{$data.no_hp|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="false" label="Email Aktif"
+									class_width="col-lg-12" type="text" name="email" id="email"
+									value="{$data.email|default:''}"}
+								</div>
+							</div>
+							
+							<div class="row" style="margin-bottom:5px;">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend
+											style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>
+											DATA SURAT</legend>
+									</fieldset>
+								</div>
+
+								<div class="col-md-6">
+									{include file="backend/template/input_form.html" required="true" label="Nama Dalam
+									Surat" class_width="col-lg-12" type="select2" name="tbl_data_penduduk_id"
+									id="tbl_data_penduduk_id" option={$nik_id|default:''} }
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html" required="true" label="Tanggal
+									Surat" class_width="col-lg-12" type="date" placeholder="dd-mm-yyyy" limit="true" startDate="{$startDate}" endDate="{$endDate}" name="tgl_surat" id="tgl_surat"
+									value="{$data.tgl_surat|default:''}"}
+								</div>
+							</div>
+							<div class="row">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend
+											style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>
+											INFORMASI DATA WALI</legend>
+									</fieldset>
+								</div>
+							</div>
+							<div class="row">
+								<legend style='color:red;font-size:14px;padding-left: 20px;'><strong>Isi Jika Ada Wali / Kosongkan dan Lanjut Ke Data Penandatanganan</strong></legend>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="false" label="Nama Wali"
+									class_width="col-lg-12" type="text" name="nama_wali" id="nama_wali"
+									value="{$data_info.nama_wali|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="false" label="Tempat Lahir"
+									class_width="col-lg-12" type="text" name="tempat_lahir_wali" id="tempat_lahir_wali"
+									value="{$data_info.tempat_lahir_wali|default:''}"}
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html" required="false" label="Tgl. Lahir"
+									class_width="col-lg-12" type="date" placeholder="dd-mm-yyyy" name="tgl_lahir_wali" id="tgl_lahir_wali"
+									value="{$data_info.tgl_lahir_wali|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="false" label="Agama" 
+									class_width="col-lg-12" type="select" name="agama_wali" id="agama_wali"
+									option={$agama_wali|default:''} }
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="false" label="Pekerjaan" 
+									class_width="col-lg-12" type="select2" name="pekerjaan_wali" id="pekerjaan_wali"
+									option={$pekerjaan_wali|default:''} }
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html" required="false" label="Status Perkawinan" 
+									class_width="col-lg-12" type="select" name="status_wali" id="status_wali"
+									option={$status_wali|default:''} }
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="false" label="Alamat Wali"
+									class_width="col-lg-12" type="text" name="alamat_wali" id="alamat_wali"
+									value="{$data_info.alamat_wali|default:''}"}
+								</div>
+								
+							</div>
+							<div class="row">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend
+											style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>INFORMASI TAMBAHAN</legend>
+									</fieldset>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="false" label="Nama Usaha" class_width="col-lg-12" type="text" name="nama_usaha"
+									id="nama_usaha" value="{$data_info.nama_usaha|default:''}"}
+								</div>
+							</div>
+							<br>
+							<legend style='color:red;font-size:14px;padding-left: 20px;'></legend>
+							<div class="row">
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="false" label="No.
+									Pengantar" class_width="col-lg-12" type="text" placeholder="Isi Jika Ada Nomor Pengantar" name="no_pengantar_pernyataan" id="no_pengantar_pernyataan"
+									value="{$data_info.no_pengantar_pernyataan|default:''}"}
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="false" label="Tgl. Surat
+									Pengantar" class_width="col-lg-12" type="date" placeholder="dd-mm-yyyy" name="tgl_pengantar_pernyataan"
+									id="tgl_pengantar_pernyataan" value="{$data_info.tgl_pengantar_pernyataan|default:''}"}
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="false" label="Keperluan
+									Surat" class_width="col-lg-12" type="text" name="keperluan_surat_pernyataan"
+									id="keperluan_surat_pernyataan" value="{$data_info.keperluan_surat_pernyataan|default:''}"}
+								</div>
+							</div>
+							<br>
+							<br>
+							<div class="col-md-12">
+								<fieldset class='form-group'>
+									<legend style="font-size: 14px;color: red;">*Isi jika Ada Saksi 
+									</legend>
+									<legend style='font-size:16px;'><strong>PARA SAKSI</strong></legend>
+									<table class="table table-bordered table-striped table-hover">
+										<thead>
+											<tr style='background-color:#3C8DBC;color:#fff;'>
+												<th class='text-center' style='vertical-align:middle;' width='50%'>Nama</th>
+												<th class='text-center' style='vertical-align:middle;' width='40%'>Pekerjaan
+												</th>
+												<th class='text-center' style='vertical-align:middle;' width='10%'>
+													<a href="javascript:void(0);" class="btn btn-success"
+														onclick="tambah_row('saksi_saksi');"><i class="fa fa-plus"></i></a>
+												</th>
+											</tr>
+										</thead>
+										
+										<tbody class="saksi_saksi">
+											<tr class="tr_inv" id="tr_inv_1">
+											
+											</tr>
+										</tbody>
+									</table>
+								</fieldset>
+							</div>	
+							<br>
+							<br>
+							
+							<div class='col-md-12'>
+								<legend style='color:gray;margin-bottom:15px;margin-top:15px;'></legend>
+							</div>
+							<div class="col-md-5">
+								<div>
+									{include file="backend/template/input_form.html" placeholder="Isi Jika Ada No. Register Lurah" required="false" label="No. Register"
+									class_width="col-lg-12" type="text" name="no_reg_lurah" id="no_reg_lurah"
+									value="{$data_info.no_reg_lurah|default:''}"}
+								</div>
+							</div>
+							<div class="col-md-8">
+								<div class="form-group">
+									<input type="checkbox" name="ceklis_ttd_pejabat" id="ceklis_ttd_pejabat">
+									<label for="ceklis_ttd_pejabat" style="color:blue"><b>Centang jika Pejabat Kelurahan Bertandatangan</b></label>
+								</div>
+							</div>
+
+							<div class="row" style="margin-bottom:5px;">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend
+											style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>
+											DATA PENANDATANGANAN</legend>
+									</fieldset>
+								</div>
+
+								<div class="col-md-6">
+									{include file="backend/template/input_form.html" required="true" label="NIP"
+									class_width="col-lg-12" type="select2" name="nip" id="nip"
+									option={$nip_id|default:''} }
+								</div>
+							</div>
+							{/if}
+							<!-- end Surat Pernyataan Domisili Perusahaan Kelurahan --> 
+
+							<!-- Surat Pernyataan Wali Siswa Kelurahan --> 
+							{if $idx eq '154'}
+							<div class="row">
+								<div class='col-md-12'>
+									<fieldset class='form-group'> 
+										<legend
+											style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>
+											INFORMASI PEMOHON</legend>
+									</fieldset>
+								</div>
+								<div class="col-md-6">
+									{include file="backend/template/input_form.html" required="true" label="Nama
+									Pemohon" class_width="col-lg-12" type="text" name="nama_pemohon" id="nama_pemohon"
+									value="{$data.nama_pemohon|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="false" label="No. HP (WA)
+									Aktif" class_width="col-lg-12" type="pnj_hp" name="no_hp" id="no_hp"
+									value="{$data.no_hp|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="false" label="Email Aktif"
+									class_width="col-lg-12" type="text" name="email" id="email"
+									value="{$data.email|default:''}"}
+								</div>
+							</div>
+							
+							<div class="row" style="margin-bottom:5px;">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend
+											style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>
+											DATA SURAT</legend>
+									</fieldset>
+								</div>
+
+								<div class="col-md-6">
+									{include file="backend/template/input_form.html" required="true" label="Nama Dalam
+									Surat" class_width="col-lg-12" type="select2" name="tbl_data_penduduk_id"
+									id="tbl_data_penduduk_id" option={$nik_id|default:''} }
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html" required="true" label="Tanggal
+									Surat" class_width="col-lg-12" type="date" placeholder="dd-mm-yyyy" limit="true" startDate="{$startDate}" endDate="{$endDate}" name="tgl_surat" id="tgl_surat"
+									value="{$data.tgl_surat|default:''}"}
+								</div>
+							</div>
+							<div class="row">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend
+											style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>INFORMASI TAMBAHAN</legend>
+									</fieldset>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="false" label="Nama Siswa" class_width="col-lg-12" type="text" name="nama_siswa"
+									id="nama_siswa" value="{$data_info.nama_siswa|default:''}"}
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="false" label="Nama Sekolah" class_width="col-lg-12" type="text" name="nama_sekolah"
+									id="nama_sekolah" value="{$data_info.nama_sekolah|default:''}"}
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html" required="false" label="ID Bank" class_width="col-lg-12" type="text" name="id_bank"
+									id="id_bank" value="{$data_info.id_bank|default:''}"}
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html" required="false" label="Tahun Terima PIP" class_width="col-lg-12" type="text" name="tahun_terima_pip"
+									id="tahun_terima_pip" value="{$data_info.tahun_terima_pip|default:''}"}
+								</div>
+							</div>
+							<br>
+							<br>
+							<div class="col-md-12">
+								<fieldset class='form-group'>
+									<legend style="font-size: 14px;color: red;">*Isi jika Ada Saksi 
+									</legend>
+									<legend style='font-size:16px;'><strong>PARA SAKSI</strong></legend>
+									<table class="table table-bordered table-striped table-hover">
+										<thead>
+											<tr style='background-color:#3C8DBC;color:#fff;'>
+												<th class='text-center' style='vertical-align:middle;' width='50%'>Nama</th>
+												<th class='text-center' style='vertical-align:middle;' width='40%'>Pekerjaan
+												</th>
+												<th class='text-center' style='vertical-align:middle;' width='10%'>
+													<a href="javascript:void(0);" class="btn btn-success"
+														onclick="tambah_row('saksi_saksi');"><i class="fa fa-plus"></i></a>
+												</th>
+											</tr>
+										</thead>
+										
+										<tbody class="saksi_saksi">
+											<tr class="tr_inv" id="tr_inv_1">
+											
+											</tr>
+										</tbody>
+									</table>
+								</fieldset>
+							</div>	
+							<br>
+							<br>
+							
+							<div class='col-md-12'>
+								<legend style='color:gray;margin-bottom:15px;margin-top:15px;'></legend>
+							</div>
+							<div class="col-md-5">
+								<div>
+									{include file="backend/template/input_form.html" placeholder="Isi Jika Ada No. Register Lurah" required="false" label="No. Register"
+									class_width="col-lg-12" type="text" name="no_reg_lurah" id="no_reg_lurah"
+									value="{$data_info.no_reg_lurah|default:''}"}
+								</div>
+							</div>
+							<div class="col-md-8">
+								<div class="form-group">
+									<input type="checkbox" name="ceklis_ttd_pejabat" id="ceklis_ttd_pejabat">
+									<label for="ceklis_ttd_pejabat" style="color:blue"><b>Centang jika Pejabat Kelurahan Bertandatangan</b></label>
+								</div>
+							</div>
+
+							<div class="row" style="margin-bottom:5px;">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend
+											style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>
+											DATA PENANDATANGANAN</legend>
+									</fieldset>
+								</div>
+
+								<div class="col-md-6">
+									{include file="backend/template/input_form.html" required="true" label="NIP"
+									class_width="col-lg-12" type="select2" name="nip" id="nip"
+									option={$nip_id|default:''} }
+								</div>
+							</div>
+							{/if}
+							<!-- end Surat Pernyataan Wali Siswa Kelurahan --> 
+
+							<!-- Surat Keterangan Domisili Tanpa NIK Kelurahan -->
+							{if $idx eq '155'}
+							<div class="row">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend
+											style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>
+											INFORMASI PEMOHON</legend>
+									</fieldset>
+								</div>
+								<div class="col-md-6">
+									{include file="backend/template/input_form.html" required="true" label="Nama
+									Pemohon" class_width="col-lg-12" type="text" name="nama_pemohon" id="nama_pemohon"
+									value="{$data.nama_pemohon|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="false" label="No. HP (WA)
+									Aktif" class_width="col-lg-12" type="pnj_hp" name="no_hp" id="no_hp"
+									value="{$data.no_hp|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="false" label="Email Aktif"
+									class_width="col-lg-12" type="text" name="email" id="email"
+									value="{$data.email|default:''}"}
+								</div>
+							</div>
+							<br>
+							<div class="row" style="margin-bottom:5px;">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend
+											style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>
+											DATA SURAT</legend>
+									</fieldset>
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html" required="true" label="Tanggal
+									Surat" class_width="col-lg-12" type="date" placeholder="dd-mm-yyyy" limit="true" startDate="{$startDate}" endDate="{$endDate}" name="tgl_surat" id="tgl_surat"
+									value="{$data.tgl_surat|default:''}"}
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="true" label="No. Surat"
+									class_width="col-lg-12" type="text" name="no_surat" id="no_surat"
+									value="{$data.no_surat|default:''}"}
+								</div>
+							</div>
+
+							<div class="row">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend
+											style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>
+											INFORMASI DATA DIRI</legend>
+									</fieldset>
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="false" label="Nama Yang Bersangkutan" 
+									class_width="col-lg-12" type="text" name="nama_domisili_tanpa_nik" id="nama_domisili_tanpa_nik"
+									value="{$data_info.nama_domisili_tanpa_nik|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="true" label="Tempat Lahir" 
+									class_width="col-lg-12" type="text" name="tempat_lahir_domisili"
+									id="tempat_lahir_domisili" value="{$data_info.tempat_lahir_domisili|default:''}"}
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html" required="true" label="Tanggal Lahir" 
+									class_width="col-lg-12" type="date" placeholder="dd-mm-yyyy" name="tgl_lahir_domisili" id="tgl_lahir_domisili"
+									value="{$data_info.tgl_lahir_domisili|default:''}"}
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html" required="true" label="Jenis Kelamin" 
+									class_width="col-lg-12" type="select" name="jenis_kelamin_domisili"
+									id="jenis_kelamin_domisili" option={$jenis_kelamin_domisili|default:''} }
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="true" label="Agama" 
+									class_width="col-lg-12" type="select" name="agama_domisili" id="agama_domisili"
+									option={$agama_domisili|default:''} }
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="true" label="Alamat" 
+									class_width="col-lg-12" type="text" name="alamat_domisili_tanpa_nik" id="alamat_domisili_tanpa_nik"
+									value="{$data_info.alamat_domisili_tanpa_nik|default:''}"}
+								</div>
+							</div>
+
+							<div class="row">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend
+											style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>
+											INFORMASI TAMBAHAN</legend>
+									</fieldset>
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="true" label="Jenis Surat
+									Domisili" class_width="col-lg-12" type="select" name="jenis_domisili"
+									id="jenis_domisili" option={$jenis_domisili_id|default:''} }
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html" required="false" label="Masa
+									Berlaku" class_width="col-lg-12" type="text" name="masa_berlaku" id="masa_berlaku"
+									value="{$data_info.masa_berlaku|default:''}"}
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="true" label="No.
+									Pengantar" class_width="col-lg-12" type="text" name="no_pengantar" id="no_pengantar"
+									value="{$data_info.no_pengantar|default:''}"}
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html" required="true" label="Tgl. Surat
+									Pengantar" class_width="col-lg-12" type="date" placeholder="dd-mm-yyyy" name="tgl_pengantar"
+									id="tgl_pengantar" value="{$data_info.tgl_pengantar|default:''}"}
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="false" label="Keperluan
+									Surat" class_width="col-lg-12" type="text" name="keperluan_surat"
+									id="keperluan_surat" value="{$data_info.keperluan_surat|default:''}"}
+								 </div>
+							</div>
+							<div class="row">
+								 <div class="col-md-4">
+									{include file="backend/template/input_form.html" required="false" label="No.
+									Keteranagan Penduduk Non Permanen" placeholder="Isi No. Keterangan Penduduk Non Permanen Sesuai Surat dari CAPIL" class_width="col-lg-12" type="text" name="no_capil" id="no_capil"
+									value="{$data_info.no_capil|default:''}"}
+								 </div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<div class="row" id="div_penjamin">
+										<div class='col-md-12'>
+											<fieldset class='form-group'>
+												<legend
+													style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>
+													DETAIL DOMISILI</legend>
+											</fieldset>
+										</div>
+
+										<div class="col-md-6">
+											{include file="backend/template/input_form.html" required="false" label="Penjamin" class_width="col-lg-12" type="select2" name="tbl_data_penduduk_id_penjamin"
+											id="tbl_data_penduduk_id_penjamin" option={$nik_id|default:''} }
+										</div>
+										<div class="col-md-5">
+											{include file="backend/template/input_form.html" required="false" label="Alamat
+											Domisili" class_width="col-lg-12" type="text" name="alamat_domisili"
+											id="alamat_domisili" value="{$data_info.alamat_domisili|default:''}"}
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="row" style="margin-bottom:5px;">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend
+											style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>
+											DATA PENANDATANGANAN</legend>
+									</fieldset>
+								</div>
+
+								<div class="col-md-6">
+									{include file="backend/template/input_form.html" required="true" label="NIP"
+									class_width="col-lg-12" type="select2" name="nip" id="nip"
+									option={$nip_id|default:''} }
+								</div>
+								<div class="col-md-12">
+									<div class="form-group">
+										<input type="checkbox" name="ttd_srikandi" id="ttd_srikandi">
+										<label for="ttd_srikandi" style="color:red">Centang jika penandatanganan untuk SRIKANDI</label>
+									</div>
+								</div>
+							</div>
+							{/if}
 
 							<div class="row">
 								<div class="col-md-12">
