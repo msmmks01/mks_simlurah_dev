@@ -26,66 +26,10 @@
 		</table>
 	</div>
 	<div style="padding-right: 5.82mm;padding-left: 15.44mm;padding-bottom: 2mm;font-size: 16px;padding-top: -10px;">
-	{if $data.surat.info_tambahan.nama_wali neq ''}
 	<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse; line-height: 1.5">
 		<tr>
 			<td colspan="6" align="left" valign="top">
 				Yang bertanda tangan di bawah ini :
-			</td>
-		</tr>
-		<tr>
-			<td align="left" valign="top" style="width: 42px"><br /></td>
-			<td align="left" valign="top" style="width: 170px">Nama</td>
-			<td align="center" valign="top" style="width: 15px">:</td>
-			<td colspan="3" align="left" valign="top">
-				{$data.surat.info_tambahan.nama_wali|default:''}
-			</td>
-		</tr>
-		<tr>
-			<td align="left" valign="top"><br /></td>
-			<td align="left" valign="top">Tempat/Tanggal Lahir</td>
-			<td align="center" valign="top">:</td>
-			<td colspan="3" align="left" valign="top">
-				{$data.surat.info_tambahan.tempat_lahir_wali|default:''},{tgl_indo({$data.surat.info_tambahan.tgl_lahir_wali|default:''})}
-			</td>
-		</tr>
-		<tr>
-			<td align="left" valign="top"><br /></td>
-			<td align="left" valign="top">Agama</td>
-			<td align="center" valign="top">:</td>
-			<td colspan="3" align="left" valign="top">
-				{$data.surat.info_tambahan.agama_wali|default:''}
-			</td>
-		</tr>
-		<tr>
-			<td align="left" valign="top"><br /></td>
-			<td align="left" valign="top">Pekerjaan</td>
-			<td align="center" valign="top">:</td>
-			<td colspan="3" align="left" valign="top">
-				{$data.surat.info_tambahan.pekerjaan_wali|default:''}
-			</td>
-		</tr>
-		<tr>
-			<td align="left" valign="top"><br /></td>
-			<td align="left" valign="top">Status Perkawinan</td>
-			<td align="center" valign="top">:</td>
-			<td colspan="3" align="left" valign="top">
-				{$data.surat.info_tambahan.status_wali|default:''}
-			</td>
-		</tr>
-		<tr>
-			<td align="left" valign="top"><br /></td>
-			<td align="left" valign="top">Alamat</td>
-			<td align="center" valign="top">:</td>
-			<td align="left" valign="top">
-				{$data.surat.info_tambahan.alamat_wali|default:''}
-			</td>
-		</tr>
-	</table>
-	<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse; line-height: 1.5;">
-		<tr>
-			<td colspan="6" align="left" valign="top">
-				Adalah wali dari :
 			</td>
 		</tr>
 		<tr>
@@ -134,6 +78,63 @@
 			<td align="center" valign="top">:</td>
 			<td align="left" valign="top">
 				{$data.pemohon.status_kawin|default:'.....................'}
+			</td>
+		</tr>
+	</table>
+	<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse; line-height: 1.5;">
+		<tr>
+			<td colspan="6" align="left" valign="top">
+				Adalah wali dari :
+			</td>
+		</tr>
+		<tr>
+			<td align="left" valign="top" style="width: 42px"><br /></td>
+			<td align="left" valign="top" style="width: 170px">Nama</td>
+			<td align="center" valign="top" style="width: 15px">:</td>
+			<td colspan="3" align="left" valign="top">
+				{$data.surat.info_tambahan.nama_anak|default:''}
+			</td>
+		</tr>
+		{if $data.surat.info_tambahan.nik_anak !=''}
+		<tr>
+			<td align="left" valign="top"><br /></td>
+			<td align="left" valign="top">NIK</td>
+			<td align="center" valign="top">:</td>
+			<td colspan="3" align="left" valign="top">
+				{$data.surat.info_tambahan.nik_anak|default:''}
+			</td>
+		</tr>
+		{/if}
+		<tr>
+			<td align="left" valign="top"><br /></td>
+			<td align="left" valign="top">Tempat/Tanggal Lahir</td>
+			<td align="center" valign="top">:</td>
+			<td colspan="3" align="left" valign="top">
+				{$data.surat.info_tambahan.tempat_lahir_anak|default:''},{tgl_indo({$data.surat.info_tambahan.tgl_lahir_anak|default:''})}
+			</td>
+		</tr>
+		<tr>
+			<td align="left" valign="top"><br /></td>
+			<td align="left" valign="top">Agama</td>
+			<td align="center" valign="top">:</td>
+			<td colspan="3" align="left" valign="top">
+				{$data.surat.info_tambahan.agama_anak|default:''}
+			</td>
+		</tr>
+		<tr>
+			<td align="left" valign="top"><br /></td>
+			<td align="left" valign="top">Pekerjaan</td>
+			<td align="center" valign="top">:</td>
+			<td colspan="3" align="left" valign="top">
+				{$data.surat.info_tambahan.pekerjaan_anak|default:''}
+			</td>
+		</tr>
+		<tr>
+			<td align="left" valign="top"><br /></td>
+			<td align="left" valign="top">Alamat</td>
+			<td align="center" valign="top">:</td>
+			<td align="left" valign="top">
+				{$data.surat.info_tambahan.alamat_anak|default:''}
 			</td>
 		</tr>
 		<tr>
@@ -146,79 +147,6 @@
 				Demikian Surat Pernyataan ini Saya buat dengan sebenar-benarnya tanpa ada paksaan dari pihak manapun dan apabila dikemudian hari pernyataan ini tidak benar maka saya siap mempertanggung jawabkan tanpa melibatkan pemerintah setempat dan pihak manapaun.
 			</td>
 		</tr>
-	</table>
-	{else}
-	<table cellspacing="0" border="0" width="100%" style="border-collapse: collapse; line-height: 1.8;">
-		<tr>
-			<td colspan="6" align="left" valign="top">
-				Yang bertanda tangan di bawah ini :
-			</td>
-		</tr>
-		<tr>
-			<td align="left" valign="top" style="width: 42px"><br /></td>
-			<td align="left" valign="top" style="width: 160px">Nama</td>
-			<td align="center" valign="top" style="width: 15px">:</td>
-			<td align="left" valign="top">
-				<b>{$data.pemohon.nama_lengkap|default:'.....................'}</b>
-			</td>
-		</tr>
-		<tr>
-			<td align="left" valign="top" style="width: 42px"><br /></td>
-			<td align="left" valign="top" style="width: 160px">NIK</td>
-			<td align="center" valign="top" style="width: 15px">:</td>
-			<td align="left" valign="top">
-				{$data.pemohon.nik|default:'.....................'}
-			</td>
-		</tr>
-		<tr>
-			<td align="left" valign="top"><br /></td>
-			<td align="left" valign="top">Tempat/Tgl. Lahir</td>
-			<td align="center" valign="top">:</td>
-			<td align="left" valign="top">
-				{$data.pemohon.tempat_lahir|default:'.....................'}, {tgl_indo({$data.pemohon.tgl_lahir|default:'.....................'})}
-			</td>
-		</tr>
-		<tr>
-			<td align="left" valign="top"><br /></td>
-			<td align="left" valign="top">Agama</td>
-			<td align="center" valign="top">:</td>
-			<td align="left" valign="top">
-				{$data.pemohon.agama|default:'.....................'}
-			</td>
-		</tr>
-		<tr>
-			<td align="left" valign="top"><br /></td>
-			<td align="left" valign="top">Pekerjaan</td>
-			<td align="center" valign="top">:</td>
-			<td align="left" valign="top">
-				{$data.pemohon.nama_pekerjaan|default:'.....................'}
-			</td>
-		</tr>
-		<tr>
-			<td align="left" valign="top"><br /></td>
-			<td align="left" valign="top">Status Perkawinan</td>
-			<td align="center" valign="top">:</td>
-			<td align="left" valign="top">
-				{$data.pemohon.status_kawin|default:'.....................'}
-			</td>
-		</tr>
-		<tr>
-			<td colspan="4" align="center" valign="bottom"></td>
-		</tr>
-		<tr>
-			<td colspan="4" valign="top" align="justify" style="line-height: 1.8;">
-				{if $data.surat.info_tambahan.rubah_alamat != '' && $data.surat.info_tambahan.rubah_agama == '' && $data.surat.info_tambahan.rubah_pekerjaan == ''}
-					Dengan ini menyatakan bahwa alamat saya saat ini adalah {$data.surat.info_tambahan.rubah_alamat|default:'.....................'} dan bukan {$data.pemohon.alamat|default:'.....................'}
-				{elseif $data.surat.info_tambahan.rubah_agama != '' && $data.surat.info_tambahan.rubah_alamat == '' && $data.surat.info_tambahan.rubah_pekerjaan == ''}
-					Dengan ini menyatakan bahwa agama saya saat ini adalah {$data.surat.info_tambahan.rubah_agama|default:'.....................'} dan bukan {$data.pemohon.agama|default:'.....................'}
-				{elseif $data.surat.info_tambahan.rubah_pekerjaan != '' && $data.surat.info_tambahan.rubah_alamat == '' && $data.surat.info_tambahan.rubah_agama == ''}
-					Dengan ini menyatakan bahwa pekerjaan saya saat ini adalah {$data.surat.info_tambahan.rubah_pekerjaan|default:'.....................'} dan bukan {$data.pemohon.nama_pekerjaan|default:'.....................'}
-				{/if}
-				<br>
-				Demikian Surat Pernyataan ini Saya buat dengan sebenar-benarnya tanpa ada paksaan dari pihak manapun dan apabila dikemudian hari pernyataan ini tidak benar maka saya siap mempertanggung jawabkan tanpa melibatkan pemerintah setempat dan pihak manapaun.
-			</td>
-		</tr>
-		{/if}
 	</table>
 	</div>
 	{if $data.surat.info_tambahan.ceklis_ttd_pejabat neq '' && $data.surat.info_tambahan.nama_wali neq '' && count($data.surat.info_tambahan.data_saksi)>0}

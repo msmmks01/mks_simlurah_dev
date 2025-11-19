@@ -23336,8 +23336,8 @@
 								</div>
 
 								<div class="col-md-6">
-									{include file="backend/template/input_form.html" required="true" label="Nama Dalam
-									Surat" class_width="col-lg-12" type="select2" name="tbl_data_penduduk_id"
+									{include file="backend/template/input_form.html" required="true" label="Nama Orang Tua/Wali" 
+									class_width="col-lg-12" type="select2" name="tbl_data_penduduk_id"
 									id="tbl_data_penduduk_id" option={$nik_id|default:''} }
 								</div>
 								<div class="col-md-2">
@@ -23351,48 +23351,47 @@
 									<fieldset class='form-group'>
 										<legend
 											style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>
-											INFORMASI DATA WALI</legend>
+											INFORMASI DATA DIRI ANAK</legend>
 									</fieldset>
 								</div>
 							</div>
 							<div class="row">
-								<legend style='color:red;font-size:14px;padding-left: 20px;'><strong>Isi Jika Ada Wali / Kosongkan dan Lanjut Ke Data Penandatanganan</strong></legend>
 								<div class="col-md-4">
-									{include file="backend/template/input_form.html" required="false" label="Nama Wali"
-									class_width="col-lg-12" type="text" name="nama_wali" id="nama_wali"
-									value="{$data_info.nama_wali|default:''}"}
+									{include file="backend/template/input_form.html" required="false" label="Nama Anak"
+									class_width="col-lg-12" type="text" name="nama_anak" id="nama_anak"
+									value="{$data_info.nama_anak|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="false" placeholder="Isi jika sudah ada KTP/NIK" label="NIK"
+									class_width="col-lg-12" type="text" name="nik_anak_ubah" id="nik_anak_ubah"
+									value="{$data_info.nik_anak_ubah|default:''}"}
 								</div>
 								<div class="col-md-3">
 									{include file="backend/template/input_form.html" required="false" label="Tempat Lahir"
-									class_width="col-lg-12" type="text" name="tempat_lahir_wali" id="tempat_lahir_wali"
-									value="{$data_info.tempat_lahir_wali|default:''}"}
+									class_width="col-lg-12" type="text" name="tempat_lahir_anak" id="tempat_lahir_anak"
+									value="{$data_info.tempat_lahir_anak|default:''}"}
 								</div>
 								<div class="col-md-2">
 									{include file="backend/template/input_form.html" required="false" label="Tgl. Lahir"
-									class_width="col-lg-12" type="date" placeholder="dd-mm-yyyy" name="tgl_lahir_wali" id="tgl_lahir_wali"
-									value="{$data_info.tgl_lahir_wali|default:''}"}
-								</div>
-								<div class="col-md-3">
-									{include file="backend/template/input_form.html" required="false" label="Agama" 
-									class_width="col-lg-12" type="select" name="agama_wali" id="agama_wali"
-									option={$agama_wali|default:''} }
+									class_width="col-lg-12" type="date" placeholder="dd-mm-yyyy" name="tgl_lahir_anak" id="tgl_lahir_anak"
+									value="{$data_info.tgl_lahir_anak|default:''}"}
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-3">
-									{include file="backend/template/input_form.html" required="false" label="Pekerjaan" 
-									class_width="col-lg-12" type="select2" name="pekerjaan_wali" id="pekerjaan_wali"
-									option={$pekerjaan_wali|default:''} }
+									{include file="backend/template/input_form.html" required="false" label="Agama" 
+									class_width="col-lg-12" type="select" name="agama_anak" id="agama_anak"
+									option={$agama_anak|default:''} }
 								</div>
-								<div class="col-md-2">
-									{include file="backend/template/input_form.html" required="false" label="Status Perkawinan" 
-									class_width="col-lg-12" type="select" name="status_wali" id="status_wali"
-									option={$status_wali|default:''} }
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="false" label="Pekerjaan" 
+									class_width="col-lg-12" type="select2" name="pekerjaan_anak" id="pekerjaan_anak"
+									option={$pekerjaan_anak|default:''} }
 								</div>
 								<div class="col-md-4">
-									{include file="backend/template/input_form.html" required="false" label="Alamat Wali"
-									class_width="col-lg-12" type="text" name="alamat_wali" id="alamat_wali"
-									value="{$data_info.alamat_wali|default:''}"}
+									{include file="backend/template/input_form.html" required="false" label="Alamat anak"
+									class_width="col-lg-12" type="text" name="alamat_anak" id="alamat_anak"
+									value="{$data_info.alamat_anak|default:''}"}
 								</div>
 							</div>
 							<div class="row">

@@ -9883,6 +9883,41 @@ class Mbackend extends CI_Model
 
 							break;
 
+						case "151":
+
+							$array['nama_anak'] = $data['nama_anak'];
+							$array['nik_anak_ubah'] = $data['nik_anak_ubah'];
+							$array['tempat_lahir_anak'] = $data['tempat_lahir_anak'];
+							$array['tgl_lahir_anak'] = $data['tgl_lahir_anak'];
+							$array['agama_anak'] = $data['agama_anak'];
+							$array['pekerjaan_anak'] = $data['pekerjaan_anak'];
+							$array['alamat_anak'] = $data['alamat_anak'];
+
+							$array['nama_baru'] = $data['nama_baru'];
+
+							$array['no_pengantar_pernyataan'] = $data['no_pengantar_pernyataan'];
+							$array['tgl_pengantar_pernyataan'] = $data['tgl_pengantar_pernyataan'];
+							$array['keperluan_surat_pernyataan'] = $data['keperluan_surat_pernyataan'];
+
+							$array['no_reg_lurah'] = $data['no_reg_lurah'];
+							$array['ceklis_ttd_pejabat'] = isset($data['ceklis_ttd_pejabat']);
+
+							$array['data_saksi'] = [];
+							if (isset($data['nama_saksi'])) {
+								for ($i = 0; $i < count($data['nama_saksi']); $i++) {
+									$array['data_saksi'][] = array(
+										'nama' => $data['nama_saksi'][$i],
+										'pekerjaan' => $data['pekerjaan_saksi'][$i],
+									);
+								}
+							}
+							unset($data['nama_saksi']);
+							unset($data['pekerjaan_saksi']);
+
+							$data['info_tambahan'] = json_encode($array);
+
+							break;
+
 						case "150":
 
 							$array['nama_wali'] = $data['nama_wali'];
