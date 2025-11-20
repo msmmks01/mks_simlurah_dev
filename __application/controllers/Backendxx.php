@@ -7421,27 +7421,26 @@ class Backendxx extends JINGGA_Controller
 					SELECT COALESCE(MAX(penilaian_id), 0) AS max_penilaian_id FROM tbl_penilaian_rt_rw
 					)
 					SELECT
-					m.max_penilaian_id + b.unique_b_id_rank AS penilaian_id,
-					b.cl_provinsi_id,
-					b.cl_kab_kota_id,
-					b.cl_kecamatan_id,
-					b.cl_kelurahan_desa_id,
-					b.tbl_data_rt_rw_id,
-					b.nik,
-					b.nama_lengkap,
-					b.tgl_surat,
-					b.bulan,
-					b.kategori_penilaian_rt_rw_id,
-					b.kategori,
-					b.uraian,
-					b.satuan,
-					b.target,
-					b.capaian,
-					b.nilai,
-					CURRENT_DATE AS create_date
+						m.max_penilaian_id + b.unique_b_id_rank AS penilaian_id,
+						b.cl_provinsi_id,
+						b.cl_kab_kota_id,
+						b.cl_kecamatan_id,
+						b.cl_kelurahan_desa_id,
+						b.tbl_data_rt_rw_id,
+						b.nik,
+						b.nama_lengkap,
+						b.tgl_surat,
+						b.bulan,
+						b.kategori_penilaian_rt_rw_id,
+						b.kategori,
+						b.uraian,
+						b.satuan,
+						b.target,
+						b.capaian,
+						b.nilai,
+						CURRENT_DATE AS create_date
 					FROM base b, max_id m
 					ORDER BY (m.max_penilaian_id + b.unique_b_id_rank);
-
 			");
 			$data = [];
 			$penilaian_id_temp = '';
@@ -7565,6 +7564,70 @@ class Backendxx extends JINGGA_Controller
 	// 	echo json_encode(['status' => true, 'message' => 'Data berhasil disalin ke bulan ' . $bulan_tujuan]);
 	// }
 
+	//fungsi punya penilaian rt rw ya
+	// public function salin_data_rekap_bulanan()
+	// {
+	// 	$bulan_asal = $this->input->post('bulan_asal');
+	// 	$bulan_tujuan = $this->input->post('bulan_tujuan');
+	// 	$tgl_cetak = $this->input->post('tgl_cetak');
+	// 	$ganti = $this->input->post('ganti'); // checkbox (1 = gantikan)
+	// 	$cl_kelurahan_desa_id = $this->auth['cl_kelurahan_desa_id'];
+
+	// 	if (empty($bulan_asal) || empty($bulan_tujuan)) {
+	// 		echo json_encode(['status' => false, 'message' => 'Bulan asal atau bulan tujuan tidak boleh kosong!']);
+	// 		return;
+	// 	}
+
+	// 	// Ambil data dari bulan asal
+	// 	$data_asal = $this->db->get_where('tbl_penilaian_rt_rw', [
+	// 		'bulan' => $bulan_asal,
+	// 		'cl_kelurahan_desa_id' => $cl_kelurahan_desa_id
+	// 	])->result_array();
+
+	// 	if (empty($data_asal)) {
+	// 		echo json_encode(['status' => false, 'message' => 'Data bulan asal tidak ditemukan!']);
+	// 		return;
+	// 	}
+
+	// 	// Cek apakah data tujuan sudah ada
+	// 	$data_tujuan = $this->db->get_where('tbl_penilaian_rt_rw', [
+	// 		'bulan' => $bulan_tujuan,
+	// 		'cl_kelurahan_desa_id' => $cl_kelurahan_desa_id
+	// 	])->result_array();
+
+	// 	if (!empty($data_tujuan) && $ganti != '1') {
+	// 		echo json_encode(['status' => false, 'message' => 'Data bulan tujuan sudah ada!']);
+	// 		return;
+	// 	}
+
+	// 	$this->db->trans_start();
+
+	// 	// Jika "gantikan" dicentang, hapus data bulan tujuan
+	// 	if ($ganti == '1') {
+	// 		$this->db->where([
+	// 			'bulan' => $bulan_tujuan,
+	// 			'cl_kelurahan_desa_id' => $cl_kelurahan_desa_id
+	// 		])->delete('tbl_penilaian_rt_rw');
+	// 	}
+
+	// 	// Duplikasi data asal ke bulan tujuan
+	// 	foreach ($data_asal as $row) {
+	// 		unset($row['id']); // hilangkan ID agar auto increment
+	// 		$row['bulan'] = $bulan_tujuan;
+	// 		$row['create_date'] = date('Y-m-d H:i:s');
+	// 		$this->db->insert('tbl_penilaian_rt_rw', $row);
+	// 	}
+
+	// 	$this->db->trans_complete();
+
+	// 	if ($this->db->trans_status() === false) {
+	// 		echo json_encode(['status' => false, 'message' => 'Terjadi kesalahan saat menyalin data!']);
+	// 	} else {
+	// 		echo json_encode(['status' => true, 'message' => 'Data berhasil disalin dari bulan ' . $bulan_asal . ' ke bulan ' . $bulan_tujuan]);
+	// 	}
+	// }
+
+	//fungsi punya Rekap Bulanan Penduduk ya
 	public function salin_data_rekap_bulanan()
 	{
 		$bulan_asal = $this->input->post('bulan_asal');
@@ -7638,5 +7701,4 @@ class Backendxx extends JINGGA_Controller
 			echo json_encode(['status' => true, 'message' => 'Data berhasil disalin!']);
 		}
 	}
-
 }

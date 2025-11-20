@@ -1256,7 +1256,7 @@ $mod eq 'data_surat'}
     <div class="row">
       <div class="col-lg-12 text-right pb-3">
         <a href="javascript:void(0)" class="btn-flat btn-primary btn-sm"  onclick="(()=>{
-          $('#modal_salin{$mod}{$acak}').show();
+          $('#modal_salin_rekap_penduduk{$mod}{$acak}').show();
         })()">
         <i class="fa fa-copy"></i> Salin Penilaian
       </a>
@@ -1301,14 +1301,14 @@ $mod eq 'data_surat'}
   </div>
 
   <!-- Modal Salin Rekap Bulanan -->
-  <div class="modal" id="modal_salin{$mod}{$acak}" style="display:none;">
+  <div class="modal" id="modal_salin_rekap_penduduk{$mod}{$acak}" style="display:none;">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5>Salin Rekap Bulanan Penduduk</h5>
-          <button type="button" class="close" onclick="$('#modal_salin{$mod}{$acak}').hide()">&times;</button>
+          <button type="button" class="close" onclick="$('#modal_salin_rekap_penduduk{$mod}{$acak}').hide()">&times;</button>
         </div>
-        <form id="form_salin{$acak}">
+        <form id="form_salin_rekap_penduduk{$acak}">
           <div class="modal-body">
             <div class="form-group">
               <label>Bulan Asal</label>
@@ -1337,11 +1337,13 @@ $mod eq 'data_surat'}
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary btn-sm">Salin</button>
+            <button class="btn-flat btn-danger btn-sm" type="button" onclick="$(this).closest('.modal').hide()">Tutup</button>
           </div>
         </form>
       </div>
     </div>
   </div>
+  
 {elseif $mod eq 'rekap_penilaian_kelrtrw' && !in_array($cl_user_group_id,[2,4,5])}
 <div class="row" style="margin-bottom: 5px">
   <div class="col-lg-8" style="display: flex;">
@@ -1956,6 +1958,8 @@ $mod eq 'data_surat'}
         </div>
     </div>
 </div>
+
+<!-- Modal Salin Penilaian RT/RW -->
 <div class="modal" id="modal_salin{$mod}{$acak}">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -2205,11 +2209,12 @@ $mod eq 'data_surat'}
     });
   });
 
+
   $(function(){
-    $("#form_salin{$acak}").off('submit').on('submit', function(e) {
+    $("#form_salin_rekap_penduduk{$acak}").off('submit').on('submit', function(e) {
       e.preventDefault();
       const formdata = new FormData(this);
-      var btn = $("#form_salin{$acak} [type='submit']");
+      var btn = $("#form_salin_rekap_penduduk{$acak} [type='submit']");
       $.ajax({
         url: "{$host}salin-data-rekap-bulanan",
         data: formdata,
@@ -2227,7 +2232,7 @@ $mod eq 'data_surat'}
             return;
           }
           $.messager.alert("SIMLURAH", data.message);
-          $('#modal_salin{$mod}{$acak}').hide();
+          $('#modal_salin_rekap_bulanan{$mod}{$acak}').hide();
           $("#grid_{$mod}").datagrid("reload");
         },
         error: function(xhr, status, error) {
