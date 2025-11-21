@@ -10035,15 +10035,56 @@ function tambah_row(mod, param) {
 
       tr_table += "</td>";
 
+      tr_table += "<td>";
+
       tr_table +=
-        '<td><input type="text" class="form-control" name="satuan[]"></td>';
+        '<textarea class="form-control wajib" id="jml_kec_' +
+        idx_row +
+        '" name="jml_kec[]"></textarea>';
+
+      tr_table += "</td>";
+
+      tr_table += "<td>";
+
+      tr_table +=
+        '<textarea class="form-control wajib" id="satuan_' +
+        idx_row +
+        '" name="satuan[]"></textarea>';
+
+      tr_table += "</td>";
 
       tr_table +=
         '<td class="text-center"><a href="javascript:void(0);" class="btn btn-danger btn-circle" onclick="$(this).parents(\'tr\').first().remove();"><i class="fa fa-times"></i></a></td>';
 
       tr_table += "</tr>";
-
       break;
+
+    // case "sub_indikator_penilaian":
+    //   idx_row++;
+
+    //   tr_table +=
+    //     '<tr class="tr_inv" id="tr_inv_' + idx_row + '" idx="' + idx_row + '">';
+
+    //   tr_table += "<td>";
+
+    //   tr_table +=
+    //     '<textarea class="form-control wajib" idx="' +
+    //     idx_row +
+    //     '" id="uraian_' +
+    //     idx_row +
+    //     '" name="uraian[]"></textarea>';
+
+    //   tr_table += "</td>";
+
+    //   tr_table +=
+    //     '<td><input type="text" class="form-control" name="satuan[]"></td>';
+
+    //   tr_table +=
+    //     '<td class="text-center"><a href="javascript:void(0);" class="btn btn-danger btn-circle" onclick="$(this).parents(\'tr\').first().remove();"><i class="fa fa-times"></i></a></td>';
+
+    //   tr_table += "</tr>";
+
+    //   break;
 
     case "nama_berdomisili":
       idx_row++;
