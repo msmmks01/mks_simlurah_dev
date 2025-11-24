@@ -10035,18 +10035,10 @@ function tambah_row(mod, param) {
         '" name="uraian[]"></textarea>';
       tr_table += "</td>";
 
-      // Kolom Jml / (M & B) → Kamu menamainya jml_kec?
-      tr_table += "<td>";
-      tr_table += 
-        '<textarea class="form-control wajib" idx="' + idx_row +
-        '" id="jml_kec_' + idx_row +
-        '" name="jml_kec[]"></textarea>';
-      tr_table += "</td>";
-
       // Kolom Satuan
       tr_table += "<td>";
       tr_table += 
-        '<textarea class="form-control wajib" idx="' + idx_row +
+        '<textarea class="form-control" idx="' + idx_row +
         '" id="satuan_' + idx_row +
         '" name="satuan[]"></textarea>';
       tr_table += "</td>";
