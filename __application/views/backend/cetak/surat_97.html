@@ -124,13 +124,15 @@
 				<td colspan=4 align="center" valign=bottom><br></td>
 			</tr>
 			<tr>
-				<td colspan=4 valign=top align="justify" style="padding-top: -20px">Adalah benar-benar warga {$setting.nama_desa|default:'........'} Kecamatan {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kecamatan)))|default:''} Kota {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:''} sesuai surat pengantar Nomor {$data.surat.info_tambahan.no_pengantar|default:'.....................'} Tanggal {tgl_indo({$data.surat.info_tambahan.tgl_pengantar|default:'.....................'})}, dan <b>belum pernah memiliki Akta Kelahiran</b>.
+				<td colspan=4 valign=top align="justify" style="padding-top: -20px">Menyatakan dengan sebenarnya bahwa saya <b>belum pernah memiliki Akta Kelahiran</b>. 
+					{if $data.surat.info_tambahan.no_pengantar !=''}Sesuai surat pengantar RT/RW Nomor {$data.surat.info_tambahan.no_pengantar|default:'....'} Tanggal {tgl_indo($data.surat.info_tambahan.tgl_pengantar)|default:'....'}{else}{/if}. {if $data.surat.info_tambahan.keperluan_surat !=''}Surat ini dipergunakan untuk {$data.surat.info_tambahan.keperluan_surat|default:'....'}{/if}.
 				</td>
 			</tr>
 			
 			
 			<tr>
-				<td colspan=4 align="left" valign=top>Demikian surat keterangan ini diberikan dan dipergunakan <b>{if $data.surat.info_tambahan.keperluan_surat !=''}{$data.surat.info_tambahan.keperluan_surat|default:'sebagaimana mestinya'}{else}{/if}</b>.</td>
+				<td colspan=4 align="justify" valign=top>Demikian surat pernyataan ini saya buat dengan sebenar-benarnya tanpa ada paksaan dari pihak manapun dan apabila dikemudian hari pernyataan saya ini ternyata tidak benar 
+					maka saya siap mempertanggung jawabkan tanpa melibatkan pemerintah setempat dan pihak lain.</td>
 			</tr>
 		</table>
 	</div>
