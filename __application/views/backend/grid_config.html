@@ -1621,7 +1621,14 @@ $mod eq 'data_surat'}
               class="btn-flat btn-warning btn-sm"
               onClick="kumpulAction('export_laporan_keluarga','{$acak}');"
             >
-              <i class="fa fa-print"></i> Cetak
+              <i class="fa fa-print"></i> Cetak PDF
+            </a>
+            &nbsp;
+            <a
+              href="javascript:void(0)"
+              class="btn-flat btn-success btn-sm"
+              onClick="kumpulAction('export_laporan_keluarga_excel', '{$acak}');">
+              <i class="fa fa-print"></i> Cetak Excel
             </a>
             {/if}
             <!-- {if $button_cetak_penilaian_skm|default:'' eq 'true'} &nbsp;

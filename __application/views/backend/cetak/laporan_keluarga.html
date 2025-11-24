@@ -113,16 +113,16 @@
                     <th width="5%" style="text-align: center" ><b>NO</b></th>
                     <th width="10%" style="text-align: center" ><b>NO KK</b></th>
                     <th width="10%" style="text-align: center" ><b>NAMA KEPALA KELUARGA</b></th>
+                    <th width="5%" style="text-align: center" ><b>JENIS KELAMIN</b></th>
                     <th width="10%" style="text-align: center" ><b>JUMLAH ANGGOTA KELUARGA</b></th>
-                    <th width="15%" style="text-align: center" ><b>ALAMAT</b></th>
                     <th width="5%" style="text-align: center" ><b>RW</b></th>
                     <th width="5%" style="text-align: center" ><b>RT</b></th>
                     <!-- <th width="10%" style="text-align: center" ><b>TANGGAL INPUT</b></th> -->
-                    <th width="5%" style="text-align: center" ><b>JENIS KELAMIN</b></th>
-                    {if $auth.cl_user_group_id neq '1'}
-                    <th width="10%" style="text-align: center" ><b>KELURAHAN</b></th>
+                    <!-- {if $auth.cl_user_group_id neq '1'} -->
                     <!-- <th width="10%" style="text-align: center" ><b>KELURAHAN</b></th> -->
-                    {/if}
+                    <!-- <th width="10%" style="text-align: center" ><b>KELURAHAN</b></th> -->
+                    <!-- {/if} -->
+                    <th width="15%" style="text-align: center" ><b>ALAMAT</b></th>
                     
                 </tr>
             </thead>
@@ -133,16 +133,16 @@
                         <td valign="top" style="text-align: center">{$idx}</td>
                         <td valign="top" width="10%" style="text-align: center">{$rows.no_kk2|default:'-'}</td>
                         <td valign="top" width="10%">{$rows.nama_kepala_keluarga|default:'-'}</td>
+                        <td valign="top" width="10%" style="text-align: center">{$rows.jns_kel_keluarga|default:'-'}</td>
                         <td valign="top" width="10%" style="text-align: center">{$rows.jumlah_anggota_keluarga|default:'-'}</td>
-                        <td valign="top" width="10%" style="text-align: left">{$rows.alamat_kepala_keluarga|default:'-'}</td>
                         <td valign="top" width="5%" style="text-align: center">{$rows.rw|default:'-'}</td>
                         <td valign="top" width="5%" style="text-align: center">{$rows.rt|default:'-'}</td>
+                        <td valign="top" width="10%" style="text-align: left">{$rows.alamat_kepala_keluarga|default:'-'}</td>
                         <!-- <td valign="top" width="10%" style="text-align: center">{$rows.create_date|default:'-'}</td> -->
-                        <td valign="top" width="10%" style="text-align: center">{$rows.jns_kel_keluarga|default:'-'}</td>
-                        {if $auth.cl_user_group_id neq '1'}
+                        <!-- {if $auth.cl_user_group_id neq '1'} -->
                         <!-- <td valign="top" width="10%" style="text-align: center" >{$rows.kecamatan|default:'-'}</td> -->
-                        <td valign="top" width="10%" style="text-align: center">{$rows.kelurahan|default:'-'}</td>
-                        {/if}
+                        <!-- <td valign="top" width="10%" style="text-align: center">{$rows.kelurahan|default:'-'}</td> -->
+                        <!-- {/if} -->
                         
                     </tr>
     

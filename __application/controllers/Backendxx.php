@@ -5314,6 +5314,30 @@ class Backendxx extends JINGGA_Controller
 
 				break;
 
+			case "laporan_keluarga_excel":
+
+				$rw = $this->input->get('rw');
+				$rt = $this->input->get('rt');
+				$desa_id = $this->input->get('kelurahan');
+
+				$data = $this->mbackend->getdata('laporan_keluarga', 'result_array', [
+					'rw' => $rw,
+					'rt' => $rt,
+					'kelurahan' => $desa_id
+				]);
+
+				$filename = "laporan-keluarga-" . date('YmdHis');
+
+				$temp = "backend/cetak/laporan_keluarga.html";
+
+				$this->hasil_output('excel', $mod, $data, $filename, $temp, 'utf-8', array(215, 330));
+
+				//echo "<pre>";
+
+				//print_r($data);exit;
+
+				break;
+
 			case "laporan_kebersihan":
 				$nip = $this->input->get('nip');
 				$tgl_cetak = $this->input->get('tanggal');
@@ -5675,7 +5699,7 @@ class Backendxx extends JINGGA_Controller
 					unset($row['data_surat']);
 					$data[] = $row;
 				}
-				$filename = "laporan-rekap-usaha-" . date('YmdHis');
+				$filename = "laporan-rekap-pengantar-kendaraan-" . date('YmdHis');
 
 				$temp = "backend/cetak/laporan_rekap_pengantar_kendaraan.html";
 
