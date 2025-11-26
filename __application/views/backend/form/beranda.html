@@ -1,58 +1,197 @@
 <style>
+
 	a.info-box {
-		display: block;
-  min-height: 90px;
-  background: #fff;
-  width: 100%;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-  border-radius: 2px;
-  margin-bottom: 15px;
+	display: block;
+	min-height: 90px;
+	background: #fff;
+	width: 100%;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+	border-radius: 2px;
+	margin-bottom: 15px;
+		}
+		.icn-dash {
+	font-size: 4rem;
+	top: -12px;
+	position: relative;
 	}
-	.icn-dash {
-  font-size: 4rem;
-  top: -12px;
-  position: relative;
-}
 
-.box-dash {
-  position: absolute;
+	.box-dash {
+	position: absolute;
 
-  margin-top: -2.5rem;
+	margin-top: -2.5rem;
 
-  margin-left: 1.4rem;
+	margin-left: 1.4rem;
 
-  border-radius: 12px;
-  height: 69px;
-  width: 69px;
-  box-shadow: 0 4px 20px 0 rgba(0,0,0,.14),0 7px 10px -5px rgba(64,64,64,.4) !important;
+	border-radius: 12px;
+	height: 69px;
+	width: 69px;
+	box-shadow: 0 4px 20px 0 rgba(0,0,0,.14),0 7px 10px -5px rgba(64,64,64,.4) !important;
 
-}
+	}
 
-hr.horizontal.dark {
-  background-image: linear-gradient(90deg,transparent,rgba(111, 106, 106, 0.4),transparent)
-}
-hr.horizontal {
-  background-color: transparent;
-  border-top: none;
-  height: 1px;
-}
-.card > hr {
-  margin-right: 0;
-  margin-left: 0;
-}
-.biru {
-    box-shadow: 3px 3px 6px #00c0ef40;
-}
-.merah {
-    box-shadow: 3px 3px 6px #dd4b3940;
-}
-.hijau {
-    box-shadow: 3px 3px 6px #00a55940;
-}
-.kuning {
-    box-shadow: 3px 3px 6px #f19a1140;
-}
+	hr.horizontal.dark {
+	background-image: linear-gradient(90deg,transparent,rgba(111, 106, 106, 0.4),transparent)
+	}
+	hr.horizontal {
+	background-color: transparent;
+	border-top: none;
+	height: 1px;
+	}
+	.card > hr {
+	margin-right: 0;
+	margin-left: 0;
+	}
+	.biru {
+		box-shadow: 3px 3px 6px #00c0ef40;
+	}
+	.merah {
+		box-shadow: 3px 3px 6px #dd4b3940;
+	}
+	.hijau {
+		box-shadow: 3px 3px 6px #00a55940;
+	}
+	.kuning {
+		box-shadow: 3px 3px 6px #f19a1140;
+	}
+
+	.info-box-modern {
+		position: relative;
+		padding: 20px;
+		border-radius: 16px;
+		background: linear-gradient(135deg, #ffffff, #fafafa);
+		overflow: hidden;
+		transition: transform .25s ease, box-shadow .25s ease;
+	}
+
+	.info-box-modern:hover {
+		transform: translateY(-6px);
+		box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+	}
+
+	.info-icon-animate {
+		font-size: 3.6rem;
+		padding: 18px;
+		border-radius: 18px;
+		display: inline-block;
+		animation: softFloat 2.5s ease-in-out infinite;
+	}
+
+	@keyframes softFloat {
+		0%   { transform: translateY(0px); }
+		50%  { transform: translateY(-6px); }
+		100% { transform: translateY(0px); }
+	}
+
+	.glow-blue   { background: #00c0ef; color:#fff; box-shadow:0 0 18px #00c0ef90; }
+	.glow-red    { background: #dd4b39; color:#fff; box-shadow:0 0 18px #dd4b3990; }
+	.glow-green  { background: #00a65a; color:#fff; box-shadow:0 0 18px #00a65a90; }
+	.glow-yellow { background: #f39c12; color:#fff; box-shadow:0 0 18px #f39c1290; }
+
+	.dashboard-metric-wrapper {
+		display: flex;
+		justify-content: space-between; /* kasih jarak merata */
+		align-items: center;
+		gap: 25px;
+		width: 100%;
+		margin: 20px 0;
+	}
+
+	/* WRAPPER */
+	.dashboard-metric-wrapper {
+		display: flex;
+		justify-content: space-between;
+		align-items: stretch;
+		gap: 22px;
+		margin-top: 15px;
+	}
+
+	/* CARD */
+	.metric-card {
+		flex: 1;
+		padding: 18px 20px 22px 20px;
+		border-radius: 18px;
+		background: linear-gradient(135deg, #ffffff, #f7f7f7);
+		box-shadow:
+			0 3px 8px rgba(0,0,0,0.06),
+			0 0 0 1px rgba(255,255,255,0.7) inset;
+		transition: 0.25s ease;
+		position: relative;
+		overflow: hidden;
+	}
+
+	/* Decorative soft circle seperti dashboard lama */
+	.metric-card::before {
+		content:"";
+		position:absolute;
+		top:-35px;
+		right:-35px;
+		width:120px;
+		height:120px;
+		background: radial-gradient(circle, rgba(0,0,0,0.05), transparent 70%);
+		border-radius:50%;
+	}
+
+	/* Hover */
+	.metric-card:hover {
+		transform: translateY(-4px);
+		box-shadow:
+			0 6px 18px rgba(0,0,0,0.12),
+			0 0 0 1px rgba(255,255,255,0.8) inset;
+	}
+
+	/* ICON */
+	.metric-icon {
+		width: 60px;
+		height: 60px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 14px;
+		font-size: 30px;
+		color: white;
+
+		/* 3D icon style */
+		box-shadow:
+			inset 3px 3px 6px rgba(0,0,0,0.15),
+			inset -3px -3px 6px rgba(255,255,255,0.45),
+			0 4px 14px rgba(0,0,0,0.20);
+
+		/* Animasi subtle */
+		animation: floatIcon 3s ease-in-out infinite;
+	}
+
+	/* Warna icon */
+	.icon-blue   { background: #03c2f3; }
+	.icon-red    { background: #e54b3d; }
+	.icon-green  { background: #28b665; }
+	.icon-yellow { background: #f2b432; }
+
+	/* Float animation */
+	@keyframes floatIcon {
+		0%   { transform: translateY(0); }
+		50%  { transform: translateY(-5px); }
+		100% { transform: translateY(0); }
+	}
+
+	/* TEXT */
+	.metric-label {
+		font-size: 13px;
+		font-weight: 600;
+		letter-spacing: 0.4px;
+		color: #666;
+		margin-top: 10px;
+	}
+
+	.metric-value {
+		font-size: 22px;
+		font-weight: 700;
+		color: #222;
+		margin-top: 4px;
+	}
+
+
 </style>
+
 <section class="content">
 	<div class="row">
 		<div class="col-lg-12">
@@ -71,74 +210,94 @@ hr.horizontal {
 				<div class="col-lg-12">
 					<div class="box">
 						<div class="box-body">
-							<div class="row">
-								<div class="col-md-3 col-sm-6 col-xs-12" style="padding-top: 29px;">
-								<div class="info-box biru">
-								<span class="info-box-icon bg-aqua box-dash"><i class="fa fa-users icn-dash"></i></span>
-								<div class="info-box-content">
-								<span class="info-box-text">Jumlah Penduduk Aktif</span>
-								<span class="info-box-number">{$data.jumlah_penduduk|number_format:0:",":"."|default:'-'} <small>Orang</small></span>
-							</div>
-							<hr class="dark horizontal my-0 mt-3 mx-2">
-								
-								</div>
-								
-								</div>
-								
-								<div class="col-md-3 col-sm-6 col-xs-12" style="padding-top: 29px;">
-								<div class="info-box merah">
-								<span class="info-box-icon bg-red box-dash"><i class="fa fa-file-text-o icn-dash"></i></span>
-								<div class="info-box-content">
-								<span class="info-box-text">Jumlah Kartu Keluarga</span>
-								<span class="info-box-number">{$data.jumlah_kk|number_format:0:",":"."|default:'-'} <small>Kartu Keluarga</small></span>
-								</div>
-								<hr class="dark horizontal my-0 mt-3 mx-2">
-								</div>
-								
-								</div>
-								
-								
-								<div class="clearfix visible-sm-block"></div>
-								<div class="col-md-3 col-sm-6 col-xs-12" style="padding-top: 29px;">
-								<div class="info-box hijau">
-								<span class="info-box-icon bg-green box-dash"><i class="fa fa-envelope-o icn-dash"></i></span>
-								<div class="info-box-content">
-								<span class="info-box-text">Jumlah Surat Keluar</span>
-								<span class="info-box-number">{$data.jumlah_surat|number_format:0:",":"."|default:'-'} <small>Surat</small></span>
-								</div>
-								<hr class="dark horizontal my-0 mt-3 mx-2">
-								</div>
-								
+							<!-- <div class="row"> -->
+								<!-- <div class="col-md-3 col-sm-6 col-xs-12" style="padding-top: 29px;">
+									<div class="info-box biru">
+										<span class="info-box-icon bg-aqua box-dash"><i class="fa fa-users icn-dash"></i></span>
+										<div class="info-box-content">
+											<span class="info-box-text">Jumlah Penduduk Aktif</span>
+											<span class="info-box-number">{$data.jumlah_penduduk|number_format:0:",":"."|default:'-'} <small>Orang</small></span>
+										</div>
+										<hr class="dark horizontal my-0 mt-3 mx-2">
+									</div>
+								</div> -->
+
+								<!-- <div class="col-md-3 col-sm-6 col-xs-12" style="padding-top: 29px;">
+									<div class="info-box merah">
+										<span class="info-box-icon bg-red box-dash"><i class="fa fa-file-text-o icn-dash"></i></span>
+										<div class="info-box-content">
+											<span class="info-box-text">Jumlah Kartu Keluarga</span>
+											<span class="info-box-number">{$data.jumlah_kk|number_format:0:",":"."|default:'-'} <small>Kartu Keluarga</small></span>
+										</div>
+										<hr class="dark horizontal my-0 mt-3 mx-2">
+									</div>
+								</div> -->
+
+								<!-- <div class="clearfix visible-sm-block"></div> -->
+
+								<!-- <div class="col-md-3 col-sm-6 col-xs-12" style="padding-top: 29px;">
+									<div class="info-box hijau">
+										<span class="info-box-icon bg-green box-dash"><i class="fa fa-envelope-o icn-dash"></i></span>
+										<div class="info-box-content">
+											<span class="info-box-text">Jumlah Surat Keluar</span>
+											<span class="info-box-number">{$data.jumlah_surat|number_format:0:",":"."|default:'-'} <small>Surat</small></span>
+										</div>
+										<hr class="dark horizontal my-0 mt-3 mx-2">
+									</div>
+								</div> -->
+
+								<!-- <div class="clearfix visible-sm-block"></div> -->
+
+								<!-- <div class="col-md-3 col-sm-6 col-xs-12" style="padding-top: 29px;">
+									<div class="info-box kuning">
+										<span class="info-box-icon bg-yellow box-dash"><i class="fa fa-envelope-o icn-dash"></i></span>
+										<div class="info-box-content">
+											<span class="info-box-text">Jumlah Surat Masuk</span>
+											<span class="info-box-number">{$data.jumlah_surat_masuk|number_format:0:",":"."|default:'-'} <small>Surat</small></span>
+										</div>
+										<hr class="dark horizontal my-0 mt-3 mx-2">
+									</div>
+								</div> -->
+							<!-- </div>		 -->
+							 <div class="dashboard-metric-wrapper">
+
+								<div class="metric-card">
+									<div class="metric-icon icon-blue"><i class="fa fa-users"></i></div>
+									<div class="metric-label">Jumlah Penduduk Aktif</div>
+									<div class="metric-value">{$data.jumlah_penduduk|number_format:0:",":"."} <small>Orang</small></div>
 								</div>
 
-								<div class="clearfix visible-sm-block"></div>
-								<div class="col-md-3 col-sm-6 col-xs-12" style="padding-top: 29px;">
-								<div class="info-box kuning">
-								<span class="info-box-icon bg-yellow box-dash"><i class="fa fa-envelope-o icn-dash"></i></span>
-								<div class="info-box-content">
-								<span class="info-box-text">Jumlah Surat Masuk</span>
-								<span class="info-box-number">{$data.jumlah_surat_masuk|number_format:0:",":"."|default:'-'} <small>Surat</small></span>
+								<div class="metric-card">
+									<div class="metric-icon icon-red"><i class="fa fa-file-text-o"></i></div>
+									<div class="metric-label">Jumlah Kartu Keluarga</div>
+									<div class="metric-value">{$data.jumlah_kk|number_format:0:",":"."} <small>Kartu Keluarga</small></div>
 								</div>
-								<hr class="dark horizontal my-0 mt-3 mx-2">
+
+								<div class="metric-card">
+									<div class="metric-icon icon-green"><i class="fa fa-envelope-o"></i></div>
+									<div class="metric-label">Jumlah Surat Keluar</div>
+									<div class="metric-value">{$data.jumlah_surat|number_format:0:",":"."} <small>Surat</small></div>
 								</div>
-								
+
+								<div class="metric-card">
+									<div class="metric-icon icon-yellow"><i class="fa fa-envelope"></i></div>
+									<div class="metric-label">Jumlah Surat Masuk</div>
+									<div class="metric-value">{$data.jumlah_surat_masuk|number_format:0:",":"."} <small>Surat</small></div>
 								</div>
-								
-								</div>
-								
-								</div>
-							<br>
-							<div class="box-body">
-								<div class="row">
-									<div class="col-md-8">
-										<div class="box box-success">
-											<div class="box-header with-border">
-												<h3 class="box-title">Statistik Berdasarkan Agama</h3>
+
+							</div>
+						</div>
+						<br>
+						<div class="box-body">
+							<div class="row">
+								<div class="col-md-8">
+									<div class="box box-success">
+										<div class="box-header with-border">
+											<h3 class="box-title">Statistik Berdasarkan Agama</h3>
 											<div class="box-tools pull-right">
-										<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-										</button>
-										<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-										</div>
+												<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+												<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+											</div>
 										</div>
 											<div class="box-body no-padding">
 												<div class="row">
@@ -722,22 +881,28 @@ hr.horizontal {
 	
 	genPieChart("chart_jenis_kelamin", "jenis_kelamin", "", chartJenisKelamin);
 	
-	var chartAgama =  [{
-        name: 'Berdasarkan AGAMA',
-        colorByPoint: true,
-        data: 
-        [
+	var listAgama = [
+		{foreach from=$data.agama item=rows}
+			'{$rows.keterangan}',
+		{/foreach}
+	];
+
+	var chartAgama = [{
+		name: 'Berdasarkan AGAMA',
+		colorByPoint: true,
+		data: [
 			{foreach from=$data.agama item=rows}
 				{
-					name: '{$rows.keterangan} = {$rows.total}',
+					name: '{$rows.keterangan}',
 					y: {$rows.total},
-					color: '{$rows.color}',
+					color: '{$rows.color}' 
 				},
 			{/foreach}
 		]
-    }];
-	
-	genLineChart("chart_agama", "agama", "", chartAgama);
+	}];
+
+	genColumnChart("chart_agama", "agama", listAgama, chartAgama);
+
 	
 	var chartXXPendidikan = [
 		{foreach from=$data.pendidikan item=rows}

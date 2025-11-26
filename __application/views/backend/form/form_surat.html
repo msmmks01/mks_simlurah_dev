@@ -85,14 +85,7 @@
 									value="{$data.no_surat|default:''}"}
 								</div>
 							</div>
-							<!-- <br><br>
-							<div class="row">
-								<div class="col-md-4">
-									{include file="backend/template/input_form.html" required="true" label="Pilih Jenis Surat" 
-									class_width="col-lg-12" type="select" name="pil_jenis_surat"
-									id="pil_jenis_surat" option={$pil_jenis_surat|default:''} }
-								</div>
-							</div> -->
+
 							<div class="row">
 								<div class='col-md-12'>
 									<fieldset class='form-group'>
@@ -134,111 +127,6 @@
 									id="imam_kelurahan_opsi" value="{$data.imam_kelurahan_opsi|default:''}"}
 								</div>
 							</div>
-							<!-- <div class="row" id="div_surat_pernyataan">
-								<legend style='color:red;font-size:14px;padding-left: 20px;'><strong>Isi Jika Ada Wali / Kosongkan dan Lanjut Ke Data Penandatanganan</strong></legend>
-								<div class="col-md-4">
-									{include file="backend/template/input_form.html" required="false" label="Nama Wali"
-									class_width="col-lg-12" type="text" name="nama_wali" id="nama_wali"
-									value="{$data_info.nama_wali|default:''}"}
-								</div>
-								<div class="col-md-2">
-									{include file="backend/template/input_form.html" required="false" label="Tempat Lahir"
-									class_width="col-lg-12" type="text" name="tempat_lahir_wali" id="tempat_lahir_wali"
-									value="{$data_info.tempat_lahir_wali|default:''}"}
-								</div>
-								<div class="col-md-2">
-									{include file="backend/template/input_form.html" required="false" label="Tgl. Lahir"
-									class_width="col-lg-12" type="date" placeholder="dd-mm-yyyy" name="tgl_lahir_wali" id="tgl_lahir_wali"
-									value="{$data_info.tgl_lahir_wali|default:''}"}
-								</div>
-								<div class="col-md-2">
-									{include file="backend/template/input_form.html" required="false" label="Agama"
-									class_width="col-lg-12" type="text" name="agama_wali" id="agama_wali"
-									value="{$data_info.agama_wali|default:''}"}
-								</div>
-								<div class="col-md-2">
-									{include file="backend/template/input_form.html" required="false" label="Pekerjaan"
-									class_width="col-lg-12" type="text" name="pekerjaan_wali" id="pekerjaan_wali"
-									value="{$data_info.pekerjaan_wali|default:''}"}
-								</div>
-								<div class="col-md-2">
-									{include file="backend/template/input_form.html" required="false" label="Status Perkawinan"
-									class_width="col-lg-12" type="text" name="status_wali" id="status_wali"
-									value="{$data_info.status_wali|default:''}"}
-								</div>
-								<div class="col-md-4">
-									{include file="backend/template/input_form.html" required="false" label="Alamat Wali"
-									class_width="col-lg-12" type="text" name="alamat_wali" id="alamat_wali"
-									value="{$data_info.alamat_wali|default:''}"}
-								</div>
-								<div class="col-md-4">
-									{include file="backend/template/input_form.html" required="false" label="Keperluan
-									Surat" class_width="col-lg-12" type="text" name="keperluan_surat_pernyataan"
-									id="keperluan_surat_pernyataan" value="{$data_info.keperluan_surat_pernyataan|default:''}"}
-								</div>
-								<br>
-								<br>
-								<div class="col-md-12">
-									<fieldset class='form-group'>
-										<legend style="font-size: 14px;color: red;">*Isi jika Ada Saksi 
-										</legend>
-										<legend style='font-size:16px;'><strong>PARA SAKSI</strong></legend>
-										<table class="table table-bordered table-striped table-hover">
-											<thead>
-												<tr style='background-color:#3C8DBC;color:#fff;'>
-													<th class='text-center' style='vertical-align:middle;' width='50%'>Nama</th>
-													<th class='text-center' style='vertical-align:middle;' width='40%'>Pekerjaan
-													</th>
-													<th class='text-center' style='vertical-align:middle;' width='10%'>
-														<a href="javascript:void(0);" class="btn btn-success"
-															onclick="tambah_row('saksi_saksi');"><i class="fa fa-plus"></i></a>
-													</th>
-												</tr>
-											</thead>
-											
-											<tbody class="saksi_saksi">
-												<tr class="tr_inv" id="tr_inv_1">
-												
-												</tr>
-											</tbody>
-										</table>
-									</fieldset>
-								</div>	
-								<br>
-								<br>
-								<div class='col-md-12'>
-									<legend style='color:gray;margin-bottom:15px;margin-top:15px;'></legend>
-								</div>
-								<div class="col-md-5">
-									{include file="backend/template/input_form.html" required="false" placeholder="Isi Jika Imam Kelurahan ber ttd" label="Nama Imam Kelurahan" 
-									class_width="col-lg-12" type="text" name="nama_imam_kel"
-									id="nama_imam_kel" value="{$data_info.nama_imam_kel|default:''}"}
-								</div>
-								<br>
-								<div class="col-md-8">
-									<div class="form-group">
-										<input type="checkbox" name="ceklis_ttd_imam" id="ceklis_ttd_imam">
-										<label for="ceklis_ttd_imam" style="color:goldenrod"><b>Centang jika Imam Kelurahan Bertandatangan</b></label>
-									</div>
-								</div>
-								<br>
-								<div class='col-md-12'>
-									<legend style='color:gray;margin-bottom:15px;margin-top:15px;'></legend>
-								</div>
-								<div class="col-md-5">
-									<div>
-										{include file="backend/template/input_form.html" placeholder="Isi Jika Ada No. Register Lurah" required="false" label="No. Register"
-										class_width="col-lg-12" type="text" name="no_reg_lurah" id="no_reg_lurah"
-										value="{$data_info.no_reg_lurah|default:''}"}
-									</div>
-								</div>
-								<div class="col-md-8">
-									<div class="form-group">
-										<input type="checkbox" name="ceklis_ttd_pejabat" id="ceklis_ttd_pejabat">
-										<label for="ceklis_ttd_pejabat" style="color:blue"><b>Centang jika Pejabat Kelurahan Bertandatangan</b></label>
-									</div>
-								</div>
-							</div> -->
 
 							<div class="row" style="margin-bottom:5px;">
 								<div class='col-md-12'>
@@ -25160,4 +25048,5 @@ var startDate = '{$startDate}',endDate = '{$endDate}',id='{$id|default:""}';
 		console.log('beforeSend: semua input valid, siap kirim data...');
 		return true;
 	};
+
 </script>

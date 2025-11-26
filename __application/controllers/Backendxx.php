@@ -823,9 +823,8 @@ class Backendxx extends JINGGA_Controller
 
 				$summary_persuratan = $this->mbackend->getdata('summary_persuratan', 'result_array');
 
-
-
-				$jenis_kelamin = $this->mbackend->getdata_laporan('dashboard_jenis_kelamin', 'result_array');
+				$jenis_kelamin = $this->mbackend->getdata_laporan('dashboard_jenis_kelamin', 'result_array', $tahun_login);
+				// $jenis_kelamin = $this->mbackend->getdata_laporan('dashboard_jenis_kelamin', 'result_array');
 
 				$agama = $this->mbackend->getdata_laporan('dashboard_agama', 'result_array');
 
@@ -7725,4 +7724,5 @@ class Backendxx extends JINGGA_Controller
 			echo json_encode(['status' => true, 'message' => 'Data berhasil disalin!']);
 		}
 	}
+
 }

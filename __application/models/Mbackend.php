@@ -6789,7 +6789,6 @@ class Mbackend extends CI_Model
 				}
 
 
-
 				if ($this->auth['cl_user_group_id'] == 3) {
 
 					$where .= "
@@ -6818,11 +6817,17 @@ class Mbackend extends CI_Model
 					";
 				}
 
+				$sql = "SELECT A.nama_agama as keterangan,
 
-
-				$sql = "
-
-					SELECT A.nama_agama as keterangan, A.color,
+						CASE A.id
+							WHEN '1' THEN '#6EC1E4'  -- Islam = biru soft
+							WHEN '2' THEN '#F28B82'  -- Kristen = merah soft
+							WHEN '3' THEN '#F7D36B'  -- Katolik = kuning soft
+							WHEN '4' THEN '#81C995'  -- Hindu = hijau soft
+							WHEN '5' THEN '#B39DDB'  -- Budha = ungu soft
+							WHEN '6' THEN '#FFCC80'  -- Khonghucu = orange soft
+							ELSE '#6EC1E4'
+						END as color,
 
 						COALESCE(B.total, 0 ) as total
 
@@ -7579,6 +7584,9 @@ class Mbackend extends CI_Model
 
 			case "dashboard_jenis_kelamin":
 
+				$session_data = unserialize(base64_decode($this->session->userdata('s3ntr4lb0')));
+   				$tahun_login = isset($session_data['tahun']) ? $session_data['tahun'] : date('Y');
+
 				$desa_id = $this->input->post('cl_kelurahan_desa_id_filter');
 
 				if ($desa_id) {
@@ -7586,7 +7594,6 @@ class Mbackend extends CI_Model
 					$where .= "and cl_kelurahan_desa_id = $desa_id";
 					// $where .= "and cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "'";
 				}
-
 
 
 				if ($this->auth['cl_user_group_id'] == 3) {
@@ -7617,11 +7624,10 @@ class Mbackend extends CI_Model
 					";
 				}
 
+				// 🔥 FILTER TAHUN LOGIN (WAJIB)
+				$where .= " AND YEAR(create_date) <= '$tahun_login' ";
 
-
-				$sql = "
-
-					SELECT COUNT(id) as total, 'LAKI-LAKI' as keterangan,
+				$sql = "SELECT COUNT(id) as total, 'LAKI-LAKI' as keterangan,
 
 						'#FFAA00' as color
 
