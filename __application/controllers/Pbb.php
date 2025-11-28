@@ -21,8 +21,8 @@ class Pbb extends JINGGA_Controller
 	public function get_data_pbb()
 	{
 		// pastikan ini dipanggil via POST
-		$nop   = trim($this->input->post('nop'));
-		$tahun = $this->input->post('tahun') ? $this->input->post('tahun') : date('Y');
+		$nop   = trim($this->input->get_post('nop'));
+		$tahun = $this->input->get_post('tahun') ? $this->input->get_post('tahun') : date('Y');
 
 		// jika nop kosong, kembalikan error JSON langsung
 		if (empty($nop)) {

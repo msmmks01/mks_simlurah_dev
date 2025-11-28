@@ -9442,6 +9442,7 @@ class Mbackend extends CI_Model
 				// 	mkdir('./__data/' . $xdir, 0755);
 				// }
 
+
 				$arsip = '';
 				$xdir = date('Ymd');
 				$path = './__data/' . $xdir;
@@ -15566,78 +15567,119 @@ class Mbackend extends CI_Model
 
 							break;
 
+						// case "1":
+
+						// 	$array['alamat_domisili_menikah'] = $data['alamat_domisili_menikah'];
+						// 	$array['imam_kelurahan_opsi'] = $data['imam_kelurahan_opsi'];
+						// 	$array['pernyataan_dari'] = $data['pernyataan_dari'];
+						// 	$array['tgl_pernyataan'] = $data['tgl_pernyataan'];
+						// 	$array['no_pengantar'] = $data['no_pengantar'];
+						// 	$array['tgl_pengantar'] = $data['tgl_pengantar'];
+						// 	$array['keperluan_surat'] = $data['keperluan_surat'];
+
+						// 	$data['info_tambahan'] = json_encode($array);
+
+						// 	$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
+						// 	$data['tgl_pengantar'] = date('Y-m-d', strtotime($data['tgl_pengantar']));
+						// 	$datax = array(
+						// 		'no_surat' => $data['no_pengantar'],
+						// 		'tgl_surat' => $data['tgl_pengantar'],
+						// 		'perihal' => $data['keperluan_surat'],
+						// 		'cl_jenis_surat_masuk_id' => '3',
+						// 		'cl_sifat_surat_masuk_id' => '1',
+						// 		'asal_surat' => $this->auth['nama_lengkap'],
+						// 		'tujuan' => 'Warga',
+						// 		'tgl_diterima' => $data['tgl_surat'],
+						// 		'no_agenda' => '',
+						// 		'cl_provinsi_id' => $this->auth['cl_provinsi_id'],
+						// 		'cl_kab_kota_id' => $this->auth['cl_kab_kota_id'],
+						// 		'cl_kecamatan_id' => $this->auth['cl_kecamatan_id'],
+						// 		'cl_kelurahan_desa_id' => $this->auth['cl_kelurahan_desa_id'],
+						// 	);
+						// 	$insert = $this->db->insert('tbl_data_surat_masuk', $datax);
+
+						// break;
 						case "1":
 
 							$array['alamat_domisili_menikah'] = $data['alamat_domisili_menikah'];
+							$array['imam_kelurahan_opsi']     = $data['imam_kelurahan_opsi'];
+							$array['pernyataan_dari']         = $data['pernyataan_dari'];
+							$array['tgl_pernyataan']          = $data['tgl_pernyataan'];
+							$array['no_pengantar']            = $data['no_pengantar'];
+							$array['tgl_pengantar']           = $data['tgl_pengantar'];
+							$array['keperluan_surat']         = $data['keperluan_surat'];
 
-							$array['imam_kelurahan_opsi'] = $data['imam_kelurahan_opsi'];
-
-							$array['pernyataan_dari'] = $data['pernyataan_dari'];
-
-							$array['tgl_pernyataan'] = $data['tgl_pernyataan'];
-
-							$array['no_pengantar'] = $data['no_pengantar'];
-
-							$array['tgl_pengantar'] = $data['tgl_pengantar'];
-
-							$array['keperluan_surat'] = $data['keperluan_surat'];
-
-							// $array['pil_jenis_surat'] = $data['pil_jenis_surat'];
-
-							// $array['nama_wali'] = $data['nama_wali'];
-
-							// $array['tempat_lahir_wali'] = $data['tempat_lahir_wali'];
-
-							// $array['tgl_lahir_wali'] = $data['tgl_lahir_wali'];
-
-							// $array['agama_wali'] = $data['agama_wali'];
-
-							// $array['pekerjaan_wali'] = $data['pekerjaan_wali'];
-
-							// $array['status_wali'] = $data['status_wali'];
-
-							// $array['alamat_wali'] = $data['alamat_wali'];
-
-							// $array['keperluan_surat_pernyataan'] = $data['keperluan_surat_pernyataan'];
-
-							// $array['no_reg_lurah'] = $data['no_reg_lurah'];
-
-							// $array['ceklis_ttd_pejabat'] = isset($data['ceklis_ttd_pejabat']);
-
-							// $array['nama_imam_kel'] = $data['nama_imam_kel'];
-
-							// $array['ceklis_ttd_imam'] = isset($data['ceklis_ttd_imam']);
-
-							// $array['data_saksi'] = [];
-							// if (isset($data['nama_saksi'])) {
-							// 	for ($i = 0; $i < count($data['nama_saksi']); $i++) {
-							// 		$array['data_saksi'][] = array(
-							// 			'nama' => $data['nama_saksi'][$i],
-							// 			'pekerjaan' => $data['pekerjaan_saksi'][$i],
-							// 		);
-							// 	}
-							// }
-							// unset($data['nama_saksi']);
-							// unset($data['pekerjaan_saksi']);
-
+							// simpan info tambahan seperti biasa
 							$data['info_tambahan'] = json_encode($array);
 
-							$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
+							// ------------------ HANDLE UPDATE NOP PADA TBL_DATA_PENDUDUK ------------------
+							// terima NOP dari form (dukung 'nop' atau 'nop_inline' jika ada)
+							$nop_input = $this->input->post('nop');
+							if (empty($nop_input)) {
+								$nop_input = $this->input->post('nop_inline');
+							}
+
+							// cari NIK: prefer menggunakan tbl_data_penduduk_id jika ada
+							$nik = '';
+							if (!empty($data['tbl_data_penduduk_id'])) {
+								// ambil record penduduk untuk mendapatkan nik
+								$rowPend = $this->db->select('nik')->get_where('tbl_data_penduduk', ['id' => $data['tbl_data_penduduk_id']])->row_array();
+								if ($rowPend) {
+									$nik = $rowPend['nik'];
+								}
+							}
+
+							// fallback: jika ada input nama_dalam_surat (format "NIK - NAMA"), ambil kata pertama
+							if (empty($nik)) {
+								$nama_dalam_surat = $this->input->post('nama_dalam_surat');
+								if (!empty($nama_dalam_surat)) {
+									$nik = explode(" ", trim($nama_dalam_surat))[0];
+								}
+							}
+
+							// jika ada nop dan nik -> lakukan update
+							if (!empty($nop_input) && !empty($nik)) {
+								$cek_pend = $this->db->where('nik', $nik)->get('tbl_data_penduduk');
+								if ($cek_pend->num_rows() > 0) {
+									$this->db->where('nik', $nik);
+									$this->db->update('tbl_data_penduduk', [
+										'nop' => $nop_input,
+										'update_date' => date('Y-m-d H:i:s'),
+										'update_by' => $this->auth['nama_lengkap'] . " - Via Data Surat (Lengkapi NOP)"
+									]);
+								}
+							}
+
+							// ------------------ PENTING: pastikan field NOP TIDAK IKUT KE INSERT tbl_data_surat ------------------
+							// beberapa view mungkin masih mengirim name="nop" atau name="nop_surat" atau name="nop_inline"
+							if (isset($data['nop'])) {
+								unset($data['nop']);
+							}
+							if (isset($data['nop_surat'])) {
+								unset($data['nop_surat']);
+							}
+							if (isset($data['nop_inline'])) {
+								unset($data['nop_inline']);
+							}
+							// ----------------------------------------------------------------------------------------------------
+
+							// format tanggal dan insert surat masuk (tetap seperti sebelumnya)
+							$data['tgl_surat']     = date('Y-m-d', strtotime($data['tgl_surat']));
 							$data['tgl_pengantar'] = date('Y-m-d', strtotime($data['tgl_pengantar']));
 							$datax = array(
-								'no_surat' => $data['no_pengantar'],
-								'tgl_surat' => $data['tgl_pengantar'],
-								'perihal' => $data['keperluan_surat'],
+								'no_surat'                => $data['no_pengantar'],
+								'tgl_surat'               => $data['tgl_pengantar'],
+								'perihal'                 => $data['keperluan_surat'],
 								'cl_jenis_surat_masuk_id' => '3',
 								'cl_sifat_surat_masuk_id' => '1',
-								'asal_surat' => $this->auth['nama_lengkap'],
-								'tujuan' => 'Warga',
-								'tgl_diterima' => $data['tgl_surat'],
-								'no_agenda' => '',
-								'cl_provinsi_id' => $this->auth['cl_provinsi_id'],
-								'cl_kab_kota_id' => $this->auth['cl_kab_kota_id'],
-								'cl_kecamatan_id' => $this->auth['cl_kecamatan_id'],
-								'cl_kelurahan_desa_id' => $this->auth['cl_kelurahan_desa_id'],
+								'asal_surat'              => $this->auth['nama_lengkap'],
+								'tujuan'                  => 'Warga',
+								'tgl_diterima'            => $data['tgl_surat'],
+								'no_agenda'               => '',
+								'cl_provinsi_id'          => $this->auth['cl_provinsi_id'],
+								'cl_kab_kota_id'          => $this->auth['cl_kab_kota_id'],
+								'cl_kecamatan_id'         => $this->auth['cl_kecamatan_id'],
+								'cl_kelurahan_desa_id'    => $this->auth['cl_kelurahan_desa_id'],
 							);
 							$insert = $this->db->insert('tbl_data_surat_masuk', $datax);
 

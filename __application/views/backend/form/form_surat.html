@@ -9,6 +9,82 @@
 	.select2-container{
 		width: 100% !important;
 	}
+
+/* MODAL PBB dan NOP */
+	/* Background pastel untuk modal */
+	#modalCekPBB .modal-content {
+		background: #f5f7ff !important;
+		border-radius: 10px;
+		border: 1px solid #d9e1ff;
+	}
+
+	/* Box hasil */
+	.result-box {
+		background: #ffffff;
+		border: 1px solid #d9e1ff;
+		padding: 15px;
+		border-radius: 8px;
+		box-shadow: 0 1px 4px rgba(100, 120, 180, 0.15);
+	}
+
+	/* Judul */
+	.result-box h4 {
+		color: #4a5bb3;
+		font-weight: bold;
+		margin-bottom: 12px;
+	}
+
+	/* Table */
+	.result-table th {
+		width: 140px;
+		color: #4a5bb3;
+	}
+
+	.result-table td {
+		color: #333;
+	}
+
+	/* Modal backdrop agar lebih lembut */
+	.modal-backdrop.show {
+		background-color: rgba(200, 210, 230, 0.6);
+	}
+
+	.info-popup-title {
+	font-size: 22px;
+	font-weight: bold;
+	padding: 10px 15px;
+	background: #bcdffb; /* pastel biru */
+	color: #14496a;
+	border-radius: 6px 6px 0 0;
+	margin-bottom: 15px;
+	text-align: center;
+	}
+
+	.info-table {
+	width: 100%;
+	border-collapse: collapse;
+	background: #f3faff; /* pastel sangat lembut */
+	border-radius: 6px;
+	overflow: hidden;
+	}
+
+	.info-table td {
+	padding: 8px 12px;
+	border-bottom: 1px solid #e2eef7;
+	font-size: 15px;
+	}
+
+	.info-table td.label {
+	font-weight: 600;
+	color: #14496a;
+	width: 140px;
+	}
+
+	.info-table td.value {
+	color: #333;
+	}
+
+
 </style>
 <form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/data_surat" enctype="multipart/form-data">
 	<input type="hidden" name="id" value="{$data.id|default:''}"/>
@@ -74,6 +150,13 @@
 									Surat" class_width="col-lg-12" type="select2" name="tbl_data_penduduk_id"
 									id="tbl_data_penduduk_id" option={$nik_id|default:''} }
 								</div>
+
+								<!-- <div class="col-md-4" id="wrapperNopInline" style="display:none; margin-top:10px;">
+									<label>NOP (melengkapi data penduduk)</label>
+									<input type="text" class="form-control" id="nop_inline"
+										placeholder="ISI DATA UNTUK MELENGKAPI NOP">
+								</div>
+								<br> -->
 								<div class="col-md-2">
 									{include file="backend/template/input_form.html" required="true" label="Tanggal
 									Surat" class_width="col-lg-12" type="date" placeholder="dd-mm-yyyy" limit="true" startDate="{$startDate}" endDate="{$endDate}" name="tgl_surat" id="tgl_surat"
@@ -83,6 +166,28 @@
 									{include file="backend/template/input_form.html" required="true" label="No. Surat"
 									class_width="col-lg-12" type="text" name="no_surat" id="no_surat"
 									value="{$data.no_surat|default:''}"}
+								</div>
+								<div class="col-md-4" id="wrap_nop" style="display:none;">
+									<label>NOP</label>
+									<input type="text" class="form-control" placeholder="ISI DATA UNTUK MELENGKAPI NOP" name="nop" id="nop">
+								</div>
+								<!-- BLOK PILIH TAHUN PBB -->
+								<div class="col-md-2" id="wrap_pilih_tahun" style="display:none;">
+									<label>Pilih Tahun PBB</label>
+									<select class="form-control" id="tahun_pbb">
+										{assign var="tahun_sekarang" value=$smarty.now|date_format:"%Y"}
+										{section name=tahun loop=11}
+											{assign var="t" value=$tahun_sekarang-$smarty.section.tahun.index}
+											<option value="{$t}">{$t}</option>
+										{/section}
+									</select>
+								</div>
+
+								<!-- BLOK TOMBOL CEK PBB -->
+								<div class="col-md-2" id="wrap_cek_pbb" style="display:none; margin-top:25px;">
+									<button type="button" class="btn btn-primary" id="btnCekPBB">
+										🔍 Cek PBB
+									</button>
 								</div>
 							</div>
 
@@ -24111,7 +24216,6 @@
 			</div>
 		</div>
 	</div>
-
 </form>
 
 <div class="modal fade" id="modal-kode-surat" role="dialog" aria-hidden="true">
@@ -24135,6 +24239,46 @@
 		</div>
 	</div>
 </div> 
+
+<!-- POPUP CEK PBB -->
+	<!-- POPUP (HARUS DI LUAR) -->
+	<div id="popupNopKosong" 
+		style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+				background:rgba(0,0,0,.3); z-index:999999;">
+
+		<div style="background:white; width:360px; margin:12% auto; padding:20px; border-radius:8px;">
+			<h4 style="color:#E17A35; font-weight:bold; margin-bottom:15px;">
+			Informasi NOP
+			</h4>
+
+			<p>Kolom NOP pada data penduduk belum diisi.</p>
+			<p>Silakan pilih tindakan:</p>
+
+			<div style="margin-top:15px; text-align:right;">
+				<button id="btnLengkapiNOP" class="btn btn-warning">Lengkapi NOP</button>
+
+				<button id="btnLanjutSurat"
+					style="background:#777;color:white;border:0;padding:6px 12px;border-radius:5px;">
+					Lanjutkan Surat
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- POPUP Memunculkan modal cek pbb -->
+	<div class="modal fade" id="modalCekPBB" tabindex="-1">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Cek Data PBB</h5>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body" id="modalCekPBBBody">
+				<p>Memuat...</p>
+			</div>
+			</div>
+		</div>
+	</div>
 
 <script>
 	var idx_row = '{ $jml_row|default:1}';
@@ -25048,5 +25192,352 @@ var startDate = '{$startDate}',endDate = '{$endDate}',id='{$id|default:""}';
 		console.log('beforeSend: semua input valid, siap kirim data...');
 		return true;
 	};
+
+
+// // ======== FUNGSI NOP DAN PBB ========
+// 	// CEK KONDISI SAAT HALAMAN PERTAMA KALI DIBUKA
+// 	function checkNOPAwal() {
+// 		var nopAwal = $("#nop_surat").val();
+
+// 		if (nopAwal && nopAwal !== "") {
+// 			$("#wrap_nop").show();
+// 			$("#wrap_pilih_tahun").show();
+// 			$("#wrap_cek_pbb").show();
+// 		}
+// 	}
+
+// 	// panggil saat halaman selesai load
+// 	$(document).ready(function () {
+// 		checkNOPAwal();
+// 	});
+
+
+// 	// EVENT KETIKA MEMILIH NAMA PENDUDUK
+// 	$(document).on("change", "#tbl_data_penduduk_id", function () {
+// 		var penduduk_id = $(this).val();
+// 		if (penduduk_id === "") return;
+
+// 		$.ajax({
+// 			url: host + "Backendxx/cek_nop_penduduk/" + penduduk_id,
+// 			type: "GET",
+// 			dataType: "json",
+// 			success: function (res) {
+
+// 				// CASE 1: NOP ADA
+// 				if (res.status === "ada") {
+
+// 					$("#wrap_nop").show();
+// 					$("#nop_surat").val(res.nop);
+
+// 					$("#wrap_pilih_tahun").show();
+// 					$("#wrap_cek_pbb").show();
+
+// 					// tombol cek PBB
+// 					$("#btnCekPBB").off().on("click", function () {
+// 						$("#popupCekPBB").show();
+// 						$("#nop").val(res.nop);
+// 					});
+
+// 					return;
+// 				}
+
+// 				// CASE 2: NOP KOSONG
+// 				if (res.status === "no_nop") {
+
+// 					$("#wrap_nop").show();
+// 					$("#wrap_pilih_tahun").hide();
+// 					$("#wrap_cek_pbb").hide();
+// 					$("#nop_surat").val(""); // kosongkan input NOP
+
+// 					// tampilkan popup custom milikmu
+// 					$("#popupNopKosong").show();
+
+// 					// tombol: Lengkapi NOP
+// 					$("#btnLengkapiNOP").off().on("click", function () {
+// 						$("#popupNopKosong").hide();
+// 						$("#wrapperNopInline").show();
+// 						$("#nop_inline").focus();
+// 					});
+
+// 					// sinkronisasi input inline -> input nop_surat
+// 					$("#nop_inline").on("input", function(){
+// 						$("#nop_surat").val($(this).val());
+// 					});
+
+// 					// tombol: Lanjutkan Surat
+// 					$("#btnLanjutSurat").off().on("click", function () {
+// 						$("#popupNopKosong").hide();
+// 						// user tetap lanjut mengisi surat
+// 						// NOP dibiarkan kosong dan bisa diinput manual
+// 					});
+
+// 					return;
+// 				}
+// 			}
+// 		});
+// 	});
+
+// 	// Js load view ke dalam popup
+// 	document.getElementById('btnOpenCekPBB').addEventListener('click', function() {
+// 		const nop = document.getElementById('nop').value || '';
+// 		const tahun = document.getElementById('tahun_pbb').value || '';
+
+// 		// Load view PBB ke dalam modal
+// 		fetch(BASE_URL + "pbb/menu_cek_pbb?nop=" + nop + "&tahun=" + tahun)
+// 			.then(res => res.text())
+// 			.then(html => {
+// 				document.getElementById('modalCekPBBBody').innerHTML = html;
+// 				$('#modalCekPBB').modal('show');
+// 			})
+// 			.catch(err => {
+// 				console.error(err);
+// 				alert("Gagal memuat popup PBB!");
+// 			});
+// 	});
+
+// 	function initCekPBB() {
+// 		const btn = document.getElementById('btnCekPBB');
+// 		if (!btn) {
+// 			console.log("btnCekPBB belum muncul dalam DOM");
+// 			return;
+// 		}
+
+// 		btn.addEventListener('click', function () {
+// 			const nop = document.getElementById('nop')?.value || '';
+// 			const tahun = document.getElementById('tahun_pbb')?.value || '';
+
+// 			fetch(BASE_URL + "pbb/menu_cek_pbb?nop=" + nop + "&tahun=" + tahun)
+// 				.then(res => res.text())
+// 				.then(html => {
+// 					document.getElementById('modalCekPBBBody').innerHTML = html;
+// 					$('#modalCekPBB').modal('show');
+// 				})
+// 				.catch(err => {
+// 					console.error(err);
+// 					alert("Gagal memuat popup PBB");
+// 				});
+// 		});
+
+// 		console.log("Cek PBB: AKTIF");
+// 	}
+
+// ---------- FIXED: NOP & PBB unified handler (paste / replace existing NOP/PBB JS) ----------
+(function () {
+  // fallback URL variables
+  var BASE = (typeof BASE_URL !== 'undefined') ? BASE_URL : ((typeof host !== 'undefined') ? host : '/');
+
+  // choose which NOP input exists in DOM (support both #nop and #nop_surat)
+  function nopSelector() {
+    if ($('#nop').length) return '#nop';
+    if ($('#nop_surat').length) return '#nop_surat';
+    return null;
+  }
+
+  // show/hide wrapper elements
+  function showPbbControls(show) {
+    if (show) {
+      $('#wrap_nop').show();
+      $('#wrap_pilih_tahun').show();
+      $('#wrap_cek_pbb').show();
+    } else {
+      $('#wrap_nop').show(); // keep NOP visible even if empty (like your original)
+      $('#wrap_pilih_tahun').hide();
+      $('#wrap_cek_pbb').hide();
+    }
+  }
+
+  // helper to load menu_cek_pbb into modal
+	function loadCekPbbIntoModal(nopVal, tahunVal) {
+		var nopParam = encodeURIComponent(nopVal || '');
+		var tahunParam = encodeURIComponent(tahunVal || '');
+
+		var url = BASE.replace(/\/+$/, '') + '/pbb/get_data_pbb?nop=' + nopParam + '&tahun=' + tahunParam;
+
+		$('#modalCekPBBBody').html('<p>Memuat...</p>');
+		$('#modalCekPBB').modal('show');
+
+		fetch(url, { credentials: 'same-origin' })
+			.then(function (r) { return r.json(); })   // ← FIX: baca JSON
+			.then(function (data) {
+
+				var html = '';
+
+				if (!data) {
+					html = '<p style="color:red">Tidak ada data dari server.</p>';
+					$('#modalCekPBBBody').html(html);
+					return;
+				}
+
+				// Jika API sukses
+				if (data.status && data.status === 'success') {
+
+					var d = data.data ? data.data : data;
+
+					var nama = d.nama_wp || d.NAMA_WP || '-';
+					var rt = d.rt_op || d.RT_OP || '-';
+					var rw = d.rw_op || d.RW_OP || '-';
+					var alamat = d.alamat_op || d.ALAMAT_OP || '-';
+					var statusBayar = d.status || d.STATUS || '-';
+					var tgl_rekam_bayar = d.tgl_rekam_bayar || d.TGL_REKAM_BAYAR || '-';
+
+					html = ''
+						+ '<div class="result-box">'
+						+   '<h4>Hasil Cek PBB</h4>'
+						+   '<table class="result-table">'
+						+     '<tr><th>NOP</th><td>' + nopVal + '</td></tr>'
+						+     '<tr><th>Tahun Pajak</th><td>' + tahunVal + '</td></tr>'
+						+     '<tr><th>Nama Wajib Pajak</th><td>' + nama + '</td></tr>'
+						+     '<tr><th>RT</th><td>' + rt + '</td></tr>'
+						+     '<tr><th>RW</th><td>' + rw + '</td></tr>'
+						+     '<tr><th>Alamat Objek Pajak</th><td>' + alamat + '</td></tr>'
+						+     '<tr><th>Status</th><td>'
+						+         (statusBayar === "LUNAS"
+									? '<span style="color:green;font-weight:bold">LUNAS</span>'
+									: '<span style="color:red;font-weight:bold">BELUM BAYAR</span>')
+						+     '</td></tr>';
+
+					if (statusBayar === 'LUNAS') {
+						html += '<tr><th>Tgl. Bayar</th><td>' + tgl_rekam_bayar + '</td></tr>';
+					}
+
+					html += '</table></div>';
+				} 
+				else {
+					// pesan error dari controller
+					var msg = data.message || data.msg || 'Data tidak ditemukan atau format respons tidak sesuai.';
+					html = '<div class="result-box"><h4 style="color:red">' + msg + '</h4></div>';
+				}
+
+				$('#modalCekPBBBody').html(html);
+			})
+		.catch(function (err) {
+			console.error('Gagal load PBB:', err);
+			$('#modalCekPBBBody').html('<p class="text-danger">Gagal memuat data PBB.</p>');
+		});
+	}
+
+  // initial check saat page load: toggle controls bila NOP sudah ada di input
+  function checkNOPAwal() {
+    var sel = nopSelector();
+    if (!sel) return;
+    var nopVal = $(sel).val();
+    if (nopVal && nopVal.trim() !== '') {
+      showPbbControls(true);
+    } else {
+      // sembunyikan tahun/cek namun tunjukkan input nop wrapper agar user bisa isi
+      showPbbControls(false);
+    }
+  }
+
+  // bind change event on select penduduk
+  function bindPendudukChange() {
+    $(document).off('change', '#tbl_data_penduduk_id').on('change', '#tbl_data_penduduk_id', function () {
+      var penduduk_id = $(this).val();
+      if (!penduduk_id) return;
+
+      // ajax ke endpoint yang kamu pakai sekarang (tetap gunakan Backendxx/cek_nop_penduduk/)
+      $.ajax({
+        url: (typeof host !== 'undefined' ? host : BASE) + "Backendxx/cek_nop_penduduk/" + penduduk_id,
+        type: "GET",
+        dataType: "json"
+      }).done(function (res) {
+        var sel = nopSelector();
+        if (!sel) {
+          console.warn('Input NOP tidak ditemukan (id #nop atau #nop_surat).');
+          return;
+        }
+
+        // CASE: ada NOP
+        if (res && res.status === "ada" && res.nop) {
+          $(sel).val(res.nop);
+          showPbbControls(true);
+
+          // pastikan tahun default terpilih (jika belum) — pilih tahun sekarang
+          if (!$('#tahun_pbb').val()) {
+            var y = new Date().getFullYear();
+            if ($('#tahun_pbb option[value="' + y + '"]').length) {
+              $('#tahun_pbb').val(y);
+            }
+          }
+
+          // bind tombol cek PBB (single handler)
+          $('#btnCekPBB').off('click').on('click', function () {
+            var nopToUse = $(sel).val() || '';
+            var tahunToUse = $('#tahun_pbb').val() || '';
+            if (!nopToUse) {
+              alert('NOP belum tersedia.');
+              return;
+            }
+            if (!tahunToUse) {
+              alert('Pilih tahun PBB.');
+              return;
+            }
+            loadCekPbbIntoModal(nopToUse, tahunToUse);
+          });
+
+          return;
+        }
+
+        // CASE: nop belum diisi
+        if (res && res.status === "no_nop") {
+          // kosongkan input NOP pada field yang aktif
+          $(sel).val('');
+          showPbbControls(false);
+
+          // tampilkan popup custom NOP kosong (kamu punya #popupNopKosong)
+          $('#popupNopKosong').show();
+
+          // tombol Lengkapi NOP (langsung tunjukkan inline input yang sudah ada jika ada)
+          $('#btnLengkapiNOP').off('click').on('click', function () {
+            $('#popupNopKosong').hide();
+            $('#wrapperNopInline').show();
+            $('#nop_inline').focus();
+          });
+
+          // sinkronisasi inline -> input NOP yang dipakai form
+          $('#nop_inline').off('input').on('input', function () {
+            $(sel).val($(this).val());
+          });
+
+          // Lanjutkan surat
+          $('#btnLanjutSurat').off('click').on('click', function () {
+            $('#popupNopKosong').hide();
+            // biarkan user lanjut; nop tetap kosong sampai user isi manual
+          });
+
+          return;
+        }
+
+        // fallback: respons tidak sesuai
+        console.warn('Respons cek_nop_penduduk tidak dikenali', res);
+        $(sel).val('');
+        showPbbControls(false);
+      }).fail(function (err) {
+        console.error('AJAX cek_nop_penduduk gagal', err);
+      });
+    });
+  }
+
+  // bind the modal loader for any other direct triggers (if you still have button with id btnOpenCekPBB)
+  function bindLegacyOpenBtn() {
+    if ($('#btnOpenCekPBB').length) {
+      $('#btnOpenCekPBB').off('click').on('click', function () {
+        var sel = nopSelector();
+        var nopVal = sel ? $(sel).val() : '';
+        var tahunVal = $('#tahun_pbb').val() || '';
+        loadCekPbbIntoModal(nopVal, tahunVal);
+      });
+    }
+  }
+
+  // init
+  $(document).ready(function () {
+    checkNOPAwal();
+    bindPendudukChange();
+    bindLegacyOpenBtn();
+    console.log('NOP/PBB handler inited');
+  });
+})();
+
 
 </script>

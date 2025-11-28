@@ -7725,4 +7725,40 @@ class Backendxx extends JINGGA_Controller
 		}
 	}
 
+//fungsi PBB dan NOP
+	public function cek_nop_penduduk($id)
+	{
+		$cek = $this->db
+			->select('nop')
+			->from('tbl_data_penduduk')
+			->where('id', $id)
+			->get()
+			->row();
+
+		if (!$cek || trim($cek->nop) == "") {
+			echo json_encode(["status" => "no_nop"]);
+		} else {
+			echo json_encode(["status" => "ada", "nop" => $cek->nop]);
+		}
+	}
+
+	public function get_nop_by_nik()
+	{
+		$nik = $this->input->post('nik');
+
+		$cek = $this->db->get_where('tbl_data_penduduk', ['nik' => $nik])->row();
+
+		if ($cek && $cek->nop != '' && $cek->nop != null) {
+			echo json_encode([
+				'status' => true,
+				'nop'    => $cek->nop
+			]);
+		} else {
+			echo json_encode([
+				'status' => false
+			]);
+		}
+	}
+
+
 }
