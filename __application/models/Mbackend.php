@@ -3725,9 +3725,7 @@ class Mbackend extends CI_Model
 
 
 
-				$sql = "
-
-				SELECT b.jenis_surat,SUM(total) as total,
+				$sql = "SELECT b.jenis_surat,SUM(total) as total,
 					SUM(januari)januari,
 					SUM(februari)februari,
 					SUM(maret)maret,
@@ -3761,7 +3759,7 @@ class Mbackend extends CI_Model
 				)a RIGHT JOIN cl_jenis_surat b ON a.cl_jenis_surat_id=b.id
 				WHERE b.jenis_surat!=''
 				GROUP BY b.id
-				ORDER BY total DESC;
+				ORDER BY total DESC LIMIT 10;
 					
 
 				";
@@ -4744,9 +4742,7 @@ class Mbackend extends CI_Model
 					$where .= "and F.id = '" . $kelurahan . "'";
 				}
 
-				$sql = "
-
-					SELECT A.*,
+				$sql = "SELECT A.*,
 
 						B.nama_agama, C.nama_status_kawin, D.nama_pendidikan,
 
@@ -7427,7 +7423,6 @@ class Mbackend extends CI_Model
 				break;
 
 			//Tertulis tanggal 29Mei 2023
-
 			case "dashboard_broadcast":
 
 				$where .= "
@@ -7661,6 +7656,144 @@ class Mbackend extends CI_Model
 				";
 
 				break;
+
+			case "laporan_hasil_skm":
+
+				$tahun_post = $this->input->post('tahun');
+				$tahun = (int)($tahun_post ? $tahun_post : date('Y'));
+
+				// Otomatis jika user lurah/staff kelurahan
+				if (in_array($this->auth['cl_user_group_id'], [2,4,5])) {
+					$xkec = $this->auth['cl_kecamatan_id'];
+					$xkel = $this->auth['cl_kelurahan_desa_id'];
+				} else {
+					$xkec = $this->auth['cl_kecamatan_id'];
+					$xkel = (int)$this->input->post('kelurahan_id', true);
+				}
+
+				// Jika lewat GET (misal laporan/cetak)
+				if ($this->input->get('kelurahan_id', true) != '') {
+					$xkel = $this->input->get('kelurahan_id', true);
+				}
+
+				// EXECUTE STORED PROCEDURE
+				$query = $this->db->query("CALL sp_lap_penilaian_skm($tahun,$xkec,$xkel)");
+				$raw = $query->result_array();
+				$query->free_result();
+				$this->db->conn_id->next_result();
+
+				// UNSUR TETAP
+				$unsur = [
+					['kode' => 'U1', 'nama' => 'Persyaratan'],
+					['kode' => 'U2', 'nama' => 'Prosedure'],
+					['kode' => 'U3', 'nama' => 'Waktu Pelayanan'],
+					['kode' => 'U4', 'nama' => 'Biaya/Tarif'],
+					['kode' => 'U5', 'nama' => 'Produk Layanan'],
+					['kode' => 'U6', 'nama' => 'Kompetensi Pelaksana'],
+					['kode' => 'U7', 'nama' => 'Perilaku Pelaksana'],
+					['kode' => 'U8', 'nama' => 'Sarana dan Prasarana'],
+					['kode' => 'U9', 'nama' => 'Penanganan Pengaduan'],
+				];
+
+				// GABUNGKAN UNSUR TETAP + NILAI SP
+				foreach ($unsur as &$u) {
+					$u['nilai'] = 0;
+
+					foreach ($raw as $r) {
+
+						// Auto-detect key unsur dari SP
+						$key_unsur = null;
+
+						if (isset($r['unsur'])) $key_unsur = 'unsur';
+						else if (isset($r['kode'])) $key_unsur = 'kode';
+						else if (isset($r['kode_unsur'])) $key_unsur = 'kode_unsur';
+						else if (isset($r['u'])) $key_unsur = 'u';
+
+						// Jika tidak ada field unsur, skip raw ini
+						if (!$key_unsur) continue;
+
+						// Cocokkan U1–U9
+						if ($r[$key_unsur] == $u['kode']) {
+
+							// nilai bisa beda nama: nilai, total, nrr_unsur, skor, dll.
+							$nilaiKey = null;
+
+							if (isset($r['nilai'])) $nilaiKey = 'nilai';
+							else if (isset($r['nrr'])) $nilaiKey = 'nrr';
+							else if (isset($r['total'])) $nilaiKey = 'total';
+							else if (isset($r['nilai_unsur'])) $nilaiKey = 'nilai_unsur';
+
+							if ($nilaiKey)
+								$u['nilai'] = floatval($r[$nilaiKey]);
+
+							break;
+						}
+					}
+				}
+				return $unsur;
+			case "beranda_hasil_skm":
+
+				$tahun_post = $this->input->post('tahun');
+				$tahun = (int)($tahun_post ? $tahun_post : date('Y'));
+
+				// Otomatis jika user lurah/staff kelurahan
+				if (in_array($this->auth['cl_user_group_id'], [2,4,5])) {
+					$xkec = $this->auth['cl_kecamatan_id'];
+					$xkel = $this->auth['cl_kelurahan_desa_id'];
+				} else {
+					$xkec = $this->auth['cl_kecamatan_id'];
+					$xkel = (int)$this->input->post('kelurahan_id', true);
+				}
+
+				// Jika lewat GET (misal laporan/cetak)
+				if ($this->input->get('kelurahan_id', true) != '') {
+					$xkel = $this->input->get('kelurahan_id', true);
+				}
+
+				// EXECUTE STORED PROCEDURE
+				$query = $this->db->query("CALL sp_lap_penilaian_skm($tahun,$xkec,$xkel)");
+				$raw = $query->result_array();
+				$query->free_result();
+				$this->db->conn_id->next_result();
+
+				// UNSUR TETAP
+				$unsur = [
+					['kode' => 'U1', 'nama' => 'Persyaratan'],
+					['kode' => 'U2', 'nama' => 'Prosedure'],
+					['kode' => 'U3', 'nama' => 'Waktu Pelayanan'],
+					['kode' => 'U4', 'nama' => 'Biaya/Tarif'],
+					['kode' => 'U5', 'nama' => 'Produk Layanan'],
+					['kode' => 'U6', 'nama' => 'Kompetensi Pelaksana'],
+					['kode' => 'U7', 'nama' => 'Perilaku Pelaksana'],
+					['kode' => 'U8', 'nama' => 'Sarana dan Prasarana'],
+					['kode' => 'U9', 'nama' => 'Penanganan Pengaduan'],
+				];
+
+				// GABUNGKAN UNSUR TETAP + NILAI SP
+				foreach ($unsur as &$u) {
+
+					$u['nilai'] = 0;
+
+					foreach ($raw as $r) {
+						// Baris NRR Unsur
+						if ($r['nor'] == '3') {
+
+							// kolom di DB adalah u1,u2,u3,...u9
+							$key = strtolower($u['kode']); // U1 -> u1
+
+							if (isset($r[$key])) {
+								$u['nilai'] = floatval($r[$key]*25);
+							}
+
+							break;
+						}
+					}
+				}
+
+				return $unsur;
+			
+				break;
+			
 		}
 
 
@@ -7769,12 +7902,18 @@ class Mbackend extends CI_Model
 
 			case "cl_jenis_pekerjaan":
 
-				$sql = "
-
-					SELECT id, nama_pekerjaan as txt
+				$sql = "SELECT id, nama_pekerjaan as txt
 
 					FROM cl_jenis_pekerjaan
+				";
 
+				break;
+
+			case "hubungan_keluarga":
+
+				$sql = "SELECT id, nama as txt
+
+					FROM cl_hubungan_keluarga
 				";
 
 				break;
@@ -16857,9 +16996,8 @@ class Mbackend extends CI_Model
 
 					$nama_kelurahan = $this->db->get_where('cl_kelurahan_desa', array('id' => $data['cl_kelurahan_desa_id']))->row_array();
 
-
-
 					$data['kelurahan'] = $nama_kelurahan['nama'];
+
 				}
 
 				break;

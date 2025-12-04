@@ -512,40 +512,6 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-lg-6">
-									<div class="box box-danger">
-										<section class="content-header">
-											<small>Statistik Berdasarkan Agama</small>
-										</section>
-										<div class="box-body">
-											<div class="row">
-												<div class="col-lg-6">
-													<div id="chart_agama"></div>
-												</div>
-												<div class="col-lg-6">
-													<table class="table table-bordered table-striped">
-														<tbody>
-															{foreach from=$data.agama item=rows key=x}
-																{if $x eq '0'}
-																	<tr>
-																		<td width="60%">{$rows.keterangan|upper|default:''}</td>
-																		<td width="40%" class="text-center">{$rows.total|number_format:0:",":"."|default:''}</td>
-																	</tr>
-																{else}
-																	<tr>
-																		<td>{$rows.keterangan|upper|default:''}</td>
-																		<td class="text-center">{$rows.total|number_format:0:",":"."|default:''}</td>
-																	</tr>
-																{/if}
-															{/foreach}
-														</tbody>
-													</table>
-												</div>
-											</div>
-										</div>
-									</div>
-									
-								</div>
 							</div>
 							
 							<div class="row" style="margin-bottom:20px;display: none;">
@@ -691,6 +657,21 @@
 							</div>	
 						</div>
 						<br>
+						<div class="box box-primary">
+							<div class="box-header with-border">
+								<h3 class="box-title">Statistik Indeks Kepuasan Masyarakat (SKM)</h3>
+								<div class="box-tools pull-right">
+									<button type="button" class="btn btn-box-tool" data-widget="collapse">
+										<i class="fa fa-minus"></i>
+									</button>
+								</div>
+							</div>
+
+							<div class="box-body">
+								<div id="chart_skm"></div>
+							</div>
+						</div>
+						<br>
 						<div class="box box-success">
 								<div class="box-header with-border">
 									<h3 class="box-title">Statistik Data Input Persuratan</h3>
@@ -780,7 +761,6 @@
 												<td><h5 class="description-text" align="center">{$rows.desember|number_format:0:",":"."|default:''}</h5></td>
 											</tr>
 											{/foreach}
-											
 											
 												{$t1 = $t_total}
 												{$t2 = $t_januari}
@@ -973,6 +953,19 @@
 		}
 	}
 
-	
+var chartXXSkm = {$data.skm|json_encode nofilter}.map(u => u.nama);
+var chartSkm = [{
+    name: 'NRR per Unsur',
+    colorByPoint: true,
+    data: {$data.skm|json_encode nofilter}.map(u => ({
+        name: u.nama,
+        y: parseFloat(u.nilai),
+        color: u.color ?? null // kalau pakai warna
+    }))
+}];
 
+genColumnChart("chart_skm", "agama", chartXXSkm, chartSkm);
+
+	// alert('s');
+	
 </script>

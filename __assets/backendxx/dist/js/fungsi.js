@@ -248,6 +248,68 @@ function genColumnChart(divnya, type, xxChart, yyChart, judul, pointformat) {
     series: yyChart,
   });
 }
+function genColumnChartSKM(divnya, type, xxChart, yyChart, judul, pointformat) {
+  Highcharts.chart(divnya, {
+    chart: {
+      type: "column",
+    },
+
+    title: {
+      text: judul,
+    },
+
+    xAxis: {
+      categories: xxChart,
+    },
+
+    scrollbar: {
+      enabled: false,
+    },
+
+    rangeSelector: {
+      selected: 1,
+    },
+
+    yAxis: [
+      {
+        min: 0,
+
+        title: {
+          text: "",
+        },
+
+        allowDecimals: false,
+      },
+      {
+        title: {
+          text: "",
+        },
+
+        opposite: true,
+      },
+    ],
+
+    legend: {
+      shadow: false,
+
+      enabled: false,
+    },
+
+    tooltip: {
+      shared: true,
+    },
+
+    plotOptions: {
+      column: {
+        pointPadding: 0.1,
+
+        borderWidth: 0,
+      },
+    },
+
+    series: yyChart,
+  });
+}
 
 function loadUrl(urls) {
   if (group_user == 2) {

@@ -543,10 +543,7 @@ class Backendxx extends JINGGA_Controller
 				$jumlah_surat = $this->db->get_where('tbl_data_surat', $array_surat)->num_rows();
 
 
-
 				$summary_persuratan = $this->mbackend->getdata('summary_persuratan', 'result_array');
-
-
 
 				$jenis_kelamin = $this->mbackend->getdata_laporan('dashboard_jenis_kelamin', 'result_array');
 
@@ -596,9 +593,7 @@ class Backendxx extends JINGGA_Controller
 
 					'jumlah_surat' => $jumlah_surat,
 
-
 					'summary_persuratan' => $summary_persuratan,
-
 
 					'jenis_kelamin' => $jenis_kelamin,
 
@@ -820,8 +815,8 @@ class Backendxx extends JINGGA_Controller
 				$jumlah_surat_masuk = $this->db->get_where('tbl_data_surat_masuk', $array_surat)->num_rows();
 
 
-
 				$summary_persuratan = $this->mbackend->getdata('summary_persuratan', 'result_array');
+				
 
 				$jenis_kelamin = $this->mbackend->getdata_laporan('dashboard_jenis_kelamin', 'result_array', $tahun_login);
 				// $jenis_kelamin = $this->mbackend->getdata_laporan('dashboard_jenis_kelamin', 'result_array');
@@ -865,8 +860,8 @@ class Backendxx extends JINGGA_Controller
 
 				$broadcast = $this->mbackend->getdata_laporan('dashboard_broadcast', 'result_array');
 
-
-
+				$laporan_hasil_skm = $this->mbackend->getdata_laporan('beranda_hasil_skm','result_array');
+			
 				$data = array(
 
 					'jumlah_penduduk' => $jumlah_penduduk,
@@ -877,9 +872,7 @@ class Backendxx extends JINGGA_Controller
 
 					'jumlah_surat_masuk' => $jumlah_surat_masuk,
 
-
 					'summary_persuratan' => $summary_persuratan,
-
 
 					'jenis_kelamin' => $jenis_kelamin,
 
@@ -920,7 +913,7 @@ class Backendxx extends JINGGA_Controller
 
 					'pendidikan' => $pendidikan,
 
-
+					'skm' => $laporan_hasil_skm
 
 				);
 				$data2 = array(
@@ -930,8 +923,6 @@ class Backendxx extends JINGGA_Controller
 				$this->nsmarty->assign('data2', $data2);
 
 				break;
-
-			
 
 			case "identitas_desa":
 
@@ -3284,13 +3275,15 @@ class Backendxx extends JINGGA_Controller
 
 					$this->nsmarty->assign('data', $data);
 				}
-
+				
 
 				$this->nsmarty->assign("cl_jenis_pekerjaan_id", $this->lib->fillcombo("cl_jenis_pekerjaan", "return", ($sts == "edit" ? $data["cl_jenis_pekerjaan_id"] : "")));
 
 				$this->nsmarty->assign("status_kawin", $this->lib->fillcombo("cl_status_kawin", "return", ($sts == "edit" ? $data["status_kawin"] : "")));
 
 				$this->nsmarty->assign("agama", $this->lib->fillcombo("cl_agama", "return", ($sts == "edit" ? $data["agama"] : "")));
+
+				$this->nsmarty->assign("cl_status_hubungan_keluarga_id", $this->lib->fillcombo("hubungan_keluarga", "return", ($sts == "edit" ? $data["cl_status_hubungan_keluarga_id"] : "")));
 
 				$this->nsmarty->assign("jenis_kelamin", $this->lib->fillcombo("jenis_kelamin", "return", ($sts == "edit" ? $data["jenis_kelamin"] : "")));
 
@@ -3446,6 +3439,61 @@ class Backendxx extends JINGGA_Controller
 
 				if ($sts == 'edit') {
 					$data = $this->db->get_where('tbl_data_rekap_bulanan', array('id' => $this->input->post('id')))->row_array();
+					$this->nsmarty->assign('data', $data);
+				} else {
+
+					// mode add → ambil data bulan sebelumnya
+					$id_kel = $this->auth['cl_kelurahan_desa_id'];
+
+					$prev = $this->db->query("
+						SELECT *
+						FROM tbl_data_rekap_bulanan
+						WHERE cl_kelurahan_desa_id = '{$id_kel}'
+						ORDER BY id DESC
+						LIMIT 1
+					")->row_array();
+
+					if (!empty($prev)) {
+
+						// HITUNG NILAI AKHIR BULAN SEBELUMNYA (bukan alias!)
+						$jml_akhir_lk_wni = $prev['jml_lk_wni']
+							+ $prev['lahir_lk_wni']
+							- $prev['mati_lk_wni']
+							+ $prev['datang_lk_wni']
+							- $prev['pindah_lk_wni'];
+
+						$jml_akhir_pr_wni = $prev['jml_pr_wni']
+							+ $prev['lahir_pr_wni']
+							- $prev['mati_pr_wni']
+							+ $prev['datang_pr_wni']
+							- $prev['pindah_pr_wni'];
+
+						$jml_akhir_lk_wna = $prev['jml_lk_wna']
+							+ $prev['lahir_lk_wna']
+							- $prev['mati_lk_wna']
+							+ $prev['datang_lk_wna']
+							- $prev['pindah_lk_wna'];
+
+						$jml_akhir_pr_wna = $prev['jml_pr_wna']
+							+ $prev['lahir_pr_wna']
+							- $prev['mati_pr_wna']
+							+ $prev['datang_pr_wna']
+							- $prev['pindah_pr_wna'];
+
+						// SET AWAL BULAN BARU
+						$data['jml_lk_wni'] = $jml_akhir_lk_wni;
+						$data['jml_pr_wni'] = $jml_akhir_pr_wni;
+						$data['jml_lk_wna'] = $jml_akhir_lk_wna;
+						$data['jml_pr_wna'] = $jml_akhir_pr_wna;
+
+					} else {
+						// DATA PERTAMA → default 0
+						$data['jml_lk_wni'] = 0;
+						$data['jml_pr_wni'] = 0;
+						$data['jml_lk_wna'] = 0;
+						$data['jml_pr_wna'] = 0;
+					}
+
 					$this->nsmarty->assign('data', $data);
 				}
 

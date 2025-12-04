@@ -19,18 +19,23 @@
               <div class="row">
                 <div class="col-md-12">
                   <fieldset class="form-group">
-                    <legend
-                      style="
-                        border-color: #e17a35 !important;
-                        border-width: 3px !important;
-                        padding: 5px;
-                        color: #e17a35;
-                        font-weight: bold;
-                        font-size: 16px;
-                        margin-bottom: 5px;
-                        margin-top: 15px;
-                      "
-                    >
+                    <legend style="border-color: #e17a35 !important;border-width: 3px !important;padding: 5px;color: #e17a35;font-weight: bold;font-size: 16px;margin-bottom: 5px;margin-top: 15px;">
+                      DATA KELUARGA
+                    </legend>
+                  </fieldset>
+                </div>
+                <div class="col-md-4">
+                  {include file="backend/template/input_form.html" label="No. Kartu Keluarga" class_width="col-lg-12" type="pnj_karakter" name="no_kk" id="no_kk" value="{$data.no_kk|default:''}"}
+                </div>
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html" required="true" label="Hubungan keluarga" class_width="col-lg-12"
+                  type="select" name="cl_status_hubungan_keluarga_id" id="cl_status_hubungan_keluarga_id" option={$cl_status_hubungan_keluarga_id|default:''} }
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <fieldset class="form-group">
+                    <legend style="border-color: #e17a35 !important;border-width: 3px !important;padding: 5px;color: #e17a35;font-weight: bold;font-size: 16px;margin-bottom: 5px;margin-top: 15px;">
                       PROFILE PENDUDUK
                     </legend>
                   </fieldset>
@@ -92,8 +97,8 @@
                   option={$cl_jenis_pekerjaan_id|default:''} }
                 </div>
               </div>
-              <div class="row">
-                <legend style="font-size: 14px; color: red">*Isi Golongan Darah Jika Ada</legend>
+              <div class="row" style="margin-bottom: 10px">
+                <legend style="font-size: 14px; color: red">&emsp;&emsp;*Isi Golongan Darah Jika Ada</legend>
                 <div class="col-md-2">
                   {include file="backend/template/input_form.html"
                   required="false" placeholder="Isi Jika Ada" label="Golongan Darah" class_width="col-lg-12"
@@ -101,9 +106,14 @@
                   option={$gol_darah|default:''} }
                 </div>
               </div>
-              <br>    
-              <div class="row">
-                <legend style="font-size: 14px; color: blue">*Isi NOP</legend>
+              <div class="row" style="margin-bottom: 10px;">
+                <div class="col-md-12">
+                    <fieldset class="form-group">
+                      <legend style="border-color: #e17a35 !important;border-width: 3px !important;padding: 5px;color: #e17a35;font-weight: bold;font-size: 16px;margin-bottom: 5px;margin-top: 15px;">
+                        DATA NOP
+                      </legend>
+                    </fieldset>
+                </div>    
                 <div class="col-md-2">
                   {include file="backend/template/input_form.html" required="false" label="NOP" 
                   class_width="col-lg-12" type="text" name="nop" id="nop" option={$nop|default:''} }
@@ -113,18 +123,7 @@
               <div class="row" style="margin-bottom: 10px">
                 <div class="col-md-12">
                   <fieldset class="form-group">
-                    <legend
-                      style="
-                        border-color: #e17a35 !important;
-                        border-width: 3px !important;
-                        padding: 5px;
-                        color: #e17a35;
-                        font-weight: bold;
-                        font-size: 16px;
-                        margin-bottom: 5px;
-                        margin-top: 15px;
-                      "
-                    >
+                    <legend style="border-color: #e17a35 !important;border-width: 3px !important;padding: 5px;color: #e17a35;font-weight: bold;font-size: 16px;margin-bottom: 5px;margin-top: 15px;">
                       DOMISILI PENDUDUK
                     </legend>
                   </fieldset>
@@ -147,7 +146,7 @@
               </div>
               <div class="row">
                 <legend style="font-size: 14px; color: red">
-                  <b>*Jika Warga Luar Kelurahan ISI LENGKAP ALAMAT mulai dari:
+                  <b>&emsp;&emsp;*Jika Warga Luar Kelurahan ISI LENGKAP ALAMAT mulai dari:
                     Nama Jalan s.d. Kab/Kota</b
                   >
                 </legend>
@@ -161,18 +160,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <fieldset class="form-group">
-                    <legend
-                      style="
-                        border-color: #e17a35 !important;
-                        border-width: 3px !important;
-                        padding: 5px;
-                        color: #e17a35;
-                        font-weight: bold;
-                        font-size: 16px;
-                        margin-bottom: 5px;
-                        margin-top: 15px;
-                      "
-                    >
+                    <legend style="border-color: #e17a35 !important;border-width: 3px !important;padding: 5px;color: #e17a35;font-weight: bold;font-size: 16px;margin-bottom: 5px;margin-top: 15px;">
                       STATUS PENDUDUK
                     </legend>
                   </fieldset>
