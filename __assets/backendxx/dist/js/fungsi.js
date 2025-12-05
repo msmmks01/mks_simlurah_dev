@@ -2093,7 +2093,7 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
         {
           field: "no_surat",
           title: "No Surat",
-          width: 400,
+          width: 250,
           halign: "center",
           align: "center",
         },
@@ -2101,15 +2101,31 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
         {
           field: "tgl_surat",
           title: "Tanggal Surat",
-          width: 400,
+          width: 200,
           halign: "center",
           align: "center",
         },
 
         {
+          field: "perihal_surat_reg",
+          title: "Perihal",
+          width: 500,
+          halign: "center",
+          align: "left",
+        },
+
+        {
+          field: "tujuan_surat_reg",
+          title: "Tujuan Surat",
+          width: 400,
+          halign: "center",
+          align: "left",
+        },
+
+        {
           field: "file",
           title: "Arsip",
-          width: 230,
+          width: 250,
           halign: "center",
           align: "center",
 

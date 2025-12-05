@@ -13,36 +13,41 @@
 				<div class="box-body">
 					<div class="row">
 						<div class="col-md-12">  
-							
 							<div class="row">
 								<div class='col-md-12'>
 									<fieldset class='form-group'>
 										<legend style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>INFORMASI SURAT MASUK</legend>
 									</fieldset>
 								</div>
-								<div class="col-md-4">
+								<div class="col-md-3">
 									{include file="backend/template/input_form.html" label="No. Surat" class_width="col-lg-12" type="text" name="no_surat" id="no_surat" value="{$data.no_surat|default:''}"}
-									
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html" label="Tanggal Surat" class_width="col-lg-12" type="date" placeholder="dd-mm-yyyy" name="tgl_surat" id="tgl_surat" value="{$data.tgl_surat|default:''}"}
 								</div>
 								<div class="col-md-4">
-									{include file="backend/template/input_form.html" label="Tanggal Surat" class_width="col-lg-12" type="date" placeholder="dd-mm-yyyy" name="tgl_surat" id="tgl_surat" value="{$data.tgl_surat|default:''}"}
-									
+									{include file="backend/template/input_form.html" label="Perihal" class_width="col-lg-12" type="text" name="perihal_surat_reg" id="perihal_surat_reg" value="{$data.perihal_surat_reg|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" label="Tujuan Surat" class_width="col-lg-12" type="text" name="tujuan_surat_reg" id="tujuan_surat_reg" value="{$data.tujuan_surat_reg|default:''}"}
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-3" style="margin-bottom:10px;">
+									{include file="backend/template/input_form.html" label="Nama Penginput" class_width="col-lg-12" type="text" name="penginput_surat_reg" id="penginput_surat_reg" value="{$data.penginput_surat_reg|default:''}"}
 								</div>
 								<div class="col-md-4">
 									{include file="backend/template/input_form.html" label="Upload File" class_width="col-lg-12" type="file" name="file" id="file" value="{$data.file|default:''}"}
-				
 								</div>
-
 							</div>
 								
-							<div class="row">
+							<div class="row" style="margin-bottom:10px;">
 								<div class="col-md-12">
 									<hr />
 									{include file="backend/template/button_save.html" text="Simpan" id_na="save" style_btn="btn-success"  btn_goyz="false"}
 									{include file="backend/template/button_save.html" text="Kembali" click="$('#grid_nya_{$mod}').show();$('#detil_nya_{$mod}').hide();" id_na="cancel" style_btn="btn-danger"  btn_goyz="true"}	
 								</div>
 							</div>
-							
 						</div>
 					</div>
 				</div>
