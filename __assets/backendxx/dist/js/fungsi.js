@@ -4321,6 +4321,76 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
       ];
       break;
 
+    case "daftar_agenda_kegiatan":
+      judulnya = "";
+      urlnya = modnya;
+      fitnya = true;
+      row_number = true;
+
+      frozen[modnya] = [
+          {
+              field: "tgl_kegiatan",
+              title: "Hari Kegiatan",
+              width: 150,
+              halign: "center",
+              align: "center",
+              formatter: function(value, row) {
+                  return formatTanggalIndonesia(value);
+              }
+          },
+      ];
+
+      kolom[modnya] = [
+          {
+              field: "waktu_kegiatan",
+              title: "Jam",
+              width: 100,
+              halign: "center",
+              align: "center",
+              formatter: function(value,row){
+                  if(!value) return "-";
+                  let jam = value.substring(0,5).replace(":", ".");
+                  return jam + " - Selesai";
+              }
+          },
+          {
+              field: "lokasi_kegiatan",
+              title: "Lokasi",
+              width: 300,
+              halign: "center",
+              align: "left",
+          },
+          {
+              field: "instansi_pengirim",
+              title: "Instansi Pengirim",
+              width: 200,
+              halign: "center",
+              align: "left",
+          },
+          {
+              field: "perihal_kegiatan",
+              title: "Perihal",
+              width: 400,
+              halign: "center",
+              align: "left",
+          },
+          {
+              field: "pj_kegiatan",
+              title: "Penanggung Jawab",
+              width: 200,
+              halign: "center",
+              align: "left",
+          },
+          {
+              field: "ket_kegiatan",
+              title: "Keterangan",
+              width: 250,
+              halign: "center",
+              align: "left",
+          },
+      ];
+      break;
+
     case "data_kendaraan":
       judulnya = "";
       urlnya = modnya;
@@ -5299,16 +5369,16 @@ async function kumpulAction(type, p1, p2, p3, p4, p5) {
       param["nip"] = $("#nip").val();
 
       if (!$("#nip").val()) {
-        $.messager.alert("SIMLURAH", "Please Select TTD First!", "error");
-        return;
-    }
+          $.messager.alert("SIMLURAH", "Please Select TTD First!", "error");
+          return;
+      }
 
-    // kirim id rekap dari baris yang dipilih
-    param["id"] = row.id;
-// alert(row.id);
+      // kirim id rekap dari baris yang dipilih
+      param["id"] = row.id;
+      // alert(row.id);
 
-    var url = host + "backoffice-cetak/laporan_rekap_bulan?" + $.param(param);
-    window.open(url, "_blank");
+      var url = host + "backoffice-cetak/laporan_rekap_bulan?" + $.param(param);
+      window.open(url, "_blank");
     break;
 
     case "export_laporan_ekspedisi":
@@ -5507,6 +5577,25 @@ async function kumpulAction(type, p1, p2, p3, p4, p5) {
 
       break;
 
+    case "export_laporan_daftar_agenda":
+      param["rt"] = $("#rt_" + p1).val();
+
+      param["rw"] = $("#rw_" + p1).val();
+
+      param["kelurahan_id"] = $("#kelurahan_" + p1).val();
+
+      param["nip"] = $("#nip").val();
+
+      if ($("#nip").val() == "" || $("#nip").val() == null) {
+        $.messager.alert("SIMLURAH", "Please Select TTD First!", "error");
+      } else {
+        var url = host + "backoffice-cetak/laporan_daftar_agenda?" + $.param(param);
+
+        window.open(url, "_blank");
+      }
+      
+      break;
+
     case "export_laporan_kendaraan":
       param["rt"] = $("#rt_" + p1).val();
 
@@ -5526,6 +5615,7 @@ async function kumpulAction(type, p1, p2, p3, p4, p5) {
       param["rw"] = $("#rw_" + p1).val();
 
       param["kelurahan_id"] = $("#kelurahan_" + p1).val();
+      
       param["nip"] = $("#nip").val();
 
       if ($("#nip").val() == "" || $("#nip").val() == null) {
@@ -10537,4 +10627,55 @@ function get_data_penduduk(e){
       }
     }
   });
+}
+
+// helper: nama hari & nama bulan bahasa Indonesia
+function namaHariIndonesia(dayIndex) {
+    var hari = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+    return hari[dayIndex] || '';
+}
+function namaBulanIndonesia(monthIndex) {
+    var bulan = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+    return bulan[monthIndex] || '';
+}
+
+// helper: parsing fleksibel dan format ke "Hari, DD NamaBulan YYYY"
+function formatTanggalIndonesia(raw) {
+    if (!raw) return '-';
+    raw = raw.toString().trim();
+
+    // ignore zero-date values
+    if (/^0{4}[-\/]0{2}[-\/]0{2}$/.test(raw) || /^0{2}[-\/]0{2}[-\/]0{4}$/.test(raw)) return '-';
+
+    var y, m, d;
+    // detect YYYY-MM-DD or YYYY/MM/DD
+    var m1 = raw.match(/^(\d{4})[-\/](\d{1,2})[-\/](\d{1,2})$/);
+    // detect DD-MM-YYYY or DD/MM/YYYY
+    var m2 = raw.match(/^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})$/);
+
+    if (m1) {
+        y = parseInt(m1[1],10);
+        m = parseInt(m1[2],10) - 1;
+        d = parseInt(m1[3],10);
+    } else if (m2) {
+        y = parseInt(m2[3],10);
+        m = parseInt(m2[2],10) - 1;
+        d = parseInt(m2[1],10);
+    } else {
+        // coba parse Date (fallback)
+        var dt = new Date(raw);
+        if (isNaN(dt.getTime())) return '-';
+        y = dt.getFullYear();
+        m = dt.getMonth();
+        d = dt.getDate();
+        var dayIndex = dt.getDay();
+        return namaHariIndonesia(dayIndex) + ', ' + String(d).padStart(2,'0') + ' ' + namaBulanIndonesia(m) + ' ' + y;
+    }
+
+    // buat objek Date untuk mendapatkan hari
+    var dateObj = new Date(y, m, d);
+    if (isNaN(dateObj.getTime())) return '-';
+
+    var dayIndex = dateObj.getDay();
+    return namaHariIndonesia(dayIndex) + ', ' + String(d).padStart(2,'0') + ' ' + namaBulanIndonesia(m) + ' ' + y;
 }

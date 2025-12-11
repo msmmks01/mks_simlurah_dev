@@ -116,7 +116,7 @@
                 </div>    
                 <div class="col-md-2">
                   {include file="backend/template/input_form.html" required="false" label="NOP" 
-                  class_width="col-lg-12" type="text" name="nop" id="nop" option={$nop|default:''} }
+                  class_width="col-lg-12" type="text" name="nop" id="nop" value="{$data.nop|default:''}" }
                 </div>
               </div>
 

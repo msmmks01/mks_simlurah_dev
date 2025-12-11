@@ -1,0 +1,108 @@
+<form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/daftar_agenda_kegiatan" enctype="multipart/form-data" >
+    <input type="hidden" name="id" value="{$data.id|default:''}">
+	<input type="hidden" name="editstatus" value="{$sts|default:'add'}">
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<h3 class="box-title">Form Isian</h3>
+				</div>
+				<div class="box-body">
+					<div class="row">
+						<div class="col-md-12"> 
+							
+							<div class="row" >
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>DATA PENANDATANGANAN</legend>
+									</fieldset>
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html" required="true" label="Hari Kegiatan" 
+									placeholder="dd-mm-yyyy" class_width="col-lg-12" type="date" name="tgl_kegiatan" id="tgl_kegiatan"
+									value="{tgl_indo_format($data.tgl_kegiatan)|default:''}"}
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html" required="true" label="Waktu Kegiatan" class_width="col-lg-12" type="time" name="waktu_kegiatan" id="waktu_kegiatan" value="{$data.waktu_kegiatan|default:''}"}
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="true" label="Lokasi Kegiatan" class_width="col-lg-12" type="text" name="lokasi_kegiatan" id="lokasi_kegiatan" value="{$data.lokasi_kegiatan|default:''}"}
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="true" label="Instansi Pengirim" class_width="col-lg-12" type="text" name="instansi_pengirim" id="instansi_pengirim" value="{$data.instansi_pengirim|default:''}"}
+								</div>
+							</div>
+							<div class="row" style="margin-bottom:10px;"> 
+								<div class="col-md-5">
+									{include file="backend/template/input_form.html" required="true" label="Perihal" class_width="col-lg-12" type="text" name="perihal_kegiatan" id="perihal_kegiatan" value="{$data.perihal_kegiatan|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="true" label="Penanggung Jawab" class_width="col-lg-12" type="text" name="pj_kegiatan" id="pj_kegiatan" value="{$data.pj_kegiatan|default:''}"}
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="false" label="Keterangan" class_width="col-lg-12" type="text" name="ket_kegiatan" id="ket_kegiatan" value="{$data.ket_kegiatan|default:''}"}
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-md-12">
+									<hr />
+									{include file="backend/template/button_save.html" text="Simpan" id_na="save" style_btn="btn-success"  btn_goyz="false"}
+									{include file="backend/template/button_save.html" text="Kembali" click="$('#grid_nya_{$mod}').show();$('#detil_nya_{$mod}').hide();" id_na="cancel" style_btn="btn-danger"  btn_goyz="true"}	
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</form>
+
+<script>
+	var rulesnya = {
+		tgl_kegiatan : "required",
+		waktu_kegiatan : "required",
+        lokasi_kegiatan : "required",
+		instansi_pengirim : "required",
+		perihal_kegiatan : "required",
+		pj_kegiatan : "required",
+	};
+
+	var messagesnya = {
+		tgl_kegiatan : "<i style='color:red'>Harus Diisi</i>",
+		waktu_kegiatan : "<i style='color:red'>Harus Diisi</i>",
+        lokasi_kegiatan : "<i style='color:red'>Harus Diisi</i>",
+		instansi_pengirim : "<i style='color:red'>Harus Diisi</i>",
+		perihal_kegiatan : "<i style='color:red'>Harus Diisi</i>",
+		pj_kegiatan : "<i style='color:red'>Harus Diisi</i>",
+	};
+
+	$("#form_{$acak}").validate({
+		rules: rulesnya,
+		messages: messagesnya,
+		
+		submitHandler: function(form) {
+			$.LoadingOverlay("show");
+			
+			submit_form('form_{$acak}', function(r){
+				if (r == 1) {
+					$.messager.alert(nama_apps, 'Data Tersimpan', 'info');
+					$('#cancel_{$acak}').trigger('click');
+					$('#grid_daftar_agenda_kegiatan').datagrid('reload');
+				} else {
+					$.messager.alert(nama_apps, 'Proses Simpan Data Gagal: ' + r, 'error');
+				}
+				$.LoadingOverlay("hide", true);
+			});
+		},
+
+		errorPlacement: function(error, element) {
+			error.insertAfter(element);
+		}
+
+	});
+</script>

@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+
+    <title>LAPORAN DATA WARGA MISKIN (WAMIS)</title>
+
+    <style type="text/css">
+        table {
+            width: 100%;
+        }
+
+        table th {
+            padding:10px;
+            background-color: #DBDBDB;
+        }
+
+        body {
+            font-family: 'Bookman Old Style, Helvetica, sans-serif';
+        }
+
+        .nowrap {
+            white-space: nowrap;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div style="padding-bottom: 5mm;">
+        {if $auth.cl_user_group_id eq '2'}
+        <table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;">
+            <tr>
+                <td align="center" rowspan=4 valign="middle" style="width: 150px;">
+                    <img src="./__assets/images/logo-makassar.png" style="height:100px" />
+                </td>
+                <td align="center" valign="bottom" style="font-size:22.6px;padding:0px">PEMERINTAH
+                    {$setting.nama_kab_kota|upper|default:'.......'}</td>
+                <td align="center" rowspan=4 valign="middle" style="width: 150px;">
+                    <img src="./__assets/images/logo-camat.png" style="height:100px" />
+                </td>
+            </tr>
+            <tr>
+                <td align="center" style="font-size:22.6px;padding:0px">KECAMATAN
+                    {$setting.nama_kecamatan|upper|default:'.......'}</td>
+            </tr>
+            <tr>
+                <td align="center" valign="top" style="font-size:18.6px;padding:0px">
+                    <b>{$setting.nama_desa|upper|default:'.......'}</b>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" valign="top" style="font-size:10.6px;padding:0px">{$setting.alamat|default:'ALAMAT
+                    .......'}
+                    {if str_replace('-','',$setting.telp) neq ''}
+                    Telp. {str_replace('-','',$setting.telp|default:'')}
+                    {/if}
+                    {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'.....'}
+                    {$setting.kode_pos|default:''}</td>
+            </tr>
+            <tr>
+                <td align="center" colspan="3" align="center">
+                    <hr style="color: black;height: 4px; margin-bottom:0px">
+                    <hr style="color: black;height: 1px; margin-top:3px">
+                </td>
+            </tr>
+            <tr>
+                <td colspan=3 align="center"><b><u>AGENDA KEGIATAN {$nama_kelurahan|upper} KECAMATAN {$nama_kecamatan|upper}</u></b></td>
+            </tr>
+        </table>
+        {else}
+        <table cellspacing="0" border="0" width="100%" style="border-collapse: collapse;">
+            <tr>
+                <td align="center" valign="middle" style="width: 150px;">
+                    <img src="./__assets/images/logo-makassar.png" style="height:100px" />
+                </td>
+                <td align="center" valign="middle" style="font-size:22.6px;padding:0px">PEMERINTAH
+                    {$setting.nama_kab_kota|upper|default:'.......'}<br>KECAMATAN
+                    {$setting.nama_kecamatan|upper|default:'.......'}</td>
+                <td align="center" valign="middle" style="width: 150px;">
+                    <img src="./__assets/images/logo-camat.png" style="height:100px" />
+                </td>
+            </tr>
+            <tr>
+                <td align="center" colspan="3" align="center">
+                    <hr style="color: black;height: 4px; margin-bottom:0px">
+                    <hr style="color: black;height: 1px; margin-top:3px">
+                </td>
+            </tr>
+            <tr>
+                <td colspan=3 align="center"><b><u>AGENDA KEGIATAN KECAMATAN {$rows.kecamatan}</u></b></td>
+            </tr>
+        </table>
+        {/if}
+    </div>
+    <div style="padding-bottom: 2mm; font-size: 16px;">
+        <table border="1" cellpadding="3" width="100%" style="margin-bottom:10px; font-family:arial; font-size:10px;border-collapse: collapse;">	
+            <thead>
+                <tr>
+                    <th width="5%" style="text-align: center"><b>NO</b></th>
+                    <th width="10%" style="text-align: center"><b>HARI KEGIATAN</b></th>
+                    <th width="10%" style="text-align: center"><b>JAM</b></th>
+                    <th width="10%" style="text-align: center"><b>LOKASI</b></th>
+                    <th width="5%" style="text-align: center"><b>INSTANSI PENGIRIM</b></th>
+                    <th width="5%" style="text-align: center"><b>PERIHAL</b></th>
+                    <th width="10%" style="text-align: center"><b>PENANGGUNG JAWAB</b></th>
+                    <th width="10%" style="text-align: center"><b>KETERANGAN</b></th>
+                </tr>
+            </thead>
+            <tbody>
+                {assign var=idx value=1}
+                {foreach from=$data item=rows}
+                <tr>
+                    <td style="text-align: center">{$idx}</td>
+                    <td style="text-align: center">{$rows.tgl_kegiatan|hariindo}</td>
+                    <td style="text-align: center">{$rows.waktu_kegiatan|jamindo}</td>
+                    <td tyle="text-align: left">{$rows.lokasi_kegiatan|default:'-'}</td>
+                    <td tyle="text-align: left">{$rows.instansi_pengirim|default:'-'}</td>
+                    <td tyle="text-align: left">{$rows.perihal_kegiatan|default:'-'}</td>
+                    <td style="text-align: left">{$rows.pj_kegiatan|default:'-'}</td>
+                    <td style="text-align: left">{$rows.ket_kegiatan|default:'-'}</td>
+                </tr>
+    
+                {assign var=idx value=$idx+1}
+                {/foreach}
+            </tbody>
+        </table>
+        {ttd_1muf($data,$setting, $tgl_cetak)}
+    </div>
+</body>
+
+</html>

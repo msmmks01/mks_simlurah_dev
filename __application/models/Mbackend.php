@@ -2113,9 +2113,7 @@ class Mbackend extends CI_Model
 
 
 
-				$sql = "
-
-				SELECT A.*,
+				$sql = "SELECT A.*,
 
 
 				DATE_FORMAT(A.create_date, '%d-%m-%Y %H:%i') as tanggal_buat
@@ -2130,13 +2128,61 @@ class Mbackend extends CI_Model
 
 				and A.cl_kecamatan_id = '" . $this->auth['cl_kecamatan_id'] . "'
 
-				ORDER BY A.id DESC
-
-					";
-
-
+				ORDER BY A.id DESC";
 
 				//echo $sql;exit;
+
+				break;
+
+			case "laporan_daftar_agenda":
+
+				$desa_id = $this->input->post('kelurahan_id');
+				$rt = $this->input->post('rt');
+				$rw = $this->input->post('rw');
+				$rt_get = $this->input->get('rt');
+				$rw_get = $this->input->get('rw');
+
+				if ($rt_get) {
+					$where .= "and a.rt like '%" . $rt_get . "%'";
+				}
+
+				if ($rw_get) {
+					$where .= "and a.rw like '%" . $rw_get . "%'";
+				}
+
+				if ($desa_id) {
+
+					$where .= "and a.cl_kelurahan_desa_id = '" . $desa_id . "'";
+				} else {
+
+					if ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0") {
+						$where .= "and a.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "'";
+					}
+
+
+					if ($this->input->get('kelurahan_id')) {
+						$where .= "and a.cl_kelurahan_desa_id = '" . $this->input->get('kelurahan_id') . "'";
+					}
+				}
+
+				if (!empty($params['bulan'])) {
+					$where .= " AND DATE_FORMAT(a.tgl_kegiatan, '%m') = '".$params['bulan']."' ";
+				}
+
+
+				$sql = "SELECT a.*, DATE_FORMAT(a.create_date, '%d-%m-%Y %H:%i') as tanggal_buat
+
+				FROM tbl_data_daftar_agenda a 
+
+				$where
+
+				and a.cl_provinsi_id = '" . $this->auth['cl_provinsi_id'] . "'
+
+				and a.cl_kab_kota_id = '" . $this->auth['cl_kab_kota_id'] . "'
+
+				and a.cl_kecamatan_id = '" . $this->auth['cl_kecamatan_id'] . "'
+
+				ORDER BY a.id DESC";
 
 				break;
 
@@ -2457,24 +2503,31 @@ class Mbackend extends CI_Model
 							SUM(a.datang_pr_wni + a.datang_pr_wna) AS jml_datang_pr,
 							SUM(a.pindah_lk_wni + a.pindah_lk_wna) AS jml_pindah_lk,
 							SUM(a.pindah_pr_wni + a.pindah_pr_wna) AS jml_pindah_pr,
-							SUM(a.jml_lk_wni + a.lahir_lk_wni - a.mati_lk_wni + a.datang_lk_wni - a.pindah_lk_wni) AS jml_akhir_lk_wni,
-							SUM(a.jml_pr_wni + a.lahir_pr_wni - a.mati_pr_wni + a.datang_pr_wni - a.pindah_pr_wni) AS jml_akhir_pr_wni,
-							SUM(a.jml_lk_wna + a.lahir_lk_wna - a.mati_lk_wna + a.datang_lk_wna - a.pindah_lk_wna) AS jml_akhir_lk_wna,
-							SUM(a.jml_pr_wna + a.lahir_pr_wna - a.mati_pr_wna + a.datang_pr_wna - a.pindah_pr_wna) AS jml_akhir_pr_wna,
+							SUM(a.non_permanen_lk_wni + a.non_permanen_lk_wna) AS jml_non_permanen_lk,
+							SUM(a.non_permanen_pr_wni + a.non_permanen_pr_wna) AS jml_non_permanen_pr,
+
+							SUM(a.jml_lk_wni + a.lahir_lk_wni - a.mati_lk_wni + a.datang_lk_wni - a.pindah_lk_wni + a.non_permanen_lk_wni) AS jml_akhir_lk_wni,
+							SUM(a.jml_pr_wni + a.lahir_pr_wni - a.mati_pr_wni + a.datang_pr_wni - a.pindah_pr_wni + a.non_permanen_pr_wni) AS jml_akhir_pr_wni,
+							SUM(a.jml_lk_wna + a.lahir_lk_wna - a.mati_lk_wna + a.datang_lk_wna - a.pindah_lk_wna + a.non_permanen_lk_wna) AS jml_akhir_lk_wna,
+							SUM(a.jml_pr_wna + a.lahir_pr_wna - a.mati_pr_wna + a.datang_pr_wna - a.pindah_pr_wna + a.non_permanen_pr_wna) AS jml_akhir_pr_wna,
+
 							SUM(a.lahir_lk_wni + a.lahir_pr_wni + a.lahir_lk_wna + a.lahir_pr_wna) AS jml_lahir,
 							SUM(a.mati_lk_wni + a.mati_pr_wni + a.mati_lk_wna + a.mati_pr_wna) AS jml_mati,
 							SUM(a.datang_lk_wni + a.datang_pr_wni + a.datang_lk_wna + a.datang_pr_wna) AS jml_datang,
 							SUM(a.pindah_lk_wni + a.pindah_pr_wni + a.pindah_lk_wna + a.pindah_pr_wna) AS jml_datang,
+							SUM(a.non_permanen_lk_wni + a.non_permanen_pr_wni + a.non_permanen_lk_wna + a.non_permanen_pr_wna) AS jml_non_permanen,
 							
 							SUM(
-								a.jml_lk_wni + a.jml_lk_wna + a.lahir_lk_wni + a.lahir_lk_wna - a.mati_lk_wni - a.mati_lk_wna + a.datang_lk_wni + a.datang_lk_wna - a.pindah_lk_wni - a.pindah_lk_wna
+								a.jml_lk_wni + a.jml_lk_wna + a.lahir_lk_wni + a.lahir_lk_wna - a.mati_lk_wni - a.mati_lk_wna + a.datang_lk_wni + a.datang_lk_wna - a.pindah_lk_wni - a.pindah_lk_wna + a.non_permanen_lk_wni + a.non_permanen_lk_wna
 							) AS jml_lk2,
 							SUM(
-								a.jml_pr_wni + a.jml_pr_wna + a.lahir_pr_wni + a.lahir_pr_wna - a.mati_pr_wni - a.mati_pr_wna + a.datang_pr_wni + a.datang_pr_wna - a.pindah_pr_wni - a.pindah_pr_wna
+								a.jml_pr_wni + a.jml_pr_wna + a.lahir_pr_wni + a.lahir_pr_wna - a.mati_pr_wni - a.mati_pr_wna + a.datang_pr_wni + a.datang_pr_wna - a.pindah_pr_wni - a.pindah_pr_wna + a.non_permanen_pr_wni + a.non_permanen_pr_wna
 							) AS jml_pr2,
+
 							SUM(
-								a.kk_bln_ini + a.kk_lahir - a.kk_kematian + a.kk_pendatang - a.kk_pindah
+								a.kk_bln_ini + a.kk_lahir - a.kk_kematian + a.kk_pendatang - a.kk_pindah + a.kk_non_permanen
 							) AS jml_kk2
+
 						FROM tbl_data_rekap_bulanan a
 						LEFT JOIN cl_kelurahan_desa b ON b.id = a.cl_kelurahan_desa_id
 
@@ -2685,8 +2738,7 @@ class Mbackend extends CI_Model
 						and cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "'
 					";
 				}
-				$sql = "
-				SELECT A.*, 
+				$sql = "SELECT A.*, 
 				B.nama AS kecamatan, C.nama AS kelurahan,
 				DATE_FORMAT(A.create_date, '%d-%m-%Y %H:%i') AS tanggal_buat 
 				FROM tbl_data_penandatanganan A
@@ -2697,6 +2749,43 @@ class Mbackend extends CI_Model
 				";
 				break;
 			//end Data Penandatanganan
+
+			//Daftar Agenda Kegiatan
+			case "daftar_agenda_kegiatan":
+
+				$bulan = $this->input->get_post('bulan');
+				if ($bulan != '') {
+					$where .= " AND DATE_FORMAT(a.tgl_kegiatan, '%m') = '{$bulan}' ";
+				}
+
+				if ($this->auth['cl_user_group_id'] == 3) {
+					$where .= "
+						and cl_provinsi_id = '" . $this->auth['cl_provinsi_id'] . "'
+						and cl_kab_kota_id = '" . $this->auth['cl_kab_kota_id'] . "'
+						and cl_kecamatan_id = '" . $this->auth['cl_kecamatan_id'] . "'
+						and cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "'
+					";
+				}
+				if (in_array($this->auth['cl_user_group_id'], [2, 4, 5])) {
+					$where .= "
+						and cl_provinsi_id = '" . $this->auth['cl_provinsi_id'] . "'
+						and cl_kab_kota_id = '" . $this->auth['cl_kab_kota_id'] . "'
+						and cl_kecamatan_id = '" . $this->auth['cl_kecamatan_id'] . "'
+						and cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "'
+					";
+				}
+
+				$sql = "SELECT a.*, 
+				b.nama AS kecamatan, c.nama AS kelurahan,
+				DATE_FORMAT(a.create_date, '%d-%m-%Y %H:%i') AS tanggal_buat 
+				FROM tbl_data_daftar_agenda a
+				LEFT JOIN cl_kecamatan b ON b.id = a.cl_kecamatan_id
+				LEFT JOIN cl_kelurahan_desa c ON c.id = a.cl_kelurahan_desa_id
+				$where
+				ORDER BY a.id DESC
+				";
+				break;
+			//end Daftar Agenda Kegiatan
 
 			//Data Pemohon
 			case "data_permohonan":
@@ -5110,7 +5199,6 @@ class Mbackend extends CI_Model
 						;
 
 			break;
-
 			//end Data Rekap Bulanan
 
 			//Data Ekspedisi
@@ -16802,6 +16890,29 @@ class Mbackend extends CI_Model
 				}
 
 				break;
+
+			case "daftar_agenda_kegiatan":
+
+				if (isset($data['tgl_kegiatan'])) {
+					$data['tgl_kegiatan'] = date('Y-m-d', strtotime($data['tgl_kegiatan']));
+				}
+
+				$table = "tbl_data_daftar_agenda";
+
+				if ($sts_crud == "add" || $sts_crud == "edit") {
+
+					$data['cl_provinsi_id'] = $this->auth['cl_provinsi_id'];
+
+					$data['cl_kab_kota_id'] = $this->auth['cl_kab_kota_id'];
+
+					$data['cl_kecamatan_id'] = $this->auth['cl_kecamatan_id'];
+
+					$data['cl_kelurahan_desa_id'] = $this->auth['cl_kelurahan_desa_id'];
+
+
+				}
+
+				break;
 			
 			case "data_kendaraan":
 				$data['nilai_perolehan'] = str_replace(",", "", @$data['nilai_perolehan']);
@@ -17081,7 +17192,6 @@ class Mbackend extends CI_Model
 				$table = "tbl_data_wamis";
 
 
-
 				if ($sts_crud == "add" || $sts_crud == "edit") {
 
 					$data['cl_provinsi_id'] = $this->auth['cl_provinsi_id'];
@@ -17107,7 +17217,6 @@ class Mbackend extends CI_Model
 				}
 
 				break;
-
 
 
 			case "data_pkl":

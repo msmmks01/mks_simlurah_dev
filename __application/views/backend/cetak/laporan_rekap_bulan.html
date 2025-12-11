@@ -41,17 +41,31 @@
 </table>
 <table style="border-collapse: collapse;width: 100%;" cellpadding="6" cellspacing="4" border="1">
 	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="36" align="center" valign=middle bgcolor="#D9D9D9" data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;LK + Perempuan&quot;}"><b><font face="Arial" color="#000000"></font>No</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle bgcolor="#D9D9D9" data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;LK + Perempuan&quot;}"><b><font face="Arial" color="#000000">Perincian</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle bgcolor="#D9D9D9" data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;LK + Perempuan&quot;}"><b><font face="Arial" color="#000000">Laki-laki</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle bgcolor="#D9D9D9" data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;LK + Perempuan&quot;}"><b><font face="Arial" color="#000000">Perempuan</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle bgcolor="#D9D9D9" data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;LK + Perempuan&quot;}"><b><font face="Arial" color="#000000">Laki-laki/WNA</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle bgcolor="#D9D9D9" data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;LK + Perempuan&quot;}"><b><font face="Arial" color="#000000">Perempuan/WNA</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle bgcolor="#D9D9D9" data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;LK + Perempuan&quot;}"><b><font face="Arial" color="#000000">Jumlah Laki-laki</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle bgcolor="#D9D9D9" data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;LK + Perempuan&quot;}"><b><font face="Arial" color="#000000">Jumlah Perempuan</b></font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle bgcolor="#D9D9D9" data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;LK + Perempuan&quot;}"><b><font face="Arial" color="#000000">LK + Perempuan</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle bgcolor="#D9D9D9" data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;Jumlah KK&quot;}"><b><font face="Arial" color="#000000">Jumlah KK</font></b></td>
+		<th rowspan="2" style="border:1px solid #000; background:#D9D9D9;">No</th>
+		<th rowspan="2" style="border:1px solid #000; background:#D9D9D9;">Uraian</th>
+
+		<th colspan="2" style="border:1px solid #000; background:#D9D9D9;">Warga Negara RI</th>
+		<th colspan="2" style="border:1px solid #000; background:#D9D9D9;">Warga Asing</th>
+		<th colspan="3" style="border:1px solid #000; background:#D9D9D9;">Jumlah</th>
+
+		<th rowspan="2" style="border:1px solid #000; background:#D9D9D9;">Jumlah KK</th>
 	</tr>
+
+	<tr>
+		<!-- WNI -->
+		<th style="border:1px solid #000; background:#D9D9D9;">LK</th>
+		<th style="border:1px solid #000; background:#D9D9D9;">PR</th>
+
+		<!-- WNA -->
+		<th style="border:1px solid #000; background:#D9D9D9;">LK</th>
+		<th style="border:1px solid #000; background:#D9D9D9;">PR</th>
+
+		<!-- Jumlah -->
+		<th style="border:1px solid #000; background:#D9D9D9;">LK</th>
+		<th style="border:1px solid #000; background:#D9D9D9;">PR</th>
+		<th style="border:1px solid #000; background:#D9D9D9;">LK + PR</th>
+	</tr>
+
 	{assign var=idx value=1}
 	{assign var=total_akhir_lk_pr value=0}
 
@@ -65,6 +79,7 @@
 		- ($rows.jml_mati_lk|default:0 + $rows.jml_mati_pr|default:0)
 		+ ($rows.jml_datang_lk|default:0 + $rows.jml_datang_pr|default:0)
 		- ($rows.jml_pindah_lk|default:0 + $rows.jml_pindah_pr|default:0)
+		+ ($rows.jml_non_permanen_lk|default:0 + $rows.jml_non_permanen_pr|default:0)
 		}
 
 	<!-- di cell "Penduduk Akhir Bulan Ini" -->
@@ -129,6 +144,18 @@
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;&quot;}"><font face="Arial" color="#000000">{$rows.jml_pindah_pr|default:'......'}</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;&quot;}"><font face="Arial" color="#000000">{$rows.jml_pindah_lk+$rows.jml_pindah_pr}</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;&quot;}"><font face="Arial" color="#000000">{$rows.kk_pindah|default:'......'}</font></td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="19" align="center" valign=middle sdval="5" sdnum="1033;"><font face="Arial" color="#000000">5</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;Pindah Bulan Ini&quot;}"><font face="Arial" color="#000000">Penduduk Non Permanen</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;&quot;}"><font face="Arial" color="#000000">{$rows.non_permanen_lk_wni|default:'......'}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;&quot;}"><font face="Arial" color="#000000">{$rows.non_permanen_pr_wni|default:'......'}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;&quot;}"><font face="Arial" color="#000000">{$rows.non_permanen_lk_wna|default:'......'}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;&quot;}"><font face="Arial" color="#000000">{$rows.non_permanen_pr_wna|default:'......'}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;&quot;}"><font face="Arial" color="#000000">{$rows.jml_non_permanen_lk|default:'......'}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;&quot;}"><font face="Arial" color="#000000">{$rows.jml_non_permanen_pr|default:'......'}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;&quot;}"><font face="Arial" color="#000000">{$rows.jml_non_permanen_lk+$rows.jml_non_permanen_pr}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;&quot;}"><font face="Arial" color="#000000">{$rows.kk_non_permanen|default:'......'}</font></td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="19" align="center" valign=middle sdval="6" sdnum="1033;"><font face="Arial" color="#000000">6</font></td>

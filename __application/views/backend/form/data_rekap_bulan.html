@@ -137,6 +137,26 @@
 							<div class="row" style="margin-bottom:10px;">
 								<div class='col-md-12'>
 									<fieldset class='form-group'>
+										<legend style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>PENDUDUK NON PERMANEN</legend>
+									</fieldset>
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" label="Laki-laki" class_width="col-lg-12" type="text" name="non_permanen_lk_wni" id="non_permanen_lk_wni" value="{$data.non_permanen_lk_wni|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" label="Perempuan" class_width="col-lg-12" type="text" name="non_permanen_pr_wni" id="non_permanen_pr_wni" value="{$data.non_permanen_pr_wni|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" label="Laki-laki/WNA" class_width="col-lg-12" type="text" name="non_permanen_lk_wna" id="non_permanen_lk_wna" value="{$data.non_permanen_lk_wna|default:''}"}
+								</div>
+                                <div class="col-md-3">
+									{include file="backend/template/input_form.html" label="Perempuan/WNA" class_width="col-lg-12" type="text" name="non_permanen_pr_wna" id="non_permanen_pr_wna" value="{$data.non_permanen_pr_wna|default:''}"}
+								</div>
+							</div>
+
+							<div class="row" style="margin-bottom:10px;">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
 										<legend style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>KARTU KELUARGA</legend>
 									</fieldset>
 								</div>
@@ -157,6 +177,9 @@
                                 <div class="col-md-4">
 									{include file="backend/template/input_form.html" label="KK Pindah Bulan ini" class_width="col-lg-12" type="text" name="kk_pindah" id="kk_pindah" value="{$data.kk_pindah|default:''}"}
 								</div>
+                                <div class="col-md-4">
+									{include file="backend/template/input_form.html" label="KK Penduduk Non Permanen" class_width="col-lg-12" type="text" name="kk_non_permanen" id="kk_non_permanen" value="{$data.kk_non_permanen|default:''}"}
+								</div>
 							</div>
 
 							<div class="row">
@@ -173,7 +196,6 @@
 			</div>
 		</div>
 	</div>
-
 </form>
 
 <script>
@@ -287,4 +309,86 @@
 	        }
 	    }
 	} );
+
+// ===== FUNGSI OTOMATISASI UNTUK MENDISBLE INPUTAN BULAN INI =====
+	// konfigurasi singkat
+	const selectors = [
+		"#jml_lk_wni", "[name='jml_lk_wni']",
+		"#jml_pr_wni", "[name='jml_pr_wni']",
+		"#jml_lk_wna", "[name='jml_lk_wna']",
+		"#jml_pr_wna", "[name='jml_pr_wna']"
+	];
+	const treatZeroAsEmpty = false; // kalau true, angka "0" dianggap kosong
+
+	//helper
+	function log() {
+		if (window.console && console.log) console.log.apply(console, arguments);
+	}
+
+	function getVal(sel) {
+		const el = $(sel).first();
+		if (!el || el.length === 0) return null;
+		return (el.val() === undefined ? null : String(el.val()).trim());
+	}
+
+	function anyExists() {
+		return selectors.some(s => $(s).length > 0);
+	}
+
+	function cekDisableInput() {
+		// ambil nilai dari name/id utama
+		let lk = getVal("#jml_lk_wni") ?? getVal("[name='jml_lk_wni']");
+		let pr = getVal("#jml_pr_wni") ?? getVal("[name='jml_pr_wni']");
+
+		// normalize
+		lk = lk === null ? "" : lk;
+		pr = pr === null ? "" : pr;
+
+		if (treatZeroAsEmpty) {
+		lk = (lk === "0") ? "" : lk;
+		pr = (pr === "0") ? "" : pr;
+		}
+
+		const shouldDisable = (lk !== "" || pr !== "");
+
+		log("cekDisableInput → lk:", lk, "pr:", pr, " → disable?", shouldDisable);
+
+		// target semua kemungkinan selector (by id/name)
+		const targets = $("[name='jml_lk_wni'], [name='jml_pr_wni'], [name='jml_lk_wna'], [name='jml_pr_wna'], #jml_lk_wni, #jml_pr_wni, #jml_lk_wna, #jml_pr_wna");
+
+		if (targets.length === 0) {
+		log("cekDisableInput: target inputs TIDAK DITEMUKAN di DOM.");
+		return;
+		}
+
+		targets.prop("disabled", shouldDisable);
+	}
+
+	//polling untuk menunggu input muncul (untuk template dinamis)
+	let tries = 0;
+	const maxTries = 40; // 40 * 50ms = 2 detik
+	const poll = setInterval(function(){
+		tries++;
+		if (anyExists()) {
+		clearInterval(poll);
+		log("Inputs ditemukan setelah", tries, "attempt(s). Menyambungkan event...");
+		// jalankan cek pertama kali
+		cekDisableInput();
+		// attach events pada kedua field utama (pakai delegated)
+		$(document).on("keyup change input paste", "[name='jml_lk_wni'], [name='jml_pr_wni'], #jml_lk_wni, #jml_pr_wni", function(){
+			// beri delay kecil untuk menangani paste/autofill
+			setTimeout(cekDisableInput, 10);
+		});
+		} else if (tries >= maxTries) {
+		clearInterval(poll);
+		log("Polling selesai: inputs tidak ditemukan setelah", tries, "attempt(s). Cek nama/id input di template.");
+		}
+	}, 50);
+
+	// optional: run once saat halaman siap juga
+	setTimeout(function(){ if (anyExists()) cekDisableInput(); }, 200);
+
+	// jika ingin debug manual: panggil cekDisableInput() di console
+	window.cekDisableRekap = cekDisableInput;
+
 </script>
