@@ -93,6 +93,10 @@ var=button_cetak_penandatanganan value="true"}
 {assign
 var=button_cetak_daftar_agenda value="true"} 
 {/if}
+{if $mod eq 'laporan_hasil_kegiatan'} 
+{assign
+var=button_cetak_hasil_agenda value="true"} 
+{/if}
 {if $mod eq 'data_kendaraan'} 
 {assign
 var=button_cetak_kendaraan value="true"} 
@@ -995,6 +999,104 @@ $mod eq 'data_surat'}
           <div class="col-lg-3">
             <label style="width: 100px">Bulan</label>:<br>
             <select id="filter_bulan" class="form-control" style="width:150px; display:inline-block;">
+                <option value="">-- Semua --</option>
+                <option value="01">Januari</option>
+                <option value="02">Februari</option>
+                <option value="03">Maret</option>
+                <option value="04">April</option>
+                <option value="05">Mei</option>
+                <option value="06">Juni</option>
+                <option value="07">Juli</option>
+                <option value="08">Agustus</option>
+                <option value="09">September</option>
+                <option value="10">Oktober</option>
+                <option value="11">November</option>
+                <option value="12">Desember</option>
+            </select>
+          </div>
+        </div>
+        {elseif $mod eq 'data_jenis_persuratan'}
+        <div class="row" style="margin-bottom: 5px">
+          <div class="col-lg-6">
+            <label style="width: 80px">Kolom </label>: &nbsp;&nbsp;
+            <select
+              name="kat_{$acak}"
+              id="kat_{$acak}"
+              style="width: 30%; height: 32px; padding: 3px"
+            >
+              {$data_select|default:''}
+            </select>
+            <input
+              type="text"
+              name="key_{$acak}"
+              id="key_{$acak}"
+              style="width: 40%; height: 32px; padding: 5px"
+            />
+            <a
+              href="javascript:void(0)"
+              class="btn-flat btn-default btn-sm"
+              onClick="cariData('{$mod}', '', '{$acak}');"
+            >
+              <i class="fa fa-search"></i>
+            </a>
+          </div>
+          <div class="col-lg-6 text-right">
+            {if $button_edit|default:'' eq 'true'} &nbsp;
+            <a
+              href="javascript:void(0)"
+              title="Edit"
+              class="btn-flat btn-warning btn-sm"
+              onClick="genform('edit', '{$mod}','{$mod}');"
+            >
+              <i class="fa fa-edit"></i> Edit
+            </a>
+            {/if}
+          </div>
+        </div>
+        {elseif $mod eq 'laporan_hasil_kegiatan'}
+        <div class="row" style="margin-bottom: 5px;">
+          <div class="col-lg-12 text-right">
+            {if $button_add|default:'' eq 'true'}
+            <a href="javascript:void(0)" title="Add" class="btn-flat btn-success btn-sm" onClick="genform('add', '{$mod}','{$mod}');">
+              <i class="fa fa-plus"></i> Tambah
+            </a>
+            {/if}
+            {if $button_edit|default:'' eq 'true'} &nbsp;
+            <a href="javascript:void(0)" title="Edit" class="btn-flat btn-warning btn-sm" onClick="genform('edit', '{$mod}','{$mod}');">
+              <i class="fa fa-edit"></i> Edit
+            </a>
+            {/if}
+            {if $button_delete|default:'' eq 'true'} &nbsp;
+            <a href="javascript:void(0)" title="Delete" class="btn-flat btn-danger btn-sm" onClick="genform('delete', '{$mod}','{$mod}');">
+              <i class="fa fa-remove"></i> Hapus
+            </a>
+            {/if}
+            {if $button_cetak_hasil_agenda|default:'' eq 'true'} &nbsp;
+            <a href="javascript:void(0)" title="Cetak" class="btn-flat btn-warning btn-sm" onClick="kumpulAction('export_laporan_hasil_agenda');">
+              <i class="fa fa-print"></i> Cetak
+            </a>
+            {/if} 
+          </div>
+          <!---Kolom Pencarian Daftar Agenda Kegiatan-->
+          <div class="col-lg-4" style="margin-top: 3px;margin-bottom: 3px;">
+            <label>Kolom</label>:<br>
+            <select name="kat_{$acak}" id="kat_{$acak}" style="width: 30%; height: 32px; padding: 3px">
+              {$data_select|default:''}
+            </select>
+            <input type="text" name="key_{$acak}" id="key_{$acak}" style="width: 40%; height: 32px; padding: 5px"/>
+            <a href="javascript:void(0)" class="btn-flat btn-default btn-sm" onClick="cariData('{$mod}', '', '{$acak}');">
+              <i class="fa fa-search"></i>
+            </a>
+          </div>
+          <div class="col-lg-3">
+            <label style="width: 100px">Pilih TTD</label>: &nbsp;&nbsp;&nbsp;
+            <select name="nip" id="nip" style="width: 100%; height: 32px; padding: 3px">
+              {$nip_id|default:''}
+            </select>
+          </div>
+          <div class="col-lg-3">
+            <label style="width: 100px">Bulan</label>:<br>
+            <select id="filter_bulan_hasil" class="form-control" style="width:150px; display:inline-block;">
                 <option value="">-- Semua --</option>
                 <option value="01">Januari</option>
                 <option value="02">Februari</option>
@@ -2319,6 +2421,14 @@ $mod eq 'data_surat'}
   $("#filter_bulan").change(function () {
       var bulan = $(this).val();
       $('#grid_daftar_agenda_kegiatan').datagrid('load', {
+          bulan: bulan
+      });
+  });
+
+  // Filter ketika pilih bulan
+  $("#filter_bulan_hasil").change(function () {
+      var bulan = $(this).val();
+      $('#grid_laporan_hasil_kegiatan').datagrid('load', {
           bulan: bulan
       });
   });

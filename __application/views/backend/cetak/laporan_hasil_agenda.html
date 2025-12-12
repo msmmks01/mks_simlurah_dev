@@ -2,7 +2,7 @@
 <html>
 <head>
 
-    <title>LAPORAN DAFTAR AGENDA KEGIATAN</title>
+    <title>LAPORAN HASIL AGENDA KEGIATAN</title>
 
     <style type="text/css">
         table {
@@ -64,7 +64,7 @@
                 </td>
             </tr>
             <tr>
-                <td colspan=3 align="center"><b><u>AGENDA KEGIATAN {$nama_kelurahan|upper} KECAMATAN {$nama_kecamatan|upper}</u></b></td>
+                <td colspan=3 align="center"><b><u>LAPORAN HASIL AGENDA</u></b></td>
             </tr>
         </table>
         {else}
@@ -87,7 +87,7 @@
                 </td>
             </tr>
             <tr>
-                <td colspan=3 align="center"><b><u>AGENDA KEGIATAN KECAMATAN {$rows.kecamatan}</u></b></td>
+                <td colspan=3 align="center"><b><u>LAPORAN HASIL AGENDA KEGIATAN KECAMATAN {$rows.kecamatan}</u></b></td>
             </tr>
         </table>
         {/if}
@@ -97,12 +97,9 @@
             <thead>
                 <tr>
                     <th width="5%" style="text-align: center"><b>NO</b></th>
-                    <th width="10%" style="text-align: center"><b>HARI KEGIATAN</b></th>
-                    <th width="10%" style="text-align: center"><b>JAM</b></th>
-                    <th width="10%" style="text-align: center"><b>LOKASI</b></th>
-                    <th width="5%" style="text-align: center"><b>INSTANSI PENGIRIM</b></th>
-                    <th width="5%" style="text-align: center"><b>PERIHAL</b></th>
-                    <th width="10%" style="text-align: center"><b>PENANGGUNG JAWAB</b></th>
+                    <th width="10%" style="text-align: center"><b>HARI/TANGGAL</b></th>
+                    <th width="10%" style="text-align: center"><b>AGENDA</b></th>
+                    <th width="10%" style="text-align: center"><b>NOTULEN</b></th>
                     <th width="10%" style="text-align: center"><b>KETERANGAN</b></th>
                 </tr>
             </thead>
@@ -111,12 +108,9 @@
                 {foreach from=$data item=rows}
                 <tr>
                     <td style="text-align: center">{$idx}</td>
-                    <td style="text-align: center">{$rows.tgl_kegiatan|hariindo}</td>
-                    <td style="text-align: center">{$rows.waktu_kegiatan|jamindo}</td>
-                    <td tyle="text-align: left">{$rows.lokasi_kegiatan|default:'-'}</td>
-                    <td tyle="text-align: left">{$rows.instansi_pengirim|default:'-'}</td>
-                    <td tyle="text-align: left">{$rows.perihal_kegiatan|default:'-'}</td>
-                    <td style="text-align: left">{$rows.pj_kegiatan|default:'-'}</td>
+                    <td style="text-align: center">{$rows.tgl_hasil_agenda|hariindo}</td>
+                    <td tyle="text-align: left">{$rows.agenda|default:'-'}</td>
+                    <td tyle="text-align: left">{$rows.notulen_hasil_agenda|default:'-'}</td>
                     <td style="text-align: left">{$rows.ket_kegiatan|default:'-'}</td>
                 </tr>
     

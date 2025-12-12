@@ -4391,6 +4391,50 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
       ];
       break;
 
+    case "laporan_hasil_kegiatan":
+      judulnya = "";
+      urlnya = modnya;
+      fitnya = true;
+      row_number = true;
+
+      frozen[modnya] = [
+          {
+              field: "tgl_hasil_agenda",
+              title: "Hari/Tanggal",
+              width: 200,
+              halign: "center",
+              align: "center",
+              formatter: function(value, row) {
+                  return formatTanggalIndonesia(value);
+              }
+          },
+      ];
+
+      kolom[modnya] = [
+          {
+              field: "agenda",
+              title: "Agenda",
+              width: 450,
+              halign: "center",
+              align: "left",
+          },
+          {
+              field: "notulen_hasil_agenda",
+              title: "Notulen",
+              width: 700,
+              halign: "center",
+              align: "left",
+          },
+          {
+              field: "ket_hasil_agenda",
+              title: "Keterangan",
+              width: 250,
+              halign: "center",
+              align: "left",
+          },
+      ];
+      break;
+
     case "data_kendaraan":
       judulnya = "";
       urlnya = modnya;
@@ -5590,6 +5634,25 @@ async function kumpulAction(type, p1, p2, p3, p4, p5) {
         $.messager.alert("SIMLURAH", "Please Select TTD First!", "error");
       } else {
         var url = host + "backoffice-cetak/laporan_daftar_agenda?" + $.param(param);
+
+        window.open(url, "_blank");
+      }
+      
+      break;
+
+    case "export_laporan_hasil_agenda":
+      param["rt"] = $("#rt_" + p1).val();
+
+      param["rw"] = $("#rw_" + p1).val();
+
+      param["kelurahan_id"] = $("#kelurahan_" + p1).val();
+
+      param["nip"] = $("#nip").val();
+
+      if ($("#nip").val() == "" || $("#nip").val() == null) {
+        $.messager.alert("SIMLURAH", "Please Select TTD First!", "error");
+      } else {
+        var url = host + "backoffice-cetak/laporan_hasil_agenda?" + $.param(param);
 
         window.open(url, "_blank");
       }

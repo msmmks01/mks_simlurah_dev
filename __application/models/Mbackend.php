@@ -2186,6 +2186,60 @@ class Mbackend extends CI_Model
 
 				break;
 
+			case "laporan_hasil_agenda":
+
+				$desa_id = $this->input->post('kelurahan_id');
+				$rt = $this->input->post('rt');
+				$rw = $this->input->post('rw');
+				$rt_get = $this->input->get('rt');
+				$rw_get = $this->input->get('rw');
+
+				if ($rt_get) {
+					$where .= "and a.rt like '%" . $rt_get . "%'";
+				}
+
+				if ($rw_get) {
+					$where .= "and a.rw like '%" . $rw_get . "%'";
+				}
+
+				if ($desa_id) {
+
+					$where .= "and a.cl_kelurahan_desa_id = '" . $desa_id . "'";
+				} else {
+
+					if ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0") {
+						$where .= "and a.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "'";
+					}
+
+
+					if ($this->input->get('kelurahan_id')) {
+						$where .= "and a.cl_kelurahan_desa_id = '" . $this->input->get('kelurahan_id') . "'";
+					}
+				}
+
+				if (!empty($params['bulan'])) {
+					$where .= " AND DATE_FORMAT(a.tgl_kegiatan, '%m') = '".$params['bulan']."' ";
+				}
+
+
+				$sql = "SELECT a.*, DATE_FORMAT(a.create_date, '%d-%m-%Y %H:%i') as tanggal_buat,b.perihal_kegiatan as agenda
+
+				FROM tbl_data_hasil_agenda a 
+
+				LEFT JOIN tbl_data_daftar_agenda b ON b.id=a.perihal_hasil_agenda
+
+				$where
+
+				and a.cl_provinsi_id = '" . $this->auth['cl_provinsi_id'] . "'
+
+				and a.cl_kab_kota_id = '" . $this->auth['cl_kab_kota_id'] . "'
+
+				and a.cl_kecamatan_id = '" . $this->auth['cl_kecamatan_id'] . "'
+
+				ORDER BY a.id DESC";
+
+				break;
+
 			case "laporan_pkl":
 
 				$desa_id = $this->input->post('kelurahan_id');
@@ -2786,6 +2840,44 @@ class Mbackend extends CI_Model
 				";
 				break;
 			//end Daftar Agenda Kegiatan
+
+			//Laporan Hasil Agenda Kegiatan
+			case "laporan_hasil_kegiatan":
+
+				$bulan = $this->input->get_post('bulan');
+				if ($bulan != '') {
+					$where .= " AND DATE_FORMAT(a.tgl_hasil_agenda, '%m') = '{$bulan}' ";
+				}
+
+				if ($this->auth['cl_user_group_id'] == 3) {
+					$where .= "
+						and a.cl_provinsi_id = '" . $this->auth['cl_provinsi_id'] . "'
+						and a.cl_kab_kota_id = '" . $this->auth['cl_kab_kota_id'] . "'
+						and a.cl_kecamatan_id = '" . $this->auth['cl_kecamatan_id'] . "'
+						and a.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "'
+					";
+				}
+				if (in_array($this->auth['cl_user_group_id'], [2, 4, 5])) {
+					$where .= "
+						and a.cl_provinsi_id = '" . $this->auth['cl_provinsi_id'] . "'
+						and a.cl_kab_kota_id = '" . $this->auth['cl_kab_kota_id'] . "'
+						and a.cl_kecamatan_id = '" . $this->auth['cl_kecamatan_id'] . "'
+						and a.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "'
+					";
+				}
+
+				$sql = "SELECT a.*, 
+				b.nama AS kecamatan, c.nama AS kelurahan,d.perihal_kegiatan as agenda,
+				DATE_FORMAT(a.create_date, '%d-%m-%Y %H:%i') AS tanggal_buat 
+				FROM tbl_data_hasil_agenda a
+				LEFT JOIN cl_kecamatan b ON b.id = a.cl_kecamatan_id
+				LEFT JOIN cl_kelurahan_desa c ON c.id = a.cl_kelurahan_desa_id
+				LEFT JOIN tbl_data_daftar_agenda d ON d.id = a.perihal_hasil_agenda
+				$where
+				ORDER BY a.id DESC
+				";
+				break;
+			//end Laporan Hasil Agenda Kegiatan
 
 			//Data Pemohon
 			case "data_permohonan":
@@ -8209,12 +8301,18 @@ class Mbackend extends CI_Model
 
 			case "data_kategori_id":
 
-				$sql = "
-
-					SELECT id,kategori as txt
+				$sql = "SELECT id,kategori as txt
 
 					FROM tbl_kategori_penilaian_rt_rw
+				";
 
+				break;
+
+			case "perihal_hasil_agenda":
+
+				$sql = "SELECT id,perihal_kegiatan as txt
+
+					FROM tbl_data_daftar_agenda
 				";
 
 				break;
@@ -16898,6 +16996,29 @@ class Mbackend extends CI_Model
 				}
 
 				$table = "tbl_data_daftar_agenda";
+
+				if ($sts_crud == "add" || $sts_crud == "edit") {
+
+					$data['cl_provinsi_id'] = $this->auth['cl_provinsi_id'];
+
+					$data['cl_kab_kota_id'] = $this->auth['cl_kab_kota_id'];
+
+					$data['cl_kecamatan_id'] = $this->auth['cl_kecamatan_id'];
+
+					$data['cl_kelurahan_desa_id'] = $this->auth['cl_kelurahan_desa_id'];
+
+
+				}
+
+				break;
+
+			case "laporan_hasil_kegiatan":
+
+				if (isset($data['tgl_hasil_agenda'])) {
+					$data['tgl_hasil_agenda'] = date('Y-m-d', strtotime($data['tgl_hasil_agenda']));
+				}
+
+				$table = "tbl_data_hasil_agenda";
 
 				if ($sts_crud == "add" || $sts_crud == "edit") {
 
