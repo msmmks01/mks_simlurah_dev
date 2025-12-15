@@ -248,68 +248,100 @@ function genColumnChart(divnya, type, xxChart, yyChart, judul, pointformat) {
     series: yyChart,
   });
 }
+
+//Fungsi warna untuk chart SKM
+const skmPastelColors = [
+  '#6FE3E1',
+  '#8AD7F5',
+  '#FFD97D',
+  '#FFA8A8',
+  '#B9E769',
+  '#C3B7FF',
+  '#FFB6E1',
+  '#A7E8D8',
+  '#FFCF9D'
+];
+
 function genColumnChartSKM(divnya, type, xxChart, yyChart, judul, pointformat) {
   Highcharts.chart(divnya, {
-    chart: {
-      type: "column",
-    },
-
-    title: {
-      text: judul,
-    },
-
-    xAxis: {
-      categories: xxChart,
-    },
-
-    scrollbar: {
-      enabled: false,
-    },
-
-    rangeSelector: {
-      selected: 1,
-    },
-
-    yAxis: [
-      {
-        min: 0,
-
-        title: {
-          text: "",
-        },
-
-        allowDecimals: false,
+      chart: {
+          type: 'column',
+          backgroundColor: '#ffffff',
+          height: 360
       },
-      {
-        title: {
-          text: "",
-        },
 
-        opposite: true,
+      title: {
+          text: judul,
+          style: {
+              color: '#333',
+              fontSize: '16px',
+              fontWeight: '600'
+          }
       },
-    ],
 
-    legend: {
-      shadow: false,
-
-      enabled: false,
-    },
-
-    tooltip: {
-      shared: true,
-    },
-
-    plotOptions: {
-      column: {
-        pointPadding: 0.1,
-
-        borderWidth: 0,
+      xAxis: {
+          categories: xxChart,
+          labels: {
+              rotation: -45,
+              style: {
+                  color: '#333',
+                  fontSize: '12px'
+              }
+          }
       },
-    },
 
-    series: yyChart,
+      yAxis: {
+          min: 85,
+          max: 100,
+          title: { text: null },
+          labels: {
+              style: { color: '#333' }
+          },
+          gridLineColor: '#e6e6e6'
+      },
+
+      legend: {
+          enabled: false
+      },
+
+      tooltip: {
+          pointFormat: '<b>{point.y:.2f}%</b>'
+      },
+
+      plotOptions: {
+        column: {
+            borderRadius: 6,
+            pointPadding: 0.02,   // 🔴 lebih rapat
+            groupPadding: 0.02,   // 🔴 lebih rapat
+            maxPointWidth: 46,    // 🔴 sedikit lebih tebal
+            dataLabels: {
+                enabled: true,
+                format: '{y:.2f}%',
+                style: {
+                    color: '#333',
+                    fontSize: '12px',
+                    fontWeight: '600',
+                    textOutline: 'none'
+                }
+            }
+        }
+      },
+
+    series: yyChart.map(s => ({
+        name: s.name,
+        data: s.data.map((v, i) => ({
+            y: v.y,
+            color: skmPastelColors[i % skmPastelColors.length]
+        }))
+    })),
+
+
+      credits: {
+          enabled: false
+      }
   });
 }
+// end fungsi SKM
 
 function loadUrl(urls) {
   if (group_user == 2) {
