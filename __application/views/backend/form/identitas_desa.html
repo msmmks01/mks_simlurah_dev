@@ -157,6 +157,11 @@
 										<hr>
 										<div class="row">
 											<div class="col-md-12">
+												{include file="backend/template/input_form.html" required="true" placeholder="Profil Kelurahan" label="Profil" class_width="col-lg-12" type="textareabesar" name="profil_kel" id="profil_kel" value="{$data.profil_kel|default:''}"}
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
 												<hr />
 												{include file="backend/template/button_save.html" text="Simpan" id_na="save" style_btn="btn-success"  btn_goyz="false"}
 											</div>

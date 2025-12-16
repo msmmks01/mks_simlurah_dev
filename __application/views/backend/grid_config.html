@@ -154,10 +154,7 @@ $mod eq 'data_surat'}
                 <div class="input-group input-daterange">
                   <input class="form-control input-sm tanggalnya" id="date_start_{$acak}" type="text"/>
                   <div class="input-group-addon">-</div>
-                  <input
-                    class="form-control input-sm tanggalnya"
-                    id="date_end_{$acak}"
-                    type="text"/>
+                  <input class="form-control input-sm tanggalnya" id="date_end_{$acak}" type="text"/>
                 </div>
               </div>
             <div class="col-lg-3">
@@ -171,11 +168,7 @@ $mod eq 'data_surat'}
             <!-- {if $cl_user_group_id neq '2'} -->
             <div class="col-lg-4">
               <label style="width: 100px">Unit Kerja </label>: &nbsp;&nbsp;
-              <select
-                name="kelurahan_{$acak}"
-                id="kelurahan_{$acak}"
-                style="width: 100%; height: 30px; padding: 3px"
-                onChange="getlurah();">
+              <select name="kelurahan_{$acak}" id="kelurahan_{$acak}" style="width: 100%; height: 30px; padding: 3px" onChange="getlurah();">
                 {$kelurahan|default:''}
               </select>
             </div>
@@ -187,33 +180,19 @@ $mod eq 'data_surat'}
             </div>
           </div>
           <div class="row">
-            <div class="col-lg-8 text-right">&nbsp; <input
-              class="form-control input-sm tanggalnya"
-              id="acakk"
-              type="text" value="{$acak}" style="visibility: hidden;"/></div>
+            <div class="col-lg-8 text-right">&nbsp; <input class="form-control input-sm tanggalnya" id="acakk" type="text" value="{$acak}" style="visibility: hidden;"/></div>
             <!-- {/if} -->
             <div class="col-lg-4" style="margin-bottom: 10px">
               <div class="form-group" style="float: right">
-                <a
-                  href="javascript:void(0)"
-                  class="btn-flat btn-default btn-sm"
-                  onClick="kumpulAction('generate_laporan_persuratan', '{$acak}');">
+                <a href="javascript:void(0)" class="btn-flat btn-default btn-sm" onClick="kumpulAction('generate_laporan_persuratan', '{$acak}');">
                   <i class="fa fa-search"></i> Filter
                 </a>
                 &nbsp;
-                <a
-                  href="javascript:void(0)"
-                  class="btn-flat btn-info btn-sm"
-                  onClick="kumpulAction('reload_laporan_persuratan', '{$acak}');"
-                >
+                <a href="javascript:void(0)" class="btn-flat btn-info btn-sm" onClick="kumpulAction('reload_laporan_persuratan', '{$acak}');">
                   <i class="fa fa-refresh"></i> Reload
                 </a>
                 &nbsp;
-                <a
-                  href="javascript:void(0)"
-                  class="btn-flat btn-success btn-sm"
-                  onClick="kumpulAction('export_laporan_persuratan', '{$acak}');"
-                >
+                <a href="javascript:void(0)" class="btn-flat btn-success btn-sm" onClick="kumpulAction('export_laporan_persuratan', '{$acak}');">
                   <i class="fa fa-print"></i> Cetak
                 </a>
               </div>
@@ -231,17 +210,9 @@ $mod eq 'data_surat'}
             <label style="width: 100px">Filter Tanggal </label>: &nbsp;&nbsp;
 
             <div class="input-group input-daterange">
-              <input
-                class="form-control input-sm tanggalnya"
-                id="date_start_{$acak}"
-                type="text"
-              />
+              <input class="form-control input-sm tanggalnya" id="date_start_{$acak}" type="text"/>
               <div class="input-group-addon">-</div>
-              <input
-                class="form-control input-sm tanggalnya"
-                id="date_end_{$acak}"
-                type="text"
-              />
+              <input class="form-control input-sm tanggalnya" id="date_end_{$acak}" type="text"/>
             </div>
           </div>
           <div class="col-lg-3">
@@ -265,35 +236,19 @@ $mod eq 'data_surat'}
                 <label style="width: 100px">&nbsp;</label>
               </div>
 
-              <a
-                href="javascript:void(0)"
-                class="btn-flat btn-default btn-sm"
-                onClick="kumpulAction('generate_laporan_persuratan', '{$acak}');"
-              >
+              <a href="javascript:void(0)" class="btn-flat btn-default btn-sm" onClick="kumpulAction('generate_laporan_persuratan', '{$acak}');">
                 <i class="fa fa-search"></i> Filter
               </a>
               &nbsp;
-              <a
-                href="javascript:void(0)"
-                class="btn-flat btn-info btn-sm"
-                onClick="kumpulAction('reload_laporan_persuratan', '{$acak}');"
-              >
+              <a href="javascript:void(0)" class="btn-flat btn-info btn-sm" onClick="kumpulAction('reload_laporan_persuratan', '{$acak}');">
                 <i class="fa fa-refresh"></i> Reload
               </a>
               &nbsp;
-              <a
-                href="javascript:void(0)"
-                class="btn-flat btn-success btn-sm"
-                onClick="kumpulAction('export_laporan_persuratan', '{$acak}');"
-              >
+              <a href="javascript:void(0)" class="btn-flat btn-success btn-sm" onClick="kumpulAction('export_laporan_persuratan', '{$acak}');">
                 <i class="fa fa-print"></i> Cetak Pdf
               </a>
               &nbsp;
-              <a
-                href="javascript:void(0)"
-                class="btn-flat btn-success btn-sm"
-                onClick="kumpulAction('export_laporan_persuratan_excel', '{$acak}');"
-              >
+              <a href="javascript:void(0)" class="btn-flat btn-success btn-sm" onClick="kumpulAction('export_laporan_persuratan_excel', '{$acak}');">
                 <i class="fa fa-print"></i> Ctk Excel
               </a>
             </div>
@@ -592,61 +547,33 @@ $mod eq 'data_surat'}
           </div>
           <div class="col-lg-3" style="margin-left: -65px">
             <div class="input-group input-daterange">
-              <input
-                class="form-control input-sm tanggalnya"
-                id="date_start_{$acak}"
-                type="text"
-              />
+              <input class="form-control input-sm tanggalnya" id="date_start_{$acak}" type="text"/>
               <div class="input-group-addon">-</div>
-              <input
-                class="form-control input-sm tanggalnya"
-                id="date_end_{$acak}"
-                type="text"
-              />
+              <input class="form-control input-sm tanggalnya" id="date_end_{$acak}" type="text"/>
             </div>
           </div>
 
           <div class="col-lg-3" style="margin-left: -20px">
             {if !in_array($cl_user_group_id,[2,4,5])}
-            <select
-              name="kelurahan_{$acak}"
-              id="kelurahan_{$acak}"
-              style="width: 100%; height: 30px; padding: 3px"
-            >
+            <select name="kelurahan_{$acak}" id="kelurahan_{$acak}" style="width: 100%; height: 30px; padding: 3px">
               {$kelurahan|default:''}
             </select>
             {/if}
           </div>
           <div class="col-lg-4 text-right" style="margin-left: 80px">
-            <a
-              href="javascript:void(0)"
-              class="btn-flat btn-default btn-sm"
-              onClick="kumpulAction('generate_laporan_rekap_usaha', '{$acak}');"
-            >
+            <a href="javascript:void(0)" class="btn-flat btn-default btn-sm" onClick="kumpulAction('generate_laporan_rekap_usaha', '{$acak}');">
               <i class="fa fa-search"></i> Filter
             </a>
             &nbsp;
-            <a
-              href="javascript:void(0)"
-              class="btn-flat btn-info btn-sm"
-              onClick="kumpulAction('reload_laporan_rekap_usaha', '{$acak}');"
-            >
+            <a href="javascript:void(0)" class="btn-flat btn-info btn-sm" onClick="kumpulAction('reload_laporan_rekap_usaha', '{$acak}');">
               <i class="fa fa-refresh"></i> Reload
             </a>
             &nbsp;
-            <a
-              href="javascript:void(0)"
-              class="btn-flat btn-success btn-sm" 
-              onClick="kumpulAction('export_laporan_rekap_usaha', '{$acak}');"
-            >
+            <a href="javascript:void(0)" class="btn-flat btn-success btn-sm"  onClick="kumpulAction('export_laporan_rekap_usaha', '{$acak}');">
               <i class="fa fa-print"></i> Cetak PDF
             </a>
             &nbsp;
-            <a
-              href="javascript:void(0)"
-              class="btn-flat btn-success btn-sm"
-              onClick="kumpulAction('export_laporan_rekap_usaha_excel', '{$acak}');"
-            >
+            <a href="javascript:void(0)" class="btn-flat btn-success btn-sm" onClick="kumpulAction('export_laporan_rekap_usaha_excel', '{$acak}');">
               <i class="fa fa-print"></i> Cetak Excel
             </a>
           </div>
@@ -660,57 +587,33 @@ $mod eq 'data_surat'}
           </div>
           <div class="col-lg-3" style="margin-left: -65px">
             <div class="input-group input-daterange">
-              <input
-                class="form-control input-sm tanggalnya"
-                id="date_start_{$acak}"
-                type="text"
-              />
+              <input class="form-control input-sm tanggalnya" id="date_start_{$acak}" type="text"/>
               <div class="input-group-addon">-</div>
-              <input
-                class="form-control input-sm tanggalnya"
-                id="date_end_{$acak}"
-                type="text"
-              />
+              <input class="form-control input-sm tanggalnya" id="date_end_{$acak}" type="text"/>
             </div>
           </div>
 
           <div class="col-lg-3" style="margin-left: -20px">
             {if !in_array($cl_user_group_id,[2,4,5])}
-            <select
-              name="kelurahan_{$acak}"
-              id="kelurahan_{$acak}"
-              style="width: 100%; height: 30px; padding: 3px"
-            >
+            <select name="kelurahan_{$acak}" id="kelurahan_{$acak}" style="width: 100%; height: 30px; padding: 3px">
               {$kelurahan|default:''}
             </select>
             {/if}
           </div>
           <div class="col-lg-4 text-right" style="margin-left: 80px">
-            <a
-              href="javascript:void(0)"
-              class="btn-flat btn-default btn-sm"
-              onClick="kumpulAction('generate_laporan_rekap_pengantar_kendaraan', '{$acak}');">
+            <a href="javascript:void(0)" class="btn-flat btn-default btn-sm" onClick="kumpulAction('generate_laporan_rekap_pengantar_kendaraan', '{$acak}');">
               <i class="fa fa-search"></i> Filter
             </a>
             &nbsp;
-            <a
-              href="javascript:void(0)"
-              class="btn-flat btn-info btn-sm"
-              onClick="kumpulAction('reload_laporan_rekap_pengantar_kendaraan', '{$acak}');">
+            <a href="javascript:void(0)" class="btn-flat btn-info btn-sm" onClick="kumpulAction('reload_laporan_rekap_pengantar_kendaraan', '{$acak}');">
               <i class="fa fa-refresh"></i> Reload
             </a>
             &nbsp;
-            <a
-              href="javascript:void(0)"
-              class="btn-flat btn-success btn-sm" 
-              onClick="kumpulAction('export_laporan_rekap_pengantar_kendaraan', '{$acak}');">
+            <a href="javascript:void(0)" class="btn-flat btn-success btn-sm"  onClick="kumpulAction('export_laporan_rekap_pengantar_kendaraan', '{$acak}');">
               <i class="fa fa-print"></i> Cetak PDF
             </a>
             &nbsp;
-            <a
-              href="javascript:void(0)"
-              class="btn-flat btn-success btn-sm"
-              onClick="kumpulAction('export_laporan_rekap_pengantar_kendaraan_excel', '{$acak}');">
+            <a href="javascript:void(0)" class="btn-flat btn-success btn-sm" onClick="kumpulAction('export_laporan_rekap_pengantar_kendaraan_excel', '{$acak}');">
               <i class="fa fa-print"></i> Cetak Excel
             </a>
           </div>
@@ -722,56 +625,30 @@ $mod eq 'data_surat'}
           <label style="width: 90px">Filter RT : </label>
         </div>
         <div class="col-lg-1">
-          <input
-            type="text"
-            name="rt_{$acak}"
-            id="rt_{$acak}"
-            class="form-control input-sm"
-          />
+          <input type="text" name="rt_{$acak}" id="rt_{$acak}" class="form-control input-sm"/>
         </div>
         <div class="col-lg-1" style="margin-top: 3px">
           <label style="width: 100px">Filter RW : </label>
         </div>
         <div class="col-lg-1">
-          <input
-            type="text"
-            name="rw_{$acak}"
-            id="rw_{$acak}"
-            class="form-control input-sm"
-          />
+          <input type="text" name="rw_{$acak}" id="rw_{$acak}" class="form-control input-sm"/>
         </div>
         <div class="col-lg-2">
-          <select
-            name="kelurahan_{$acak}"
-            id="kelurahan_{$acak}"
-            class="form-control input-sm"
-          >
+          <select name="kelurahan_{$acak}" id="kelurahan_{$acak}" class="form-control input-sm">
             {$kelurahan|default:''}
           </select>
         </div>
         <div class="col-lg-6 text-right">
-          <a
-            href="javascript:void(0)"
-            class="btn-flat btn-default btn-sm"
-            onClick="kumpulAction('generate_laporan_penduduk', '{$acak}');"
-          >
+          <a href="javascript:void(0)" class="btn-flat btn-default btn-sm" onClick="kumpulAction('generate_laporan_penduduk', '{$acak}');">
             <i class="fa fa-search"></i> Generate
           </a>
           &nbsp;
-          <a
-            href="javascript:void(0)"
-            class="btn-flat btn-info btn-sm"
-            onClick="kumpulAction('reload_laporan_penduduk', '{$acak}');"
-          >
+          <a href="javascript:void(0)" class="btn-flat btn-info btn-sm" onClick="kumpulAction('reload_laporan_penduduk', '{$acak}');">
             <i class="fa fa-refresh"></i> Reload
           </a>
           &nbsp;
 
-          <a
-            href="javascript:void(0)"
-            class="btn-flat btn-success btn-sm"
-            onClick="kumpulAction('export_laporan_penduduk', '{$acak}');"
-          >
+          <a href="javascript:void(0)" class="btn-flat btn-success btn-sm" onClick="kumpulAction('export_laporan_penduduk', '{$acak}');">
             <i class="fa fa-print"></i> Cetak
           </a>
         </div>
@@ -814,56 +691,30 @@ $mod eq 'data_surat'}
           <label style="width: 90px">Filter RT : </label>
         </div>
         <div class="col-lg-1">
-          <input
-            type="text"
-            name="rt_{$acak}"
-            id="rt_{$acak}"
-            class="form-control input-sm"
-          />
+          <input type="text" name="rt_{$acak}" id="rt_{$acak}" class="form-control input-sm"/>
         </div>
         <div class="col-lg-1" style="margin-top: 3px">
           <label style="width: 100px">Filter RW : </label>
         </div>
         <div class="col-lg-1">
-          <input
-            type="text"
-            name="rw_{$acak}"
-            id="rw_{$acak}"
-            class="form-control input-sm"
-          />
+          <input type="text" name="rw_{$acak}" id="rw_{$acak}" class="form-control input-sm"/>
         </div>
         <div class="col-lg-2">
-          <select
-            name="kelurahan_{$acak}"
-            id="kelurahan_{$acak}"
-            class="form-control input-sm"
-          >
+          <select name="kelurahan_{$acak}" id="kelurahan_{$acak}" class="form-control input-sm">
             {$kelurahan|default:''}
           </select>
         </div>
         <div class="col-lg-6 text-right">
-          <a
-            href="javascript:void(0)"
-            class="btn-flat btn-default btn-sm"
-            onClick="kumpulAction('generate_laporan_ktp', '{$acak}');"
-          >
+          <a href="javascript:void(0)" class="btn-flat btn-default btn-sm" onClick="kumpulAction('generate_laporan_ktp', '{$acak}');">
             <i class="fa fa-search"></i> Generate
           </a>
           &nbsp;
-          <a
-            href="javascript:void(0)"
-            class="btn-flat btn-info btn-sm"
-            onClick="kumpulAction('reload_laporan_ktp', '{$acak}');"
-          >
+          <a href="javascript:void(0)" class="btn-flat btn-info btn-sm" onClick="kumpulAction('reload_laporan_ktp', '{$acak}');">
             <i class="fa fa-refresh"></i> Reload
           </a>
           &nbsp;
 
-          <a
-            href="javascript:void(0)"
-            class="btn-flat btn-success btn-sm"
-            onClick="kumpulAction('export_laporan_ktp', '{$acak}');"
-          >
+          <a href="javascript:void(0)" class="btn-flat btn-success btn-sm" onClick="kumpulAction('export_laporan_ktp', '{$acak}');">
             <i class="fa fa-print"></i> Cetak
           </a>
         </div>
@@ -873,55 +724,27 @@ $mod eq 'data_surat'}
       <div class="row" style="margin-bottom: 5px">
         <div class="col-lg-6">
           <label style="width: 80px">Kolom </label>: &nbsp;&nbsp;
-          <select
-            name="kat_{$acak}"
-            id="kat_{$acak}"
-            style="width: 30%; height: 32px; padding: 3px"
-          >
+          <select name="kat_{$acak}" id="kat_{$acak}" style="width: 30%; height: 32px; padding: 3px">
             {$data_select|default:''}
           </select>
-          <input
-            type="text"
-            name="key_{$acak}"
-            id="key_{$acak}"
-            style="width: 40%; height: 32px; padding: 5px"
-          />
-          <a
-            href="javascript:void(0)"
-            class="btn-flat btn-default btn-sm"
-            onClick="cariData('{$mod}', '', '{$acak}');"
-          >
+          <input type="text" name="key_{$acak}" id="key_{$acak}" style="width: 40%; height: 32px; padding: 5px"/>
+          <a href="javascript:void(0)" class="btn-flat btn-default btn-sm" onClick="cariData('{$mod}', '', '{$acak}');">
             <i class="fa fa-search"></i>
           </a>
         </div>
         <div class="col-lg-6 text-right">
           {if $button_add|default:'' eq 'true'}
-          <a
-            href="javascript:void(0)"
-            title="Add"
-            class="btn-flat btn-success btn-sm"
-            onClick="genform('add', '{$mod}','{$mod}');"
-          >
+          <a href="javascript:void(0)" title="Add" class="btn-flat btn-success btn-sm" onClick="genform('add', '{$mod}','{$mod}');">
             <i class="fa fa-plus"></i> Tambah
           </a>
           {/if}
           {if $button_edit|default:'' eq 'true'} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Edit"
-              class="btn-flat btn-warning btn-sm"
-              onClick="genform('edit', '{$mod}','{$mod}');"
-            >
+            <a href="javascript:void(0)" title="Edit" class="btn-flat btn-warning btn-sm" onClick="genform('edit', '{$mod}','{$mod}');">
               <i class="fa fa-edit"></i> Edit
             </a>
             {/if}
             {if $button_cetak_penandatanganan|default:'' eq 'true'} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Cetak"
-              class="btn-flat btn-warning btn-sm"
-              onClick="kumpulAction('export_laporan_penandatanganan');"
-            >
+            <a href="javascript:void(0)" title="Cetak" class="btn-flat btn-warning btn-sm" onClick="kumpulAction('export_laporan_penandatanganan');">
               <i class="fa fa-print"></i> Cetak
             </a>
             {/if} 
@@ -933,22 +756,12 @@ $mod eq 'data_surat'}
 							{/if} -->
 
             {if $button_import|default:'' eq 'true'} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Delete"
-              class="btn-flat btn-info btn-sm"
-              onClick="kumpulAction('import_penduduk');"
-            >
+            <a href="javascript:void(0)" title="Delete" class="btn-flat btn-info btn-sm" onClick="kumpulAction('import_penduduk');">
               <i class="fa fa-remove"></i> Import Excel
             </a>
             {/if}
             {if $mod|default:'' eq 'data_surat'} &nbsp;
-            <a
-              href="javascript:void(0);"
-              onClick="kumpulAction('cetak_surat');"
-              title="Export Data PDF"
-              class="btn-flat btn-default btn-sm"
-            >
+            <a href="javascript:void(0);" onClick="kumpulAction('cetak_surat');" title="Export Data PDF" class="btn-flat btn-default btn-sm">
               <i class="fa fa-file-pdf-o"></i> Cetak
             </a>
             {/if}
@@ -1017,35 +830,17 @@ $mod eq 'data_surat'}
         <div class="row" style="margin-bottom: 5px">
           <div class="col-lg-6">
             <label style="width: 80px">Kolom </label>: &nbsp;&nbsp;
-            <select
-              name="kat_{$acak}"
-              id="kat_{$acak}"
-              style="width: 30%; height: 32px; padding: 3px"
-            >
+            <select name="kat_{$acak}" id="kat_{$acak}" style="width: 30%; height: 32px; padding: 3px">
               {$data_select|default:''}
             </select>
-            <input
-              type="text"
-              name="key_{$acak}"
-              id="key_{$acak}"
-              style="width: 40%; height: 32px; padding: 5px"
-            />
-            <a
-              href="javascript:void(0)"
-              class="btn-flat btn-default btn-sm"
-              onClick="cariData('{$mod}', '', '{$acak}');"
-            >
+            <input type="text" name="key_{$acak}" id="key_{$acak}" style="width: 40%; height: 32px; padding: 5px"/>
+            <a href="javascript:void(0)" class="btn-flat btn-default btn-sm" onClick="cariData('{$mod}', '', '{$acak}');">
               <i class="fa fa-search"></i>
             </a>
           </div>
           <div class="col-lg-6 text-right">
             {if $button_edit|default:'' eq 'true'} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Edit"
-              class="btn-flat btn-warning btn-sm"
-              onClick="genform('edit', '{$mod}','{$mod}');"
-            >
+            <a href="javascript:void(0)" title="Edit" class="btn-flat btn-warning btn-sm" onClick="genform('edit', '{$mod}','{$mod}');">
               <i class="fa fa-edit"></i> Edit
             </a>
             {/if}
@@ -1114,35 +909,17 @@ $mod eq 'data_surat'}
         <div class="row" style="margin-bottom: 5px">
           <div class="col-lg-6">
             <label style="width: 80px">Kolom </label>: &nbsp;&nbsp;
-            <select
-              name="kat_{$acak}"
-              id="kat_{$acak}"
-              style="width: 30%; height: 32px; padding: 3px"
-            >
+            <select name="kat_{$acak}" id="kat_{$acak}" style="width: 30%; height: 32px; padding: 3px">
               {$data_select|default:''}
             </select>
-            <input
-              type="text"
-              name="key_{$acak}"
-              id="key_{$acak}"
-              style="width: 40%; height: 32px; padding: 5px"
-            />
-            <a
-              href="javascript:void(0)"
-              class="btn-flat btn-default btn-sm"
-              onClick="cariData('{$mod}', '', '{$acak}');"
-            >
+            <input type="text" name="key_{$acak}" id="key_{$acak}" style="width: 40%; height: 32px; padding: 5px"/>
+            <a href="javascript:void(0)" class="btn-flat btn-default btn-sm" onClick="cariData('{$mod}', '', '{$acak}');">
               <i class="fa fa-search"></i>
             </a>
           </div>
           <div class="col-lg-6 text-right">
             {if $button_edit|default:'' eq 'true'} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Edit"
-              class="btn-flat btn-warning btn-sm"
-              onClick="genform('edit', '{$mod}','{$mod}');"
-            >
+            <a href="javascript:void(0)" title="Edit" class="btn-flat btn-warning btn-sm" onClick="genform('edit', '{$mod}','{$mod}');">
               <i class="fa fa-edit"></i> Edit
             </a>
             {/if}
@@ -1155,17 +932,9 @@ $mod eq 'data_surat'}
           </div>
           <div class="col-lg-3" style="margin-left: -65px">
             <div class="input-group input-daterange">
-              <input
-                class="form-control input-sm tanggalnya"
-                id="date_start_{$acak}"
-                type="text"
-              />
+              <input class="form-control input-sm tanggalnya" id="date_start_{$acak}" type="text"/>
               <div class="input-group-addon">-</div>
-              <input
-                class="form-control input-sm tanggalnya"
-                id="date_end_{$acak}"
-                type="text"
-              />
+              <inputclass="form-control input-sm tanggalnya"id="date_end_{$acak}"type="text"/>
             </div>
           </div>
 
@@ -1173,45 +942,25 @@ $mod eq 'data_surat'}
 
           <div class="col-lg-3" style="margin-left: -20px">
             {if !in_array($cl_user_group_id,[2,4,5])}
-            <select
-              name="kelurahan_{$acak}"
-              id="kelurahan_{$acak}"
-              style="width: 100%; height: 30px; padding: 3px"
-            >
+            <select name="kelurahan_{$acak}" id="kelurahan_{$acak}" style="width: 100%; height: 30px; padding: 3px">
               {$kelurahan|default:''}
             </select>
             {/if}
           </div>
           <div class="col-lg-4 text-right" style="margin-left: 80px">
-            <a
-              href="javascript:void(0)"
-              class="btn-flat btn-default btn-sm"
-              onClick="kumpulAction('generate_laporan_persuratan_masuk', '{$acak}');"
-            >
+            <a href="javascript:void(0)" class="btn-flat btn-default btn-sm" onClick="kumpulAction('generate_laporan_persuratan_masuk', '{$acak}');">
               <i class="fa fa-search"></i> Filter
             </a>
             &nbsp;
-            <a
-              href="javascript:void(0)"
-              class="btn-flat btn-info btn-sm"
-              onClick="kumpulAction('reload_laporan_persuratan_masuk', '{$acak}');"
-            >
+            <a href="javascript:void(0)" class="btn-flat btn-info btn-sm" onClick="kumpulAction('reload_laporan_persuratan_masuk', '{$acak}');">
               <i class="fa fa-refresh"></i> Reload
             </a>
             &nbsp;
-            <a
-              href="javascript:void(0)"
-              class="btn-flat btn-success btn-sm"
-              onClick="kumpulAction('export_laporan_persuratan_masuk', '{$acak}');"
-            >
+            <a href="javascript:void(0)" class="btn-flat btn-success btn-sm" onClick="kumpulAction('export_laporan_persuratan_masuk', '{$acak}');">
               <i class="fa fa-print"></i> Cetak PDF
             </a>
             &nbsp;
-            <a
-              href="javascript:void(0)"
-              class="btn-flat btn-success btn-sm"
-              onClick="kumpulAction('export_laporan_persuratan_masuk_excel', '{$acak}');"
-            >
+            <a href="javascript:void(0)" class="btn-flat btn-success btn-sm" onClick="kumpulAction('export_laporan_persuratan_masuk_excel', '{$acak}');">
               <i class="fa fa-print"></i> Cetak Excel
             </a>
           </div>
@@ -1221,57 +970,29 @@ $mod eq 'data_surat'}
         <div class="row" style="margin-bottom: 5px">
           <div class="col-lg-6">
             <label style="width: 80px">Kolom </label>: &nbsp;&nbsp;
-            <select
-              name="kat_{$acak}"
-              id="kat_{$acak}"
-              style="width: 30%; height: 32px; padding: 3px"
-            >
+            <select name="kat_{$acak}" id="kat_{$acak}" style="width: 30%; height: 32px; padding: 3px">
               {$data_select|default:''}
             </select>
-            <input
-              type="text"
-              name="key_{$acak}"
-              id="key_{$acak}"
-              style="width: 40%; height: 32px; padding: 5px"
-            />
-            <a
-              href="javascript:void(0)"
-              class="btn-flat btn-default btn-sm"
-              onClick="cariData('{$mod}', '', '{$acak}');"
-            >
+            <input type="text" name="key_{$acak}" id="key_{$acak}" style="width: 40%; height: 32px; padding: 5px"/>
+            <a href="javascript:void(0)" class="btn-flat btn-default btn-sm" onClick="cariData('{$mod}', '', '{$acak}');">
               <i class="fa fa-search"></i>
             </a>
           </div>
           <div class="col-lg-6 text-right">
           {if $button_edit|default:'' eq 'true'} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Edit"
-              class="btn-flat btn-warning btn-sm"
-              onClick="genform('edit', 'data_esign','data_esign');"
-            >
+            <a href="javascript:void(0)" title="Edit" class="btn-flat btn-warning btn-sm" onClick="genform('edit', 'data_esign','data_esign');">
               <i class="fa fa-edit"></i> Edit
             </a>
             {/if}
           {if $button_edit|default:'' eq 'true' && $mod|default:''}
             &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Edit Preview"
-              class="btn-flat btn-warning btn-sm"
-              onClick="genform('edit_preview', 'data_esign','data_esign');"
-            >
+            <a href="javascript:void(0)" title="Edit Preview" class="btn-flat btn-warning btn-sm" onClick="genform('edit_preview', 'data_esign','data_esign');">
               <i class="fa fa-edit"></i> Edit Preview
             </a>
             {/if}
           {if ($button_edit|default:'' eq 'true' OR
             in_array($auth.cl_user_group_id,[4,5]))} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Daftar E-SIGN"
-              class="btn-flat btn-success btn-sm"
-              onClick="get_data_riwayat_esign();"
-            >
+            <a href="javascript:void(0)" title="Daftar E-SIGN" class="btn-flat btn-success btn-sm" onClick="get_data_riwayat_esign();">
               <i class="fa fa-qrcode"></i> E-SIGN
             </a>
             {/if}
@@ -1282,61 +1003,33 @@ $mod eq 'data_surat'}
     <div class="col-lg-9" style="display: flex;">
       <div style="display: flex;width: 50%;">
         <label style="width: 80px">Kolom</label>: &nbsp;&nbsp;
-        <select
-          name="kat_{$acak}"
-          id="kat_{$acak}"
-          style="width: 30%; height: 32px; padding: 3px"
-        >
+        <select name="kat_{$acak}" id="kat_{$acak}" style="width: 30%; height: 32px; padding: 3px">
           {$data_select|default:''}
         </select>
-        <input
-          type="text"
-          name="key_{$acak}"
-          id="key_{$acak}"
-          style="width: 40%; height: 32px; padding: 5px"
-          onkeypress="return(handleKeyPress(event))"
-        />
+        <input type="text" name="key_{$acak}" id="key_{$acak}" style="width: 40%; height: 32px; padding: 5px" onkeypress="return(handleKeyPress(event))"/>
       </div>
       {if $mod eq 'data_penduduk'} 
           {if !in_array($cl_user_group_id,[2,4,5])}
           <div style="display: flex;width: 50%;">
             <label style="width: 80px">Kelurahan</label>: &nbsp;&nbsp;
-            <select
-              name="kelurahan_{$acak}"
-              id="kelurahan_{$acak}"
-              style="width: 100%; height: 30px; padding: 3px">
+            <select name="kelurahan_{$acak}" id="kelurahan_{$acak}" style="width: 100%; height: 30px; padding: 3px">
               {$kelurahan|default:''}
             </select>
           </div>
         {/if}
       {/if}
-      <a
-        href="javascript:void(0)"
-        id="cari"
-        class="btn-flat btn-default btn-sm"
-        onClick="cariData('{$mod}', '', '{$acak}');"
-      >
+      <a href="javascript:void(0)" id="cari" class="btn-flat btn-default btn-sm" onClick="cariData('{$mod}', '', '{$acak}');">
         <i class="fa fa-search"></i>
       </a>
     </div>
     <div class="col-lg-3" style="text-align: end;">
       {if $button_cetak|default:'' eq 'true'} &nbsp;
-        <a
-          href="javascript:void(0)"
-          title="Cetakx"
-          class="btn-flat btn-warning btn-sm"
-          onClick="kumpulAction('export_laporan_penduduk','{$acak}');"
-        >
+        <a href="javascript:void(0)" title="Cetakx" class="btn-flat btn-warning btn-sm" onClick="kumpulAction('export_laporan_penduduk','{$acak}');">
           <i class="fa fa-print"></i> Cetak
         </a>
       {/if}
       {if $button_import|default:'' eq 'true'} &nbsp;
-        <a
-          href="javascript:void(0)"
-          title="Delete"
-          class="btn-flat btn-info btn-sm"
-          onClick="kumpulAction('import_penduduk');"
-        >
+        <a href="javascript:void(0)" title="Delete" class="btn-flat btn-info btn-sm" onClick="kumpulAction('import_penduduk');">
           <i class="fa fa-remove"></i> Import Excel
         </a>
       {/if}
@@ -1581,10 +1274,7 @@ $mod eq 'data_surat'}
               {if !in_array($cl_user_group_id,[2,4,5]) and !in_array($mod, ['data_kendaraan','data_indikator_skm','form_sub_indikator_rt_rw','data_sub_indikator_rt_rw','data_penilaian_skm', 'surat_himbauan', 'broadcast', 'surat_lain', 'data_surat','rekap_penilaian_kelrtrw','surat_masuk'])}
               
                 <label style="width: 80px">Kelurahan</label>: &nbsp;&nbsp;
-                <select
-                  name="kelurahan_{$acak}"
-                  id="kelurahan_{$acak}"
-                  style="width: 20%; height: 30px; padding: 3px">
+                <select name="kelurahan_{$acak}" id="kelurahan_{$acak}" style="width: 20%; height: 30px; padding: 3px">
                   {$kelurahan|default:''}
                 </select> 
             {/if}
@@ -1595,10 +1285,7 @@ $mod eq 'data_surat'}
             {if $mod eq 'data_penduduk'} 
                 {if !in_array($cl_user_group_id,[2,4,5])}
                 <label style="width: 80px">Kelurahan</label>: &nbsp;&nbsp;
-                <select
-                  name="kelurahan_{$acak}"
-                  id="kelurahan_{$acak}"
-                  style="width: 100%; height: 30px; padding: 3px">
+                <select name="kelurahan_{$acak}" id="kelurahan_{$acak}" style="width: 100%; height: 30px; padding: 3px">
                   {$kelurahan|default:''}
                 </select>
               {/if}
@@ -1614,183 +1301,95 @@ $mod eq 'data_surat'}
           {/if}
           <div class="col-lg-4 text-right">
             {if $button_add|default:'' eq 'true' and !in_array($mod, ['data_penilaian_skm'])}
-            <a
-              href="javascript:void(0)"
-              title="Add"
-              class="btn-flat btn-success btn-sm"
-              onClick="genform('add', '{$mod}','{$mod}');"
-            >
+            <a href="javascript:void(0)" title="Add" class="btn-flat btn-success btn-sm" onClick="genform('add', '{$mod}','{$mod}');">
               <i class="fa fa-plus"></i> Tambah
             </a>
             {/if}
             {if $button_edit|default:'' eq 'true'} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Edit"
-              class="btn-flat btn-warning btn-sm"
-              onClick="genform('edit', '{$mod}','{$mod}');"
-            >
+            <a href="javascript:void(0)" title="Edit" class="btn-flat btn-warning btn-sm" onClick="genform('edit', '{$mod}','{$mod}');">
               <i class="fa fa-edit"></i> Edit
             </a>
             {/if}
             {if $button_edit|default:'' eq 'true' && $mod|default:'' eq 'data_surat'} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Edit Preview"
-              class="btn-flat btn-warning btn-sm"
-              onClick="genform('edit_preview', 'data_surat','data_surat');"
-            >
+            <a href="javascript:void(0)" title="Edit Preview" class="btn-flat btn-warning btn-sm" onClick="genform('edit_preview', 'data_surat','data_surat');">
               <i class="fa fa-edit"></i> Edit Preview
             </a>
             {/if}
             {if ($button_edit|default:'' eq 'true' OR in_array($auth.cl_user_group_id,[4,5])) && $mod|default:'' eq 'data_surat'} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Daftar E-SIGN"
-              class="btn-flat btn-success btn-sm"
-              onClick="get_data_riwayat_esign();"
-            >
+            <a href="javascript:void(0)" title="Daftar E-SIGN" class="btn-flat btn-success btn-sm" onClick="get_data_riwayat_esign();">
               <i class="fa fa-qrcode"></i> E-SIGN
             </a>
             {/if}
             {if $button_delete|default:'' eq 'true'} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Delete"
-              class="btn-flat btn-danger btn-sm"
-              onClick="genform('delete', '{$mod}','{$mod}');"
-            >
+            <a href="javascript:void(0)" title="Delete" class="btn-flat btn-danger btn-sm" onClick="genform('delete', '{$mod}','{$mod}');">
               <i class="fa fa-remove"></i> Hapus
             </a>
             {/if}
             {if $button_cetak|default:'' eq 'true'} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Cetakx"
-              class="btn-flat btn-warning btn-sm"
-              onClick="kumpulAction('export_laporan_penduduk','{$acak}');"
-            >
+            <a href="javascript:void(0)" title="Cetakx" class="btn-flat btn-warning btn-sm" onClick="kumpulAction('export_laporan_penduduk','{$acak}');">
               <i class="fa fa-print"></i> Cetak
             </a>
             {/if}
 
             {if $button_cetak_asing|default:'' eq 'true'} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Cetak"
-              class="btn-flat btn-warning btn-sm"
-              onClick="kumpulAction('export_laporan_penduduk_asing','{$acak}');"
-            >
+            <a href="javascript:void(0)" title="Cetak" class="btn-flat btn-warning btn-sm" onClick="kumpulAction('export_laporan_penduduk_asing','{$acak}');">
               <i class="fa fa-print"></i> Cetak
             </a>
             {/if}
             
             {if $button_cetakktp|default:'' eq 'true'} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Cetak"
-              class="btn-flat btn-warning btn-sm"
-              onClick="kumpulAction('export_laporan_ktp');"
-            >
+            <a href="javascript:void(0)" title="Cetak" class="btn-flat btn-warning btn-sm" onClick="kumpulAction('export_laporan_ktp');">
               <i class="fa fa-print"></i> Cetak
             </a>
             {/if}
             {if $button_cetakimb|default:'' eq 'true'} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Cetak"
-              class="btn-flat btn-warning btn-sm"
-              onClick="kumpulAction('export_laporan_rekap_imb');"
-            >
+            <a href="javascript:void(0)" title="Cetak" class="btn-flat btn-warning btn-sm" onClick="kumpulAction('export_laporan_rekap_imb');">
               <i class="fa fa-print"></i> Cetak
             </a>
             {/if}
             {if $button_cetak_rt_rw|default:'' eq 'true'} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Cetak"
-              class="btn-flat btn-warning btn-sm"
-              onClick="kumpulAction('export_laporan_rt_rw');"
-            >
+            <a href="javascript:void(0)" title="Cetak" class="btn-flat btn-warning btn-sm" onClick="kumpulAction('export_laporan_rt_rw');">
               <i class="fa fa-print"></i> Cetak
             </a>
             {/if}
             {if $button_cetakwamis|default:'' eq 'true'} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Cetak"
-              class="btn-flat btn-warning btn-sm"
-              onClick="kumpulAction('export_laporan_wamis');"
-            >
+            <a href="javascript:void(0)" title="Cetak" class="btn-flat btn-warning btn-sm" onClick="kumpulAction('export_laporan_wamis');">
               <i class="fa fa-print"></i> Cetak
             </a>
             {/if}
             {if $button_cetakumkm|default:'' eq 'true'} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Cetak"
-              class="btn-flat btn-warning btn-sm"
-              onClick="kumpulAction('export_laporan_umkm');"
-            >
+            <a href="javascript:void(0)" title="Cetak" class="btn-flat btn-warning btn-sm" onClick="kumpulAction('export_laporan_umkm');">
               <i class="fa fa-print"></i> Cetak
             </a>
             {/if}
             {if $button_cetakdasawisma|default:'' eq true} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Cetak"
-              class="btn-flat btn-warning btn-sm"
-              onClick="kumpulAction('export_laporan_dasawisma');"
-            >
+            <a href="javascript:void(0)" title="Cetak" class="btn-flat btn-warning btn-sm" onClick="kumpulAction('export_laporan_dasawisma');">
               <i class="fa fa-print"></i> Cetak
             </a>
             {/if}
             {if $button_cetakfaskes|default:'' eq 'true'} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Cetak"
-              class="btn-flat btn-warning btn-sm"
-              onClick="kumpulAction('export_laporan_faskes');"
-            >
+            <a href="javascript:void(0)" title="Cetak" class="btn-flat btn-warning btn-sm" onClick="kumpulAction('export_laporan_faskes');">
               <i class="fa fa-print"></i> Cetak
             </a>
             {/if}
             
             {if $button_cetak_staff|default:'' eq 'true'} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Cetak"
-              class="btn-flat btn-warning btn-sm"
-              onClick="kumpulAction('export_laporan_staff');"
-            >
+            <a href="javascript:void(0)" title="Cetak" class="btn-flat btn-warning btn-sm" onClick="kumpulAction('export_laporan_staff');">
               <i class="fa fa-print"></i> Cetak
             </a>
             {/if}
 
             {if $button_cetak_retribusi|default:'' eq 'true'} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Cetak"
-              class="btn-flat btn-warning btn-sm"
-              onClick="kumpulAction('export_laporan_retribusi');"
-            >
+            <a href="javascript:void(0)" title="Cetak" class="btn-flat btn-warning btn-sm" onClick="kumpulAction('export_laporan_retribusi');">
               <i class="fa fa-print"></i> Cetak
             </a>
             {/if}
             {if $button_cetak_keluarga|default:'' eq 'true'} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Cetakx"
-              class="btn-flat btn-warning btn-sm"
-              onClick="kumpulAction('export_laporan_keluarga','{$acak}');"
-            >
+            <a href="javascript:void(0)" title="Cetakx" class="btn-flat btn-warning btn-sm" onClick="kumpulAction('export_laporan_keluarga','{$acak}');">
               <i class="fa fa-print"></i> Cetak PDF
             </a>
             &nbsp;
-            <a
-              href="javascript:void(0)"
-              class="btn-flat btn-success btn-sm"
-              onClick="kumpulAction('export_laporan_keluarga_excel', '{$acak}');">
+            <a href="javascript:void(0)" class="btn-flat btn-success btn-sm" onClick="kumpulAction('export_laporan_keluarga_excel', '{$acak}');">
               <i class="fa fa-print"></i> Cetak Excel
             </a>
             {/if}
@@ -1815,113 +1414,58 @@ $mod eq 'data_surat'}
             </a>
             {/if}  -->
             {if $button_cetak_kebersihan|default:'' eq 'true'} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Cetak"
-              class="btn-flat btn-warning btn-sm"
-              onClick="kumpulAction('export_laporan_kebersihan');"
-            >
+            <a href="javascript:void(0)" title="Cetak" class="btn-flat btn-warning btn-sm" onClick="kumpulAction('export_laporan_kebersihan');">
               <i class="fa fa-print"></i> Cetak
             </a>
             {/if}
             {if $button_cetak_sekolah|default:'' eq 'true'} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Cetak"
-              class="btn-flat btn-warning btn-sm"
-              onClick="kumpulAction('export_laporan_sekolah');"
-            >
+            <a href="javascript:void(0)" title="Cetak" class="btn-flat btn-warning btn-sm" onClick="kumpulAction('export_laporan_sekolah');">
               <i class="fa fa-print"></i> Cetak
             </a>
             {/if}
             {if $button_cetak_ibadah|default:'' eq 'true'} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Cetak"
-              class="btn-flat btn-warning btn-sm"
-              onClick="kumpulAction('export_laporan_ibadah');"
-            >
+            <a href="javascript:void(0)" title="Cetak" class="btn-flat btn-warning btn-sm" onClick="kumpulAction('export_laporan_ibadah');">
               <i class="fa fa-print"></i> Cetak
             </a>
             {/if}
         {if $button_cetak_pkl|default:'' eq 'true'} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Cetak"
-              class="btn-flat btn-warning btn-sm"
-              onClick="kumpulAction('export_laporan_pkl');"
-            >
+            <a href="javascript:void(0)" title="Cetak" class="btn-flat btn-warning btn-sm" onClick="kumpulAction('export_laporan_pkl');">
               <i class="fa fa-print"></i> Cetak
             </a>
             {/if}
         {if $button_cetak_lorong|default:'' eq 'true'} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Cetak"
-              class="btn-flat btn-warning btn-sm"
-              onClick="kumpulAction('export_laporan_lorong');"
-            >
+            <a href="javascript:void(0)" title="Cetak" class="btn-flat btn-warning btn-sm" onClick="kumpulAction('export_laporan_lorong');">
               <i class="fa fa-print"></i> Cetak
             </a>
             {/if}
         {if $button_cetak_rekap_bulan|default:'' eq 'true'} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Cetak"
-              class="btn-flat btn-warning btn-sm"
-              onClick="kumpulAction('export_laporan_rekap_bulan');"
-            >
+            <a href="javascript:void(0)" title="Cetak" class="btn-flat btn-warning btn-sm" onClick="kumpulAction('export_laporan_rekap_bulan');">
               <i class="fa fa-print"></i> Cetak
             </a>
             {/if}
         {if $button_cetak_ekspedisi|default:'' eq 'true'} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Cetak"
-              class="btn-flat btn-warning btn-sm"
-              onClick="kumpulAction('export_laporan_ekspedisi');"
-            >
+            <a href="javascript:void(0)" title="Cetak" class="btn-flat btn-warning btn-sm" onClick="kumpulAction('export_laporan_ekspedisi');">
               <i class="fa fa-print"></i> Cetak
             </a>
             {/if}
         {if $button_import|default:'' eq 'true'} &nbsp;
-            <a
-              href="javascript:void(0)"
-              title="Delete"
-              class="btn-flat btn-info btn-sm"
-              onClick="kumpulAction('import_penduduk');"
-            >
+            <a href="javascript:void(0)" title="Delete" class="btn-flat btn-info btn-sm" onClick="kumpulAction('import_penduduk');">
               <i class="fa fa-remove"></i> Import Excel
             </a>
             {/if}
         {if $mod|default:'' eq 'data_surat'} &nbsp;
-            <a
-              href="javascript:void(0);"
-              onClick="kumpulAction('cetak_surat');"
-              title="Export Data PDF"
-              class="btn-flat btn-default btn-sm"
-            >
+            <a href="javascript:void(0);" onClick="kumpulAction('cetak_surat');" title="Export Data PDF" class="btn-flat btn-default btn-sm">
               <i class="fa fa-file-pdf-o"></i> Cetak PDF
             </a>
             {/if}
 
         {if $mod|default:'' eq 'surat_himbauan'} &nbsp;
-            <a
-              href="javascript:void(0);"
-              onClick="kumpulAction('cetak_himbauan');"
-              title="Export Data PDF"
-              class="btn-flat btn-default btn-sm"
-            >
+            <a href="javascript:void(0);" onClick="kumpulAction('cetak_himbauan');" title="Export Data PDF" class="btn-flat btn-default btn-sm">
               <i class="fa fa-file-pdf-o"></i> Cetak PDF
             </a>
             {/if}
             {if $mod|default:'' eq 'broadcast'} &nbsp;
-            <a
-              href="javascript:void(0);"
-              onClick="kumpulAction('cetak_broadcast');"
-              title="Export Data PDF"
-              class="btn-flat btn-default btn-sm"
-            >
+            <a href="javascript:void(0);" onClick="kumpulAction('cetak_broadcast');" title="Export Data PDF" class="btn-flat btn-default btn-sm">
               <i class="fa fa-file-pdf-o"></i> Cetak PDF
             </a>
             {/if}
@@ -1952,19 +1496,12 @@ $mod eq 'data_surat'}
         </h4>
         <small class="font-bold"></small>
       </div>
-      <form
-        id="fm-esign"
-        action="{$host}backoffice-cetak/daftar_esign"
-        method="post"
-      >
+      <form id="fm-esign" action="{$host}backoffice-cetak/daftar_esign" method="post">
         <div class="modal-body" style="padding: 20px 29px">
           <div class="row" style="margin: 0px">
             <div class="col-md-7">
               <label>Riwayat:</label>
-              <div
-                id="list-riwayat-esign"
-                style="border: 1px solid #e6e4e4; height: 100%"
-              ></div>
+              <div id="list-riwayat-esign" style="border: 1px solid #e6e4e4; height: 100%"></div>
             </div>
             <div class="col-md-5" id="div-catatan-esign">
               <div class="mb-2">
@@ -1981,63 +1518,22 @@ $mod eq 'data_surat'}
               </div>
               <div class="mb-2">
                 <label>Catatan:</label>
-                <textarea
-                  name="catatan-esign"
-                  id="catatan-esign"
-                  rows="5"
-                  class="form-control"
-                ></textarea>
+                <textarea name="catatan-esign" id="catatan-esign" rows="5" class="form-control"></textarea>
               </div>
               <div id="list-radio-status-esign" class="mb-5">
-                <label for="status_esign_1"
-                  ><input
-                    type="radio"
-                    id="status_esign_1"
-                    name="status_esign"
-                    value="1"
-                  />
-                  Approve</label
-                >
-                <label for="status_esign_2"
-                  ><input
-                    type="radio"
-                    id="status_esign_2"
-                    name="status_esign"
-                    value="2"
-                    style="margin-left: 10px"
-                  />
-                  Submit</label
-                >
-                <label for="status_esign_3"
-                  ><input
-                    type="radio"
-                    id="status_esign_3"
-                    name="status_esign"
-                    value="3"
-                    style="margin-left: 10px"
-                  />
-                  Verified</label
-                >
-                <label for="status_esign_4"
-                  ><input
-                    type="radio"
-                    id="status_esign_4"
-                    name="status_esign"
-                    value="4"
-                    style="margin-left: 10px"
-                  />
-                  Revision</label
-                >
-                <label for="status_esign_5"
-                  ><input
-                    type="radio"
-                    id="status_esign_5"
-                    name="status_esign"
-                    value="5"
-                    style="margin-left: 10px"
-                  />
-                  Reject</label
-                >
+                <label for="status_esign_1"><input type="radio" id="status_esign_1" name="status_esign" value="1"/>
+                  Approve</label>
+                <label for="status_esign_2">
+                  <input type="radio" id="status_esign_2" name="status_esign" value="2" style="margin-left: 10px"/>
+                  Submit</label>
+                <label for="status_esign_3"><input type="radio" id="status_esign_3" name="status_esign" value="3" style="margin-left: 10px"/>
+                  Verified</label>
+                <label for="status_esign_4">
+                  <input type="radio" id="status_esign_4" name="status_esign" value="4" style="margin-left: 10px"/>
+                  Revision</label>
+                <label for="status_esign_5">
+                  <input type="radio" id="status_esign_5" name="status_esign" value="5" style="margin-left: 10px"/>
+                  Reject</label>
               </div>
               <div id="akun-esign" style="display: none">
                 <h6>Akun E-SIGN</h6>
@@ -2045,29 +1541,16 @@ $mod eq 'data_surat'}
                 <label>NIK:</label>
                 <input type="text" id="nik_esign" class="form-control mb-2" />
                 <label>Password:</label>
-                <input
-                  type="password"
-                  id="passphrase_esign"
-                  class="form-control"
-                />
+                <input type="password" id="passphrase_esign" class="form-control"/>
               </div>
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button
-            type="button"
-            style="margin-top: 10px"
-            class="btn btn-default"
-            data-dismiss="modal"
-          >
+          <button type="button" style="margin-top: 10px" class="btn btn-default" data-dismiss="modal">
             Tutup
           </button>
-          <button
-            type="submit"
-            style="margin-top: 10px"
-            class="btn btn-primary btn-simpan-esign"
-          >
+          <button type="submit" style="margin-top: 10px" class="btn btn-primary btn-simpan-esign">
             Simpan
           </button>
         </div>
