@@ -6847,10 +6847,10 @@ class Backendxx extends JINGGA_Controller
 				//$file_name = date('YmdHis');
 
 				// $spdf->SetProtection(array('print'));
-				if ($draft) {
-					$spdf->SetWatermarkText('DRAFT');
-					$spdf->showWatermarkText = true;
-				}
+				// if ($draft) {
+				// 	$spdf->SetWatermarkText('DRAFT');
+				// 	$spdf->showWatermarkText = true;
+				// }
 
 				$spdf->WriteHTML($htmlcontent); // write the HTML into the PDF
 
