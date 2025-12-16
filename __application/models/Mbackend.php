@@ -24,8 +24,6 @@ class Mbackend extends CI_Model
 
 		$where2 = "";
 
-
-
 		$dbdriver = $this->db->dbdriver;
 
 		if ($dbdriver == "postgre") {
@@ -37,18 +35,14 @@ class Mbackend extends CI_Model
 		}
 
 
-
 		if ($this->input->post('key')) {
 
 			$key = $this->input->post('key');
 
 			$kat = $this->input->post('kat');
 
-
-
 			$where .= " AND LOWER(" . $kat . ") like '%" . strtolower(trim($key)) . "%' ";
 		}
-
 
 
 		if ($this->auth["cl_user_group_id"] == '4') {
@@ -2136,108 +2130,70 @@ class Mbackend extends CI_Model
 
 			case "laporan_daftar_agenda":
 
-				$desa_id = $this->input->post('kelurahan_id');
-				$rt = $this->input->post('rt');
-				$rw = $this->input->post('rw');
-				$rt_get = $this->input->get('rt');
-				$rw_get = $this->input->get('rw');
+				$where = " WHERE 1=1 ";
 
-				if ($rt_get) {
-					$where .= "and a.rt like '%" . $rt_get . "%'";
-				}
+				$desa_id     = $this->input->get('kelurahan_id');
+				$tgl_mulai   = $this->input->get('tgl_mulai');
+				$tgl_selesai = $this->input->get('tgl_selesai');
 
-				if ($rw_get) {
-					$where .= "and a.rw like '%" . $rw_get . "%'";
+				if (!empty($tgl_mulai) && !empty($tgl_selesai)) {
+					$tgl_mulai   = date('Y-m-d', strtotime(str_replace('-', '/', $tgl_mulai)));
+					$tgl_selesai = date('Y-m-d', strtotime(str_replace('-', '/', $tgl_selesai)));
+
+					$where .= " AND DATE(a.tgl_kegiatan) BETWEEN '$tgl_mulai' AND '$tgl_selesai' ";
 				}
 
 				if ($desa_id) {
-
-					$where .= "and a.cl_kelurahan_desa_id = '" . $desa_id . "'";
+					$where .= " AND a.cl_kelurahan_desa_id = '$desa_id' ";
 				} else {
-
-					if ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0") {
-						$where .= "and a.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "'";
-					}
-
-
-					if ($this->input->get('kelurahan_id')) {
-						$where .= "and a.cl_kelurahan_desa_id = '" . $this->input->get('kelurahan_id') . "'";
+					if (!empty($this->auth['cl_kelurahan_desa_id'])) {
+						$where .= " AND a.cl_kelurahan_desa_id = '".$this->auth['cl_kelurahan_desa_id']."' ";
 					}
 				}
 
-				if (!empty($params['bulan'])) {
-					$where .= " AND DATE_FORMAT(a.tgl_kegiatan, '%m') = '".$params['bulan']."' ";
-				}
-
-
-				$sql = "SELECT a.*, DATE_FORMAT(a.create_date, '%d-%m-%Y %H:%i') as tanggal_buat
-
-				FROM tbl_data_daftar_agenda a 
-
-				$where
-
-				and a.cl_provinsi_id = '" . $this->auth['cl_provinsi_id'] . "'
-
-				and a.cl_kab_kota_id = '" . $this->auth['cl_kab_kota_id'] . "'
-
-				and a.cl_kecamatan_id = '" . $this->auth['cl_kecamatan_id'] . "'
-
-				ORDER BY a.id DESC";
-
+				$sql = "SELECT a.*, 
+						DATE_FORMAT(a.create_date, '%d-%m-%Y %H:%i') AS tanggal_buat
+						FROM tbl_data_daftar_agenda a
+						$where
+						AND a.cl_provinsi_id = '".$this->auth['cl_provinsi_id']."'
+						AND a.cl_kab_kota_id = '".$this->auth['cl_kab_kota_id']."'
+						AND a.cl_kecamatan_id = '".$this->auth['cl_kecamatan_id']."'
+						ORDER BY a.id DESC";
 				break;
 
 			case "laporan_hasil_agenda":
 
-				$desa_id = $this->input->post('kelurahan_id');
-				$rt = $this->input->post('rt');
-				$rw = $this->input->post('rw');
-				$rt_get = $this->input->get('rt');
-				$rw_get = $this->input->get('rw');
+				$where = " WHERE 1=1 ";
 
-				if ($rt_get) {
-					$where .= "and a.rt like '%" . $rt_get . "%'";
-				}
+				$tgl_mulai   = $this->input->get('tgl_mulai');
+				$tgl_selesai = $this->input->get('tgl_selesai');
+				$desa_id     = $this->input->get('kelurahan_id');
 
-				if ($rw_get) {
-					$where .= "and a.rw like '%" . $rw_get . "%'";
+				if (!empty($tgl_mulai) && !empty($tgl_selesai)) {
+					$tgl_mulai   = date('Y-m-d', strtotime(str_replace('-', '/', $tgl_mulai)));
+					$tgl_selesai = date('Y-m-d', strtotime(str_replace('-', '/', $tgl_selesai)));
+
+					$where .= " AND DATE(a.tgl_hasil_agenda) BETWEEN '$tgl_mulai' AND '$tgl_selesai' ";
 				}
 
 				if ($desa_id) {
-
-					$where .= "and a.cl_kelurahan_desa_id = '" . $desa_id . "'";
-				} else {
-
-					if ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0") {
-						$where .= "and a.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "'";
-					}
-
-
-					if ($this->input->get('kelurahan_id')) {
-						$where .= "and a.cl_kelurahan_desa_id = '" . $this->input->get('kelurahan_id') . "'";
-					}
+					$where .= " AND a.cl_kelurahan_desa_id = '$desa_id' ";
+				} else if (!empty($this->auth['cl_kelurahan_desa_id'])) {
+					$where .= " AND a.cl_kelurahan_desa_id = '".$this->auth['cl_kelurahan_desa_id']."' ";
 				}
 
-				if (!empty($params['bulan'])) {
-					$where .= " AND DATE_FORMAT(a.tgl_kegiatan, '%m') = '".$params['bulan']."' ";
-				}
-
-
-				$sql = "SELECT a.*, DATE_FORMAT(a.create_date, '%d-%m-%Y %H:%i') as tanggal_buat,b.perihal_kegiatan as agenda
-
-				FROM tbl_data_hasil_agenda a 
-
-				LEFT JOIN tbl_data_daftar_agenda b ON b.id=a.perihal_hasil_agenda
-
-				$where
-
-				and a.cl_provinsi_id = '" . $this->auth['cl_provinsi_id'] . "'
-
-				and a.cl_kab_kota_id = '" . $this->auth['cl_kab_kota_id'] . "'
-
-				and a.cl_kecamatan_id = '" . $this->auth['cl_kecamatan_id'] . "'
-
-				ORDER BY a.id DESC";
-
+				$sql = "SELECT 
+							a.*, 
+							DATE_FORMAT(a.create_date, '%d-%m-%Y %H:%i') AS tanggal_buat,
+							b.perihal_kegiatan AS agenda
+						FROM tbl_data_hasil_agenda a
+						LEFT JOIN tbl_data_daftar_agenda b 
+							ON b.id = a.perihal_hasil_agenda
+						$where
+						AND a.cl_provinsi_id = '".$this->auth['cl_provinsi_id']."'
+						AND a.cl_kab_kota_id = '".$this->auth['cl_kab_kota_id']."'
+						AND a.cl_kecamatan_id = '".$this->auth['cl_kecamatan_id']."'
+						ORDER BY a.id DESC";
 				break;
 
 			case "laporan_pkl":
@@ -2806,11 +2762,20 @@ class Mbackend extends CI_Model
 
 			//Daftar Agenda Kegiatan
 			case "daftar_agenda_kegiatan":
+				$where = " WHERE 1=1 ";
 
-				$bulan = $this->input->get_post('bulan');
-				if ($bulan != '') {
-					$where .= " AND DATE_FORMAT(a.tgl_kegiatan, '%m') = '{$bulan}' ";
+				$tgl_mulai   = $this->input->post('tgl_mulai');
+				$tgl_selesai = $this->input->post('tgl_selesai');
+
+				if (!empty($tgl_mulai) && !empty($tgl_selesai)) {
+
+					// ubah format dari dd-mm-yyyy ke yyyy-mm-dd
+					$tgl_mulai   = date('Y-m-d', strtotime(str_replace('-', '/', $tgl_mulai)));
+					$tgl_selesai = date('Y-m-d', strtotime(str_replace('-', '/', $tgl_selesai)));
+
+					$where .= " AND DATE(a.tgl_kegiatan) BETWEEN '$tgl_mulai' AND '$tgl_selesai' ";
 				}
+
 
 				if ($this->auth['cl_user_group_id'] == 3) {
 					$where .= "
@@ -2844,9 +2809,18 @@ class Mbackend extends CI_Model
 			//Laporan Hasil Agenda Kegiatan
 			case "laporan_hasil_kegiatan":
 
-				$bulan = $this->input->get_post('bulan');
-				if ($bulan != '') {
-					$where .= " AND DATE_FORMAT(a.tgl_hasil_agenda, '%m') = '{$bulan}' ";
+				$where = " WHERE 1=1 ";
+
+				$tgl_mulai   = $this->input->post('tgl_mulai');
+				$tgl_selesai = $this->input->post('tgl_selesai');
+
+				if (!empty($tgl_mulai) && !empty($tgl_selesai)) {
+
+					// ubah format dari dd-mm-yyyy ke yyyy-mm-dd
+					$tgl_mulai   = date('Y-m-d', strtotime(str_replace('-', '/', $tgl_mulai)));
+					$tgl_selesai = date('Y-m-d', strtotime(str_replace('-', '/', $tgl_selesai)));
+
+					$where .= " AND DATE(a.tgl_hasil_agenda) BETWEEN '$tgl_mulai' AND '$tgl_selesai' ";
 				}
 
 				if ($this->auth['cl_user_group_id'] == 3) {
@@ -3280,11 +3254,7 @@ class Mbackend extends CI_Model
 				echo $nip;
 
 
-
-
-				$sql = "
-
-					select a.*, b.jenis_surat, c.nama as nama_kelurahan_desa,e.nama as nama_penandatanganan,
+				$sql = "SELECT a.*, b.jenis_surat, c.nama as nama_kelurahan_desa,e.nama as nama_penandatanganan,
 
 						d.nama_lengkap,d.alamat,
 
@@ -16991,6 +16961,29 @@ class Mbackend extends CI_Model
 
 			case "daftar_agenda_kegiatan":
 
+				$file = '';
+				$dir                     = date('Ymd');
+				if (!is_dir('./__data/' . $dir)) {
+					mkdir('./__data/' . $dir, 0755);
+				}
+
+				$config['upload_path']          = './__data/' . $dir;
+				$config['allowed_types']        = 'pdf|jpg|jpeg|png';
+				$config['max_size']             = 2048;
+				$config['encrypt_name']			= true;
+
+
+				$this->load->library('upload', $config);
+				$this->upload->initialize($config);
+
+				if (!$this->upload->do_upload('file')) {
+					$error = array('error' => $this->upload->display_errors());
+				} else {
+					$file = '__data/' . $dir . '/' . $this->upload->data()['file_name'];
+				}
+
+				$data['file'] = $file;
+
 				if (isset($data['tgl_kegiatan'])) {
 					$data['tgl_kegiatan'] = date('Y-m-d', strtotime($data['tgl_kegiatan']));
 				}
@@ -17014,6 +17007,29 @@ class Mbackend extends CI_Model
 
 			case "laporan_hasil_kegiatan":
 
+				$file = '';
+				$dir                     = date('Ymd');
+				if (!is_dir('./__data/' . $dir)) {
+					mkdir('./__data/' . $dir, 0755);
+				}
+
+				$config['upload_path']          = './__data/' . $dir;
+				$config['allowed_types']        = 'pdf|jpg|jpeg|png';
+				$config['max_size']             = 2048;
+				$config['encrypt_name']			= true;
+
+
+				$this->load->library('upload', $config);
+				$this->upload->initialize($config);
+
+				if (!$this->upload->do_upload('file')) {
+					$error = array('error' => $this->upload->display_errors());
+				} else {
+					$file = '__data/' . $dir . '/' . $this->upload->data()['file_name'];
+				}
+
+				$data['file'] = $file;
+
 				if (isset($data['tgl_hasil_agenda'])) {
 					$data['tgl_hasil_agenda'] = date('Y-m-d', strtotime($data['tgl_hasil_agenda']));
 				}
@@ -17029,8 +17045,6 @@ class Mbackend extends CI_Model
 					$data['cl_kecamatan_id'] = $this->auth['cl_kecamatan_id'];
 
 					$data['cl_kelurahan_desa_id'] = $this->auth['cl_kelurahan_desa_id'];
-
-
 				}
 
 				break;

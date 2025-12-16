@@ -5708,14 +5708,21 @@ class Backendxx extends JINGGA_Controller
 
 			case "laporan_daftar_agenda":
 
-				$bulan = $this->input->get('bulan');
-				$nip = $this->input->get('nip');
-				$tgl_kegiatan = $this->input->get('tanggal');
-				$tgl_kegiatan = $tgl_kegiatan
-					? date('Y-m-d', strtotime($tgl_kegiatan))
-					: date("Y-m-d");
+				// === ambil parameter filter ===
+				$tgl_mulai   = $this->input->get('tgl_mulai');
+				$tgl_selesai = $this->input->get('tgl_selesai');
+				$nip         = $this->input->get('nip');
 
-				// Filter setting (pakai array() kalau php tua ingin aman, tapi [] ok untuk >=5.4)
+				// fallback kalau kosong
+				if ($tgl_mulai && $tgl_selesai) {
+					$tgl_mulai   = date('Y-m-d', strtotime(str_replace('-', '/', $tgl_mulai)));
+					$tgl_selesai = date('Y-m-d', strtotime(str_replace('-', '/', $tgl_selesai)));
+				} else {
+					// default hari ini
+					$tgl_mulai = $tgl_selesai = date('Y-m-d');
+				}
+
+				// === setting wilayah & ttd ===
 				$array_setting = array(
 					'a.cl_provinsi_id'  => $this->auth['cl_provinsi_id'],
 					'a.cl_kab_kota_id'  => $this->auth['cl_kab_kota_id'],
@@ -5723,7 +5730,6 @@ class Backendxx extends JINGGA_Controller
 					'b.nip'             => $nip,
 				);
 
-				// Ambil setting + kecamatan + kelurahan
 				$this->setting = $this->db->select('
 						a.*, 
 						b.nip,
@@ -5747,62 +5753,71 @@ class Backendxx extends JINGGA_Controller
 					->get("tbl_setting_apps a")
 					->row_array();
 
-				// Jangan redeclare fungsi jika sudah ada
+				// === helper format tanggal ===
 				if (!function_exists('format_hari')) {
 					function format_hari($tanggal){
 						if (!$tanggal) return '-';
 						$hari  = array('Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu');
 						$bulan = array('Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
-
 						$ts = strtotime($tanggal);
-						if ($ts === false) return '-';
 						return $hari[date('w',$ts)].", ".date('d',$ts)." ".$bulan[date('n',$ts)-1]." ".date('Y',$ts);
 					}
 				}
 
-				// Modifier format jam: 08:00 -> 08.00 - selesai
 				if (!function_exists('format_jam')) {
 					function format_jam($jam){
 						if (!$jam) return "-";
-						// pastikan format HH:MM
-						$jam = substr($jam, 0, 5);
-						return str_replace(":", ".", $jam) . " - selesai";
+						return str_replace(":", ".", substr($jam,0,5)) . " - selesai";
 					}
 				}
 
+				$this->nsmarty->registerPlugin('modifier','hariindo','format_hari');
 				$this->nsmarty->registerPlugin('modifier','jamindo','format_jam');
 
-				// register modifier untuk smarty
-				$this->nsmarty->registerPlugin('modifier','hariindo','format_hari');
-
-				// Assign variable ke template
+				// === assign ke template ===
 				$this->nsmarty->assign("setting", $this->setting);
-				$this->nsmarty->assign("tgl_kegiatan", $tgl_kegiatan);
+				$this->nsmarty->assign("tgl_mulai", $tgl_mulai);
+				$this->nsmarty->assign("tgl_selesai", $tgl_selesai);
 
-				// jangan pakai ??, gunakan isset
-				$this->nsmarty->assign("nama_kecamatan", isset($this->setting['nama_kecamatan']) && $this->setting['nama_kecamatan'] != '' ? $this->setting['nama_kecamatan'] : "-");
-				$this->nsmarty->assign("nama_kelurahan", isset($this->setting['nama_kelurahan']) && $this->setting['nama_kelurahan'] != '' ? $this->setting['nama_kelurahan'] : "-");
+				$this->nsmarty->assign(
+					"nama_kecamatan",
+					!empty($this->setting['nama_kecamatan']) ? $this->setting['nama_kecamatan'] : "-"
+				);
+				$this->nsmarty->assign(
+					"nama_kelurahan",
+					!empty($this->setting['nama_kelurahan']) ? $this->setting['nama_kelurahan'] : "-"
+				);
 
-				// Ambil data tabel agenda
-				$data = $this->mbackend->getdata('laporan_daftar_agenda', 'result_array', $p3);
-				$data = $this->mbackend->getdata('laporan_daftar_agenda', 'result_array', [
-							"bulan" => $bulan
-						]);
+				// === ambil data agenda (FILTER TANGGAL) ===
+				$data = $this->mbackend->getdata(
+					'laporan_daftar_agenda',
+					'result_array',
+					array(
+						'tgl_mulai'   => $tgl_mulai,
+						'tgl_selesai' => $tgl_selesai
+					)
+				);
 
 				$filename = "laporan-daftar-agenda-" . date('YmdHis');
-				$temp = "backend/cetak/laporan_daftar_agenda.html";
+				$temp     = "backend/cetak/laporan_daftar_agenda.html";
 
 				$this->hasil_output('pdf', $mod, $data, $filename, $temp, "LEGAL-L");
 				break;
 
 			case "laporan_hasil_agenda":
 
-				$bulan = $this->input->get('bulan');
 				$nip = $this->input->get('nip');
 				$tgl_hasil_agenda = $this->input->get('tanggal');
 				$tgl_hasil_agenda = $tgl_hasil_agenda
 					? date('Y-m-d', strtotime($tgl_hasil_agenda))
 					: date("Y-m-d");
+				$tgl_mulai   = $this->input->get('tgl_mulai');
+				$tgl_selesai = $this->input->get('tgl_selesai');
+
+				if ($tgl_mulai && $tgl_selesai) {
+					$tgl_mulai   = date('Y-m-d', strtotime(str_replace('-', '/', $tgl_mulai)));
+					$tgl_selesai = date('Y-m-d', strtotime(str_replace('-', '/', $tgl_selesai)));
+				}
 
 				// Filter setting (pakai array() kalau php tua ingin aman, tapi [] ok untuk >=5.4)
 				$array_setting = array(
@@ -5861,10 +5876,14 @@ class Backendxx extends JINGGA_Controller
 				$this->nsmarty->assign("nama_kelurahan", isset($this->setting['nama_kelurahan']) && $this->setting['nama_kelurahan'] != '' ? $this->setting['nama_kelurahan'] : "-");
 
 				// Ambil data tabel agenda
-				$data = $this->mbackend->getdata('laporan_hasil_agenda', 'result_array', $p3);
-				$data = $this->mbackend->getdata('laporan_hasil_agenda', 'result_array', [
-							"bulan" => $bulan
-						]);
+				$data = $this->mbackend->getdata(
+					'laporan_hasil_agenda',
+					'result_array',
+					array(
+						'tgl_mulai'   => $tgl_mulai,
+						'tgl_selesai' => $tgl_selesai
+					)
+				);
 
 				$filename = "laporan-hasil-agenda-" . date('YmdHis');
 				$temp = "backend/cetak/laporan_hasil_agenda.html";

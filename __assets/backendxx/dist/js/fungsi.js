@@ -4388,7 +4388,7 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
           {
               field: "lokasi_kegiatan",
               title: "Lokasi",
-              width: 300,
+              width: 250,
               halign: "center",
               align: "left",
           },
@@ -4416,10 +4416,31 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
           {
               field: "ket_kegiatan",
               title: "Keterangan",
-              width: 250,
+              width: 200,
               halign: "center",
               align: "left",
           },
+
+          {
+          field: "file",
+          title: "Arsip ",
+          width: 100,
+          halign: "center",
+          align: "center",
+
+          formatter: function (value, rowData, rowIndex) {
+            var n = "";
+            if (value != null && value != "") {
+              n +=
+                '<a class="btn btn-sm btn-info" target="_blank" href="' +
+                rowData.file +
+                '"><i class="fa fa-eye"></i> Lihat</a>';
+            } else {
+              n += "-";
+            }
+            return n;
+          },
+        },
       ];
       break;
 
@@ -4433,7 +4454,7 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
           {
               field: "tgl_hasil_agenda",
               title: "Hari/Tanggal",
-              width: 200,
+              width: 150,
               halign: "center",
               align: "center",
               formatter: function(value, row) {
@@ -4446,7 +4467,7 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
           {
               field: "agenda",
               title: "Agenda",
-              width: 450,
+              width: 350,
               halign: "center",
               align: "left",
           },
@@ -4464,6 +4485,26 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
               halign: "center",
               align: "left",
           },
+          {
+          field: "file",
+          title: "Arsip ",
+          width: 150,
+          halign: "center",
+          align: "center",
+
+          formatter: function (value, rowData, rowIndex) {
+            var n = "";
+            if (value != null && value != "") {
+              n +=
+                '<a class="btn btn-sm btn-info" target="_blank" href="' +
+                rowData.file +
+                '"><i class="fa fa-eye"></i> Lihat</a>';
+            } else {
+              n += "-";
+            }
+            return n;
+          },
+        },
       ];
       break;
 
@@ -5216,6 +5257,7 @@ function genform(type, modulnya, submodulnya, stswindow, p1, p2, p3) {
         );
       }
       break;
+
     case "delete":
       var row = $("#grid_" + submodulnya).datagrid("getSelected");
 
@@ -5654,9 +5696,9 @@ async function kumpulAction(type, p1, p2, p3, p4, p5) {
       break;
 
     case "export_laporan_daftar_agenda":
-      param["rt"] = $("#rt_" + p1).val();
+      param["tgl_mulai"] = $("#date_start_" + p1).val();
 
-      param["rw"] = $("#rw_" + p1).val();
+      param["tgl_selesai"] = $("#date_end_" + p1).val();
 
       param["kelurahan_id"] = $("#kelurahan_" + p1).val();
 
@@ -5673,22 +5715,19 @@ async function kumpulAction(type, p1, p2, p3, p4, p5) {
       break;
 
     case "export_laporan_hasil_agenda":
-      param["rt"] = $("#rt_" + p1).val();
 
-      param["rw"] = $("#rw_" + p1).val();
-
+      param["tgl_mulai"]   = $("#date_start_" + p1).val();
+      param["tgl_selesai"] = $("#date_end_" + p1).val();
       param["kelurahan_id"] = $("#kelurahan_" + p1).val();
-
       param["nip"] = $("#nip").val();
 
-      if ($("#nip").val() == "" || $("#nip").val() == null) {
-        $.messager.alert("SIMLURAH", "Please Select TTD First!", "error");
-      } else {
-        var url = host + "backoffice-cetak/laporan_hasil_agenda?" + $.param(param);
-
-        window.open(url, "_blank");
+      if (!param["nip"]) {
+          $.messager.alert("SIMLURAH", "Please Select TTD First!", "error");
+          return;
       }
-      
+
+      var url = host + "backoffice-cetak/laporan_hasil_agenda?" + $.param(param);
+      window.open(url, "_blank");
       break;
 
     case "export_laporan_kendaraan":
@@ -6406,6 +6445,32 @@ async function kumpulAction(type, p1, p2, p3, p4, p5) {
       param["nip"] = $("#nip").val();
 
       $("#grid_laporan_persuratan").datagrid("reload", param);
+
+      break;
+
+    case "generate_daftar_agenda_kegiatan":
+      param["tgl_mulai"] = $("#date_start_" + p1).val();
+
+      param["tgl_selesai"] = $("#date_end_" + p1).val();
+
+      param["kelurahan_id"] = $("#kelurahan_" + p1).val();
+
+      param["nip"] = $("#nip").val();
+
+      $("#grid_daftar_agenda_kegiatan").datagrid("reload", param);
+
+      break;
+
+    case "generate_laporan_hasil_kegiatan":
+      param["tgl_mulai"] = $("#date_start_" + p1).val();
+
+      param["tgl_selesai"] = $("#date_end_" + p1).val();
+
+      param["kelurahan_id"] = $("#kelurahan_" + p1).val();
+
+      param["nip"] = $("#nip").val();
+
+      $("#grid_laporan_hasil_agenda").datagrid("reload", param);
 
       break;
 

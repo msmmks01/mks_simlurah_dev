@@ -197,8 +197,7 @@ $mod eq 'data_surat'}
                 <a
                   href="javascript:void(0)"
                   class="btn-flat btn-default btn-sm"
-                  onClick="kumpulAction('generate_laporan_persuratan', '{$acak}');"
-                >
+                  onClick="kumpulAction('generate_laporan_persuratan', '{$acak}');">
                   <i class="fa fa-search"></i> Filter
                 </a>
                 &nbsp;
@@ -974,7 +973,7 @@ $mod eq 'data_surat'}
             </a>
             {/if}
             {if $button_cetak_daftar_agenda|default:'' eq 'true'} &nbsp;
-            <a href="javascript:void(0)" title="Cetak" class="btn-flat btn-warning btn-sm" onClick="kumpulAction('export_laporan_daftar_agenda');">
+            <a href="javascript:void(0)" title="Cetak" class="btn-flat btn-warning btn-sm" onClick="kumpulAction('export_laporan_daftar_agenda', '{$acak}');">
               <i class="fa fa-print"></i> Cetak
             </a>
             {/if} 
@@ -996,23 +995,22 @@ $mod eq 'data_surat'}
               {$nip_id|default:''}
             </select>
           </div>
-          <div class="col-lg-3">
-            <label style="width: 100px">Bulan</label>:<br>
-            <select id="filter_bulan" class="form-control" style="width:150px; display:inline-block;">
-                <option value="">-- Semua --</option>
-                <option value="01">Januari</option>
-                <option value="02">Februari</option>
-                <option value="03">Maret</option>
-                <option value="04">April</option>
-                <option value="05">Mei</option>
-                <option value="06">Juni</option>
-                <option value="07">Juli</option>
-                <option value="08">Agustus</option>
-                <option value="09">September</option>
-                <option value="10">Oktober</option>
-                <option value="11">November</option>
-                <option value="12">Desember</option>
-            </select>
+          <div class="col-lg-3" style="margin-top:3px;">
+            <!-- Label di atas -->
+            <label style="margin-bottom:4px;">Filter Tanggal</label>
+
+            <!-- Input & tombol di bawah -->
+            <div class="form-inline">
+              <div class="input-group input-daterange" style="margin-right:5px;">
+                <input class="form-control input-sm tanggalnya" id="date_start_{$acak}" type="text" placeholder="dd-mm-yyyy" style="width:120px;"/>
+                <div class="input-group-addon">-</div>
+                <input class="form-control input-sm tanggalnya" id="date_end_{$acak}" type="text" placeholder="dd-mm-yyyy" style="width:120px;"/>
+              </div>
+
+              <a href="javascript:void(0)" class="btn-flat btn-default btn-sm" onClick="kumpulAction('generate_daftar_agenda_kegiatan', '{$acak}');">
+                <i class="fa fa-search"></i> Filter
+              </a>
+            </div>
           </div>
         </div>
         {elseif $mod eq 'data_jenis_persuratan'}
@@ -1072,7 +1070,7 @@ $mod eq 'data_surat'}
             </a>
             {/if}
             {if $button_cetak_hasil_agenda|default:'' eq 'true'} &nbsp;
-            <a href="javascript:void(0)" title="Cetak" class="btn-flat btn-warning btn-sm" onClick="kumpulAction('export_laporan_hasil_agenda');">
+            <a href="javascript:void(0)" title="Cetak" class="btn-flat btn-warning btn-sm" onClick="kumpulAction('export_laporan_hasil_agenda', '{$acak}');">
               <i class="fa fa-print"></i> Cetak
             </a>
             {/if} 
@@ -1094,23 +1092,22 @@ $mod eq 'data_surat'}
               {$nip_id|default:''}
             </select>
           </div>
-          <div class="col-lg-3">
-            <label style="width: 100px">Bulan</label>:<br>
-            <select id="filter_bulan_hasil" class="form-control" style="width:150px; display:inline-block;">
-                <option value="">-- Semua --</option>
-                <option value="01">Januari</option>
-                <option value="02">Februari</option>
-                <option value="03">Maret</option>
-                <option value="04">April</option>
-                <option value="05">Mei</option>
-                <option value="06">Juni</option>
-                <option value="07">Juli</option>
-                <option value="08">Agustus</option>
-                <option value="09">September</option>
-                <option value="10">Oktober</option>
-                <option value="11">November</option>
-                <option value="12">Desember</option>
-            </select>
+          <div class="col-lg-3" style="margin-top:3px;">
+            <!-- Label di atas -->
+            <label style="margin-bottom:4px;">Filter Tanggal</label>
+
+            <!-- Input & tombol di bawah -->
+            <div class="form-inline">
+              <div class="input-group input-daterange" style="margin-right:5px;">
+                <input class="form-control input-sm tanggalnya" id="date_start_{$acak}" type="text" placeholder="dd-mm-yyyy" style="width:120px;"/>
+                <div class="input-group-addon">-</div>
+                <input class="form-control input-sm tanggalnya" id="date_end_{$acak}" type="text" placeholder="dd-mm-yyyy" style="width:120px;"/>
+              </div>
+
+              <a href="javascript:void(0)" class="btn-flat btn-default btn-sm" onClick="kumpulAction('generate_laporan_hasil_kegiatan', '{$acak}');">
+                <i class="fa fa-search"></i> Filter
+              </a>
+            </div>
           </div>
         </div>
         {elseif $mod eq 'data_jenis_persuratan'}
