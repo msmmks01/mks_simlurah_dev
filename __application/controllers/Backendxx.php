@@ -6445,9 +6445,9 @@ class Backendxx extends JINGGA_Controller
 
 					// struktur folder tujuan
 					$target_dir = $base_mobile . '/'
-						. $this->auth['cl_kecamatan_id'] . '/'
-						. $this->auth['cl_kelurahan_desa_id'] . '/'
-						. date('Y-m-d');
+					. $this->auth['cl_kecamatan_id'] . '/'
+					. $this->auth['cl_kelurahan_desa_id'] . '/'
+					. '_' . date('Ymd');
 
 					// buat folder jika belum ada
 					if (!is_dir($target_dir)) {
