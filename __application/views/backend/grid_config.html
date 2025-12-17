@@ -1486,6 +1486,7 @@ $mod eq 'data_surat'}
   </div>
 </section>
 
+<!-- MODAL E-SIGN UTAMA -->
 <div class="modal fade" id="modal-esign" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -1558,6 +1559,23 @@ $mod eq 'data_surat'}
     </div>
   </div>
 </div>
+<!-- MODAL E-SIGN INVALID -->
+<div class="modal fade" id="modal-esign-invalid" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title fw-bold text-uppercase">E-SIGN</h4>
+      </div>
+      <div class="modal-body text-center">
+        <p class="text-danger fw-bold">Surat ini tidak memenuhi syarat untuk penandatanganan elektronik</p>
+      </div>
+      <div class="modal-footer text-center">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="modal" id="modal_{$mod}{$acak}">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -1913,4 +1931,24 @@ $mod eq 'data_surat'}
       });
   });
 
+//========================================================
+$(document).on('click', '.btn-esign', function () {
+  const surat_id = $(this).data('id'); // ambil ID surat dari tombol
+  
+  $.ajax({
+    url: 'backoffice-cetak/get_identitas_surat',
+    type: 'POST',
+    data: { id: surat_id },
+    dataType: 'json',
+    success: function (res) {
+      if (res.identitas_surat == 1) {
+        // surat valid untuk e-sign
+        $('#modal-esign').modal('show');
+      } else {
+        // tampilkan modal penolakan
+        $('#modal-esign-invalid').modal('show');
+      }
+    }
+  });
+});
 </script>
