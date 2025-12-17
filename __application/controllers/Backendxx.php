@@ -6332,20 +6332,33 @@ class Backendxx extends JINGGA_Controller
 					->get_where('cl_jenis_surat', ['id' => $p1])
 					->row_array();
 
+				/* ================== BLOKIR SURAT NON E-SIGN ================== */
+				if ((int)$jenis_surat['identitas_surat'] !== 1) {
+					echo json_encode([
+						'stat' => false,
+						'msg'  => 'Surat ini tidak memenuhi syarat untuk penandatanganan elektronik'
+					]);
+					return; // ⛔ STOP TOTAL
+				}
+
+
 				/* ================== FILE PDF ================== */
 				$dir = date('Ymd');
 				if (!is_dir('./__data/' . $dir)) {
 					mkdir('./__data/' . $dir, 0755, true);
 				}
 
+				$nama_surat_safe = preg_replace('/[^A-Za-z0-9_\-]/', '_', $jenis_surat['jenis_surat']);
+
 				$filename = "__data/$dir/" .
-					str_replace(" ", "_", $jenis_surat['jenis_surat']) . "_" .
+					$nama_surat_safe . "_" .
 					$p2 . "_" . date('YmdHis') . ".pdf";
+
 
 				$temp = "backend/cetak/surat_" . $p1 . ".html";
 				$status_esign = $this->input->post('status_esign');
 
-				if ($status_esign != 2) {
+				if ($status_esign != 2 && !empty($data['surat']['file_src_esign'])) {
 					$filename = $data['surat']['file_src_esign'];
 				} else {
 					$this->hasil_output('pdf', $mod, $data, $filename, $temp, [215, 330], 'F', true, '');
@@ -6374,8 +6387,9 @@ class Backendxx extends JINGGA_Controller
 					$nomor_register = date('Ym') . sprintf("%03d", $subregister);
 					$stamp_esign = $this->generate_esign($nomor_register, $this->auth['cl_kelurahan_desa_id']);
 
+					$nama_surat_safe = preg_replace('/[^A-Za-z0-9_\-]/', '_', $jenis_surat['jenis_surat']);
 					$filename_temp = "__data/$dir/" .
-						str_replace(" ", "_", $jenis_surat['jenis_surat']) . "_" .
+						$nama_surat_safe . "_" .
 						$p2 . "_" . date('YmdHis') . ".pdf";
 
 					$this->hasil_output('pdf', $mod, $data, $filename_temp, $temp, [215, 330], 'F', false, 'ESIGN');
