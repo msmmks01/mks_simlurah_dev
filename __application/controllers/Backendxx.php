@@ -6432,32 +6432,23 @@ class Backendxx extends JINGGA_Controller
 					->update('tbl_data_surat', $data_surat);
 
 				/* ================== COPY KE MOBILE ================== */
-				if ($sql) {
+				if ($sql && isset($jenis_surat['identitas_surat']) && $jenis_surat['identitas_surat'] == '1') {
 
-					// file asal (hasil esign / cetak)
 					$file_asal = FCPATH . $file_final;
-
-					// root public_html
 					$public_html = dirname(FCPATH);
-
-					// folder mobile/uploads
 					$base_mobile = $public_html . '/mobile/uploads';
 
-					// struktur folder tujuan
 					$target_dir = $base_mobile . '/ttd'
 						. '/_' . $this->auth['cl_kecamatan_id']
 						. '/_' . $this->auth['cl_kelurahan_desa_id']
 						. '/_' . date('Ymd');
 
-					// buat folder jika belum ada
 					if (!is_dir($target_dir)) {
 						mkdir($target_dir, 0755, true);
 					}
 
-					// file tujuan
 					$target_file = $target_dir . '/' . basename($file_asal);
 
-					// copy file
 					if (file_exists($file_asal)) {
 						copy($file_asal, $target_file);
 					}
@@ -6469,8 +6460,8 @@ class Backendxx extends JINGGA_Controller
 
 				} else {
 					echo json_encode([
-						'stat' => false,
-						'msg'  => $this->db->error()
+						'stat' => true,
+						'msg'  => 'Data tersimpan (tidak dikirim ke mobile)'
 					]);
 				}
 
