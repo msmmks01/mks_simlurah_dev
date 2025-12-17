@@ -6444,10 +6444,10 @@ class Backendxx extends JINGGA_Controller
 					$base_mobile = $public_html . '/mobile/uploads';
 
 					// struktur folder tujuan
-					$target_dir = $base_mobile . '/'
-					. $this->auth['cl_kecamatan_id'] . '/'
-					. $this->auth['cl_kelurahan_desa_id'] . '/'
-					. '_' . date('Ymd');
+					$target_dir = $base_mobile . '/ttd'
+						. '/_' . $this->auth['cl_kecamatan_id']
+						. '/_' . $this->auth['cl_kelurahan_desa_id']
+						. '/_' . date('Ymd');
 
 					// buat folder jika belum ada
 					if (!is_dir($target_dir)) {

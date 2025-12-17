@@ -10839,3 +10839,8 @@ function formatTanggalIndonesia(raw) {
     var dayIndex = dateObj.getDay();
     return namaHariIndonesia(dayIndex) + ', ' + String(d).padStart(2,'0') + ' ' + namaBulanIndonesia(m) + ' ' + y;
 }
+
+
+
+
+
