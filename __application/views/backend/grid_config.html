@@ -1512,14 +1512,14 @@ $mod eq 'data_surat'}
               <div class="mb-2">
                 <label for="">Paraf :</label>
                 <p>
-                  <select id="pemeriksa_id" width="100%">
+                  <select id="pemeriksa_id" name="nip_pemeriksa_esign" width="100%">
                     {$data_user_pemeriksa_esign}
                   </select>
                 </p>
               </div>
               <div class="mb-2">
                 <label>Catatan:</label>
-                <textarea name="catatan-esign" id="catatan-esign" rows="5" class="form-control"></textarea>
+                <textarea name="catatan_esign" id="catatan-esign" rows="5" class="form-control"></textarea>
               </div>
               <div id="list-radio-status-esign" class="mb-5">
                 <label for="status_esign_1"><input type="radio" id="status_esign_1" name="status_esign" value="1"/>
@@ -1540,9 +1540,9 @@ $mod eq 'data_surat'}
                 <h6>Akun E-SIGN</h6>
                 <hr class="my-0" />
                 <label>NIK:</label>
-                <input type="text" id="nik_esign" class="form-control mb-2" />
+                <input type="text" id="nik_esign" name="nik_esign" class="form-control mb-2" />
                 <label>Password:</label>
-                <input type="password" id="passphrase_esign" class="form-control"/>
+                <input type="password" id="passphrase_esign" name="passphrase_esign" class="form-control" />
               </div>
             </div>
           </div>
@@ -1932,8 +1932,11 @@ $mod eq 'data_surat'}
   });
 
 //========================================================
-$(document).on('click', '.btn-esign', function () {
-  const surat_id = $(this).data('id'); // ambil ID surat dari tombol
+$(document).on('click', '.btn-esign', function (e) {
+  e.preventDefault();
+  e.stopPropagation();
+
+  const surat_id = $(this).data('id');
 
   $.ajax({
     url: '{$host}backoffice-cetak/get_identitas_surat',
@@ -1941,15 +1944,23 @@ $(document).on('click', '.btn-esign', function () {
     data: { id: surat_id },
     dataType: 'json',
     success: function (res) {
-      if (res.identitas_surat == 1) {
-        // surat valid untuk e-sign
+
+      const identitas = parseInt(res.identitas_surat, 10);
+
+      // tutup semua modal dulu (aman)
+      $('.modal').modal('hide');
+
+      if (identitas === 1) {
         $('#modal-esign').modal('show');
       } else {
-        // surat tidak memenuhi syarat
         $('#modal-esign-invalid').modal('show');
       }
+    },
+    error: function () {
+      alert('Gagal cek identitas surat');
     }
   });
 });
+
 
 </script>

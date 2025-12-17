@@ -8221,16 +8221,18 @@ class Backendxx extends JINGGA_Controller
 
 	public function get_identitas_surat() {
 		$id = $this->input->post('id');
-		$jenis = $this->db->select('cl_jenis_surat.identitas_surat')
-			->join('tbl_data_surat', 'tbl_data_surat.jenis_surat_id = cl_jenis_surat.id')
+
+		$jenis = $this->db
+			->select('cl_jenis_surat.identitas_surat')
+			->from('tbl_data_surat')
+			->join('cl_jenis_surat', 'tbl_data_surat.jenis_surat_id = cl_jenis_surat.id', 'inner')
 			->where('tbl_data_surat.id', $id)
-			->get('cl_jenis_surat')
+			->get()
 			->row_array();
 
-		echo json_encode(['identitas_surat' => $jenis['identitas_surat']]);
+		echo json_encode([
+			'identitas_surat' => isset($jenis['identitas_surat']) ? (int)$jenis['identitas_surat'] : 0
+		]);
 	}
-
-
-
 
 }
