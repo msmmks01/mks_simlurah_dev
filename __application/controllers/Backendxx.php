@@ -6332,14 +6332,6 @@ class Backendxx extends JINGGA_Controller
 					->get_where('cl_jenis_surat', ['id' => $p1])
 					->row_array();
 
-				if ($jenis_surat['identitas_surat'] != '1') {
-					echo json_encode([
-						'stat' => false,
-						'msg'  => 'Surat Pernyataan tidak bisa ditandatangani secara Elektronik'
-					]);
-					return;
-				}
-
 				/* ================== FILE PDF ================== */
 				$dir = date('Ymd');
 				if (!is_dir('./__data/' . $dir)) {
@@ -6448,37 +6440,45 @@ class Backendxx extends JINGGA_Controller
 					->update('tbl_data_surat', $data_surat);
 
 				/* ================== COPY KE MOBILE ================== */
-				if ($sql && $jenis_surat['identitas_surat'] == '1') {
+				if ($sql) {
 
-					$file_asal = FCPATH . $file_final;
-					$public_html = dirname(FCPATH);
-					$base_mobile = $public_html . '/mobile/uploads';
+					// ambil ulang identitas_surat dari DB (FINAL & AMAN)
+					$identitas_surat = (int) $jenis_surat['identitas_surat'];
 
-					$target_dir = $base_mobile . '/ttd'
-						. '/_' . $this->auth['cl_kecamatan_id']
-						. '/_' . $this->auth['cl_kelurahan_desa_id']
-						. '/_' . date('Ymd');
+					if ($identitas_surat === 1) {
 
-					if (!is_dir($target_dir)) {
-						mkdir($target_dir, 0755, true);
+						$file_asal = FCPATH . $file_final;
+						$public_html = dirname(FCPATH);
+						$base_mobile = $public_html . '/mobile/uploads';
+
+						$target_dir = $base_mobile . '/ttd'
+							. '/_' . $this->auth['cl_kecamatan_id']
+							. '/_' . $this->auth['cl_kelurahan_desa_id']
+							. '/_' . date('Ymd');
+
+						if (!is_dir($target_dir)) {
+							mkdir($target_dir, 0755, true);
+						}
+
+						$target_file = $target_dir . '/' . basename($file_asal);
+
+						if (file_exists($file_asal)) {
+							copy($file_asal, $target_file);
+						}
+
+						echo json_encode([
+							'stat' => true,
+							'msg'  => 'Data tersimpan & file masuk mobile'
+						]);
+
+					} else {
+
+						// 🔒 surat pernyataan / non identitas
+						echo json_encode([
+							'stat' => true,
+							'msg'  => 'Data tersimpan (tidak dikirim ke mobile)'
+						]);
 					}
-
-					$target_file = $target_dir . '/' . basename($file_asal);
-
-					if (file_exists($file_asal)) {
-						copy($file_asal, $target_file);
-					}
-
-					echo json_encode([
-						'stat' => true,
-						'msg'  => 'Data tersimpan & file masuk mobile'
-					]);
-
-				} else {
-					echo json_encode([
-						'stat' => true,
-						'msg'  => 'Data tersimpan (tidak dikirim ke mobile)'
-					]);
 				}
 
 				break;
