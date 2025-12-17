@@ -990,9 +990,8 @@ $mod eq 'data_surat'}
               <i class="fa fa-edit"></i> Edit Preview
             </a>
             {/if}
-          {if ($button_edit|default:'' eq 'true' OR
-            in_array($auth.cl_user_group_id,[4,5]))} &nbsp;
-            <a href="javascript:void(0)" title="Daftar E-SIGN" class="btn-flat btn-success btn-sm" onClick="get_data_riwayat_esign();">
+          {if ($button_edit|default:'' eq 'true' OR in_array($auth.cl_user_group_id,[4,5]))} &nbsp;
+            <a href="javascript:void(0)" title="Daftar E-SIGN" class="btn-flat btn-success btn-sm btn-esign" onClick="get_data_riwayat_esign();">
               <i class="fa fa-qrcode"></i> E-SIGN
             </a>
             {/if}
@@ -1316,7 +1315,7 @@ $mod eq 'data_surat'}
             </a>
             {/if}
             {if ($button_edit|default:'' eq 'true' OR in_array($auth.cl_user_group_id,[4,5])) && $mod|default:'' eq 'data_surat'} &nbsp;
-            <a href="javascript:void(0)" title="Daftar E-SIGN" class="btn-flat btn-success btn-sm" onClick="get_data_riwayat_esign();">
+            <a href="javascript:void(0)" title="Daftar E-SIGN" class="btn-flat btn-success btn-sm btn-esign" onClick="get_data_riwayat_esign();">
               <i class="fa fa-qrcode"></i> E-SIGN
             </a>
             {/if}
@@ -1913,6 +1912,20 @@ $mod eq 'data_surat'}
       $('#grid_laporan_hasil_kegiatan').datagrid('load', {
           bulan: bulan
       });
+  });
+
+  $(document).on('click', '.btn-esign', function () {
+
+    // reset catatan
+    $('#catatan-esign').val('');
+
+    // reset radio status
+    $('input[name="status_esign"]').prop('checked', false);
+
+    // reset akun esign
+    $('#nik_esign').val('');
+    $('#passphrase_esign').val('');
+
   });
 
 
