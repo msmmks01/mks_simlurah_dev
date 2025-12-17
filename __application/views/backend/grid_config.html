@@ -1945,14 +1945,22 @@ $(document).on('click', '.btn-esign', function (e) {
     dataType: 'json',
     success: function (res) {
 
-      const identitas = parseInt(res.identitas_surat, 10);
-
-      // tutup semua modal dulu (aman)
+      // tutup semua modal dulu
       $('.modal').modal('hide');
 
+      // safety check
+      if (!res || typeof res.identitas_surat === 'undefined') {
+        alert('Data identitas surat tidak valid');
+        return;
+      }
+
+      const identitas = parseInt(res.identitas_surat, 10);
+
       if (identitas === 1) {
+        // ✅ hanya surat keterangan
         $('#modal-esign').modal('show');
       } else {
+        // ❌ selain itu
         $('#modal-esign-invalid').modal('show');
       }
     },
