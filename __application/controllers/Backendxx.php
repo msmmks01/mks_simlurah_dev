@@ -6327,7 +6327,18 @@ class Backendxx extends JINGGA_Controller
 				$this->nsmarty->assign("setting", $this->setting);
 
 				$data = $this->mbackend->getdata('cetak_surat', 'variable', $p1, $p2, $p3);
-				$jenis_surat = $this->db->get_where('cl_jenis_surat', ['id' => $p1])->row_array();
+
+				$jenis_surat = $this->db
+					->get_where('cl_jenis_surat', ['id' => $p1])
+					->row_array();
+
+				if ($jenis_surat['identitas_surat'] != '1') {
+					echo json_encode([
+						'stat' => false,
+						'msg'  => 'Surat Pernyataan tidak bisa ditandatangani secara Elektronik'
+					]);
+					return;
+				}
 
 				/* ================== FILE PDF ================== */
 				$dir = date('Ymd');
@@ -6405,6 +6416,11 @@ class Backendxx extends JINGGA_Controller
 					$this->db->insert('tbl_register_esign', $data_register);
 				}
 
+				// hapus riwayat esign sebelumnya untuk surat ini
+				$this->db->where('tbl_data_surat_id', $data['surat']['id'])
+						->delete('tbl_riwayat_esign');
+
+
 				/* ================== RIWAYAT ================== */
 				$this->db->insert('tbl_riwayat_esign', [
 					'tbl_data_surat_id' => $data['surat']['id'],
@@ -6432,7 +6448,7 @@ class Backendxx extends JINGGA_Controller
 					->update('tbl_data_surat', $data_surat);
 
 				/* ================== COPY KE MOBILE ================== */
-				if ($sql && isset($jenis_surat['identitas_surat']) && $jenis_surat['identitas_surat'] == '1') {
+				if ($sql && $jenis_surat['identitas_surat'] == '1') {
 
 					$file_asal = FCPATH . $file_final;
 					$public_html = dirname(FCPATH);
