@@ -1934,9 +1934,9 @@ $mod eq 'data_surat'}
 //========================================================
 $(document).on('click', '.btn-esign', function () {
   const surat_id = $(this).data('id'); // ambil ID surat dari tombol
-  
+
   $.ajax({
-    url: 'backoffice-cetak/get_identitas_surat',
+    url: '{$host}backoffice-cetak/get_identitas_surat',
     type: 'POST',
     data: { id: surat_id },
     dataType: 'json',
@@ -1945,10 +1945,11 @@ $(document).on('click', '.btn-esign', function () {
         // surat valid untuk e-sign
         $('#modal-esign').modal('show');
       } else {
-        // tampilkan modal penolakan
+        // surat tidak memenuhi syarat
         $('#modal-esign-invalid').modal('show');
       }
     }
   });
 });
+
 </script>
