@@ -1315,13 +1315,8 @@ $mod eq 'data_surat'}
               <i class="fa fa-edit"></i> Edit Preview
             </a>
             {/if}
-            <!-- {if ($button_edit|default:'' eq 'true' OR in_array($auth.cl_user_group_id,[4,5])) && $mod|default:'' eq 'data_surat'} &nbsp;
-            <a href="javascript:void(0)" title="Daftar E-SIGN" class="btn-flat btn-success btn-sm" onClick="get_data_riwayat_esign();">
-              <i class="fa fa-qrcode"></i> E-SIGN
-            </a>
-            {/if} -->
             {if ($button_edit|default:'' eq 'true' OR in_array($auth.cl_user_group_id,[4,5])) && $mod|default:'' eq 'data_surat'} &nbsp;
-            <a href="javascript:void(0)" title="Daftar E-SIGN" class="btn-flat btn-success btn-sm btn-esign" data-id="{$row.id}">
+            <a href="javascript:void(0)" title="Daftar E-SIGN" class="btn-flat btn-success btn-sm" onClick="get_data_riwayat_esign();">
               <i class="fa fa-qrcode"></i> E-SIGN
             </a>
             {/if}
@@ -1561,22 +1556,6 @@ $mod eq 'data_surat'}
           </button>
         </div>
       </form>
-    </div>
-  </div>
-</div>
-<!-- MODAL E-SIGN INVALID -->
-<div class="modal fade" id="modal-esign-invalid" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title fw-bold text-uppercase">E-SIGN</h4>
-      </div>
-      <div class="modal-body text-center">
-        <p class="text-danger fw-bold">Surat ini tidak memenuhi syarat untuk penandatanganan elektronik</p>
-      </div>
-      <div class="modal-footer text-center">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-      </div>
     </div>
   </div>
 </div>
@@ -1935,43 +1914,6 @@ $mod eq 'data_surat'}
           bulan: bulan
       });
   });
-
-//========================================================
-$(document).on('click', '.btn-esign', function (e) {
-  e.preventDefault();
-  e.stopImmediatePropagation(); // 🔥 kunci utama
-
-  const surat_id = $(this).data('id');
-
-  // tutup semua modal dulu
-  $('.modal').modal('hide');
-
-  $.ajax({
-    url: '{$host}backoffice-cetak/get_identitas_surat',
-    type: 'POST',
-    dataType: 'json',
-    data: { id: surat_id },
-    success: function (res) {
-
-      const identitas = parseInt(res.identitas_surat, 10);
-
-      if (identitas === 1) {
-        $('#modal-esign').modal({
-          backdrop: 'static',
-          keyboard: false
-        });
-      } else {
-        $('#modal-esign-invalid').modal({
-          backdrop: 'static',
-          keyboard: false
-        });
-      }
-    },
-    error: function () {
-      alert('Gagal cek identitas surat');
-    }
-  });
-});
 
 
 </script>
