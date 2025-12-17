@@ -1315,8 +1315,13 @@ $mod eq 'data_surat'}
               <i class="fa fa-edit"></i> Edit Preview
             </a>
             {/if}
-            {if ($button_edit|default:'' eq 'true' OR in_array($auth.cl_user_group_id,[4,5])) && $mod|default:'' eq 'data_surat'} &nbsp;
+            <!-- {if ($button_edit|default:'' eq 'true' OR in_array($auth.cl_user_group_id,[4,5])) && $mod|default:'' eq 'data_surat'} &nbsp;
             <a href="javascript:void(0)" title="Daftar E-SIGN" class="btn-flat btn-success btn-sm" onClick="get_data_riwayat_esign();">
+              <i class="fa fa-qrcode"></i> E-SIGN
+            </a>
+            {/if} -->
+            {if ($button_edit|default:'' eq 'true' OR in_array($auth.cl_user_group_id,[4,5])) && $mod|default:'' eq 'data_surat'} &nbsp;
+            <a href="javascript:void(0)" title="Daftar E-SIGN" class="btn-flat btn-success btn-sm btn-esign" data-id="{$row.id}">
               <i class="fa fa-qrcode"></i> E-SIGN
             </a>
             {/if}
@@ -1934,34 +1939,32 @@ $mod eq 'data_surat'}
 //========================================================
 $(document).on('click', '.btn-esign', function (e) {
   e.preventDefault();
-  e.stopPropagation();
+  e.stopImmediatePropagation(); // 🔥 kunci utama
 
   const surat_id = $(this).data('id');
+
+  // tutup semua modal dulu
+  $('.modal').modal('hide');
 
   $.ajax({
     url: '{$host}backoffice-cetak/get_identitas_surat',
     type: 'POST',
-    data: { id: surat_id },
     dataType: 'json',
+    data: { id: surat_id },
     success: function (res) {
-
-      // tutup semua modal dulu
-      $('.modal').modal('hide');
-
-      // safety check
-      if (!res || typeof res.identitas_surat === 'undefined') {
-        alert('Data identitas surat tidak valid');
-        return;
-      }
 
       const identitas = parseInt(res.identitas_surat, 10);
 
       if (identitas === 1) {
-        // ✅ hanya surat keterangan
-        $('#modal-esign').modal('show');
+        $('#modal-esign').modal({
+          backdrop: 'static',
+          keyboard: false
+        });
       } else {
-        // ❌ selain itu
-        $('#modal-esign-invalid').modal('show');
+        $('#modal-esign-invalid').modal({
+          backdrop: 'static',
+          keyboard: false
+        });
       }
     },
     error: function () {
