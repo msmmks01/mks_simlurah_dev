@@ -4661,9 +4661,9 @@ class Backendxx extends JINGGA_Controller
 
 				$opt .= "<option value='A.no_peserta'>No. Peserta</option>";
 
-				$opt .= "<option value='A.alamat'>Alamat</option>";
+				$opt .= "<option value='A.jenis_wamis'>Jenis Wamis</option>";
 
-				$opt .= "<option value='A.ket'>Keterangan</option>";
+				$opt .= "<option value='b.rw'>RW</option>";
 
 				break;
 
@@ -4870,8 +4870,6 @@ class Backendxx extends JINGGA_Controller
 				$temp = "backend/cetak/laporan_wamis.html";
 
 				$this->hasil_output('pdf', $mod, $data, $filename, $temp, "LEGAL-L");
-
-
 
 				//echo "<pre>";
 

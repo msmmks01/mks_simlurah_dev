@@ -709,60 +709,23 @@ class Mbackend extends CI_Model
 
 			case "laporan_wamis":
 
-				$desa_id = $this->input->post('kelurahan_id');
+				$where = "WHERE 1=1";
 
-				$rt = $this->input->post('rt');
+				$desa_id	= $this->input->get('kelurahan_id');
+				$rt			= $this->input->get('rt');
+				$rw			= $this->input->get('rw');
 
-				$rw = $this->input->post('rw');
-
-				$rt_get = $this->input->get('rt');
-
-				$rw_get = $this->input->get('rw');
-
-
-
-				if ($rt_get) {
-
-					$where .= "and a.rt like '%" . $rt_get . "%'";
+				if ($rt !== '' && $rt !== null) {
+					$where .= " AND g.rt = '" . $rt . "'";
 				}
 
-				if ($rw_get) {
-
-					$where .= "and a.rw like '%" . $rw_get . "%'";
+				if ($rw !== '' && $rw !== null) {
+					$where .= " AND g.rw = '" . $rw . "'";
 				}
 
-
-
-				if ($rt) {
-
-					$where .= "and a.rt like '%" . $rt . "%'";
+				if ($desa_id !== '' && $desa_id !== null) {
+					$where .= " AND a.cl_kelurahan_desa_id = '" . $desa_id . "'";
 				}
-
-				if ($rw) {
-
-					$where .= "and a.rw like '%" . $rw . "%'";
-				}
-
-
-
-				if ($desa_id) {
-
-					$where .= "and a.cl_kelurahan_desa_id = '" . $desa_id . "'";
-				} else {
-
-					if ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0") {
-
-						$where .= "and a.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "'";
-					}
-
-
-
-					if ($this->input->get('kelurahan_id')) {
-
-						$where .= "and a.cl_kelurahan_desa_id = '" . $this->input->get('kelurahan_id') . "'";
-					}
-				}
-
 
 
 				$sql = "SELECT a.*,g.alamat,g.rw,g.rt,e.nama as kecamatan, f.nama as kelurahan,
@@ -787,7 +750,7 @@ class Mbackend extends CI_Model
 	
 						and a.cl_kecamatan_id = '" . $this->auth['cl_kecamatan_id'] . "'
 	
-						ORDER BY a.id DESC
+						ORDER BY g.rw ASC, g.rt ASC
 	
 					";
 
@@ -6122,9 +6085,7 @@ class Mbackend extends CI_Model
 					$where .= "and A.cl_kelurahan_desa_id = '" . $kelurahan . "'";
 				}
 
-				$sql = "
-	
-						SELECT a.*,b.alamat
+				$sql = "SELECT a.*,b.alamat,b.rw
 	
 						FROM tbl_data_wamis a
 

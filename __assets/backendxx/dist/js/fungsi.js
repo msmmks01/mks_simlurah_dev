@@ -3385,7 +3385,7 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
           title: "NIK",
           width: 250,
           halign: "center",
-          align: "left",
+          align: "center",
         },
 
         {
@@ -3397,11 +3397,19 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
         },
 
         {
+          field: "rw",
+          title: "RW",
+          width: 50,
+          halign: "center",
+          align: "center",
+        },
+
+        {
           field: "no_peserta",
           title: "No. Peserta",
           width: 250,
           halign: "center",
-          align: "left",
+          align: "center",
         },
 
         {
@@ -6098,12 +6106,39 @@ async function kumpulAction(type, p1, p2, p3, p4, p5) {
       break;
 
     case "export_laporan_wamis":
-      param["rt"] = $("#rt_" + p1).val();
+      var rw = "";
+      var jenis_wamis = "";
+      var no_peserta = "";
+      var nama = "";
 
-      param["rw"] = $("#rw_" + p1).val();
+      var kat = $("#kat_" + p1).val();
 
+      if (kat == "a.nama") {
+        nama = $("#key_" + p1).val();
+      } else if (kat == "a.no_peserta") {
+        no_peserta = $("#key_" + p1).val();
+      } else if (kat == "b.rw") {
+        rw = $("#key_" + p1).val();
+      } else if (kat == "a.jenis_wamis"){
+        jenis_wamis = $("#key_" + p1).val();
+      }else {
+        status_data = $("#key_" + p1).val();
+      }
+
+      var param = {};
+
+      param["rw"] = rw;               // ⬅️ INI KUNCI
+      param["jenis_wamis"] = jenis_wamis;
+      param["no_peserta"] = no_peserta;
+      param["nama"] = nama;
       param["kelurahan_id"] = $("#kelurahan_" + p1).val();
       param["nip"] = $("#nip").val();
+
+      if (kat == "b.rw") {
+        param["rw"] = rw;
+      } else {
+        param["rw"] = $("#rw_" + p1).val();
+      }
 
       if ($("#nip").val() == "" || $("#nip").val() == null) {
         $.messager.alert("SIMLURAH", "Please Select TTD First!", "error");
