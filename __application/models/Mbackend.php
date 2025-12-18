@@ -765,11 +765,9 @@ class Mbackend extends CI_Model
 
 
 
-				$sql = "SELECT a.*,g.alamat,g.rw,g.rt,
+				$sql = "SELECT a.*,g.alamat,g.rw,g.rt,e.nama as kecamatan, f.nama as kelurahan,
 	
-							b.jenis_wamis, e.nama as kecamatan, f.nama as kelurahan,
-	
-							DATE_FORMAT(a.create_date, '%d-%m-%Y %H:%i') as tanggal_buat
+						DATE_FORMAT(a.create_date, '%d-%m-%Y %H:%i') as tanggal_buat
 	
 						FROM tbl_data_wamis a
 
