@@ -114,12 +114,13 @@
                     <th width="10%" style="text-align: center" ><b>NIK</b></th>
                     <th width="10%" style="text-align: center" ><b>NAMA</b></th>
                     {if $auth.cl_user_group_id neq '1'}
-                    <th width="10%" style="text-align: center" ><b>KELURAHAN</b></th>
+                    <!-- <th width="10%" style="text-align: center" ><b>KELURAHAN</b></th> -->
                     <!-- <th width="10%" style="text-align: center" ><b>KECAMATAN</b></th> -->
                     {/if}
                     <th width="10%" style="text-align: center" ><b>ALAMAT</b></th>
                     <th width="5%" style="text-align: center" ><b>RW</b></th>
                     <th width="5%" style="text-align: center" ><b>RT</b></th>
+                    <th width="10%" style="text-align: center" ><b>JENIS WAMIS</b></th>
                     <th width="10%" style="text-align: center" ><b>NO. PESERTA</b></th>
                     <th width="10%" style="text-align: center" ><b>KETERANGAN</b></th>
                 </tr>
@@ -133,11 +134,12 @@
                         <td>{$rows.nama|default:'-'}</td>
                         {if $auth.cl_user_group_id neq '1'}
                         <!-- <td >{$rows.kecamatan|default:'-'}</td> -->
-                        <td style="text-align: center">{$rows.kelurahan|default:'-'}</td>
+                        <!-- <td style="text-align: center">{$rows.kelurahan|default:'-'}</td> -->
                         {/if}
                         <td tyle="text-align: center">{$rows.alamat|default:'-'}</td>
                         <td tyle="text-align: center">{$rows.rw|default:'-'}</td>
                         <td tyle="text-align: center">{$rows.rt|default:'-'}</td>
+                        <td style="text-align: center">{$rows.jenis_wamis|default:'-'}</td>
                         <td style="text-align: center">{$rows.no_peserta|default:'-'}</td>
                         <td style="text-align: center">{$rows.ket|default:'-'}</td>
                     </tr>
