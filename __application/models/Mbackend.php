@@ -9990,6 +9990,39 @@ class Mbackend extends CI_Model
 
 					switch ($data['cl_jenis_surat_id']) {
 
+						case "156":
+
+							$array['kewarganegaraan'] = $data['kewarganegaraan'];
+							$array['dok_pembanding'] = $data['dok_pembanding'];
+							$array['no_dok_pembanding'] = $data['no_dok_pembanding'];
+							$array['tgl_dok_pengantar'] = $data['tgl_dok_pengantar'];
+
+							$array['no_pengantar'] = $data['no_pengantar'];
+							$array['tgl_pengantar'] = $data['tgl_pengantar'];
+							$array['keperluan_surat'] = $data['keperluan_surat'];
+							$data['info_tambahan'] = json_encode($array);
+ 
+							$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
+							$data['tgl_pengantar'] = date('Y-m-d', strtotime($data['tgl_pengantar']));
+							$datax = array(
+								'no_surat' => $data['no_pengantar'],
+								'tgl_surat' => $data['tgl_pengantar'],
+								'perihal' => $data['keperluan_surat'],
+								'cl_jenis_surat_masuk_id' => '3',
+								'cl_sifat_surat_masuk_id' => '1',
+								'asal_surat' => $this->auth['nama_lengkap'],
+								'tujuan' => 'Warga',
+								'tgl_diterima' => $data['tgl_surat'],
+								'no_agenda' => '',
+								'cl_provinsi_id' => $this->auth['cl_provinsi_id'],
+								'cl_kab_kota_id' => $this->auth['cl_kab_kota_id'],
+								'cl_kecamatan_id' => $this->auth['cl_kecamatan_id'],
+								'cl_kelurahan_desa_id' => $this->auth['cl_kelurahan_desa_id'],
+							);
+							$insert = $this->db->insert('tbl_data_surat_masuk', $datax);
+
+							break;
+
 						case "155":
 
 							$array['nama_domisili_tanpa_nik'] = $data['nama_domisili_tanpa_nik'];

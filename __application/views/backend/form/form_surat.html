@@ -24198,6 +24198,126 @@
 								</div>
 							</div>
 							{/if}
+							<!-- end Surat Keterangan Domisili Tanpa NIK Kelurahan -->
+
+							<!-- Surat Keterangan Umur Kelurahan -->
+							{if $idx eq '156'}
+							<div class="row">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend
+											style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>
+											INFORMASI PEMOHON</legend>
+									</fieldset>
+								</div>
+								<div class="col-md-6">
+									{include file="backend/template/input_form.html" required="true" label="Nama
+									Pemohon" class_width="col-lg-12" type="text" name="nama_pemohon" id="nama_pemohon"
+									value="{$data.nama_pemohon|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="false" label="No. HP (WA)
+									Aktif" class_width="col-lg-12" type="pnj_hp" name="no_hp" id="no_hp"
+									value="{$data.no_hp|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="false" label="Email Aktif"
+									class_width="col-lg-12" type="text" name="email" id="email"
+									value="{$data.email|default:''}"}
+								</div>
+							</div>
+
+							<div class="row" style="margin-bottom:5px;">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend
+											style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>
+											DATA SURAT</legend>
+									</fieldset>
+								</div>
+
+								<div class="col-md-6">
+									{include file="backend/template/input_form.html" required="true" label="Nama Dalam
+									Surat" class_width="col-lg-12" type="select2" name="tbl_data_penduduk_id"
+									id="tbl_data_penduduk_id" option={$nik_id|default:''} }
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html" required="true" label="Tanggal
+									Surat" class_width="col-lg-12" type="date" placeholder="dd-mm-yyyy" limit="true" startDate="{$startDate}" endDate="{$endDate}" name="tgl_surat" id="tgl_surat"
+									value="{$data.tgl_surat|default:''}"}
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="true" label="No. Surat"
+									class_width="col-lg-12" type="text" name="no_surat" id="no_surat"
+									value="{$data.no_surat|default:''}"}
+								</div>
+							</div>
+							<div class="row">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend
+											style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>
+											INFORMASI TAMBAHAN</legend>
+									</fieldset>
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="true" label="Kewarganegaraan" class_width="col-lg-12" type="text" 
+									name="kewarganegaraan" id="kewarganegaraan" value="{$data_info.kewarganegaraan|default:''}"}
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="true" label="Dokumen Pembanding" class_width="col-lg-12" type="text" 
+									name="dok_pembanding" id="dok_pembanding" value="{$data_info.dok_pembanding|default:''}"}
+								</div>
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html" required="true" label="No. Dokumen" class_width="col-lg-12" type="text" 
+									name="no_dok_pembanding" id="no_dok_pembanding" value="{$data_info.no_dok_pembanding|default:''}"}
+								</div>
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html" required="false" label="Tgl. Dokumen Pengantar" 
+									class_width="col-lg-12" type="date" placeholder="dd-mm-yyyy" name="tgl_dok_pengantar"
+									id="tgl_dok_pengantar" value="{$data_info.tgl_dok_pengantar|default:''}"}
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="true" label="No.
+									Pengantar" class_width="col-lg-12" type="text" name="no_pengantar" id="no_pengantar"
+									value="{$data_info.no_pengantar|default:''}"}
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="true" label="Tgl. Surat
+									Pengantar" class_width="col-lg-12" type="date" placeholder="dd-mm-yyyy" name="tgl_pengantar"
+									id="tgl_pengantar" value="{$data_info.tgl_pengantar|default:''}"}
+								</div>
+								<div class="col-md-4">
+									{include file="backend/template/input_form.html" required="true" label="Keperluan
+									Surat" class_width="col-lg-12" type="text" name="keperluan_surat"
+									id="keperluan_surat" value="{$data_info.keperluan_surat|default:''}"}
+								</div>
+							</div>
+							<div class="row" style="margin-bottom:5px;">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend
+											style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>
+											DATA PENANDATANGANAN</legend>
+									</fieldset>
+								</div>
+
+								<div class="col-md-6">
+									{include file="backend/template/input_form.html" required="true" label="NIP"
+									class_width="col-lg-12" type="select2" name="nip" id="nip"
+									option={$nip_id|default:''} }
+								</div>
+								<div class="col-md-12">
+									<div class="form-group">
+										<input type="checkbox" name="ttd_srikandi" id="ttd_srikandi">
+										<label for="ttd_srikandi" style="color:red">Centang jika penandatanganan untuk SRIKANDI</label>
+									</div>
+								</div>
+							</div>
+							{/if}
+							<!-- End Surat Keterangan Umur Kelurahan -->
 
 							<div class="row">
 								<div class="col-md-12">
