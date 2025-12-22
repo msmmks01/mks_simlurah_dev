@@ -828,7 +828,7 @@ class Backendxx extends JINGGA_Controller
 
 
 				$summary_persuratan = $this->mbackend->getdata('summary_persuratan', 'result_array');
-				
+
 
 				$jenis_kelamin = $this->mbackend->getdata_laporan('dashboard_jenis_kelamin', 'result_array', $tahun_login);
 				// $jenis_kelamin = $this->mbackend->getdata_laporan('dashboard_jenis_kelamin', 'result_array');
@@ -872,8 +872,8 @@ class Backendxx extends JINGGA_Controller
 
 				$broadcast = $this->mbackend->getdata_laporan('dashboard_broadcast', 'result_array');
 
-				$laporan_hasil_skm = $this->mbackend->getdata_laporan('beranda_hasil_skm','result_array');
-			
+				$laporan_hasil_skm = $this->mbackend->getdata_laporan('beranda_hasil_skm', 'result_array');
+
 				$data = array(
 
 					'jumlah_penduduk' => $jumlah_penduduk,
@@ -3288,7 +3288,7 @@ class Backendxx extends JINGGA_Controller
 
 					$this->nsmarty->assign('data', $data);
 				}
-				
+
 
 				$this->nsmarty->assign("cl_jenis_pekerjaan_id", $this->lib->fillcombo("cl_jenis_pekerjaan", "return", ($sts == "edit" ? $data["cl_jenis_pekerjaan_id"] : "")));
 
@@ -3498,7 +3498,6 @@ class Backendxx extends JINGGA_Controller
 						$data['jml_pr_wni'] = $jml_akhir_pr_wni;
 						$data['jml_lk_wna'] = $jml_akhir_lk_wna;
 						$data['jml_pr_wna'] = $jml_akhir_pr_wna;
-
 					} else {
 						// DATA PERTAMA → default 0
 						$data['jml_lk_wni'] = 0;
@@ -4168,7 +4167,7 @@ class Backendxx extends JINGGA_Controller
 
 				break;
 
-			
+
 
 			case "user_group":
 
@@ -5642,16 +5641,16 @@ class Backendxx extends JINGGA_Controller
 									IF(b.jabatan = "Lurah", "Lurah", "a.n Lurah") AS jabatan_ttd,
 									b.jabatan AS jabatan_asli
 								')
-								->where($array_setting)
-								->join(
-											'tbl_data_penandatanganan b', 
-											"a.cl_kecamatan_id=b.cl_kecamatan_id 
+					->where($array_setting)
+					->join(
+						'tbl_data_penandatanganan b',
+						"a.cl_kecamatan_id=b.cl_kecamatan_id 
 											AND a.cl_kelurahan_desa_id=b.cl_kelurahan_desa_id 
 											AND b.status='Aktif'",
-											'left'
-										)
-								->get("tbl_setting_apps a")
-								->row_array();
+						'left'
+					)
+					->get("tbl_setting_apps a")
+					->row_array();
 
 				$this->nsmarty->assign("setting", $this->setting);
 				$this->nsmarty->assign("tgl_cetak", $tgl_cetak);
@@ -5753,24 +5752,26 @@ class Backendxx extends JINGGA_Controller
 
 				// === helper format tanggal ===
 				if (!function_exists('format_hari')) {
-					function format_hari($tanggal){
+					function format_hari($tanggal)
+					{
 						if (!$tanggal) return '-';
-						$hari  = array('Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu');
-						$bulan = array('Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
+						$hari  = array('Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu');
+						$bulan = array('Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember');
 						$ts = strtotime($tanggal);
-						return $hari[date('w',$ts)].", ".date('d',$ts)." ".$bulan[date('n',$ts)-1]." ".date('Y',$ts);
+						return $hari[date('w', $ts)] . ", " . date('d', $ts) . " " . $bulan[date('n', $ts) - 1] . " " . date('Y', $ts);
 					}
 				}
 
 				if (!function_exists('format_jam')) {
-					function format_jam($jam){
+					function format_jam($jam)
+					{
 						if (!$jam) return "-";
-						return str_replace(":", ".", substr($jam,0,5)) . " - selesai";
+						return str_replace(":", ".", substr($jam, 0, 5)) . " - selesai";
 					}
 				}
 
-				$this->nsmarty->registerPlugin('modifier','hariindo','format_hari');
-				$this->nsmarty->registerPlugin('modifier','jamindo','format_jam');
+				$this->nsmarty->registerPlugin('modifier', 'hariindo', 'format_hari');
+				$this->nsmarty->registerPlugin('modifier', 'jamindo', 'format_jam');
 
 				// === assign ke template ===
 				$this->nsmarty->assign("setting", $this->setting);
@@ -5851,19 +5852,20 @@ class Backendxx extends JINGGA_Controller
 
 				// Jangan redeclare fungsi jika sudah ada
 				if (!function_exists('format_hari')) {
-					function format_hari($tanggal){
+					function format_hari($tanggal)
+					{
 						if (!$tanggal) return '-';
-						$hari  = array('Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu');
-						$bulan = array('Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
+						$hari  = array('Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu');
+						$bulan = array('Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember');
 
 						$ts = strtotime($tanggal);
 						if ($ts === false) return '-';
-						return $hari[date('w',$ts)].", ".date('d',$ts)." ".$bulan[date('n',$ts)-1]." ".date('Y',$ts);
+						return $hari[date('w', $ts)] . ", " . date('d', $ts) . " " . $bulan[date('n', $ts) - 1] . " " . date('Y', $ts);
 					}
 				}
 
 				// register modifier untuk smarty
-				$this->nsmarty->registerPlugin('modifier','hariindo','format_hari');
+				$this->nsmarty->registerPlugin('modifier', 'hariindo', 'format_hari');
 
 				// Assign variable ke template
 				$this->nsmarty->assign("setting", $this->setting);
@@ -6422,7 +6424,7 @@ class Backendxx extends JINGGA_Controller
 
 				// hapus riwayat esign sebelumnya untuk surat ini
 				$this->db->where('tbl_data_surat_id', $data['surat']['id'])
-						->delete('tbl_riwayat_esign');
+					->delete('tbl_riwayat_esign');
 
 
 				/* ================== RIWAYAT ================== */
@@ -6482,7 +6484,6 @@ class Backendxx extends JINGGA_Controller
 							'stat' => true,
 							'msg'  => 'Data tersimpan & file masuk mobile'
 						]);
-
 					} else {
 
 						// 🔒 surat pernyataan / non identitas
@@ -6787,7 +6788,7 @@ class Backendxx extends JINGGA_Controller
 				$setting = $this->db->get_where('tbl_setting_apps', $arraynya)->row_array();
 				if ($setting['qr_status'] == 1 && $setting['qr_kelurahan'] != '' && $dataSurat['surat']['info_tambahan']['ttd_srikandi'] != 'on') {
 					$kode_unik = $dataSurat['surat']['kode_unik'];
-				
+
 					$setting = "" . $this->auth['cl_kelurahan_desa_id'] . "";
 
 					$randomized_string = randomize_letters($setting);
@@ -8127,7 +8128,7 @@ class Backendxx extends JINGGA_Controller
 		$bulan_asal = $this->input->post('bulan_asal');
 		$bulan_tujuan = $this->input->post('bulan_tujuan');
 		$tgl_cetak = $this->input->post('tgl_cetak');
-		$ganti = $this->input->post('ganti'); 
+		$ganti = $this->input->post('ganti');
 		$cl_kelurahan_desa_id = $this->auth['cl_kelurahan_desa_id'];
 
 		if (empty($bulan_asal) || empty($bulan_tujuan)) {
@@ -8196,7 +8197,7 @@ class Backendxx extends JINGGA_Controller
 		}
 	}
 
-//fungsi PBB dan NOP
+	//fungsi PBB dan NOP
 	public function cek_nop_penduduk($id)
 	{
 		$cek = $this->db
@@ -8230,5 +8231,4 @@ class Backendxx extends JINGGA_Controller
 			]);
 		}
 	}
-
 }

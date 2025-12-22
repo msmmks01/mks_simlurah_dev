@@ -8,60 +8,63 @@
 		white-space: normal;
 	}
 </style>
-	<ul class="sidebar-menu" data-widget="tree">
-		<li class="header"><font color='#fff'>MENU UTAMA</font></li>
-		{foreach from=$menu item=x}
-			{if $x.type_menu eq 'PC'}
-			<li class="treeview">
-				<a href="#" class="text-ellipsis">
-					<i class="{$x.icon_menu}"></i> <span>{$x.parent}</span>
-					<span class="pull-right-container">
-						<i class="fa fa-angle-left pull-right"></i>
-					</span>
-				</a>
-				<ul class="treeview-menu">
-					{foreach from=$x.child item=y}
-						{if $y.type_menu eq 'C'}
-							<li style="padding-left:10px;">
-								<a href="javascript:void(0);" class="text-ellipsis" onClick="loadUrl('{$host}{$y.url}');">
-									<i class="{$y.icon_menu}"></i>{$y.menu}
-								</a>
-							</li>
-						{elseif $y.type_menu eq 'CHC'}
-							{*
-							<li>
-								<a href="javascript:void(0);" class="text-ellipsis">{$y.menu}<span class="fa arrow"></span></a>
-								{if isset($y.sub_child) }
-									<ul class="nav nav-third-level collapse">
-										{foreach from=$y.sub_child item=z}
-											<li><a href="javascript:void(0);" onClick="loadUrl('{$host}{$z.url}'')">- {$z.sub_menu}</a></li>
-										{/foreach}
-									</ul>
-								{/if}
-							</li>
-							*}
-						{/if}
-					{/foreach}
-				</ul>
-			</li>	
-			{elseif $x.type_menu eq 'P'}
-				<li>
-					<a href="javascript:void(0);" class="text-ellipsis" onClick="loadUrl('{$host}{$x.url}');">
-						<i class="{$x.icon_menu}"></i>
-						<span>{$x.parent}</span>
-					</a>
-				</li>
-			{elseif $x.type_menu eq 'R'}
-				<li>
-					<a href="{$x.url}" class="text-ellipsis" target="_blank">
-						<i class="{$x.icon_menu}"></i>
-						<span>{$x.parent}</span>
-					</a>
-				</li>
-			{/if}
-		{/foreach}
-	</ul>
+	 <ul class="tpl-nav">
 
+      <li class="tpl-section">MENU UTAMA</li>
+
+      {foreach from=$menu item=x}
+
+        {if $x.type_menu eq 'PC'}
+          <!-- PARENT + CHILD -->
+          <li class="tpl-item tpl-has-submenu">
+            <a href="javascript:void(0);" class="tpl-link has-tooltip" data-fulltext="{$x.parent}">
+              <i class="icox {$x.icon_menu}"></i>
+              <span class="tpl-label menu-textspan" >{$x.parent}</span>
+              <i class="ri-arrow-right-s-line tpl-arrow menu-arrow"></i>
+            </a>
+
+            <ul class="tpl-submenu">
+              {foreach from=$x.child item=y}
+                {if $y.type_menu eq 'C'}
+                  <li class="tpl-subitem">
+                    <a href="javascript:void(0);"
+                       onclick="loadUrl('{$host}{$y.url}')"
+                       class="tpl-sublink">
+                      <!-- <i class="{$y.icon_menu}"></i> -->
+                      {$y.menu}
+                    </a>
+                  </li>
+                {/if}
+              {/foreach}
+            </ul>
+          </li>
+
+        {elseif $x.type_menu eq 'P'}
+          <!-- SINGLE PAGE -->
+          <li class="tpl-item">
+            <a href="javascript:void(0);"
+               onclick="loadUrl('{$host}{$x.url}')"
+               class="tpl-link">
+              <i class="{$x.icon_menu}"></i>
+              <span>{$x.parent}</span>
+            </a>
+          </li>
+
+        {elseif $x.type_menu eq 'R'}
+          <!-- EXTERNAL LINK -->
+          <li class="tpl-item">
+            <a href="{$x.url}"
+               target="_blank"
+               class="tpl-link">
+              <i class="{$x.icon_menu}"></i>
+              <span>{$x.parent}</span>
+            </a>
+          </li>
+        {/if}
+
+      {/foreach}
+
+    </ul>
 	
 
 	

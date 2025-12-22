@@ -1,198 +1,373 @@
 <style>
+/* === Dashboard Modern === */
+:root{
+  --bg: #f6f8fb;
+  --card: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --border: #e5e7eb;
 
-	a.info-box {
-	display: block;
-	min-height: 90px;
-	background: #fff;
-	width: 100%;
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-	border-radius: 2px;
-	margin-bottom: 15px;
-		}
-		.icn-dash {
-	font-size: 4rem;
-	top: -12px;
-	position: relative;
-	}
+  --blue: #2563eb;
+  --red: #ef4444;
+  --green: #16a34a;
+  --yellow: #f59e0b;
 
-	.box-dash {
-	position: absolute;
+  --shadow: 0 10px 24px rgba(17, 24, 39, 0.08);
+  --shadow-hover: 0 14px 30px rgba(17, 24, 39, 0.12);
+  --radius: 16px;
+}
 
-	margin-top: -2.5rem;
+.dashboard{
+  /* background: var(--bg); */
+  /* padding: 12px 0; */
+  color: var(--text);
+}
 
-	margin-left: 1.4rem;
+/* Header */
+.dash-header{
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
 
-	border-radius: 12px;
-	height: 69px;
-	width: 69px;
-	box-shadow: 0 4px 20px 0 rgba(0,0,0,.14),0 7px 10px -5px rgba(64,64,64,.4) !important;
+.dash-title h2{
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.dash-subtitle{
+  margin: 4px 0 0 0;
+  color: var(--muted);
+}
 
-	}
+/* Filters */
+.dash-filters{
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
 
-	hr.horizontal.dark {
-	background-image: linear-gradient(90deg,transparent,rgba(111, 106, 106, 0.4),transparent)
-	}
-	hr.horizontal {
-	background-color: transparent;
-	border-top: none;
-	height: 1px;
-	}
-	.card > hr {
-	margin-right: 0;
-	margin-left: 0;
-	}
-	.biru {
-		box-shadow: 3px 3px 6px #00c0ef40;
-	}
-	.merah {
-		box-shadow: 3px 3px 6px #dd4b3940;
-	}
-	.hijau {
-		box-shadow: 3px 3px 6px #00a55940;
-	}
-	.kuning {
-		box-shadow: 3px 3px 6px #f19a1140;
-	}
+.filter-item label{
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
 
-	.info-box-modern {
-		position: relative;
-		padding: 20px;
-		border-radius: 16px;
-		background: linear-gradient(135deg, #ffffff, #fafafa);
-		overflow: hidden;
-		transition: transform .25s ease, box-shadow .25s ease;
-	}
+.filter-item .form-control{
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  height: 38px;
+  box-shadow: none;
+}
 
-	.info-box-modern:hover {
-		transform: translateY(-6px);
-		box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-	}
+.filter-actions .btn{
+  border-radius: 12px;
+  height: 38px;
+  padding: 0 14px;
+}
 
-	.info-icon-animate {
-		font-size: 3.6rem;
-		padding: 18px;
-		border-radius: 18px;
-		display: inline-block;
-		animation: softFloat 2.5s ease-in-out infinite;
-	}
+/* KPI */
+.dash-kpi{
+  margin-bottom: 10px;
+}
 
-	@keyframes softFloat {
-		0%   { transform: translateY(0px); }
-		50%  { transform: translateY(-6px); }
-		100% { transform: translateY(0px); }
-	}
+.kpi-card{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 14px 14px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  min-height: 92px;
+  transition: .2s ease;
+  margin-bottom: 14px;
+}
 
-	.glow-blue   { background: #00c0ef; color:#fff; box-shadow:0 0 18px #00c0ef90; }
-	.glow-red    { background: #dd4b39; color:#fff; box-shadow:0 0 18px #dd4b3990; }
-	.glow-green  { background: #00a65a; color:#fff; box-shadow:0 0 18px #00a65a90; }
-	.glow-yellow { background: #f39c12; color:#fff; box-shadow:0 0 18px #f39c1290; }
+.kpi-card:hover{
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
 
-	.dashboard-metric-wrapper {
-		display: flex;
-		justify-content: space-between; /* kasih jarak merata */
-		align-items: center;
-		gap: 25px;
-		width: 100%;
-		margin: 20px 0;
-	}
+.kpi-icon{
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 20px;
+}
 
-	/* WRAPPER */
-	.dashboard-metric-wrapper {
-		display: flex;
-		justify-content: space-between;
-		align-items: stretch;
-		gap: 22px;
-		margin-top: 15px;
-	}
+.kpi-body{
+  flex: 1;
+  min-width: 0;
+}
 
-	/* CARD */
-	.metric-card {
-		flex: 1;
-		padding: 18px 20px 22px 20px;
-		border-radius: 18px;
-		background: linear-gradient(135deg, #ffffff, #f7f7f7);
-		box-shadow:
-			0 3px 8px rgba(0,0,0,0.06),
-			0 0 0 1px rgba(255,255,255,0.7) inset;
-		transition: 0.25s ease;
-		position: relative;
-		overflow: hidden;
-	}
+.kpi-label{
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
 
-	/* Decorative soft circle seperti dashboard lama */
-	.metric-card::before {
-		content:"";
-		position:absolute;
-		top:-35px;
-		right:-35px;
-		width:120px;
-		height:120px;
-		background: radial-gradient(circle, rgba(0,0,0,0.05), transparent 70%);
-		border-radius:50%;
-	}
+.kpi-value{
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
 
-	/* Hover */
-	.metric-card:hover {
-		transform: translateY(-4px);
-		box-shadow:
-			0 6px 18px rgba(0,0,0,0.12),
-			0 0 0 1px rgba(255,255,255,0.8) inset;
-	}
+.kpi-unit{
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-left: 6px;
+}
 
-	/* ICON */
-	.metric-icon {
-		width: 60px;
-		height: 60px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		border-radius: 14px;
-		font-size: 30px;
-		color: white;
+.kpi-hint{
+  font-size: 12px;
+  color: var(--muted);
+}
 
-		/* 3D icon style */
-		box-shadow:
-			inset 3px 3px 6px rgba(0,0,0,0.15),
-			inset -3px -3px 6px rgba(255,255,255,0.45),
-			0 4px 14px rgba(0,0,0,0.20);
+/* KPI color variants */
+.kpi-blue .kpi-icon{ background: linear-gradient(135deg, #60a5fa, var(--blue)); }
+.kpi-red .kpi-icon{ background: linear-gradient(135deg, #fb7185, var(--red)); }
+.kpi-green .kpi-icon{ background: linear-gradient(135deg, #4ade80, var(--green)); }
+.kpi-yellow .kpi-icon{ background: linear-gradient(135deg, #fcd34d, var(--yellow)); }
 
-		/* Animasi subtle */
-		animation: floatIcon 3s ease-in-out infinite;
-	}
+/* Cards */
+.dash-card{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 14px;
+  margin-bottom: 14px;
+}
 
-	/* Warna icon */
-	.icon-blue   { background: #03c2f3; }
-	.icon-red    { background: #e54b3d; }
-	.icon-green  { background: #28b665; }
-	.icon-yellow { background: #f2b432; }
+.dash-card-header{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
 
-	/* Float animation */
-	@keyframes floatIcon {
-		0%   { transform: translateY(0); }
-		50%  { transform: translateY(-5px); }
-		100% { transform: translateY(0); }
-	}
+.dash-card-header h3{
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
 
-	/* TEXT */
-	.metric-label {
-		font-size: 13px;
-		font-weight: 600;
-		letter-spacing: 0.4px;
-		color: #666;
-		margin-top: 10px;
-	}
+.dash-card-actions .btn{
+  border-radius: 12px;
+}
 
-	.metric-value {
-		font-size: 22px;
-		font-weight: 700;
-		color: #222;
-		margin-top: 4px;
-	}
+/* Tabs */
+.dash-tabs{
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 12px;
+}
 
+.dash-tabs > li > a{
+  border: none !important;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.dash-tabs > li.active > a{
+  color: var(--text) !important;
+  background: transparent !important;
+  border-bottom: 2px solid var(--blue) !important;
+}
+
+.dash-tab-content{
+  padding-top: 6px;
+}
+
+.chart-box{
+  width: 100%;
+  min-height: 320px;
+}
+
+/* List */
+.dash-list{
+  margin-top: 10px;
+  border-top: 1px dashed var(--border);
+  padding-top: 10px;
+}
+
+.dash-list-item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--border);
+}
+
+.dash-list-title{
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.dash-list-value{
+  font-weight: 800;
+  font-size: 13px;
+  color: var(--text);
+}
+
+/* Mini stat (range usia) */
+.mini-stat{
+  display: block;
+  background: #f9fafb;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px;
+  text-decoration: none !important;
+  color: var(--text) !important;
+  transition: .2s ease;
+  margin-bottom: 12px;
+}
+
+.mini-stat:hover{
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+  background: #ffffff;
+}
+
+.mini-stat-title{
+  font-weight: 800;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.mini-stat-value{
+  color: var(--muted);
+  font-weight: 700;
+}
+
+/* Gender card */
+.gender-card{
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: #f9fafb;
+  text-decoration: none !important;
+  color: var(--text) !important;
+  margin-bottom: 10px;
+  transition: .2s ease;
+}
+
+.gender-card:hover{
+  background: #fff;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.gender-icon{
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: rgba(37, 99, 235, 0.12);
+  color: var(--blue);
+  font-size: 20px;
+}
+
+.gender-title{
+  font-weight: 900;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.gender-value{
+  font-weight: 900;
+  font-size: 16px;
+}
+
+/* Survey card */
+.survey-card{
+  display: block;
+  text-align: center;
+  background: linear-gradient(135deg, #06b6d4, #2563eb);
+  color: #fff !important;
+  border: none;
+  padding: 18px;
+  border-radius: 18px;
+  text-decoration: none !important;
+  transition: .25s ease;
+}
+
+.survey-card:hover{
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: var(--shadow-hover);
+  filter: brightness(1.02);
+}
+
+.survey-title{
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+}
+
+.survey-subtitle{
+  font-size: 12px;
+  opacity: .92;
+  margin: 6px 0 12px;
+}
+
+.survey-qr{
+  width: 170px;
+  height: 170px;
+  border-radius: 14px;
+  border: 4px solid rgba(255,255,255,0.55);
+  background: #fff;
+}
+
+/* Table */
+.dash-table{
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.dash-table thead th{
+  background: #f3f4f6;
+  color: #111827;
+  font-weight: 900;
+  border: 1px solid var(--border) !important;
+  white-space: nowrap;
+}
+
+.dash-table td{
+  border: 1px solid var(--border) !important;
+  vertical-align: middle !important;
+}
+
+.dash-table-total td{
+  background: #f9fafb;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px){
+  .chart-box{ min-height: 260px; }
+  .survey-qr{ width: 180px; height: 180px; }
+}
 
 </style>
-
-<section class="content">
+<section class="content ">
 	<div class="row">
 		<div class="col-lg-12">
 			{if $auth.cl_user_group_id eq 4 && $auth.cl_user_group_id eq 5}
@@ -206,600 +381,277 @@
 					</div>
 				{/if}
 			{/if}
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="box">
-						<div class="box-body">
-							<!-- <div class="row"> -->
-								<!-- <div class="col-md-3 col-sm-6 col-xs-12" style="padding-top: 29px;">
-									<div class="info-box biru">
-										<span class="info-box-icon bg-aqua box-dash"><i class="fa fa-users icn-dash"></i></span>
-										<div class="info-box-content">
-											<span class="info-box-text">Jumlah Penduduk Aktif</span>
-											<span class="info-box-number">{$data.jumlah_penduduk|number_format:0:",":"."|default:'-'} <small>Orang</small></span>
-										</div>
-										<hr class="dark horizontal my-0 mt-3 mx-2">
-									</div>
-								</div> -->
+			<div class="dashboard">
 
-								<!-- <div class="col-md-3 col-sm-6 col-xs-12" style="padding-top: 29px;">
-									<div class="info-box merah">
-										<span class="info-box-icon bg-red box-dash"><i class="fa fa-file-text-o icn-dash"></i></span>
-										<div class="info-box-content">
-											<span class="info-box-text">Jumlah Kartu Keluarga</span>
-											<span class="info-box-number">{$data.jumlah_kk|number_format:0:",":"."|default:'-'} <small>Kartu Keluarga</small></span>
-										</div>
-										<hr class="dark horizontal my-0 mt-3 mx-2">
-									</div>
-								</div> -->
+  <!-- Header + Filter -->
+  <div class="dash-header">
+    <div class="dash-title">
+      <h2>Dashboard Kelurahan</h2>
+      <p class="dash-subtitle">Ringkasan data kependudukan & persuratan</p>
+    </div>
 
-								<!-- <div class="clearfix visible-sm-block"></div> -->
+    <div class="dash-filters">
+      <div class="filter-item">
+        <label>Tahun</label>
+        <select id="filterTahun" class="form-control">
+          <option value="{date('Y')}">{date('Y')}</option>
+          <option value="{date('Y')-1}">{date('Y')-1}</option>
+          <option value="{date('Y')-2}">{date('Y')-2}</option>
+        </select>
+      </div>
+      <div class="filter-item">
+        <label>Bulan</label>
+        <select id="filterBulan" class="form-control">
+          <option value="">Semua</option>
+          <option value="1">Januari</option>
+          <option value="2">Februari</option>
+          <option value="3">Maret</option>
+          <option value="4">April</option>
+          <option value="5">Mei</option>
+          <option value="6">Juni</option>
+          <option value="7">Juli</option>
+          <option value="8">Agustus</option>
+          <option value="9">September</option>
+          <option value="10">Oktober</option>
+          <option value="11">November</option>
+          <option value="12">Desember</option>
+        </select>
+      </div>
+      <div class="filter-item filter-actions">
+        <button class="btn btn-primary btn-purple" type="button" onclick="applyDashboardFilter()">
+          Terapkan
+        </button>
+      </div>
+    </div>
+  </div>
 
-								<!-- <div class="col-md-3 col-sm-6 col-xs-12" style="padding-top: 29px;">
-									<div class="info-box hijau">
-										<span class="info-box-icon bg-green box-dash"><i class="fa fa-envelope-o icn-dash"></i></span>
-										<div class="info-box-content">
-											<span class="info-box-text">Jumlah Surat Keluar</span>
-											<span class="info-box-number">{$data.jumlah_surat|number_format:0:",":"."|default:'-'} <small>Surat</small></span>
-										</div>
-										<hr class="dark horizontal my-0 mt-3 mx-2">
-									</div>
-								</div> -->
+  <!-- KPI Cards -->
+  <div class="row dash-kpi">
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="kpi-card kpi-blue">
+        <div class="kpi-icon"><i class="fa fa-users"></i></div>
+        <div class="kpi-body">
+          <div class="kpi-label">Penduduk Aktif</div>
+          <div class="kpi-value">
+            {$data.jumlah_penduduk|number_format:0:",":"."|default:'-'}
+            <span class="kpi-unit">Orang</span>
+          </div>
+          <div class="kpi-hint">Total penduduk aktif terdata</div>
+        </div>
+      </div>
+    </div>
 
-								<!-- <div class="clearfix visible-sm-block"></div> -->
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="kpi-card kpi-red">
+        <div class="kpi-icon"><i class="fa fa-id-card"></i></div>
+        <div class="kpi-body">
+          <div class="kpi-label">Kartu Keluarga</div>
+          <div class="kpi-value">
+            {$data.jumlah_kk|number_format:0:",":"."|default:'-'}
+            <span class="kpi-unit">KK</span>
+          </div>
+          <div class="kpi-hint">Jumlah KK yang aktif</div>
+        </div>
+      </div>
+    </div>
 
-								<!-- <div class="col-md-3 col-sm-6 col-xs-12" style="padding-top: 29px;">
-									<div class="info-box kuning">
-										<span class="info-box-icon bg-yellow box-dash"><i class="fa fa-envelope-o icn-dash"></i></span>
-										<div class="info-box-content">
-											<span class="info-box-text">Jumlah Surat Masuk</span>
-											<span class="info-box-number">{$data.jumlah_surat_masuk|number_format:0:",":"."|default:'-'} <small>Surat</small></span>
-										</div>
-										<hr class="dark horizontal my-0 mt-3 mx-2">
-									</div>
-								</div> -->
-							<!-- </div>		 -->
-							 <div class="dashboard-metric-wrapper">
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="kpi-card kpi-green">
+        <div class="kpi-icon"><i class="fa fa-paper-plane"></i></div>
+        <div class="kpi-body">
+          <div class="kpi-label">Surat Keluar</div>
+          <div class="kpi-value">
+            {$data.jumlah_surat|number_format:0:",":"."|default:'-'}
+            <span class="kpi-unit">Surat</span>
+          </div>
+          <div class="kpi-hint">Total surat keluar</div>
+        </div>
+      </div>
+    </div>
 
-								<div class="metric-card">
-									<div class="metric-icon icon-blue"><i class="fa fa-users"></i></div>
-									<div class="metric-label">Jumlah Penduduk Aktif</div>
-									<div class="metric-value">{$data.jumlah_penduduk|number_format:0:",":"."} <small>Orang</small></div>
-								</div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="kpi-card kpi-yellow">
+        <div class="kpi-icon"><i class="fa fa-inbox"></i></div>
+        <div class="kpi-body">
+          <div class="kpi-label">Surat Masuk</div>
+          <div class="kpi-value">
+            {$data.jumlah_surat_masuk|number_format:0:",":"."|default:'-'}
+            <span class="kpi-unit">Surat</span>
+          </div>
+          <div class="kpi-hint">Total surat masuk</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-								<div class="metric-card">
-									<div class="metric-icon icon-red"><i class="fa fa-file-text-o"></i></div>
-									<div class="metric-label">Jumlah Kartu Keluarga</div>
-									<div class="metric-value">{$data.jumlah_kk|number_format:0:",":"."} <small>Kartu Keluarga</small></div>
-								</div>
+  <!-- Main Content -->
+  <div class="row">
 
-								<div class="metric-card">
-									<div class="metric-icon icon-green"><i class="fa fa-envelope-o"></i></div>
-									<div class="metric-label">Jumlah Surat Keluar</div>
-									<div class="metric-value">{$data.jumlah_surat|number_format:0:",":"."} <small>Surat</small></div>
-								</div>
+    <!-- Charts -->
+    <div class="col-md-8">
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <h3>Statistik Kependudukan</h3>
+          <div class="dash-card-actions">
+            <button class="btn btn-default btn-sm" type="button" onclick="refreshCharts()">Refresh</button>
+          </div>
+        </div>
 
-								<div class="metric-card">
-									<div class="metric-icon icon-yellow"><i class="fa fa-envelope"></i></div>
-									<div class="metric-label">Jumlah Surat Masuk</div>
-									<div class="metric-value">{$data.jumlah_surat_masuk|number_format:0:",":"."} <small>Surat</small></div>
-								</div>
+        <!-- Tabs -->
+        <ul class="nav nav-tabs dash-tabs" role="tablist">
+		<li class="active"><a href="#tabPendidikan" role="tab" data-toggle="tab">Pendidikan</a></li>
+          <li><a href="#tabAgama" role="tab" data-toggle="tab">Agama</a></li>
+          <li><a href="#tabStatusKawin" role="tab" data-toggle="tab">Status Kawin</a></li>
+          <li><a href="#tabStatusData" role="tab" data-toggle="tab">Status Penduduk</a></li>
+          <li><a href="#tabRangeUmur" role="tab" data-toggle="tab">Range Umur</a></li>
+          <li><a href="#tabSkm" role="tab" data-toggle="tab">SKM</a></li>
+        </ul>
 
-							</div>
-						</div>
-						<br>
-						<div class="box-body">
-							<div class="row">
-								<div class="col-md-8">
-									<div class="box box-success">
-										<div class="box-header with-border">
-											<h3 class="box-title">Statistik Berdasarkan Agama</h3>
-											<div class="box-tools pull-right">
-												<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-												<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-											</div>
-										</div>
-											<div class="box-body no-padding">
-												<div class="row">
-													<div id="chart_agama"></div>
-												</div>
-											</div>
-										</div>
-										</div>
-											<div class="col-md-4">
-												{foreach from=$data.jenis_kelamin item=rows key=k}
-												<a href="#" class="info-box bg-muted" onclick="cetak_kelamin('{$rows.keterangan}')">
-													<span class="info-box-icon bg-aqua">
-														{if $rows.keterangan eq 'PEREMPUAN'}
-														<i class="fa fa-female"></i>
-														{else}
-														<i class="fa fa-male"></i>
-														{/if}
-													</span>
-													<div class="info-box-content">
-														<span class="info-box-text">{$rows.keterangan|upper|default:''}</span>
-															<span class="info-box-number">{$rows.total|number_format:0:",":"."|default:''} <small>Orang</small></span>
-																<hr class="dark horizontal my-0 mt-3 mx-2">
-															<span class="progress-description">
-														</span>
-													</div>
-												</a>
-												{/foreach}
-												<a href="{$host}survei-kepuasan/{$auth.cl_user_group_id}/{$auth.cl_kecamatan_id}/{$auth.cl_kelurahan_desa_id}" 
-													class="card-survei"
-													target="_blank">
-													<h3>SURVEI KEPUASAN MASYARAKAT</h3>  
-													<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={$host}survei-kepuasan/{$auth.cl_user_group_id}/{$auth.cl_kecamatan_id}/{$auth.cl_kelurahan_desa_id}" 
-															alt="QR Code Survei" />
-													<p>Klik atau Scan QR untuk Mengisi Survei</p>
-												</a>
+        <div class="tab-content dash-tab-content">
+			<div class="tab-pane active" id="tabPendidikan">
+			<div id="chart_pendidikan_new" style="min-height:360px;"></div>
+			</div>
+          <div class="tab-pane" id="tabAgama">
+            <div id="chart_agama_new" class="chart-box"></div>
+          </div>
+         <div class="tab-pane" id="tabStatusKawin">
+			<div id="chart_status_kawin_new" style="min-height:360px;"></div>
+			</div>
 
-													{literal}
-													<style>
-													.card-survei {
-													display: block;
-													text-align: center;
-													padding: 25px;
-													background: linear-gradient(135deg, #00bcd4, #2196f3); /* default: biru aqua */
-													border-radius: 20px;
-													color: white;
-													text-decoration: none;
-													font-family: 'Segoe UI', sans-serif;
-													box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-													transition: all 0.4s ease-in-out;
-													}
-													.card-survei:hover {
-													background: linear-gradient(135deg, #00ffff, #00c1ff); /* saat hover: biru terang */
-													transform: scale(1.03);
-													box-shadow: 0 12px 32px rgba(0,0,0,0.3);
-													}
-													.card-survei img {
-													height: 180px;
-													border-radius: 12px;
-													border: 4px solid rgba(255,255,255,0.6);
-													}
-													.card-survei h3 {
-													margin: 0 0 15px 0;
-													font-weight: 600;
-													font-size: 20px;
-													}
-													.card-survei p {
-													margin-top: 15px;
-													font-size: 14px;
-													}
-													</style>
-													{/literal}
+			<div class="tab-pane" id="tabStatusData">
+			<div id="chart_status_data_new" style="min-height:360px;"></div>
+			</div>
 
-											</div>
-											</div>
-											
-											</div>
-										
-										</div>
-								</div>
-							</div>
-							<br>
-							<div class="box">
-								<div class="box-header with-border">
-								<h3 class="box-title">Statistik Kependudukan</h3>
-								</div>
-								
-								<div class="box-body">
-								<div class="row">
-								<div class="col-md-12">
-								<p class="text-center">
-									<strong> Statistik Berdasarkan Pendidikan</strong>
-									</p>
-									{foreach from=$data.pendidikan item=rows key=x}
-									<div class="progress-group">
-										<span class="progress-text">{$rows.keterangan|upper|default:''}</span>
-										<span class="progress-number"><b>{$rows.total|number_format:0:",":"."|default:''}</b></span>
-										<div class="progress sm">
-										<div class="progress-bar progress-bar-aqua" style="width: 100%"></div>
-									</div>
-									</div>
-									{/foreach}
-									
-									
-								
-								</div>
-								
-								</div>
-								
-								</div>
-								
-								<div class="box-footer">
-									<p class="text-center">
-										<strong>Statistik Berdasarkan Status Kawin</strong>
-									</p>
-								<div class="row">
-								{foreach from=$data.status_kawin item=rows key=x}
-								<div class="col-lg-3 col-xs-6">
-										
-										<a class="small-box bg-green" href="#" onclick="cetak_kawin('{$rows.keterangan}')">
-										<div class="inner">
-										<h3>{$rows.total|number_format:0:",":"."|default:''} <sup style="font-size: 20px">Orang</sup></h3>
-										<p>{$rows.keterangan|upper|default:''}</p>
-										</div>
-										<div class="icon">
-										<i class="ion ion-person"></i>
-										</div>
-										</a>
-										</div>
-										
-								{/foreach}		
-								<!-- {foreach from=$data.status_kawin item=rows key=x}
-									<div class="col-sm-3 col-xs-6">
-										<div class="description-block border-right">
-											<span class="description-percentage text-green"><i class="fa fa-caret-up"></i></span>
-											<h5 class="description-header">{$rows.keterangan|upper|default:''}</h5>
-											<span class="description-text">{$rows.total|number_format:0:",":"."|default:''} <smal>Orang</smal></span>
-										</div>
-									</div>
-								{/foreach} -->
-								</div>
-								
-								</div>
-								<div class="box-footer">
-									<p class="text-center">
-										<strong>Statistik Berdasarkan Status Penduduk</strong>
-									</p>
-								<div class="row">
-								<div id="chart_status_data"></div>
-								<!-- {foreach from=$data.status_data item=rows key=x}
-									<div class="col-sm-3 col-xs-6">
-										<div class="description-block border-right">
-											<span class="description-percentage text-green"><i class="fa fa-caret-up"></i></span>
-											<h5 class="description-header">{$rows.keterangan|upper|default:''}</h5>
-											<span class="description-text">{$rows.total|number_format:0:",":"."|default:''} <smal>Orang</smal></span>
-										</div>
-									</div>
-								{/foreach} -->
-								</div>
-								<div class="box-footer">
-									<div class="box-header with-border">
-										<h1 class="box-title"><strong>Statistik Berdasarkan Usia Penduduk</strong></h1>
-										</div>
-								<div class="row">
-								{$no=0}
-								{foreach from=$data.range_umur item=rows key=x}
-								{$no++}
-									<div id='{$no}' class="col-sm-3 col-xs-6 cetak_usia" onclick="cetak_usia('{$no}')">
-										<div class="description-block border-right cetak_usia">
-											<span class="description-percentage text-green"><i class="fa fa-caret-up"></i></span>
-											<h5 class="description-header">{$rows.keterangan|upper|default:''} <small>Tahun</small></h5>
-											<span class="description-text">{$rows.total|number_format:0:",":"."|default:''} <smal>Orang</smal></span>
-										</div>
-									</div>
-								{/foreach}
-								</div>
-								
-								</div>
-								
-								</div>
-								<br>
-							<div class="row" style="margin-bottom:20px;display: none;">
-								<div class="col-lg-6">
-									<div class="box box-success">
-										<section class="content-header">
-										<small>Statistik Berdasarkan Jenis Kelamin</small>
-										</section>
-										<div class="box-body">
-											<div class="row">
-												<div class="col-lg-6">
-													<div id="chart_jenis_kelamin"></div>
-												</div>
-												<div class="col-lg-6">
-													<table class="table table-bordered table-striped">
-														<tbody>
-															{foreach from=$data.jenis_kelamin item=rows key=x}
-																{if $x eq '0'}
-																	<tr>
-																		<td width="70%">{$rows.keterangan|upper|default:''}</td>
-																		<td width="30%" class="text-center">{$rows.total|number_format:0:",":"."|default:''}</td>
-																	</tr>
-																{else}
-																	<tr>
-																		<td>{$rows.keterangan|upper|default:''}</td>
-																		<td class="text-center">{$rows.total|number_format:0:",":"."|default:''}</td>
-																	</tr>
-																{/if}
-															{/foreach}
-														</tbody>
-													</table>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							
-							<div class="row" style="margin-bottom:20px;display: none;">
-								<div class="col-lg-6">
-									<div class="box box-danger">
-										<div class="box-header with-border">
-											<h3 class="box-title">Statistik Berdasarkan Status Data</h3>
-										</div>
-										<div class="box-body">
-											<div class="row">
-												<div class="col-lg-6">
-													<div id="chart_status_data"></div>
-												</div>
-												<div class="col-lg-6">
-													<table class="table table-bordered table-striped">
-														<tbody>
-															{foreach from=$data.status_data item=rows key=x}
-																{if $x eq '0'}
-																	<tr>
-																		<td width="70%">{$rows.keterangan|upper|default:''}</td>
-																		<td width="30%" class="text-center">{$rows.total|number_format:0:",":"."|default:''}</td>
-																	</tr>
-																{else}
-																	<tr>
-																		<td>{$rows.keterangan|upper|default:''}</td>
-																		<td class="text-center">{$rows.total|number_format:0:",":"."|default:''}</td>
-																	</tr>
-																{/if}
-															{/foreach}
-														</tbody>
-													</table>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-6">
-									<div class="box box-success">
-										<div class="box-header with-border">
-											<h3 class="box-title">Statistik Berdasarkan Status Kawin</h3>
-										</div>
-										<div class="box-body">
-											<div class="row">
-												<div class="col-lg-6">
-													<div id="chart_status_kawin"></div>
-												</div>
-												<div class="col-lg-6">
-													<table class="table table-bordered table-striped">
-														<tbody>
-															{foreach from=$data.status_kawin item=rows key=x}
-																{if $x eq '0'}
-																	<tr>
-																		<td width="70%">{$rows.keterangan|upper|default:''}</td>
-																		<td width="30%" class="text-center">{$rows.total|number_format:0:",":"."|default:''}</td>
-																	</tr>
-																{else}
-																	<tr>
-																		<td>{$rows.keterangan|upper|default:''}</td>
-																		<td class="text-center">{$rows.total|number_format:0:",":"."|default:''}</td>
-																	</tr>
-																{/if}
-															{/foreach}
-														</tbody>
-													</table>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								
-							</div>
-							
-							<div class="row" style="margin-bottom:20px;display: none;">
-								<div class="col-lg-12">
-									<div class="box box-info">
-										<div class="box-header with-border">
-											<h3 class="box-title">Statistik Berdasarkan Pendidikan</h3>
-										</div>
-										<div class="box-body">
-											<div class="row">
-												<div class="col-lg-9">
-													<div id="chart_pendidikan"></div>
-												</div>
-												<div class="col-lg-3">
-													<table class="table table-bordered table-striped">
-														<tbody>
-															{foreach from=$data.pendidikan item=rows key=x}
-																{if $x eq '0'}
-																	<tr>
-																		<td width="60%">{$rows.keterangan|upper|default:''}</td>
-																		<td width="40%" class="text-center">{$rows.total|number_format:0:",":"."|default:''}</td>
-																	</tr>
-																{else}
-																	<tr>
-																		<td>{$rows.keterangan|upper|default:''}</td>
-																		<td class="text-center">{$rows.total|number_format:0:",":"."|default:''}</td>
-																	</tr>
-																{/if}
-															{/foreach}
-														</tbody>
-													</table>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							
-							<div class="row" style="margin-bottom:20px;display: none;">
-								<div class="col-lg-12">
-									<div class="box box-info">
-										<div class="box-header with-border">
-											<h3 class="box-title">Statistik Berdasarkan Range Umur Penduduk</h3>
-										</div>
-										<div class="box-body">
-											<div class="row">
-												<div class="col-lg-9">
-													<div id="chart_range_umur"></div>
-												</div>
-												<div class="col-lg-3">
-													<table class="table table-bordered table-striped">
-														<tbody>
-															{foreach from=$data.range_umur item=rows key=x}
-																{if $x eq '0'}
-																	<tr>
-																		<td width="60%">{$rows.keterangan|upper|default:''}</td>
-																		<td width="40%" class="text-center">{$rows.total|number_format:0:",":"."|default:''}</td>
-																	</tr>
-																{else}
-																	<tr>
-																		<td>{$rows.keterangan|upper|default:''}</td>
-																		<td class="text-center">{$rows.total|number_format:0:",":"."|default:''}</td>
-																	</tr>
-																{/if}
-															{/foreach}
-														</tbody>
-													</table>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>	
-						</div>
-						<br>
-						<div class="box box-primary">
-							<div class="box-header with-border">
-								<h3 class="box-title">Statistik Indeks Kepuasan Masyarakat (SKM)</h3>
-								<div class="box-tools pull-right">
-									<button type="button" class="btn btn-box-tool" data-widget="collapse">
-										<i class="fa fa-minus"></i>
-									</button>
-								</div>
-							</div>
+			<div class="tab-pane" id="tabRangeUmur">
+			<div id="chart_range_umur_new" style="min-height:360px;"></div>
+			</div>
+			
+			<div class="tab-pane" id="tabSkm">
+			<div id="chart_skm" style="min-height:360px;"></div>
+			</div>
 
-							<div class="box-body">
-								<div id="chart_skm"></div>
-							</div>
-						</div>
-						<br>
-						<div class="box box-success">
-								<div class="box-header with-border">
-									<h3 class="box-title">Statistik Data Input Persuratan</h3>
-								<div class="box-tools pull-right">
-									<button type="button" class="btn btn-box-tool" onclick="(() => {
-										exportTableToExcel('statistik_data_input_persuratan', 'statistik_data_input_persuratan');
-									})()"><i class="fa fa-print"></i></button>
-									<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-									<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-								</div>
-							</div>
-							
-							<div class="box-body">
-								<style>
-									.table-bordered-custom > thead > tr > th, .table-bordered-custom > tbody > tr > th, .table-bordered-custom > tbody > tr > td, .table-bordered-custom > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
-										border: 1px solid #bfbebe;
-									}
-								</style>
-								<div class="table-responsive">
-									<table id="statistik_data_input_persuratan" border="1" class="table table-bordered-custom table-hover"
-										style="border: 1px solid black;width:100%;">
-										<thead>
-											<tr>
-												<th>Jenis Surat</th>
-												<th>Jumlah</th>
-												<th>Januari</th>
-												<th>Februari</th>
-												<th>Maret</th>
-												<th>April</th>
-												<th>Mei</th>
-												<th>Juni</th>
-												<th>Juli</th>
-												<th>Agustus</th>
-												<th>September</th>
-												<th>Oktober</th>
-												<th>November</th>
-												<th>Desember</th>
-											</tr>
-										</thead>
-										<tbody>
-											
-												{$t_total = 0}
-												{$t_januari = 0}
-												{$t_februari = 0}
-												{$t_maret = 0}
-												{$t_april = 0}
-												{$t_mei = 0}
-												{$t_juni = 0}
-												{$t_juli = 0}
-												{$t_agustus = 0}
-												{$t_september = 0}
-												{$t_oktober = 0}
-												{$t_november = 0}
-												{$t_desember = 0}
-											
+        </div>
+      </div>
 
-											{foreach from=$data.summary_persuratan item=rows key=k}
-											
-												{$t_total = $t_total + $rows.total}
-												{$t_januari = $t_januari + $rows.januari}
-												{$t_februari = $t_februari + $rows.februari}
-												{$t_maret = $t_maret + $rows.maret}
-												{$t_april = $t_april + $rows.april}
-												{$t_mei = $t_mei + $rows.mei}
-												{$t_juni = $t_juni + $rows.juni}
-												{$t_juli = $t_juli + $rows.juli}
-												{$t_agustus = $t_agustus + $rows.agustus}
-												{$t_september = $t_september + $rows.september}
-												{$t_oktober = $t_oktober + $rows.oktober}
-												{$t_november = $t_november + $rows.november}
-												{$t_desember = $t_desember + $rows.desember}
-											
-											<tr>
-												<td><h5 class="description-header" align="center"></h5>{$rows.jenis_surat|upper|default:''}</h5></td>
-												<td><h5 class="description-text" align="center">{$rows.total|number_format:0:",":"."|default:''}</h5></td>
-												<td><h5 class="description-text" align="center">{$rows.januari|number_format:0:",":"."|default:''}</h5></td>
-												<td><h5 class="description-text" align="center">{$rows.februari|number_format:0:",":"."|default:''}</h5></td>
-												<td><h5 class="description-text" align="center">{$rows.maret|number_format:0:",":"."|default:''}</h5></td>
-												<td><h5 class="description-text" align="center">{$rows.april|number_format:0:",":"."|default:''}</h5></td>
-												<td><h5 class="description-text" align="center">{$rows.mei|number_format:0:",":"."|default:''}</h5></td>
-												<td><h5 class="description-text" align="center">{$rows.juni|number_format:0:",":"."|default:''}</h5></td>
-												<td><h5 class="description-text" align="center">{$rows.juli|number_format:0:",":"."|default:''}</h5></td>
-												<td><h5 class="description-text" align="center">{$rows.agustus|number_format:0:",":"."|default:''}</h5></td>
-												<td><h5 class="description-text" align="center">{$rows.september|number_format:0:",":"."|default:''}</h5></td>
-												<td><h5 class="description-text" align="center">{$rows.oktober|number_format:0:",":"."|default:''}</h5></td>
-												<td><h5 class="description-text" align="center">{$rows.november|number_format:0:",":"."|default:''}</h5></td>
-												<td><h5 class="description-text" align="center">{$rows.desember|number_format:0:",":"."|default:''}</h5></td>
-											</tr>
-											{/foreach}
-											
-												{$t1 = $t_total}
-												{$t2 = $t_januari}
-												{$t3 = $t_februari}
-												{$t4 = $t_maret}
-												{$t5 = $t_april}
-												{$t6 = $t_mei}
-												{$t7 = $t_juni}
-												{$t8 = $t_juli}
-												{$t9 = $t_agustus}
-												{$t10 = $t_september}
-												{$t11 = $t_oktober}
-												{$t12 = $t_november}
-												{$t13 = $t_desember}
-											
-											<tr>
-												<td><h5 class="description-header" align="right"></h5><b>TOTAL</b></h5></td>
-												<td><h5 class="description-text" align="center"><b>{$t1|number_format:0:",":"."|default:''}</b></h5></td>
-												<td><h5 class="description-text" align="center"><b>{$t2|number_format:0:",":"."|default:''}</b></h5></td>
-												<td><h5 class="description-text" align="center"><b>{$t3|number_format:0:",":"."|default:''}</b></h5></td>
-												<td><h5 class="description-text" align="center"><b>{$t4|number_format:0:",":"."|default:''}</b></h5></td>
-												<td><h5 class="description-text" align="center"><b>{$t5|number_format:0:",":"."|default:''}</b></h5></td>
-												<td><h5 class="description-text" align="center"><b>{$t6|number_format:0:",":"."|default:''}</b></h5></td>
-												<td><h5 class="description-text" align="center"><b>{$t7|number_format:0:",":"."|default:''}</b></h5></td>
-												<td><h5 class="description-text" align="center"><b>{$t8|number_format:0:",":"."|default:''}</b></h5></td>
-												<td><h5 class="description-text" align="center"><b>{$t9|number_format:0:",":"."|default:''}</b></h5></td>
-												<td><h5 class="description-text" align="center"><b>{$t10|number_format:0:",":"."|default:''}</b></h5></td>
-												<td><h5 class="description-text" align="center"><b>{$t11|number_format:0:",":"."|default:''}</b></h5></td>
-												<td><h5 class="description-text" align="center"><b>{$t12|number_format:0:",":"."|default:''}</b></h5></td>
-												<td><h5 class="description-text" align="center"><b>{$t13|number_format:0:",":"."|default:''}</b></h5></td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>		
+ 
+
+    </div>
+
+    <!-- Side Panel -->
+    <div class="col-md-4">
+
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <h3>Jenis Kelamin</h3>
+          <small>Klik untuk cetak</small>
+        </div>
+
+        {foreach from=$data.jenis_kelamin item=rows}
+          <a href="javascript:void(0)" class="gender-card" onclick="cetak_kelamin('{$rows.keterangan}')">
+            <div class="gender-icon">
+              {if $rows.keterangan eq 'PEREMPUAN'}
+                <i class="fa fa-female"></i>
+              {else}
+                <i class="fa fa-male"></i>
+              {/if}
+            </div>
+            <div class="gender-body">
+              <div class="gender-title">{$rows.keterangan|upper|default:''}</div>
+              <div class="gender-value">{$rows.total|number_format:0:",":"."|default:''} <small>Orang</small></div>
+            </div>
+          </a>
+        {/foreach}
+      </div>
+
+      <a href="{$host}survei-kepuasan/{$auth.cl_user_group_id}/{$auth.cl_kecamatan_id}/{$auth.cl_kelurahan_desa_id}"
+         class="dash-card survey-card"
+         target="_blank">
+        <div class="survey-title">Survei Kepuasan Masyarakat</div>
+        <div class="survey-subtitle">Klik atau scan QR untuk mengisi</div>
+        <img class="survey-qr"
+             src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data={$host}survei-kepuasan/{$auth.cl_user_group_id}/{$auth.cl_kecamatan_id}/{$auth.cl_kelurahan_desa_id}"
+             alt="QR Survei" />
+      </a>
+
+    </div>
+  </div>
+
+  <!-- Table: Persuratan -->
+  <div class="dash-card">
+    <div class="dash-card-header">
+      <h3>Statistik Data Input Persuratan</h3>
+      <div class="dash-card-actions">
+        <button class="btn btn-success btn-sm" type="button"
+                onclick="exportTableToExcel('statistik_data_input_persuratan', 'statistik_data_input_persuratan')">
+          <i class="fa fa-download"></i> Export
+        </button>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table id="statistik_data_input_persuratan" class="table table-bordered table-hover dash-table">
+        <thead>
+          <tr>
+            <th>Jenis Surat</th>
+            <th>Jumlah</th>
+            <th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>Mei</th><th>Jun</th>
+            <th>Jul</th><th>Agu</th><th>Sep</th><th>Okt</th><th>Nov</th><th>Des</th>
+          </tr>
+        </thead>
+        <tbody>
+          {$t_total = 0}
+          {$t_januari = 0}
+          {$t_februari = 0}
+          {$t_maret = 0}
+          {$t_april = 0}
+          {$t_mei = 0}
+          {$t_juni = 0}
+          {$t_juli = 0}
+          {$t_agustus = 0}
+          {$t_september = 0}
+          {$t_oktober = 0}
+          {$t_november = 0}
+          {$t_desember = 0}
+
+          {foreach from=$data.summary_persuratan item=rows}
+            {$t_total = $t_total + $rows.total}
+            {$t_januari = $t_januari + $rows.januari}
+            {$t_februari = $t_februari + $rows.februari}
+            {$t_maret = $t_maret + $rows.maret}
+            {$t_april = $t_april + $rows.april}
+            {$t_mei = $t_mei + $rows.mei}
+            {$t_juni = $t_juni + $rows.juni}
+            {$t_juli = $t_juli + $rows.juli}
+            {$t_agustus = $t_agustus + $rows.agustus}
+            {$t_september = $t_september + $rows.september}
+            {$t_oktober = $t_oktober + $rows.oktober}
+            {$t_november = $t_november + $rows.november}
+            {$t_desember = $t_desember + $rows.desember}
+
+            <tr>
+              <td>{$rows.jenis_surat|upper|default:''}</td>
+              <td class="text-center"><b>{$rows.total|number_format:0:",":"."|default:''}</b></td>
+              <td class="text-center">{$rows.januari|number_format:0:",":"."|default:''}</td>
+              <td class="text-center">{$rows.februari|number_format:0:",":"."|default:''}</td>
+              <td class="text-center">{$rows.maret|number_format:0:",":"."|default:''}</td>
+              <td class="text-center">{$rows.april|number_format:0:",":"."|default:''}</td>
+              <td class="text-center">{$rows.mei|number_format:0:",":"."|default:''}</td>
+              <td class="text-center">{$rows.juni|number_format:0:",":"."|default:''}</td>
+              <td class="text-center">{$rows.juli|number_format:0:",":"."|default:''}</td>
+              <td class="text-center">{$rows.agustus|number_format:0:",":"."|default:''}</td>
+              <td class="text-center">{$rows.september|number_format:0:",":"."|default:''}</td>
+              <td class="text-center">{$rows.oktober|number_format:0:",":"."|default:''}</td>
+              <td class="text-center">{$rows.november|number_format:0:",":"."|default:''}</td>
+              <td class="text-center">{$rows.desember|number_format:0:",":"."|default:''}</td>
+            </tr>
+          {/foreach}
+
+          <tr class="dash-table-total">
+            <td class="text-right"><b>TOTAL</b></td>
+            <td class="text-center"><b>{$t_total|number_format:0:",":"."}</b></td>
+            <td class="text-center"><b>{$t_januari|number_format:0:",":"."}</b></td>
+            <td class="text-center"><b>{$t_februari|number_format:0:",":"."}</b></td>
+            <td class="text-center"><b>{$t_maret|number_format:0:",":"."}</b></td>	
 		</div>
 	</div>
 </section>
@@ -807,167 +659,245 @@
 
 <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
 <script type="text/javascript">
-	localStorage.setItem('cl_user_group_id',"{$cl_user_group_id}");
-	
-	
-	var chartStatusKawin =  [{
-        name: 'STATUS KAWIN',
-        colorByPoint: true,
-        data: 
-        [
-			{foreach from=$data.status_kawin item=rows}
-				{
-					name: '{$rows.keterangan}',
-					y: {$rows.total},
-					color: '{$rows.color}',
-				},
-			{/foreach}
-		]
-    }];
-	genPieChart("chart_status_kawin", "status_kawin", "", chartStatusKawin);
-	
-	var chartStatusData =  [{
-        name: 'STATUS DATA',
-        colorByPoint: true,
-        data: 
-        [
-			{foreach from=$data.status_data item=rows}
-				{
-					name: '{$rows.keterangan}',
-					y: {$rows.total},
-					color: '{$rows.color}',
-				},
-			{/foreach}
-		]
-    }];
-	
-	genPieChart("chart_status_data", "status_data", "", chartStatusData);
-	
-	
-	var chartJenisKelamin =  [{
-        name: 'JENIS KELAMIN',
-        colorByPoint: true,
-        data: 
-        [
-			{foreach from=$data.jenis_kelamin item=rows}
-				{
-					name: '{$rows.keterangan}',
-					y: {$rows.total},
-					color: '{$rows.color}',
-				},
-			{/foreach}
-		]
-    }];
-	
-	genPieChart("chart_jenis_kelamin", "jenis_kelamin", "", chartJenisKelamin);
-	
-	var listAgama = [
+
+// Simpan cl_user_group_id ke localStorage (pastikan escape string JS)
+localStorage.setItem('cl_user_group_id', "{$cl_user_group_id|escape:'javascript'}");
+
+// Data chart di-assign ke variable JS dengan Smarty (hilangkan koma terakhir dengan if not last)
+var chartStatusKawin = [{
+  name: 'STATUS KAWIN',
+  colorByPoint: true,
+  data: [
+    {foreach from=$data.status_kawin item=rows name=sk}
+    {
+      name: '{$rows.keterangan|escape:"javascript"}',
+      y: {$rows.total|default:0},
+      color: getRandomColor()
+    }{if not $smarty.foreach.sk.last},{/if}
+    {/foreach}
+  ]
+}];
+
+var chartStatusData = [{
+  name: 'STATUS DATA',
+  colorByPoint: true,
+  data: [
+    {foreach from=$data.status_data item=rows name=sd}
+    {
+      name: '{$rows.keterangan|escape:"javascript"}',
+      y: {$rows.total|default:0},
+      color: getRandomColor()
+    }{if not $smarty.foreach.sd.last},{/if}
+    {/foreach}
+  ]
+}];
+
+// softColor()
+
+
+var chartXXAgama = [
+	{foreach from=$data.agama item=rows}
+		'{$rows.keterangan}',
+	{/foreach}
+];
+
+var chartAgama = [{
+	name: 'Berdasarkan AGAMA',
+	colorByPoint: true,
+	data: [
 		{foreach from=$data.agama item=rows}
-			'{$rows.keterangan}',
+			{
+				name: '{$rows.keterangan}',
+				y: {$rows.total},
+				color: getRandomColor()
+			},
 		{/foreach}
-	];
+	]
+}];
 
-	var chartAgama = [{
-		name: 'Berdasarkan AGAMA',
-		colorByPoint: true,
-		data: [
-			{foreach from=$data.agama item=rows}
-				{
-					name: '{$rows.keterangan}',
-					y: {$rows.total},
-					color: '{$rows.color}' 
-				},
-			{/foreach}
-		]
-	}];
+var chartXXPendidikan = [
+  {foreach from=$data.pendidikan item=rows name=pd}
+  '{$rows.keterangan|escape:"javascript"}'{if not $smarty.foreach.pd.last},{/if}
+  {/foreach}
+];
 
-	genColumnChart("chart_agama", "agama", listAgama, chartAgama);
+var chartPendidikan = [{
+  name: 'GRAFIK PENDIDIKAN',
+  data: [
+    {foreach from=$data.pendidikan item=rows name=pd2}
+    {
+      y: {$rows.total|default:0},
+      color: getRandomColor()
+    }{if not $smarty.foreach.pd2.last},{/if}
+    {/foreach}
+  ]
+}];
 
-	
-	var chartXXPendidikan = [
-		{foreach from=$data.pendidikan item=rows}
-			'{$rows.keterangan}',
-		{/foreach}
-	];
-	var chartPendidikan = [
-		{
-			name : 'GRAFIK PENDIDIKAN',
-			color : '#FFAA00',
-			data : [
-				{foreach from=$data.pendidikan item=rows}
-					{$rows.total},
-				{/foreach}
-			]
-		}
-	];
-	genColumnChart("chart_pendidikan", "pendidikan", chartXXPendidikan, chartPendidikan);
-	
-	
-	var chartXXUmur = [
-		{foreach from=$data.range_umur item=rows}
-			'{$rows.keterangan}',
-		{/foreach}
-	];
-	var chartUmur = [
-		{
-			name : 'GRAFIK RANGE UMUR',
-			color : '#D30102',
-			data : [
-				{foreach from=$data.range_umur item=rows}
-					{$rows.total},
-				{/foreach}
-			]
-		}
-	];
-	genColumnChart("chart_range_umur", "range_umur", chartXXUmur, chartUmur);
+var chartXXUmur = [
+  {foreach from=$data.range_umur item=rows name=um}
+  '{$rows.keterangan|escape:"javascript"}'{if not $smarty.foreach.um.last},{/if}
+  {/foreach}
+];
+
+var chartUmur = [{
+  name: 'GRAFIK RANGE UMUR',
+  data: [
+    {foreach from=$data.range_umur item=rows name=um2}
+    {
+      y: {$rows.total|default:0},
+      color: getRandomColor()
+    }{if not $smarty.foreach.um2.last},{/if}
+    {/foreach}
+  ]
+}];
+
+var chartXXSkm = {$data.skm|json_encode nofilter}.map(u => u.nama);
+var chartSkm = [{
+	name: 'NRR per Unsur',
+	colorByPoint: true,
+	data: {$data.skm|json_encode nofilter}.map(u => ({
+		name: u.nama,
+		y: parseFloat(u.nilai),
+		color:getRandomColor() // kalau pakai warna
+	}))
+}];
 
 
-	function exportTableToExcel(tableID, filename) {
-		var downloadLink;
-		var dataType = 'application/vnd.ms-excel';
-		var tableSelect = document.getElementById(tableID);
-		var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+// function getRandomColor() {
+//   var hue = Math.floor(Math.random() * 360);
+//   var saturation = Math.floor(Math.random() * 30) + 60;
+//   var lightness = Math.floor(Math.random() * 20) + 30;
 
-		// Specify file name
-		filename = filename?filename+'.xls':'excel_data.xls';
+//   return 'hsl(' + hue + ', ' + saturation + '%, ' + lightness + '%)';
+// }
+function getRandomColor() {
+  var hue = Math.floor(Math.random() * 360);
 
-		// Create download link element
-		downloadLink = document.createElement("a");
+  return {
+    linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+    stops: [
+      [0,  'hsl(' + hue + ', 80%, 40%)'], // atas
+      [0.7,'hsl(' + hue + ', 80%, 30%)'],
+      [1,  'hsl(' + hue + ', 80%, 22%)']  // bawah (gelap)
+    ]
+  };
+}
 
-		document.body.appendChild(downloadLink);
+// Variabel global untuk instance Highcharts supaya chart tidak terinisialisasi ulang
+var hcChartStatusKawin = null;
+var hcChartStatusData = null;
+var hcChartAgama = null;
+var hcChartPendidikan = null;
+var hcChartRangeUmur = null;
+var hcChartSkm = null;
 
-		if (navigator.msSaveOrOpenBlob) {
-			var blob = new Blob(['\ufeff', tableHTML], {
-				type: dataType
-			});
-			navigator.msSaveOrOpenBlob(blob, filename);
-		} else {
-			// Create a link to the file
-			downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+// Fungsi Inisialisasi chart masing-masing container (hanya inisialisasi jika belum ada)
+function initChartStatusKawin() {
+  if (!hcChartStatusKawin) {
+    hcChartStatusKawin = genPieChart("chart_status_kawin_new", "status_kawin", "", chartStatusKawin);
+  }
+}
 
-			// Setting the file name
-			downloadLink.download = filename;
+function initChartStatusData() {
+  if (!hcChartStatusData) {
+    hcChartStatusData = genPieChart("chart_status_data_new", "status_data", "", chartStatusData);
+  }
+}
 
-			//triggering the function
-			downloadLink.click();
-		}
-	}
+function initChartAgama() {
+  if (!hcChartAgama) {
+    hcChartAgama = genColumnChart("chart_agama_new", "agama", chartXXAgama, chartAgama);
+  }
+}
 
-	var chartXXSkm = {$data.skm|json_encode nofilter}.map(u => u.nama);
-	var chartSkm = [{
-		name: 'NRR per Unsur',
-		colorByPoint: true,
-		data: {$data.skm|json_encode nofilter}.map(u => ({
-			name: u.nama,
-			y: parseFloat(u.nilai),
-			color: u.color ?? null // kalau pakai warna
-		}))
-	}];
+function initChartPendidikan() {
+  if (!hcChartPendidikan) {
+    hcChartPendidikan = genColumnChart("chart_pendidikan_new", "pendidikan", chartXXPendidikan, chartPendidikan);
+  }
+}
 
-	// genColumnChart("chart_skm", "agama", chartXXSkm, chartSkm);
-	genColumnChartSKM("chart_skm","skm",chartXXSkm,chartSkm,"Statistik Indeks Kepuasan Masyarakat (SKM)");
+function initChartRangeUmur() {
+  if (!hcChartRangeUmur) {
+    hcChartRangeUmur = genColumnChart("chart_range_umur_new", "range_umur", chartXXUmur, chartUmur);
+  }
+}
 
-		
-	// alert('s');
-	
+function initChartSkm() {
+  if (!hcChartSkm) {
+    hcChartSkm = genColumnChart("chart_skm", "skm", chartXXSkm, chartSkm);
+  }
+}
+
+// Fungsi mereflow semua chart Highcharts yang sudah diinisialisasi
+function reflowAllHighcharts() {
+  if (window.Highcharts && Array.isArray(Highcharts.charts)) {
+    Highcharts.charts.forEach(function (chart) {
+      if (chart) chart.reflow();
+    });
+  }
+}
+
+// Inisialisasi chart saat document siap dan target tab aktif
+$(document).ready(function () {
+  // Inisialisasi chart di tab aktif default, misal 'Agama' bisa sesuaikan sesuai tab Anda aktif default-nya
+  initChartPendidikan();
+
+    jQuery('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+      var targetTab = jQuery(e.target).attr('href'); // #tabId
+
+      switch (targetTab) {
+        case '#tabStatusKawin':
+          initChartStatusKawin();
+          break;
+        case '#tabStatusData':
+          initChartStatusData();
+          break;
+        case '#tabAgama':
+          initChartAgama();
+          break;
+        case '#tabPendidikan':
+          initChartPendidikan();
+          break;
+        case '#tabRangeUmur':
+          initChartRangeUmur();
+          break;
+        case '#tabSkm':
+          initChartSkm();
+          break;
+      }
+
+      reflowAllHighcharts();
+    });
+});
+
+
+// Fungsi export table (sama dengan yang sudah Anda pakai)
+function exportTableToExcel(tableID, filename) {
+  var dataType = 'application/vnd.ms-excel';
+  var tableSelect = document.getElementById(tableID);
+
+  if (!tableSelect) {
+    console.error('Table tidak ditemukan:', tableID);
+    return;
+  }
+
+  var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+  filename = filename ? filename + '.xls' : 'excel_data.xls';
+
+  var downloadLink = document.createElement('a');
+  document.body.appendChild(downloadLink);
+
+  if (navigator.msSaveOrOpenBlob) {
+    var blob = new Blob(['\ufeff', tableHTML], { type: dataType });
+    navigator.msSaveOrOpenBlob(blob, filename);
+  } else {
+    downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+    downloadLink.download = filename;
+    downloadLink.click();
+  }
+
+  document.body.removeChild(downloadLink);
+}
+
+
 </script>

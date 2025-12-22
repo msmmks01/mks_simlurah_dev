@@ -14,9 +14,7 @@
 */
 class Lib
 {
-	public function __construct()
-	{
-	}
+	public function __construct() {}
 
 	//class asset manager
 	function assetsmanager($type, $p1)
@@ -74,7 +72,7 @@ class Lib
 							'__assets/backendxx/dist/js/autoNumeric.js',
 							'__assets/backendxx/dist/js/autoCurrency.js',
 							'__assets/backendxx/dist/js/fungsi.js',
-							
+
 						);
 						break;
 				}
@@ -122,6 +120,7 @@ class Lib
 							'__assets/backendxx/bower_components/select2/dist/css/select2.min.css',
 							'__assets/backendxx/dist/css/AdminLTE.min.css',
 							'__assets/backendxx/dist/css/skins/_all-skins.min.css',
+							'__assets/backendxx/dist/css/sidebar.css',
 						);
 						break;
 				}
@@ -264,7 +263,12 @@ class Lib
 		}
 
 		$config = array(
-			"protocol"	=> "smtp", "mailtype" => "html", "smtp_host" => "ssl://mbox.scisi.com", "smtp_user" => "notifikasi@scisi.com", "smtp_pass" => "Sc1s1kso", "smtp_port" => "465",
+			"protocol"	=> "smtp",
+			"mailtype" => "html",
+			"smtp_host" => "ssl://mbox.scisi.com",
+			"smtp_user" => "notifikasi@scisi.com",
+			"smtp_pass" => "Sc1s1kso",
+			"smtp_port" => "465",
 			'charset' => 'utf-8',
 			'wordwrap' => TRUE,
 		);
@@ -475,7 +479,7 @@ class Lib
 
 		$optTemp = '<option selected value=""> -- Pilih -- </option>';
 		switch ($type) {
-			
+
 			case "ya_atau_tidak":
 				$data = array(
 					'0' => array('id' => 'YA', 'txt' => 'YA'),
@@ -1807,8 +1811,12 @@ class Lib
 	function random_warna()
 	{
 		$arr_warna = array(
-			'#D30102', '#FEF200', '#3EDE37',
-			'#376FDE', '#FFAA00', '#CDCDCD',
+			'#D30102',
+			'#FEF200',
+			'#3EDE37',
+			'#376FDE',
+			'#FFAA00',
+			'#CDCDCD',
 			'#FFE792'
 
 		);

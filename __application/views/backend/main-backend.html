@@ -8,7 +8,10 @@
     <title>SIMLURAH - SISTEM INFORMASI MANAJEMEN KELURAHAN</title>
 	{$main_css}
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-		
+		    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+	<!-- <link href="https://fonts.cdnfonts.com/css/outfit" rel="stylesheet">
+                 -->
 	<script>
 		var host = "{$host}";
 		var setting = "{$isi_setting|default:''}";
@@ -24,14 +27,19 @@
 	
 </head>
 
-<body class="fixed hold-transition skin-green sidebar-mini">
+<body class="fixed hold-transition skin-purple-soft sidebar-mini">
+	<div class="top-info-bar">
+	<i class="ri-pushpin-2-fill" style="margin-right: 3px;"></i>  <div id="typing" class="animasi-teks"></div>
+	</div>
 	<div class="wrapper">
+		  <!-- TOP INFO BAR -->
+
 		<header class="main-header">
-			<a href="{$host}" class="logo d-lg-block d-none" style="background-color: transparent;padding: 0 27px;">
+			<a href="{$host}" class="logo d-lg-block d-none" style="background-color: #ffff;padding: 0 27px;">
 				<span class="logo-mini"> <img  src="{$host}__assets/images/Simlurah Icon Color.svg" width="100%"></span>
 				<span class="logo-lg">
 					{if $auth.cl_user_group_id eq '2'}
-					<img style="margin-top:-5px;margin-left:-15px;" src="{$host}__assets/images/Simlurah White Color.svg" width="73%">
+					<img style="margin-top:-5px;margin-left:-15px;" src="{$host}__assets/images/Simlurah Color.svg" width="73%">
 					{else} 
 					<img style="margin-top:-5px;margin-left:-15px;" src="{$host}__assets/images/simkecamatan.png" width="73%">
 					{/if}
@@ -47,14 +55,47 @@
 			<nav class="navbar navbar-static-top">
 				
 				<a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-					<span class="sr-only">Toggle navigation</span>
+					<i class="ri-layout-4-line"></i>
 				</a>
-				<div class="pull-left" style="padding: 13px 0px;">
-					<small class="label pull-right bg-blue" style="font-size: 16px;">{$tahun}</small>
+				<div class="pull-left header-info" style="padding: 7px 0px;">
+					
+					<b class="kecamatan-text">KECAMATAN {$auth.nama_kecamatan|default:''} | {$auth.nama_kab_kota|default:''}</b> 
+					
+					<div class="waktu-box">
+								<div class="tanggal" id="tanggal"></div>
+								<div class="jam">
+									<span id="jam"></span>:
+									<span id="menit"></span>:
+									<span class="detik" id="detik"></span>
+								</div>
+								</div>
 				</div>
 				<div class="navbar-custom-menu">
 					<ul class="nav navbar-nav">
-						
+						<li>
+							<div style="padding: 13px 0px;">
+
+								<small class="label pull-right bg-blue-soft-light" style="font-size: 16px;">{$tahun}</small>
+							</div>
+							
+
+						</li>
+						{if $auth.cl_user_group_id eq '2'}
+						<li class="dropdown messages-menu">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+							<i class="bi bi-bell notif_line"></i>
+							<span class="label label-warning">{$notif}</span>
+							</a>
+							<ul class="dropdown-menu">
+							   <li class="header">Anda Mempunyai {$notif} Pesan yang belum dibaca</li>
+							   {foreach from=$get_data_bc item=rows}
+							   {if $rows.flag_reg == 'Y'}<li class="footer"><a href="javascript:void(0)" onclick="loadUrl(host+'backoffice-grid/broadcast');"><i class="fa fa-envelope-open-o"></i> {$rows.subjek}</a></li>{else}<li class="footer"><a href="javascript:void(0)" onclick="loadUrl(host+'backoffice-grid/broadcast');"><i class="fa fa-envelope-o"></i> {$rows.subjek}</a></li>{/if}
+							   {/foreach}
+							   <li class="footer"><a href="javascript:void(0)" onclick="loadUrl(host+'backoffice-grid/broadcast');">Lihat semua pesan</a></li>
+							</ul>
+						 </li>
+						{else}
+						{/if}
 						<li class="dropdown user user-menu">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 								<img src="{$host}__assets/images/logo-makassar.png" class="user-image" alt="User Image">
@@ -79,44 +120,37 @@
 								</li>
 							</ul>
 						</li>
-						{if $auth.cl_user_group_id eq '2'}
-						<li class="dropdown messages-menu">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-							<i class="fa fa-bell-o"></i>
-							<span class="label label-warning">{$notif}</span>
-							</a>
-							<ul class="dropdown-menu">
-							   <li class="header">Anda Mempunyai {$notif} Pesan yang belum dibaca</li>
-							   {foreach from=$get_data_bc item=rows}
-							   {if $rows.flag_reg == 'Y'}<li class="footer"><a href="javascript:void(0)" onclick="loadUrl(host+'backoffice-grid/broadcast');"><i class="fa fa-envelope-open-o"></i> {$rows.subjek}</a></li>{else}<li class="footer"><a href="javascript:void(0)" onclick="loadUrl(host+'backoffice-grid/broadcast');"><i class="fa fa-envelope-o"></i> {$rows.subjek}</a></li>{/if}
-							   {/foreach}
-							   <li class="footer"><a href="javascript:void(0)" onclick="loadUrl(host+'backoffice-grid/broadcast');">Lihat semua pesan</a></li>
-							</ul>
-						 </li>
-						{else}
-						{/if}
+					
 						<!-- Control Sidebar Toggle Button -->						
 					</ul>
 				</div>
 			</nav>
 		</header>
 		
-		<aside class="main-sidebar">
-			<section class="sidebar">	
-				<div class="user-panel">
-					<div class="pull-left image">
-						<img src="{$host}__assets/images/logo-makassar.png" class="img-circle" alt="User Image">
-					</div>
-					<div class="pull-left info">
-						<p>{$auth.username|default:''}</p>
-						<a href="{$host}"><i class="fa fa-circle text-success"></i> Online</a>
-					</div>
-				</div>
+	 <aside class="tpl-sidebar">
+  			<section class="tpl-sidebar-inner">
+
+    <!-- USER PANEL -->
+			<div class="tpl-user-panel">
+			<div class="tpl-user-image">
+				<img src="{$host}__assets/images/logo-makassar.png" alt="User Image" />
+			</div>
+			<div class="tpl-user-info">
+				<p>{ucfirst($auth.username)|default:''}</p>
+				<span class="tpl-online">
+				<i class="fa fa-circle"></i> Online
+				</span>
+			</div>
+			</div>
+			<div class="tpl-nav-tree">
+
 				{include file="backend/menu.html"}
+			</div>
 			</section>
 		</aside>
 		
-		<div class="content-wrapper">
+		<div class="content-wrapper bg-grid-thin">
+			
 			<div id="main-konten"></div>
 		</div>
 	</div>
@@ -169,6 +203,107 @@
 				}
 			});
 		}
+
+		 function setTplActiveByUrl(url) {
+        document.querySelectorAll('.tpl-item.active, .tpl-subitem.active')
+          .forEach(el => el.classList.remove('active'));
+
+        document.querySelectorAll('.tpl-link, .tpl-sublink').forEach(link => {
+          if (link.getAttribute('onclick')?.includes(url)) {
+
+            const subItem = link.closest('.tpl-subitem');
+            if (subItem) subItem.classList.add('active');
+
+            const item = link.closest('.tpl-item');
+            if (item) item.classList.add('active', 'menu-open');
+          }
+        });
+      }
+
+
+		const originalLoadUrl = window.loadUrl;
+
+		window.loadUrl = function (url) {
+		originalLoadUrl(url);
+		setTplActiveByUrl(url);
+		};
+
+
+		document.querySelectorAll('.tpl-has-submenu > .tpl-link')
+		.forEach(link => {
+			link.addEventListener('click', function (e) {
+			e.preventDefault();
+			const parent = this.closest('.tpl-has-submenu');
+
+			document.querySelectorAll('.tpl-has-submenu.menu-open')
+				.forEach(open => {
+				if (open !== parent) open.classList.remove('menu-open');
+				});
+
+			parent.classList.toggle('menu-open');
+			});
+		});
+	document.querySelectorAll('.tpl-link').forEach(link => {
+		const text = link.querySelector('.menu-textspan');
+		if (!text) return;
+
+		// reset dulu
+		link.classList.remove('has-tooltip');
+		link.removeAttribute('data-fulltext');
+
+		// cek overflow REAL
+		if (text.scrollWidth > text.clientWidth) {
+			link.classList.add('has-tooltip');
+			link.setAttribute('data-fulltext', text.textContent.trim());
+		}
+		});
 	</script>
+	<script>
+			
+	const teks = [
+	"Hi, Selamat datang di Sistem Informasi Manajemen Kelurahan (SIMLURAH)",
+	"Melayani masyarakat dengan cepat, tertib, dan transparan",
+	"Terima kasih atas dedikasi Anda dalam pelayanan publik"
+	];
+
+	let index = 0;
+	const el = document.getElementById("typing");
+
+	function ketik() {
+		var text = teks[index];
+		el.textContent = text;
+
+		el.style.transition = "none";
+		el.style.width = "0px";
+		el.offsetHeight;
+
+		var width = el.scrollWidth;
+
+		var span = document.createElement("span");
+		span.textContent = +" ";
+		span.style.visibility = "hidden";
+		span.style.font = getComputedStyle(el).font;
+		document.body.appendChild(span);
+		var spaceWidth = span.offsetWidth;
+		document.body.removeChild(span);
+
+		el.style.transition = "width 3s steps(" + (text.length + 1) + ")";
+		el.style.width = (width + spaceWidth) + "px";
+
+		index = (index + 1) % teks.length;
+	}
+
+
+ketik();
+setInterval(ketik, 4500);
+
+
+// update pertama kali
+updateWaktu();
+
+// update setiap 1 detik
+setInterval(updateWaktu, 1000);
+</script>
+
 </body>
 </html>

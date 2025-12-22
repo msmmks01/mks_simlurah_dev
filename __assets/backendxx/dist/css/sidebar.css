@@ -1,0 +1,619 @@
+/* ======================================
+   TPL SIDEBAR – FULL OVERRIDE
+====================================== */
+
+:root {
+  --tpl-bg: #ffffff;
+  --tpl-text: #4b5563;
+  --tpl-muted: #9ca3af;
+
+  --tpl-hover-bg: #f3f4f6;
+
+  --tpl-active-bg: #ede7ff;
+  --tpl-active-text: #6a1b9a;
+  --tpl-active-bar: #6a1b9a;
+
+  --tpl-border: #e5e7eb;
+}
+
+.bg-grid-thin {
+  background-color: #fafafa;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.06) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+/* ===============================
+   SIDEBAR CONTAINER
+================================ */
+.bg-purple-gradient {
+  background:#5C6BC0 
+}
+/* ==============================
+   SIDEBAR FIXED
+================================ */
+.tpl-sidebar {
+  position: fixed;
+  top: 36px;
+  left: 0;
+  width: 230px;
+  height: calc(100vh - 36px); /* menyesuaikan dengan top */
+  background: var(--tpl-bg);
+  z-index: 1000;
+  overflow: hidden; /* parent tidak scroll */
+}
+
+
+/* ==============================
+   SIDEBAR FLEX WRAPPER
+================================ */
+.tpl-sidebar-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+}
+
+
+
+/* ==============================
+   USER PANEL (TETAP)
+================================ */
+.tpl-user-panel {
+  flex: 0 0 auto;
+  padding: 16px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+
+/* ==============================
+   MENU SCROLLABLE
+================================ */
+.tpl-nav-tree {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 20px;
+  scroll-behavior: smooth;
+}
+
+
+
+/* ==============================
+   SCROLLBAR (OPSIONAL)
+================================ */
+.tpl-nav-tree::-webkit-scrollbar {
+  width: 6px;
+}
+
+.tpl-nav-tree::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,.25);
+  border-radius: 4px;
+}
+
+.tpl-nav-tree::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+
+/* ===============================
+   MENU LIST
+================================ */
+.tpl-nav {
+  list-style: none;
+  margin: 0;
+  padding: 0.75rem;
+}
+
+
+/* ===============================
+   SECTION HEADER
+================================ */
+
+.tpl-section {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--tpl-muted);
+  text-transform: uppercase;
+  padding: 3px 6px;
+}
+
+/* ===============================
+   ITEM
+================================ */
+
+.tpl-item {
+  margin-bottom: 4px;
+  position: relative;
+}
+
+/* ===============================
+   LINK (PARENT)
+================================ */
+
+.tpl-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 42px;
+  padding: 0 2px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--tpl-text);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tpl-link:hover {
+  background: var(--tpl-hover-bg) !important;
+  color: #000;
+}
+
+/* icon */
+.tpl-link i {
+  width: 18px;
+  text-align: center;
+  font-size: 16px;
+}
+.tpl-link i.icox {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #e0e0e0; /* abu-abu muda */
+  border-radius: 50%;        /* sudut melengkung */
+  font-size: 18px;
+  color: var(--tpl-text);  
+}
+
+.tpl-item.active i.icox {
+  background-color: #6a1b9a; /* ungu gelap */
+  color: #ffffff; /* opsional: putih agar kontras */
+}
+
+
+/* arrow */
+.tpl-arrow {
+  margin-left: auto;
+  transition: transform 0.25s ease;
+  opacity: 0.6;
+}
+
+/* ===============================
+   ACTIVE PARENT
+================================ */
+
+.tpl-item.active > .tpl-link {
+  background: var(--tpl-active-bg);
+  color: var(--tpl-active-text);
+}
+
+/* open arrow */
+.tpl-item.menu-open > .tpl-link .tpl-arrow {
+  transform: rotate(90deg);
+  opacity: 1;
+}
+
+/* ===============================
+   SUBMENU
+================================ */
+
+.tpl-submenu {
+  list-style: none;
+  margin: 6px 0 6px 27px;
+  padding-left: 12px;
+
+  border-left: 1px solid var(--tpl-border);
+
+  display: none;
+}
+
+.tpl-item.menu-open > .tpl-submenu {
+  display: block;
+}
+
+/* ===============================
+   SUB ITEM
+================================ */
+
+.tpl-subitem {
+  position: relative;
+}
+
+/* ===============================
+   SUB LINK
+================================ */
+
+.tpl-sublink {
+  display: flex;
+  align-items: center;
+
+  height: 38px;
+  padding: 0 12px;
+  border-radius: 8px;
+
+  font-size: 14px;
+  color: var(--tpl-text);
+  text-decoration: none;
+
+  transition: all 0.2s ease;
+}
+
+.tpl-sublink:hover {
+  background: var(--tpl-hover-bg);
+  color: #000;
+}
+
+/* ===============================
+   ACTIVE SUBMENU (INI YANG KAMU MAU)
+================================ */
+
+.tpl-subitem.active > .tpl-sublink {
+  background: var(--tpl-active-bg);
+  color: var(--tpl-active-text);
+}
+
+/* garis kiri ungu */
+.tpl-subitem.active > .tpl-sublink::before {
+  content: "";
+  position: absolute;
+  left: -13px;
+  top: 6px;
+  bottom: 6px;
+
+  width: 4px;
+  background: var(--tpl-active-bar);
+  border-radius: 4px;
+}
+
+/* ===============================
+   HARD OVERRIDE ADMINLTE
+================================ */
+
+.skin-green .sidebar-menu,
+.skin-green .sidebar-menu li,
+.skin-green .sidebar-menu li a {
+  background: transparent !important;
+  color: inherit !important;
+  border: none !important;
+}
+
+
+/* ===============================
+   USER PANEL
+================================ */
+.tpl-user-panel {
+  display: flex;
+  align-items: center;
+  padding: 14px 14px;
+  border-bottom: 1px solid #e9e9f3;
+  margin-bottom: 0px;
+}
+
+.tpl-user-image {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #f1f1fb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.tpl-user-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.tpl-user-info {
+  margin-left: 12px;
+  line-height: 1.2;
+}
+
+.tpl-user-info p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2f2f3a;
+}
+
+.tpl-online {
+  font-size: 12px;
+  color: #2ecc71;
+}
+
+.tpl-online i {
+  font-size: 8px;
+  margin-right: 4px;
+}
+
+.tpl-content-wrapper,
+.tpl-main-content,
+.content-wrapper {
+  margin-left: 230px;
+}
+
+
+
+.menu-item.active > .menu-link { }
+.submenu-item.active > .submenu-link { }
+.menu-item.menu-open > .submenu { display:block; }
+
+
+/* ===============================
+   SIDEBAR COLLAPSED STATE
+================================ *//* =================================
+   ADMINLTE SIDEBAR COLLAPSE STATE
+================================= */
+body.sidebar-collapse .tpl-sidebar { width:64px; }
+body.sidebar-collapse .tpl-sidebar:hover { width:230px; }
+
+body.sidebar-collapse .tpl-user-info,
+body.sidebar-collapse .tpl-section,
+body.sidebar-collapse .tpl-link span,
+body.sidebar-collapse .tpl-sublink span,
+body.sidebar-collapse .tpl-arrow { display:none; }
+
+body.sidebar-collapse .tpl-sidebar:hover .tpl-user-info,
+body.sidebar-collapse .tpl-sidebar:hover .tpl-section,
+body.sidebar-collapse .tpl-sidebar:hover .tpl-link span,
+body.sidebar-collapse .tpl-sidebar:hover .tpl-sublink span,
+body.sidebar-collapse .tpl-sidebar:hover .tpl-arrow { display:inline; }
+
+body.sidebar-collapse .tpl-content-wrapper,
+body.sidebar-collapse .tpl-main-content,
+body.sidebar-collapse .content-wrapper { margin-left:64px !important; }
+
+
+
+
+.main-header .sidebar-toggle {
+    float: left;
+    font-size: 24px;
+    background-color: transparent;
+    background-image: none;
+    padding: 8px 15px;
+    font-family: fontAwesome;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+}
+
+/* .main-header .sidebar-toggle:before {
+    content: "\f0c9"
+} */
+
+.main-header .sidebar-toggle:hover {
+    color: #fff
+}
+
+.main-header .sidebar-toggle:focus,
+.main-header .sidebar-toggle:active {
+    background: transparent
+}
+
+.main-header .sidebar-toggle .icon-bar {
+    display: none
+}
+
+
+.animasi-teks {
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  font-weight: 600;
+
+  border-right: 2px solid #fff;
+
+  width: 0;
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+.animasi-teks {
+  animation: blink 1s step-end infinite;
+}
+
+
+@keyframes ketik {
+  from { width: 0; }
+  to { width: max-content; }
+}
+
+.header-info {
+  display: flex;
+  flex-direction: column; /* paksa ke bawah */
+  gap: 1px;
+}
+
+
+  .waktu-box {
+    background: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    /* padding: 12px 20px; */
+    /* border-radius: 10px; */
+    /* box-shadow: 0 4px 10px rgba(0,0,0,.08); */
+  }
+
+  .tanggal {
+    font-size: 10px;
+    color: #555;
+  }
+
+  .jam {
+    font-size: 10px;
+    font-weight: 600;
+    color: #222;
+    letter-spacing: 1px;
+  }
+
+  .detik {
+    color: #e63946;
+    font-weight: 600;
+  }
+/* TOP INFO BAR */
+.top-info-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: #d9edf7;
+  /* background: #3F5EFB; */
+  background: linear-gradient(13deg, rgba(63, 94, 251, 1) 0%, rgba(252, 70, 107, 1) 100%);
+  color: #ffffff;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 1040; /* di atas header */
+}
+
+/* HEADER TURUN */
+.main-header {
+  top: 30px;
+}
+
+/* SIDEBAR TURUN */
+.main-sidebar {
+  padding-top: 30px;
+}
+
+/* CONTENT TURUN */
+.content-wrapper,
+.main-footer {
+  margin-top: 30px;
+}
+
+.fixed .main-header {
+  top: 30px;
+  right: 0;
+  left: 0;
+}
+
+.kecamatan-text {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  /* MAGIC RESPONSIVE FONT */
+  font-size: clamp(12px, 1vw, 15px);
+  line-height: 1.2;
+  margin-bottom: 0px;
+}
+
+.datagrid-header-row {
+  background-color: #553395 !important;
+  color: #fff;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.datagrid-header-inner {
+  float: left;
+  width: 10000px;
+  background-color: #553395 !important;
+  color: #fff;
+}
+
+/* teks menu 1 baris */
+.tpl-link span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px; /* sesuaikan sidebar */
+  display: inline-block;
+}
+
+.tpl-link {
+  position: relative;
+}
+
+/* tooltip box */
+/* tooltip box */
+.tpl-link.has-tooltip::after {
+  content: attr(data-fulltext);
+  position: absolute;
+  bottom: calc(100% + 14px);   /* ⬅️ NAIKKAN BOX */
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  background: #6d28d9;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  z-index: 99999;
+}
+
+/* arrow */
+.tpl-link.has-tooltip::before {
+  content: "";
+  position: absolute;
+  bottom: calc(100% + 4px);    /* ⬅️ TURUNKAN ARROW */
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 7px;           /* ⬅️ BIKIN LEBIH BESAR */
+  border-style: solid;
+  border-color: #6d28d9 transparent transparent transparent;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 99999;
+}
+
+/* show */
+.tpl-link.has-tooltip:hover::after,
+.tpl-link.has-tooltip:hover::before {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.tpl-sidebar,
+.tpl-link {
+  overflow: visible !important;
+}
+
+/* default: tooltip OFF */
+.tpl-link:not(.has-tooltip)::after,
+.tpl-link:not(.has-tooltip)::before {
+  display: none;
+}
+
+
+.tpl-link.has-tooltip::after {
+  background: #6d28d9;
+}
+
+.tpl-link.has-tooltip::before {
+  border-color: #6d28d9 transparent transparent transparent;
+}
+
+.tpl-link .menu-textspan{
+  display: block;
+  max-width: 140px;       /* ⬅️ INI KUNCI */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 1;
+}
+
+
+.btn-purple {
+  background-color: #6a1b9a;
+  border-color: #6a1b9a;
+  color: #ffffff;
+}

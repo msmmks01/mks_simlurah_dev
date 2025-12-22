@@ -10879,3 +10879,36 @@ function formatTanggalIndonesia(raw) {
 
 
 
+function updateWaktu() {
+  const sekarang = new Date();
+
+  const hariList = [
+    "Minggu","Senin","Selasa","Rabu",
+    "Kamis","Jumat","Sabtu"
+  ];
+
+  const bulanList = [
+    "Januari","Februari","Maret","April","Mei","Juni",
+    "Juli","Agustus","September","Oktober","November","Desember"
+  ];
+
+  const hari = hariList[sekarang.getDay()];
+  const tanggal = sekarang.getDate();
+  const bulan = bulanList[sekarang.getMonth()];
+  const tahun = sekarang.getFullYear();
+
+  let jam = sekarang.getHours();
+  let menit = sekarang.getMinutes();
+  let detik = sekarang.getSeconds();
+
+  jam = jam < 10 ? "0" + jam : jam;
+  menit = menit < 10 ? "0" + menit : menit;
+  detik = detik < 10 ? "0" + detik : detik;
+
+  document.getElementById("tanggal").innerHTML =
+    hari + ", " + tanggal + " " + bulan + " " + tahun;
+
+  document.getElementById("jam").innerHTML = jam;
+  document.getElementById("menit").innerHTML = menit;
+  document.getElementById("detik").innerHTML = detik;
+}

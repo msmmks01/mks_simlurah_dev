@@ -5,7 +5,12 @@
  *   License: Open source - MIT
  *           Please visit http://opensource.org/licenses/MIT for more information
  */
+ @import url('https://fonts.cdnfonts.com/css/outfit');
 
+:root{
+    --bs-font-sans-serif:'Outfit',system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+
+}
 html,
 body {
     /*height: 100%*/
@@ -17,7 +22,7 @@ body {
 }
 
 body {
-    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: var(--bs-font-sans-serif);
     font-weight: 400;
     overflow-x: hidden;
     overflow-y: auto
@@ -168,10 +173,11 @@ body {
 .content {
     min-height: 250px;
     padding: 5px;
-    margin-right: auto;
-    margin-left: auto;
+    margin-right: 15px;
+    margin-left: 15px;
     padding-left: 5px;
-    padding-right: 5px
+    padding-right: 5px;
+    margin-top: 15px;
 }
 
 h1,
@@ -198,7 +204,7 @@ a:active,
 a:focus {
     outline: none;
     text-decoration: none;
-    color: #72afd2
+    color: #1d0034
 }
 
 .page-header {
@@ -293,9 +299,9 @@ a:focus {
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
 }
 
-.main-header .sidebar-toggle:before {
+/* .main-header .sidebar-toggle:before {
     content: "\f0c9"
-}
+} */
 
 .main-header .sidebar-toggle:hover {
     color: #fff
@@ -641,7 +647,7 @@ a:focus {
     .sidebar-mini.sidebar-collapse .content-wrapper,
     .sidebar-mini.sidebar-collapse .right-side,
     .sidebar-mini.sidebar-collapse .main-footer {
-        margin-left: 50px !important;
+        margin-left: 64px !important;
         z-index: 840
     }
     .sidebar-mini.sidebar-collapse .main-sidebar {
