@@ -18338,59 +18338,6 @@ class Mbackend extends CI_Model
 				} else if ($table == "tbl_data_daftar_agenda") {
 					$data['batch_key'] = uniqid('batch_', true);
 					$insert = $this->db->insert($table, $data);
-
-					if ($insert) {
-						$payload = [
-							'batch_key'       => $data['batch_key'],
-							'cl_kecamatan_id' => $data['cl_kecamatan_id'],
-							'cl_kelurahan_desa_id' => $data['cl_kelurahan_desa_id'],
-						];
-
-						$ch = curl_init('https://mobile.kotamakassar.id/mobile/Fcm_v1/receive_agenda');
-						curl_setopt($ch, CURLOPT_POST, true);
-						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-						curl_setopt($ch, CURLOPT_HTTPHEADER, [
-							'Content-Type: application/json',
-							'X-API-KEY: XGASDJsjkaseryi823ADBDKC98AS'
-						]);
-						curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
-
-						$res = curl_exec($ch);
-
-						if ($res === false) {
-							$error = curl_error($ch);
-							$errno = curl_errno($ch);
-							curl_close($ch);
-
-							echo '<pre>';
-							echo "CURL ERROR ($errno): $error\n";
-							echo '</pre>';
-							exit;
-						}
-
-						$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-						curl_close($ch);
-
-						// TAMPILKAN RINGKAS & JELAS
-						echo '<pre>';
-						echo "HTTP CODE: $httpCode\n\n";
-
-						// tampilkan isi respon, tapi aman (tidak banjir)
-						echo "RESPONSE LENGTH: " . strlen($res) . "\n\n";
-						echo "RESPONSE (first 1000 chars):\n";
-						echo substr($res, 0, 1000) . "\n\n";
-
-						// kalau JSON, tampilkan decoded
-						$decoded = json_decode($res, true);
-						if (json_last_error() === JSON_ERROR_NONE) {
-							echo "JSON DECODED:\n";
-							print_r($decoded);
-						} else {
-							echo "JSON decode gagal: " . json_last_error_msg() . "\n";
-						}
-						echo '</pre>';
-						exit;
-					}
 				} else {
 
 					$insert = $this->db->insert($table, $data);
@@ -18599,7 +18546,43 @@ class Mbackend extends CI_Model
 			return 'gagal';
 		} else {
 
-			return $this->db->trans_commit();
+			$this->db->trans_commit();
+			if ($sts_crud === 'add' && $table === 'tbl_data_daftar_agenda') {
+
+				$payload = [
+					'batch_key'             => $data['batch_key'],
+					'cl_kecamatan_id'       => (int) $data['cl_kecamatan_id'],
+					'cl_kelurahan_desa_id'  => (int) $data['cl_kelurahan_desa_id'],
+				];
+
+				$ch = curl_init('https://mobile.kotamakassar.id/mobile/Fcm_v1/receive_agenda');
+				curl_setopt_array($ch, [
+					CURLOPT_POST            => true,
+					CURLOPT_RETURNTRANSFER  => true,
+					CURLOPT_HTTPHEADER      => [
+						'Content-Type: application/json',
+						'X-API-KEY: XGASDJsjkaseryi823ADBDKC98AS'
+					],
+					CURLOPT_POSTFIELDS      => json_encode($payload),
+					CURLOPT_TIMEOUT         => 5, // jangan gantung request utama
+				]);
+
+				$res = curl_exec($ch);
+
+				if ($res === false) {
+					log_message('error', 'FCM API error: ' . curl_error($ch));
+				} else {
+					$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+					if ($httpCode !== 200) {
+						log_message('error', 'FCM API HTTP ' . $httpCode . ' | Response: ' . $res);
+					}
+				}
+
+				curl_close($ch);
+			}
+
+			// PROSES UTAMA TETAP BERHASIL
+			return 'sukses';
 		}
 	}
 
