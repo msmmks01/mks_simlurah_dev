@@ -18359,15 +18359,37 @@ class Mbackend extends CI_Model
 
 						if ($res === false) {
 							$error = curl_error($ch);
-							curl_close($ch);
-							log_message('error', 'CURL Error: ' . $error);
-						} else {
+							$errno = curl_errno($ch);
 							curl_close($ch);
 
 							echo '<pre>';
-							var_dump($res);
+							echo "CURL ERROR ($errno): $error\n";
 							echo '</pre>';
+							exit;
 						}
+
+						$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+						curl_close($ch);
+
+						// TAMPILKAN RINGKAS & JELAS
+						echo '<pre>';
+						echo "HTTP CODE: $httpCode\n\n";
+
+						// tampilkan isi respon, tapi aman (tidak banjir)
+						echo "RESPONSE LENGTH: " . strlen($res) . "\n\n";
+						echo "RESPONSE (first 1000 chars):\n";
+						echo substr($res, 0, 1000) . "\n\n";
+
+						// kalau JSON, tampilkan decoded
+						$decoded = json_decode($res, true);
+						if (json_last_error() === JSON_ERROR_NONE) {
+							echo "JSON DECODED:\n";
+							print_r($decoded);
+						} else {
+							echo "JSON decode gagal: " . json_last_error_msg() . "\n";
+						}
+						echo '</pre>';
+						exit;
 					}
 				} else {
 
