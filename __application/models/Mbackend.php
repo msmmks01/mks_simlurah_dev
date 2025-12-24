@@ -18582,11 +18582,7 @@ class Mbackend extends CI_Model
 			}
 
 			// PROSES UTAMA TETAP BERHASIL
-			return [
-				'status' => 'success',
-				'message' => 'Data berhasil disimpan'
-			];
-		}
+			return 1;
 	}
 
 	function template_golongan($param, $format = '')
