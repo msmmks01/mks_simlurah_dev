@@ -688,7 +688,7 @@ class Mbackend extends CI_Model
 
 				// 			ORDER BY urutan_kategori, urutan_sub, jumlah DESC
 				// ";		
-				$sql ="SELECT a.*,b.nama_pendidikan AS pendidikan,c.nama_pekerjaan AS pekerjaan,d.jenis_surat AS layanan,e.nama AS kelurahan, f.nama AS kecamatan,
+				$sql = "SELECT a.*,b.nama_pendidikan AS pendidikan,c.nama_pekerjaan AS pekerjaan,d.jenis_surat AS layanan,e.nama AS kelurahan, f.nama AS kecamatan,
 						CASE
 							WHEN a.jenis_kelamin = 'L' THEN 'Laki-laki'
 							WHEN a.jenis_kelamin = 'P' THEN 'Perempuan'
@@ -1749,8 +1749,8 @@ class Mbackend extends CI_Model
 				$rw      = isset($p1['rw']) ? $p1['rw'] : "";
 
 				$where = " WHERE 1=1 ";
-				
-				
+
+
 				if (!empty($desa_id)) {
 
 					$where .= " AND A.cl_kelurahan_desa_id = '" . $desa_id . "'";
@@ -1773,7 +1773,7 @@ class Mbackend extends CI_Model
 				// 	$where .= " AND A.cl_kelurahan_desa_id = '$desa_id' ";
 				// }
 
-				  // Filter RT dari tabel B
+				// Filter RT dari tabel B
 				if (!empty($rt)) {
 					$where .= " AND B.rt = '$rt' ";
 				}
@@ -2108,7 +2108,7 @@ class Mbackend extends CI_Model
 					$where .= " AND a.cl_kelurahan_desa_id = '$desa_id' ";
 				} else {
 					if (!empty($this->auth['cl_kelurahan_desa_id'])) {
-						$where .= " AND a.cl_kelurahan_desa_id = '".$this->auth['cl_kelurahan_desa_id']."' ";
+						$where .= " AND a.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "' ";
 					}
 				}
 
@@ -2116,9 +2116,9 @@ class Mbackend extends CI_Model
 						DATE_FORMAT(a.create_date, '%d-%m-%Y %H:%i') AS tanggal_buat
 						FROM tbl_data_daftar_agenda a
 						$where
-						AND a.cl_provinsi_id = '".$this->auth['cl_provinsi_id']."'
-						AND a.cl_kab_kota_id = '".$this->auth['cl_kab_kota_id']."'
-						AND a.cl_kecamatan_id = '".$this->auth['cl_kecamatan_id']."'
+						AND a.cl_provinsi_id = '" . $this->auth['cl_provinsi_id'] . "'
+						AND a.cl_kab_kota_id = '" . $this->auth['cl_kab_kota_id'] . "'
+						AND a.cl_kecamatan_id = '" . $this->auth['cl_kecamatan_id'] . "'
 						ORDER BY a.id DESC";
 				break;
 
@@ -2140,7 +2140,7 @@ class Mbackend extends CI_Model
 				if ($desa_id) {
 					$where .= " AND a.cl_kelurahan_desa_id = '$desa_id' ";
 				} else if (!empty($this->auth['cl_kelurahan_desa_id'])) {
-					$where .= " AND a.cl_kelurahan_desa_id = '".$this->auth['cl_kelurahan_desa_id']."' ";
+					$where .= " AND a.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "' ";
 				}
 
 				$sql = "SELECT 
@@ -2151,9 +2151,9 @@ class Mbackend extends CI_Model
 						LEFT JOIN tbl_data_daftar_agenda b 
 							ON b.id = a.perihal_hasil_agenda
 						$where
-						AND a.cl_provinsi_id = '".$this->auth['cl_provinsi_id']."'
-						AND a.cl_kab_kota_id = '".$this->auth['cl_kab_kota_id']."'
-						AND a.cl_kecamatan_id = '".$this->auth['cl_kecamatan_id']."'
+						AND a.cl_provinsi_id = '" . $this->auth['cl_provinsi_id'] . "'
+						AND a.cl_kab_kota_id = '" . $this->auth['cl_kab_kota_id'] . "'
+						AND a.cl_kecamatan_id = '" . $this->auth['cl_kecamatan_id'] . "'
 						ORDER BY a.id DESC";
 				break;
 
@@ -2519,7 +2519,7 @@ class Mbackend extends CI_Model
 				//echo $sql;exit;
 
 				break;
-   
+
 			case "laporan_ekspedisi":
 
 				$desa_id = $this->input->post('kelurahan_id');
@@ -4521,7 +4521,7 @@ class Mbackend extends CI_Model
 				// 	LEFT JOIN cl_kecamatan E ON E.id = A.cl_kecamatan_id
 
 				// 	LEFT JOIN cl_kelurahan_desa F ON F.id = A.cl_kelurahan_desa_id
-					
+
 				// 	LEFT JOIN tbl_data_penandatanganan G ON A.nip=G.nip AND A.cl_kelurahan_desa_id=G.cl_kelurahan_desa_id
 
 				// 	$where AND A.status_esign=0
@@ -4530,7 +4530,7 @@ class Mbackend extends CI_Model
 
 				// ";
 
-				$sql ="SELECT  A.*,
+				$sql = "SELECT  A.*,
 						B.nama_lengkap,
 						B.nik AS nik_id,        -- nik dari penduduk lokal (atau '' jika baris dari penduduk_asing)
 						B.no_passport AS no_passport, -- passport dari penduduk asing (atau '' jika baris dari penduduk lokal)
@@ -5218,10 +5218,9 @@ class Mbackend extends CI_Model
 							END) AS bulan_indo
 						FROM tbl_data_rekap_bulanan a
 						$where
-						ORDER BY id DESC"
-						;
+						ORDER BY id DESC";
 
-			break;
+				break;
 			//end Data Rekap Bulanan
 
 			//Data Ekspedisi
@@ -7689,7 +7688,7 @@ class Mbackend extends CI_Model
 			case "dashboard_jenis_kelamin":
 
 				$session_data = unserialize(base64_decode($this->session->userdata('s3ntr4lb0')));
-   				$tahun_login = isset($session_data['tahun']) ? $session_data['tahun'] : date('Y');
+				$tahun_login = isset($session_data['tahun']) ? $session_data['tahun'] : date('Y');
 
 				$desa_id = $this->input->post('cl_kelurahan_desa_id_filter');
 
@@ -7772,7 +7771,7 @@ class Mbackend extends CI_Model
 				$tahun = (int)($tahun_post ? $tahun_post : date('Y'));
 
 				// Otomatis jika user lurah/staff kelurahan
-				if (in_array($this->auth['cl_user_group_id'], [2,4,5])) {
+				if (in_array($this->auth['cl_user_group_id'], [2, 4, 5])) {
 					$xkec = $this->auth['cl_kecamatan_id'];
 					$xkel = $this->auth['cl_kelurahan_desa_id'];
 				} else {
@@ -7846,7 +7845,7 @@ class Mbackend extends CI_Model
 				$tahun = (int)($tahun_post ? $tahun_post : date('Y'));
 
 				// Otomatis jika user lurah/staff kelurahan
-				if (in_array($this->auth['cl_user_group_id'], [2,4,5])) {
+				if (in_array($this->auth['cl_user_group_id'], [2, 4, 5])) {
 					$xkec = $this->auth['cl_kecamatan_id'];
 					$xkel = $this->auth['cl_kelurahan_desa_id'];
 				} else {
@@ -7891,7 +7890,7 @@ class Mbackend extends CI_Model
 							$key = strtolower($u['kode']); // U1 -> u1
 
 							if (isset($r[$key])) {
-								$u['nilai'] = floatval($r[$key]*25);
+								$u['nilai'] = floatval($r[$key] * 25);
 							}
 
 							break;
@@ -7900,9 +7899,8 @@ class Mbackend extends CI_Model
 				}
 
 				return $unsur;
-			
+
 				break;
-			
 		}
 
 
@@ -8662,7 +8660,7 @@ class Mbackend extends CI_Model
 				AND a.tingkat_jabatan IN ('2.1','2.2','2.3.1','2.3.2','2.3.3')
 				AND a.STATUS = 'Aktif'
 			";
-			break;
+				break;
 
 
 			case "data_penandatanganan_2":
@@ -9670,14 +9668,14 @@ class Mbackend extends CI_Model
 				break;
 
 			case "data_surat":
-				
+
 				$data['user_id'] = $this->auth['id'];
 				$data['data_surat'] = null;
 
 				if (isset($data['tgl_surat']) && $data['tgl_surat'] != '') {
 					$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
 				}
-				
+
 				if (isset($data['tgl_surat']) && $data['tgl_surat'] != '') {
 					$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
 				}
@@ -9743,7 +9741,7 @@ class Mbackend extends CI_Model
 						SELECT id 
 						FROM tbl_data_penandatanganan 
 						WHERE status='Aktif' 
-						AND cl_kelurahan_desa_id = '".$this->auth['cl_kelurahan_desa_id']."' 
+						AND cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "' 
 						LIMIT 1
 					")->row_array();
 
@@ -10001,7 +9999,7 @@ class Mbackend extends CI_Model
 							$array['tgl_pengantar'] = $data['tgl_pengantar'];
 							$array['keperluan_surat'] = $data['keperluan_surat'];
 							$data['info_tambahan'] = json_encode($array);
- 
+
 							$data['tgl_surat'] = date('Y-m-d', strtotime($data['tgl_surat']));
 							$data['tgl_pengantar'] = date('Y-m-d', strtotime($data['tgl_pengantar']));
 							$datax = array(
@@ -14646,7 +14644,7 @@ class Mbackend extends CI_Model
 
 							$array['tgl_pernyataan'] = $data['tgl_pernyataan'];
 
-							
+
 							$array['data_dokumen'] = [];
 							for ($i = 0; $i < count($data['nama_dalam_dokumen']); $i++) {
 								$array['data_dokumen'][] = array(
@@ -16945,8 +16943,6 @@ class Mbackend extends CI_Model
 					$data['create_date']  = date('Y-m-d H:i:s');
 					$data['update_by']    = $this->auth['username'];
 					$data['update_date']  = date('Y-m-d H:i:s');
-					
-					
 				}
 
 				break;
@@ -16991,8 +16987,6 @@ class Mbackend extends CI_Model
 					$data['cl_kecamatan_id'] = $this->auth['cl_kecamatan_id'];
 
 					$data['cl_kelurahan_desa_id'] = $this->auth['cl_kelurahan_desa_id'];
-
-
 				}
 
 				break;
@@ -17040,7 +17034,7 @@ class Mbackend extends CI_Model
 				}
 
 				break;
-			
+
 			case "data_kendaraan":
 				$data['nilai_perolehan'] = str_replace(",", "", @$data['nilai_perolehan']);
 
@@ -17214,7 +17208,6 @@ class Mbackend extends CI_Model
 				// }
 
 				if (isset($data['bulan']) && $data['bulan'] !== '') {
-					
 				} else {
 					$data['bulan'] = null; // atau 0, sesuai kebutuhan DB
 				}
@@ -17235,7 +17228,6 @@ class Mbackend extends CI_Model
 					$nama_kelurahan = $this->db->get_where('cl_kelurahan_desa', array('id' => $data['cl_kelurahan_desa_id']))->row_array();
 
 					$data['kelurahan'] = $nama_kelurahan['nama'];
-
 				}
 
 				break;
@@ -18290,11 +18282,11 @@ class Mbackend extends CI_Model
 					$tingkat_jabatan = $this->input->post('tingkat_jabatan');
 					$kec = $this->auth['cl_kelurahan_desa_id'];
 					$cek = $this->db->select('nip')->get_where('tbl_data_penandatanganan', array('nip' => $nip, 'cl_kelurahan_desa_id' => $kec, 'status' => 'Aktif'));
-					
+
 					if ($cek->num_rows() > 0) {
 						return '2';
 					} else {
-						
+
 						$this->db->where(array(
 							'tingkat_jabatan'      => $tingkat_jabatan,
 							'cl_provinsi_id'       => $this->auth['cl_provinsi_id'],
@@ -18309,7 +18301,7 @@ class Mbackend extends CI_Model
 							'update_date' => date('Y-m-d H:i:s')
 						]);
 
-							// Cek data lama dengan nip yang sama dan status aktif
+						// Cek data lama dengan nip yang sama dan status aktif
 						$this->db->where('nip', $nip);
 						$this->db->where('status', 'Aktif');
 						$Zquery = $this->db->get('tbl_data_penandatanganan');
@@ -18317,18 +18309,17 @@ class Mbackend extends CI_Model
 						if ($Zquery->num_rows() > 0) {
 							$row = $Zquery->row();
 							// Jika kelurahan lama berbeda, update data lama jadi tidak aktif
-								if ($row->cl_kelurahan_desa_id != $this->auth['cl_kelurahan_desa_id']) {
-									$this->db->where('nip', $nip);
-									$this->db->where('status', 'Aktif');
-									$this->db->update('tbl_data_penandatanganan', [
-										'status' => 'Tidak Aktif',
-										'tingkat_jabatan' => ''
-									]);
-								}
+							if ($row->cl_kelurahan_desa_id != $this->auth['cl_kelurahan_desa_id']) {
+								$this->db->where('nip', $nip);
+								$this->db->where('status', 'Aktif');
+								$this->db->update('tbl_data_penandatanganan', [
+									'status' => 'Tidak Aktif',
+									'tingkat_jabatan' => ''
+								]);
+							}
 						}
 
 						$insert = $this->db->insert($table, $data);
-
 					}
 				} else if ($table == "tbl_data_kendaraan") {
 
@@ -18344,6 +18335,28 @@ class Mbackend extends CI_Model
 					$insert = $this->db->insert_batch($table, $data);
 				} else if ($table == "tbl_kategori_penilaian_rt_rw") {
 					$insert = $this->db->insert_batch($table, $data);
+				} else if ($table == "tbl_data_daftar_agenda") {
+					$data['batch_key'] = uniqid('batch_', true);
+					$insert = $this->db->insert($table, $data);
+
+					if ($insert) {
+						$payload = [
+							'batch_key'       => $data['batch_key'],
+							'cl_kecamatan_id' => $data['cl_kecamatan_id'],
+							'cl_kelurahan_desa_id' => $data['cl_kelurahan_desa_id'],
+						];
+
+						$ch = curl_init('https://mobile.kotamakassar.id/mobile/Fcm_v1/receive_agenda');
+						curl_setopt($ch, CURLOPT_POST, true);
+						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+						curl_setopt($ch, CURLOPT_HTTPHEADER, [
+							'Content-Type: application/json',
+							'X-API-KEY: XGASDJsjkaseryi823ADBDKC98AS' // Ganti dengan API Key yang sesuai
+						]);
+						curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+						$res = curl_exec($ch);
+						curl_close($ch);
+					}
 				} else {
 
 					$insert = $this->db->insert($table, $data);
@@ -18415,8 +18428,8 @@ class Mbackend extends CI_Model
 							}
 						}
 					}
-				} elseif ($table == "tbl_data_penandatanganan"){
-					
+				} elseif ($table == "tbl_data_penandatanganan") {
+
 					$update = $this->db->update($table, $data, array('id' => $id));
 
 					$nip     = $this->input->post('nip');
@@ -18466,25 +18479,23 @@ class Mbackend extends CI_Model
 						}
 					}
 
-							// Cek data lama dengan nip yang sama dan status aktif
-						$this->db->where('nip', $nip);
-						$this->db->where('status', 'Aktif');
-						$Zquery = $this->db->get('tbl_data_penandatanganan');
+					// Cek data lama dengan nip yang sama dan status aktif
+					$this->db->where('nip', $nip);
+					$this->db->where('status', 'Aktif');
+					$Zquery = $this->db->get('tbl_data_penandatanganan');
 
-						if ($Zquery->num_rows() > 0) {
-							$row = $Zquery->row();
-							// Jika kelurahan lama berbeda, update data lama jadi tidak aktif
-								if ($row->cl_kelurahan_desa_id != $this->auth['cl_kelurahan_desa_id']) {
-									$this->db->where('nip', $nip);
-									$this->db->where('status', 'Aktif');
-									$this->db->update('tbl_data_penandatanganan', [
-										'status' => 'Tidak Aktif',
-										'tingkat_jabatan' => ''
-									]);
-								}
+					if ($Zquery->num_rows() > 0) {
+						$row = $Zquery->row();
+						// Jika kelurahan lama berbeda, update data lama jadi tidak aktif
+						if ($row->cl_kelurahan_desa_id != $this->auth['cl_kelurahan_desa_id']) {
+							$this->db->where('nip', $nip);
+							$this->db->where('status', 'Aktif');
+							$this->db->update('tbl_data_penandatanganan', [
+								'status' => 'Tidak Aktif',
+								'tingkat_jabatan' => ''
+							]);
 						}
-
-					
+					}
 				} else {
 
 					$update = $this->db->update($table, $data, array('id' => $id));
