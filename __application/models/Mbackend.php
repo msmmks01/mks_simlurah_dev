@@ -18583,6 +18583,7 @@ class Mbackend extends CI_Model
 
 			// PROSES UTAMA TETAP BERHASIL
 			return 1;
+		}
 	}
 
 	function template_golongan($param, $format = '')
