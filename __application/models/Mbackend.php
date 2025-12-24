@@ -18351,15 +18351,22 @@ class Mbackend extends CI_Model
 						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 						curl_setopt($ch, CURLOPT_HTTPHEADER, [
 							'Content-Type: application/json',
-							'X-API-KEY: XGASDJsjkaseryi823ADBDKC98AS' // Ganti dengan API Key yang sesuai
+							'X-API-KEY: XGASDJsjkaseryi823ADBDKC98AS'
 						]);
 						curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+
 						$res = curl_exec($ch);
-						curl_close($ch);
-						if ($response === false) {
-							log_message('error', 'CURL Error: ' . $curlErr);
-						} elseif ($httpCode != 200) {
-							log_message('error', 'API Error HTTP ' . $httpCode . ' | Response: ' . $response);
+
+						if ($res === false) {
+							$error = curl_error($ch);
+							curl_close($ch);
+							log_message('error', 'CURL Error: ' . $error);
+						} else {
+							curl_close($ch);
+
+							echo '<pre>';
+							var_dump($res);
+							echo '</pre>';
 						}
 					}
 				} else {
