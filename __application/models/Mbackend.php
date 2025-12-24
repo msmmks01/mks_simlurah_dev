@@ -18582,7 +18582,10 @@ class Mbackend extends CI_Model
 			}
 
 			// PROSES UTAMA TETAP BERHASIL
-			return 'sukses';
+			return [
+				'status' => 'success',
+				'message' => 'Data berhasil disimpan'
+			];
 		}
 	}
 
