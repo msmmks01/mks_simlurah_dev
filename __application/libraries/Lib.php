@@ -549,6 +549,12 @@ class Lib
 					'1' => array('id' => 'Perempuan', 'txt' => 'Perempuan'),
 				);
 				break;
+			case "jenis_agenda":
+				$data = array(
+					'0' => array('id' => '0', 'txt' => 'Internal'),
+					'1' => array('id' => '1', 'txt' => 'Share RT/RW'),
+				);
+				break;
 			case "jab_rt_rw":
 				$data = array(
 					'0' => array('id' => 'Ketua RW', 'txt' => 'Ketua RW'),

@@ -5747,6 +5747,10 @@ class Mbackend extends CI_Model
 
 				$sql = "SELECT a.id as rt_rw_id,c.penilaian_id as id,c.tgl_surat,c.kategori_penilaian_rt_rw_id,c.kategori,c.uraian,c.satuan,c.target,c.capaian,
 					CEIL(SUM(c.nilai)/COUNT(c.id)) AS nilai,
+
+					(CASE
+						WHEN e.id is not null then 1 else 0 end) as lpj,  
+
 					CASE 
 						WHEN CEIL(SUM(c.nilai)/COUNT(c.id)) < 60 THEN '--'
 						WHEN CEIL(SUM(c.nilai)/COUNT(c.id)) BETWEEN 60 AND 70 THEN 'Cukup'
@@ -5795,12 +5799,13 @@ class Mbackend extends CI_Model
 					
 					FROM tbl_data_rt_rw a
 
-					left join tbl_penilaian_rt_rw c ON c.tbl_data_rt_rw_id = a.id $on_bulan
+					LEFT JOIN tbl_penilaian_rt_rw c ON c.tbl_data_rt_rw_id = a.id $on_bulan
 					
-					left join cl_pilih_bulan b ON c.bulan = b.id
+					LEFT JOIN cl_pilih_bulan b ON c.bulan = b.id
 					
-					left join cl_kelurahan_desa d on a.cl_kelurahan_desa_id=d.id and a.cl_kecamatan_id=d.kecamatan_id
+					LEFT JOIN cl_kelurahan_desa d on a.cl_kelurahan_desa_id=d.id and a.cl_kecamatan_id=d.kecamatan_id
 
+					LEFT JOIN tbl_lpj_rtrw e on a.nik=e.nik
 					$where
 
 					GROUP BY a.id, MONTH(tgl_surat), YEAR(tgl_surat)

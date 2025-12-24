@@ -44,6 +44,12 @@
 									{include file="backend/template/input_form.html" required="false" label="Keterangan" class_width="col-lg-12" type="text" name="ket_kegiatan" id="ket_kegiatan" value="{$data.ket_kegiatan|default:''}"}
 								</div>
 							</div>
+							<div class="row" style="margin-bottom: 10px;">
+								<div class="col-md-2">
+									{include file="backend/template/input_form.html" required="true" label="Jenis Agenda" class_width="col-lg-12"
+									type="select" name="jenis_agenda" id="jenis_agenda" option={$jenis_agenda|default:''} }
+								</div>
+							</div>
 							
 							<div class="row">
 								<div class="col-md-12">

@@ -2703,14 +2703,14 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
         {
           field: "nama_lengkap",
           title: "Nama",
-          width: 200,
+          width: 300,
           halign: "center",
           align: "left",
         },
         {
           field: "jabatan_rt_rw",
           title: "Jabatan",
-          width: 100,
+          width: 200,
           halign: "center",
           align: "left",
         },
@@ -2745,6 +2745,28 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
           width: 150,
           halign: "center",
           align: "center",
+        },
+
+        {
+          field: "lpj",
+          title: "LPJ",
+          width: 160,
+          halign: "center",
+          align: "center",
+          formatter: function (value, row, index) {
+
+            // jika LPJ sudah ada (ada file)
+            if (row.lpj == 1) {
+              return `
+                <a href="javascript:void(0)"
+                  class="btn btn-sm btn-success"
+                  onclick="cetakLPJ('${row.nik}','${row.bulan}')">
+                  <i class="fa fa-print"></i> Cetak
+                </a> `;
+            } else {
+              return '';
+            }
+          }
         },
 
         {
@@ -10876,9 +10898,6 @@ function formatTanggalIndonesia(raw) {
 }
 
 
-
-
-
 function updateWaktu() {
   const sekarang = new Date();
 
@@ -10912,3 +10931,36 @@ function updateWaktu() {
   document.getElementById("menit").innerHTML = menit;
   document.getElementById("detik").innerHTML = detik;
 }
+
+function cetakLPJ(nik) {
+  var bulan = $('#bulan').val(); // ambil dari filter
+
+  if (!bulan) {
+    alert('Silakan pilih bulan terlebih dahulu');
+    return;
+  }
+
+  window.open(
+    window.BASE_URL + "penilaian_rt_rw/cetak_lpj?nik=" + nik + "&bulan=" + bulan,
+    "_blank"
+  );
+}
+
+
+//Fungsi untuk dashboar_Admin
+function renderChart(id, type, categories, data) {
+    Highcharts.chart(id, {
+        chart: { type: type },
+        title: { text: null },
+        xAxis: { categories: categories },
+        yAxis: { title: { text: 'Jumlah' } },
+        series: [{
+            name: 'Jumlah',
+            data: data
+        }],
+        credits: { enabled: false }
+    });
+}
+
+
+

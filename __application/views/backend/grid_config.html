@@ -329,7 +329,7 @@ $mod eq 'data_surat'}
         </div>
 
        
-        <div class="col-lg-4 text-right">
+        <div class="col-lg-7 text-right">
           {if $button_add|default:'' eq 'true'}
           <a href="javascript:void(0)" title="Add" class="btn-flat btn-success btn-sm" onClick="genform('add', '{$mod}','{$mod}');">
             <i class="fa fa-plus"></i> Tambah
@@ -409,94 +409,132 @@ $mod eq 'data_surat'}
       </div>
 
       {elseif $mod eq 'penilaian_rt_rw'}
-        <div class="row">
-          <div class="col-lg-12 text-right pb-3">
-          <!-- {if $button_add|default:'' eq 'true'}
-          <a href="javascript:void(0)" title="Add" class="btn-flat btn-success btn-sm" onClick="genform('add', '{$mod}','{$mod}');">
-            <i class="fa fa-plus"></i> Tambah
-          </a>
-          {/if} -->
-          <a href="javascript:void(0)" class="btn-flat btn-primary btn-sm"  onclick="(()=>{
+
+      <!-- ROW TOMBOL -->
+      <div class="row">
+        <div class="col-lg-12 text-right pb-3">
+          <a href="javascript:void(0)" class="btn-flat btn-primary btn-sm"
+            onclick="(()=>{
               $('#modal_salin{$mod}{$acak}').show();
             })()">
             <i class="fa fa-copy"></i> Salin Penilaian
           </a>
+
           {if $button_edit|default:'' eq 'true'} &nbsp;
-          <a href="javascript:void(0)" title="Edit" class="btn-flat btn-warning btn-sm" onClick="genform('edit', '{$mod}','{$mod}');">
+          <a href="javascript:void(0)" title="Edit" class="btn-flat btn-warning btn-sm"
+            onClick="genform('edit', '{$mod}','{$mod}');">
             <i class="fa fa-edit"></i> Edit
           </a>
           {/if}
+
           {if $button_delete|default:'' eq 'true'} &nbsp;
-          <a href="javascript:void(0)" title="Delete" class="btn-flat btn-danger btn-sm" onClick="genform('delete', '{$mod}','{$mod}');">
+          <a href="javascript:void(0)" title="Delete" class="btn-flat btn-danger btn-sm"
+            onClick="genform('delete', '{$mod}','{$mod}');">
             <i class="fa fa-remove"></i> Hapus
           </a>
           {/if}
+
           {if in_array($cl_user_group_id,[2,4,5])} &nbsp;
-            <a href="javascript:void(0)" class="btn-flat btn-success btn-sm" onClick="kumpulAction('export_penilaian_rt_rw', '{$acak}');">
-              <i class="fa fa-print"></i> Cetak
+          <a href="javascript:void(0)" class="btn-flat btn-success btn-sm"
+            onClick="kumpulAction('export_penilaian_rt_rw', '{$acak}');">
+            <i class="fa fa-print"></i> Cetak
+          </a>
+          {else} &nbsp;
+          <a href="javascript:void(0)" class="btn-flat btn-success btn-sm"
+            onClick="kumpulAction('export_rekap_penilaian_rt_rw', '{$acak}');">
+            <i class="fa fa-print"></i> Cetak
+          </a>
+          {/if}
+        </div>
+      </div>
+
+      <!-- ROW FILTER -->
+      <div class="row align-items-end mb-3">
+
+        <!-- KOLOM PENCARIAN -->
+        <div class="col-lg-3">
+          <label>Kolom</label>
+          <div class="d-flex gap-1">
+            <select name="kat_{$acak}" id="kat_{$acak}" class="form-control" style="width:35%">
+              {$data_select|default:''}
+            </select>
+            <input type="text" name="key_{$acak}" id="key_{$acak}" class="form-control" style="width:45%">
+            <a href="javascript:void(0)" class="btn-flat btn-default btn-sm"
+              onClick="cariData('{$mod}', '', '{$acak}');">
+              <i class="fa fa-search"></i>
             </a>
-
-        {else}  &nbsp;
-          <a href="javascript:void(0)" class="btn-flat btn-success btn-sm" onClick="kumpulAction('export_rekap_penilaian_rt_rw', '{$acak}');">
-            <i class="fa fa-print"></i>Cetak
-          </a>
-
-        {/if}
+          </div>
         </div>
-        <div class="col-lg-4" style="margin-top: 3px;margin-bottom: 3px;">
-          <label>Kolom</label>:<br>
-          <select name="kat_{$acak}" id="kat_{$acak}" style="width: 30%; height: 32px; padding: 3px">
-            {$data_select|default:''}
-          </select>
-          <input type="text" name="key_{$acak}" id="key_{$acak}" style="width: 40%; height: 32px; padding: 2px"/>
-          <a href="javascript:void(0)" class="btn-flat btn-default btn-sm" onClick="cariData('{$mod}', '', '{$acak}');">
-            <i class="fa fa-search"></i>
-          </a>
-        </div>
-          {if $mod eq 'penilaian_rt_rw'}
-         <div class="col-lg-2">
-          <label>Bulan</label>: &nbsp;&nbsp;
-          <select name="bulan" id="bulan" style="width: 100%; height: 32px; padding: 3px">
+
+        <!-- BULAN -->
+        <div class="col-lg-2">
+          <label>Bulan</label>
+          <select name="bulan" id="bulan" class="form-control">
             <option value="">-- Pilih --</option>
             {for $i=1 to 12}
-            {if $i eq date('n')}
-              <option value="{$i}" selected>{getBulan($i)}</option>
-              {else}
-              <option value="{$i}">{getBulan($i)}</option>
-              {/if}
-          {/for}
+              <option value="{$i}" {if $i eq date('n')}selected{/if}>
+                {getBulan($i)}
+              </option>
+            {/for}
           </select>
-          <script>
-            $('#bulan').change(function(e) {
-                $("#grid_penilaian_rt_rw").datagrid("reload",{
-                  bulan:this.value
-                });
+          <!-- <script>
+            $('#bulan').change(function () {
+              $("#grid_penilaian_rt_rw").datagrid("reload", {
+                bulan: this.value
+              });
             });
+          </script> -->
+          <script>
+            // PASTIKAN BASE_URL ADA (grid page)
+            window.BASE_URL = "<?= base_url(); ?>";
+
+            $('#bulan').change(function () {
+              $("#grid_penilaian_rt_rw").datagrid("reload", {
+                bulan: this.value
+              });
+            });
+
+            function cetakLPJ(nik) {
+              var bulan = $('#bulan').val();
+
+              if (!bulan) {
+                alert('Silakan pilih bulan terlebih dahulu');
+                return;
+              }
+
+              window.open(
+                window.BASE_URL + "penilaian_rt_rw/cetak_lpj?nik=" + nik + "&bulan=" + bulan,
+                "_blank"
+              );
+            }
           </script>
         </div>
-        {/if}
-         <div class="col-lg-2">
-          <label style="width: 100px">Pilih TTD Camat</label>: &nbsp;&nbsp;
-          <select name="nip" id="nip" style="width: 100%; height: 32px; padding: 3px">
+
+        <!-- TTD CAMAT -->
+        <div class="col-lg-3">
+          <label>Pilih TTD Camat</label>
+          <select name="nip" id="nip" class="form-control">
             {$nip_id|default:''}
           </select>
         </div>
 
+        <!-- TTD LPM -->
         <div class="col-lg-2">
-          <label style="width: 100px">Pilih TTD LPM</label>: &nbsp;&nbsp;
-          <select name="nik_lsm" id="nik_lsm" style="width: 100%; height: 32px; padding: 3px">
+          <label>Pilih TTD LPM</label>
+          <select name="nik_lsm" id="nik_lsm" class="form-control">
             {$nik_lsm|default:''}
           </select>
         </div>
 
+        <!-- TTD PEMBUAT -->
         <div class="col-lg-2">
-          <label style="width: 100px">TTD Pembuat</label>: &nbsp;&nbsp;
-          <select name="nik_pembuat" id="nik_pembuat" style="width: 100%; height: 32px; padding: 3px">
+          <label>TTD Pembuat</label>
+          <select name="nik_pembuat" id="nik_pembuat" class="form-control">
             {$nik_pembuat|default:''}
           </select>
         </div>
-      </div>
 
+      </div>
 
       {elseif $mod eq 'rekap_penilaian_kelrtrw' && in_array($cl_user_group_id,[2,4,5])}
       <div class="row d-flex align-items-stretch">
@@ -1034,6 +1072,37 @@ $mod eq 'data_surat'}
       {/if}
     </div>
   </div>
+{elseif $mod eq 'data_dasawisma' && in_array($cl_user_group_id,[2,4,5])}
+  <div class="row">
+    <div class="col-lg-5" style="margin-top: 3px;margin-bottom: 3px;">
+      <label style="width: 90px">Kolom </label>: &nbsp;
+      <select name="kat_{$acak}" id="kat_{$acak}" style="width: 30%; height: 32px; padding: 3px">
+        {$data_select|default:''}
+      </select>
+      <input type="text" name="key_{$acak}" id="key_{$acak}" style="width: 40%; height: 32px; padding: 2px"/>
+      <a href="javascript:void(0)" class="btn-flat btn-default btn-sm" onClick="cariData('{$mod}', '', '{$acak}');">
+        <i class="fa fa-search"></i>
+      </a>
+    </div>
+
+    <div class="col-lg-7 text-right">
+      {if $button_add|default:'' eq 'true'}
+      <a href="javascript:void(0)" title="Add" class="btn-flat btn-success btn-sm" onClick="genform('add', '{$mod}','{$mod}');">
+        <i class="fa fa-plus"></i> Tambah
+      </a>
+      {/if}
+      {if $button_edit|default:'' eq 'true'} &nbsp;
+      <a href="javascript:void(0)" title="Edit" class="btn-flat btn-warning btn-sm" onClick="genform('edit', '{$mod}','{$mod}');">
+        <i class="fa fa-edit"></i> Edit
+      </a>
+      {/if}
+      {if $button_delete|default:'' eq 'true'} &nbsp;
+      <a href="javascript:void(0)" title="Delete" class="btn-flat btn-danger btn-sm" onClick="genform('delete', '{$mod}','{$mod}');">
+        <i class="fa fa-remove"></i> Hapus
+      </a>
+      {/if}
+    </div>
+  </div>
 {elseif $mod eq 'data_dasawisma' && !in_array($cl_user_group_id,[2,4,5])}
 <div class="row" style="margin-bottom: 5px">
   <div class="col-lg-9" style="display: flex;">
@@ -1064,6 +1133,7 @@ $mod eq 'data_surat'}
     </a>
   </div>
 </div>
+
 {elseif $mod eq 'data_penilaian_skm'}  
   <div class="row">
     <div class="col-lg-5" style="margin-top: 3px;margin-bottom: 3px;">
@@ -1290,7 +1360,7 @@ $mod eq 'data_surat'}
               {/if}
             {/if}
           </div>
-          {if !in_array($mod, ['data_penduduk','usulan_penilaian_rt_rw','data_penduduk_asing','data_keluarga','data_kendaraan','data_indikator_skm','form_sub_indikator_rt_rw','data_sub_indikator_rt_rw','data_penilaian_skm', 'surat_himbauan', 'broadcast', 'surat_lain', 'data_surat','data_rt_rw','penilaian_rt_rw','data_dasawisma','rekap_penilaian_kelrtrw','surat_masuk'])}
+          {if !in_array($mod, ['data_penduduk','usulan_penilaian_rt_rw','data_penduduk_asing','data_keluarga','data_kendaraan','data_indikator_skm','form_sub_indikator_rt_rw','data_sub_indikator_rt_rw','data_penilaian_skm', 'surat_himbauan', 'broadcast', 'surat_lain', 'data_surat','data_rt_rw','penilaian_rt_rw','rekap_penilaian_kelrtrw','surat_masuk'])}
           <div class="col-lg-8">
             <label style="width: 80px">Pilih TTD</label>: &nbsp;&nbsp;
             <select name="nip" id="nip" style="width: 60%; height: 32px; padding: 3px">
