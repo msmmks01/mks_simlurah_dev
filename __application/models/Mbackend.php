@@ -18356,6 +18356,11 @@ class Mbackend extends CI_Model
 						curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
 						$res = curl_exec($ch);
 						curl_close($ch);
+						if ($response === false) {
+							log_message('error', 'CURL Error: ' . $curlErr);
+						} elseif ($httpCode != 200) {
+							log_message('error', 'API Error HTTP ' . $httpCode . ' | Response: ' . $response);
+						}
 					}
 				} else {
 
