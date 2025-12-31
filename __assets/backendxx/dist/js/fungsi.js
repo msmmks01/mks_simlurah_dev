@@ -2628,7 +2628,7 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
         {
           field: "nama_keluahan_desa",
           title: "Alamat",
-          width: 230,
+          width: 300,
           halign: "center",
           align: "left",
         },
@@ -2636,7 +2636,7 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
         {
           field: "no_hp",
           title: "No Telp",
-          width: 100,
+          width: 150,
           halign: "center",
           align: "center",
         },
@@ -2644,7 +2644,7 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
         {
           field: "no_rekening",
           title: "No Rekening",
-          width: 100,
+          width: 150,
           halign: "center",
           align: "left",
         },
@@ -2652,7 +2652,7 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
         {
           field: "no_npwp",
           title: "No NPWP",
-          width: 100,
+          width: 150,
           halign: "center",
           align: "left",
         },
@@ -2660,7 +2660,7 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
         {
           field: "file",
           title: "Arsip ",
-          width: 100,
+          width: 150,
           halign: "center",
           align: "center",
 

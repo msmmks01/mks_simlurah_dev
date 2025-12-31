@@ -1,3 +1,25 @@
+<style>
+  
+.btn.btn-danger-soft {
+  background: #f8d7da !important;
+  color: #842029 !important;
+  border: 1px solid #f1aeb5 !important;
+}
+
+.btn.btn-success-soft {
+  background: #d1e7dd !important;
+  color: #0f5132 !important;
+  border: 1px solid #a3cfbb !important;
+}
+.tab-soft {
+  display: flex;
+  gap: 8px;
+}
+
+</style>
+
+
+
 <form
   id="form_{$acak}"
   method="post"
@@ -24,9 +46,9 @@
               </div>
 
               <div class="row" style="margin-bottom: 10px">
-                <div class="col-md-4">
-                  {include file="backend/template/input_form.html"  required="true" label="NIK" class_width="col-lg-12" type="text" name="nik"
-                  id="nik" value="{$data.nik|default:''}"}
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html" required="true" label="NIK" class_width="col-lg-12"
+                  type="pnj_karakter" name="nik" id="nik" value="{$data.nik|default:''}"}
                 </div>
                 <div class="col-md-4">
                   {include file="backend/template/input_form.html"  required="true" label="Nama Lengkap" class_width="col-lg-12" type="text" name="nama_lengkap"
@@ -40,9 +62,13 @@
                   {include file="backend/template/input_form.html" label="Alamat" class_width="col-lg-12" type="text"
                   name="alamat" id="alamat" value="{$data.alamat|default:''}"}
                 </div> -->
-                <div class="col-md-4">
+                <div class="col-md-3">
                   {include file="backend/template/input_form.html" label="Jabatan RT/RW" class_width="col-lg-12" type="select"
                   name="jab_rt_rw" id="jab_rt_rw" option={$jab_rt_rw|default:''} }
+                </div>
+                <div class="col-md-3">
+                  {include file="backend/template/input_form.html" required="true" label="Tanggal Mulai Menjabat" placeholder="dd-mm-yyyy" class_width="col-lg-12"
+                  type="date" name="tgl_mulai_jabat" id="tgl_mulai_jabat" value="{tgl_indo_format($data.tgl_mulai_jabat)|default:''}"}
                 </div>
               </div>
               
@@ -59,16 +85,28 @@
 
               <div class="row" style="margin-bottom: 10px">
                 <div class="col-md-3">
-                  {include file="backend/template/input_form.html"
-                  required="true" label="Tanggal Mulai Menjabat" placeholder="dd-mm-yyyy" class_width="col-lg-12"
-                  type="date" name="tgl_mulai_jabat" id="tgl_mulai_jabat"
-                  value="{tgl_indo_format($data.tgl_mulai_jabat)|default:''}"}
+                  {include file="backend/template/input_form.html"  required="true" label="Nomor SK" class_width="col-lg-12" type="text" name="no_sk_rt_rw"
+                  id="no_sk_rt_rw" value="{$data.no_sk_rt_rw|default:''}"}
+                </div>
+                <div class="col-md-3">
+                  {include file="backend/template/input_form.html" required="true" label="Tanggal SK" placeholder="dd-mm-yyyy" class_width="col-lg-12"
+                  type="date" name="tgl_sk_rt_rw" id="tgl_sk_rt_rw" value="{tgl_indo_format($data.tgl_sk_rt_rw)|default:''}"}
                 </div>
                 <div class="col-md-3">
 									{include file="backend/template/input_form.html" required="true" label="Status" class_width="col-lg-12" type="select" name="status" id="status" option={$pilih_status|default:''} }
 								</div>
+                <div class="col-md-3">
+									{include file="backend/template/input_form.html" required="true" label="Tahun Jabatan" class_width="col-lg-12" type="select" name="pilih_tahun" id="pilih_tahun" option={$pilih_tahun|default:''} }
+								</div>
               </div>
-              <div class="row" style="margin-bottom: 10px">
+              <div class="row">
+								<div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend
+											style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>
+											INFORMASI TAMBAHAN</legend>
+									</fieldset>
+								</div>
                 <div class="col-md-4">
                   {include file="backend/template/input_form.html" label="No. Telp" class_width="col-lg-12" type="pnj_karakter" name="no_hp"
                   id="no_hp" value="{$data.no_hp|default:''}"}
@@ -77,9 +115,9 @@
                   {include file="backend/template/input_form.html" label="No. Rekening" class_width="col-lg-12" type="text"
                   name="no_rekening" id="no_rekening" value="{$data.no_rekening|default:''}"}
                 </div>
-                <div class="col-md-4">
-                  {include file="backend/template/input_form.html" label="No. NPWP" class_width="col-lg-12" type="text" name="no_npwp"
-                  id="no_npwp" value="{$data.no_npwp|default:''}"}
+                 <div class="col-md-4">
+                  {include file="backend/template/input_form.html" required="false" label="No. NPWP" class_width="col-lg-12"
+                  type="pnj_karakter" name="no_npwp" id="no_npwp" value="{$data.no_npwp|default:''}"}
                 </div>
                 <div class="col-md-6">
                   {include file="backend/template/input_form.html" label="Alamat" class_width="col-lg-12" type="text" name="alamat"
@@ -205,4 +243,23 @@
       }
     },
   });
+
+
+  $(function () {
+  var status_tab = 'tidak_aktif';
+
+  $('.tab-status').on('click', function () {
+    $('.tab-status').removeClass('active');
+    $(this).addClass('active');
+
+    status_tab = $(this).data('status');
+
+    $('#grid_data_rt_rw').datagrid('load', {
+      status_tab: status_tab
+    });
+  });
+});
+
 </script>
+
+

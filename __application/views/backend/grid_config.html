@@ -316,39 +316,72 @@ $mod eq 'data_surat'}
       </div>
 
       {elseif $mod eq 'data_rt_rw'}
-        <div class="row">
-        <div class="col-lg-5" style="margin-top: 3px;margin-bottom: 3px;">
-          <label style="width: 90px">Kolom </label>: &nbsp;
-          <select name="kat_{$acak}" id="kat_{$acak}" style="width: 30%; height: 32px; padding: 3px">
-            {$data_select|default:''}
-          </select>
-          <input type="text" name="key_{$acak}" id="key_{$acak}" style="width: 40%; height: 32px; padding: 2px"/>
-          <a href="javascript:void(0)" class="btn-flat btn-default btn-sm" onClick="cariData('{$mod}', '', '{$acak}');">
-            <i class="fa fa-search"></i>
-          </a>
+
+      <!-- ===== BAR ATAS ===== -->
+      <div class="row align-items-center" style="margin-bottom:10px;">
+
+        <!-- TAB STATUS (KIRI) -->
+        <div class="col-lg-3">
+          <div class="btn-group tab-soft" role="group">
+            <button type="button"
+              class="btn btn-tab-soft btn-danger-soft tab-status active tab-status me-2" data-status="tidak_aktif">
+              TIDAK AKTIF
+            </button>
+
+            <button type="button" class="btn btn-tab-soft btn-success-soft tab-status" data-status="aktif">
+              AKTIF
+            </button>
+          </div>
         </div>
 
-       
-        <div class="col-lg-7 text-right">
+        <!-- FILTER (TENGAH) -->
+        <div class="col-lg-5 text-center">
+          <label style="width:70px">Kolom</label> :
+          <select name="kat_{$acak}" id="kat_{$acak}"
+            class="form-control d-inline"
+            style="width:28%; height:36px;">
+            {$data_select|default:''}
+          </select>
+
+          <input type="text" name="key_{$acak}" id="key_{$acak}"
+            class="form-control d-inline"
+            style="width:45%; height:36px; margin-left:4px;" />
+
+          <button type="button"
+            class="btn btn-soft-gray"
+            onclick="cariData('{$mod}','{$acak}');">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+
+        <!-- TOMBOL AKSI (KANAN) -->
+        <div class="col-lg-4 text-right action-soft">
           {if $button_add|default:'' eq 'true'}
-          <a href="javascript:void(0)" title="Add" class="btn-flat btn-success btn-sm" onClick="genform('add', '{$mod}','{$mod}');">
-            <i class="fa fa-plus"></i> Tambah
-          </a>
+            <button class="btn btn-soft-success"
+              onclick="genform('add','{$mod}','{$mod}');">
+              <i class="fa fa-plus"></i> Tambah
+            </button>
           {/if}
-          {if $button_edit|default:'' eq 'true'} &nbsp;
-          <a href="javascript:void(0)" title="Edit" class="btn-flat btn-warning btn-sm" onClick="genform('edit', '{$mod}','{$mod}');">
-            <i class="fa fa-edit"></i> Edit
-          </a>
+
+          {if $button_edit|default:'' eq 'true'}
+            <button class="btn btn-soft-warning"
+              onclick="genform('edit','{$mod}','{$mod}');">
+              <i class="fa fa-edit"></i> Edit
+            </button>
           {/if}
-          {if $button_delete|default:'' eq 'true'} &nbsp;
-          <a href="javascript:void(0)" title="Delete" class="btn-flat btn-danger btn-sm" onClick="genform('delete', '{$mod}','{$mod}');">
-            <i class="fa fa-remove"></i> Hapus
-          </a>
+
+          {if $button_delete|default:'' eq 'true'}
+            <button class="btn btn-soft-danger"
+              onclick="genform('delete','{$mod}','{$mod}');">
+              <i class="fa fa-trash"></i> Hapus
+            </button>
           {/if}
-          {if $button_cetak_rt_rw|default:'' eq 'true'} &nbsp;
-          <a href="javascript:void(0)" class="btn-flat btn-success btn-sm" onClick="kumpulAction('export_laporan_rt_rw', '{$acak}');">
-            <i class="fa fa-print"></i> Cetak
-          </a>
+
+          {if $button_cetak_rt_rw|default:'' eq 'true'}
+            <button class="btn btn-soft-info"
+              onclick="kumpulAction('export_laporan_rt_rw','{$acak}');">
+              <i class="fa fa-print"></i> Cetak
+            </button>
           {/if}
         </div>
       </div>

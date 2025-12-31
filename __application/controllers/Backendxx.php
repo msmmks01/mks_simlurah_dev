@@ -652,274 +652,274 @@ class Backendxx extends JINGGA_Controller
 
 				break;
 
-			// case "beranda_admin":
-
-			// 	$jumlah_penduduk = $this->db->get_where('tbl_data_penduduk', array('status_data' => 'AKTIF'))->num_rows();
-
-			// 	$jumlah_kk = $this->db->get('tbl_kartu_keluarga')->num_rows();
-
-			// 	$jumlah_surat = $this->db->get_where('tbl_data_surat', array('year(tgl_surat)' => $this->auth['tahun']))->num_rows();
-
-
-			// 	$summary_persuratan = $this->mbackend->getdata('summary_persuratan', 'result_array');
-
-
-			// 	$summary_penduduk = $this->mbackend->getdata_laporan('dashboard_summary_penduduk', 'result_array');
-
-
-			// 	$jenis_kelamin = $this->mbackend->getdata_laporan('dashboard_jenis_kelamin', 'result_array');
-
-			// 	$agama = $this->mbackend->getdata_laporan('dashboard_agama', 'result_array');
-
-			// 	$sekolah = $this->mbackend->getdata_laporan('dashboard_sekolah', 'result_array');
-
-			// 	$umkm = $this->mbackend->getdata_laporan('dashboard_umkm', 'result_array');
-
-			// 	$kebersihan = $this->mbackend->getdata_laporan('dashboard_kebersihan', 'result_array');
-
-			// 	$ibadah = $this->mbackend->getdata_laporan('dashboard_ibadah', 'result_array');
-
-			// 	$pkl = $this->mbackend->getdata_laporan('dashboard_pkl', 'result_array');
-
-			// 	$wamis = $this->mbackend->getdata_laporan('dashboard_wamis', 'result_array');
-
-			// 	$longwis = $this->mbackend->getdata_laporan('dashboard_longwis', 'result_array');
-
-			// 	$dasawisma = $this->mbackend->getdata_laporan('dashboard_dasawisma', 'result_array');
-
-			// 	$rt_rw = $this->mbackend->getdata_laporan('dashboard_rt_rw', 'result_array');
-
-			// 	$retribusi_sampah = $this->mbackend->getdata_laporan('dashboard_retribusi_sampah', 'result_array');
-
-			// 	$pegawai_kel_kec = $this->mbackend->getdata_laporan('dashboard_pegawai_kel_kec', 'result_array');
-
-			// 	$ktp_tercetak = $this->mbackend->getdata_laporan('dashboard_ktp_tercetak', 'result_array');
-
-			// 	$range_umur = $this->mbackend->getdata_laporan('dashboard_range_umur', 'result_array');
-
-
-			// 	$status_data = $this->mbackend->getdata_laporan('dashboard_status_data', 'result_array');
-
-			// 	$status_kawin = $this->mbackend->getdata_laporan('dashboard_status_kawin', 'result_array');
-
-			// 	$pendidikan = $this->mbackend->getdata_laporan('dashboard_pendidikan', 'result_array');
-
-
-
-			// 	$data = array(
-
-			// 		'jumlah_penduduk' => $jumlah_penduduk,
-
-			// 		'jumlah_kk' => $jumlah_kk,
-
-			// 		'jumlah_surat' => $jumlah_surat,
-
-
-			// 		'summary_persuratan' => $summary_persuratan,
-
-			// 		'summary_penduduk' => $summary_penduduk,
-
-
-			// 		'jenis_kelamin' => $jenis_kelamin,
-
-			// 		'agama' => $agama,
-
-			// 		'sekolah' => $sekolah,
-
-			// 		'umkm' => $umkm,
-
-			// 		'kebersihan' => $kebersihan,
-
-			// 		'ibadah' => $ibadah,
-
-			// 		'pkl' => $pkl,
-
-			// 		'wamis' => $wamis,
-
-			// 		'longwis' => $longwis,
-
-			// 		'dasawisma' => $dasawisma,
-
-			// 		'rt_rw' => $rt_rw,
-
-			// 		'retribusi_sampah' => $retribusi_sampah,
-
-			// 		'pegawai_kel_kec' => $pegawai_kel_kec,
-
-			// 		'ktp_tercetak' => $ktp_tercetak,
-
-			// 		'range_umur' => $range_umur,
-
-
-			// 		'status_data' => $status_data,
-
-			// 		'status_kawin' => $status_kawin,
-
-			// 		'pendidikan' => $pendidikan,
-
-			// 	);
-
-
-
-			// 	$this->nsmarty->assign('data', $data);
-
-			// 	$this->nsmarty->assign("cl_kelurahan_desa_id", $this->lib->fillcombo("cl_kelurahan_desa", "return"));
-
-			// 	break;
-
 			case "beranda_admin":
 
-				// SESSION & TAHUN LOGIN
-				$session_data = unserialize(base64_decode($this->session->userdata('s3ntr4lb0')));
-				$tahun_login  = isset($session_data['tahun']) ? $session_data['tahun'] : date('Y');
+				$jumlah_penduduk = $this->db->get_where('tbl_data_penduduk', array('status_data' => 'AKTIF'))->num_rows();
 
-				// FILTER DASAR (ADMIN = GLOBAL)
-				$array_penduduk = array(
-					'status_data' => 'AKTIF'
-				);
+				$jumlah_kk = $this->db->get('tbl_kartu_keluarga')->num_rows();
 
-				// JUMLAH DATA UTAMA
-				$this->db->where('YEAR(create_date) <=', $tahun_login);
-				$jumlah_penduduk = $this->db
-					->get_where('tbl_data_penduduk', $array_penduduk)
-					->num_rows();
+				$jumlah_surat = $this->db->get_where('tbl_data_surat', array('year(tgl_surat)' => $this->auth['tahun']))->num_rows();
 
-				$jumlah_kk = $this->db
-					->get('tbl_kartu_keluarga')
-					->num_rows();
 
-				$this->db->where('YEAR(tgl_surat)', $tahun_login);
-				$jumlah_surat = $this->db
-					->get('tbl_data_surat')
-					->num_rows();
+				$summary_persuratan = $this->mbackend->getdata('summary_persuratan', 'result_array');
 
-				$this->db->where('YEAR(tgl_surat)', $tahun_login);
-				$jumlah_surat_masuk = $this->db
-					->get('tbl_data_surat_masuk')
-					->num_rows();
 
-				// SUMMARY & DASHBOARD (RAW)
-				$summary_persuratan = $this->mbackend->getdata(
-					'summary_persuratan',
-					'result_array'
-				);
+				$summary_penduduk = $this->mbackend->getdata_laporan('dashboard_summary_penduduk', 'result_array');
 
-				$summary_penduduk = $this->mbackend->getdata_laporan(
-					'dashboard_summary_penduduk',
-					'result_array'
-				);
 
-				$jenis_kelamin = $this->mbackend->getdata_laporan(
-					'dashboard_jenis_kelamin',
-					'result_array',
-					$tahun_login
-				);
+				$jenis_kelamin = $this->mbackend->getdata_laporan('dashboard_jenis_kelamin', 'result_array');
 
-				$agama       = $this->mbackend->getdata_laporan('dashboard_agama', 'result_array');
-				$sekolah     = $this->mbackend->getdata_laporan('dashboard_sekolah', 'result_array');
-				$ibadah      = $this->mbackend->getdata_laporan('dashboard_ibadah', 'result_array');
-				$umkm        = $this->mbackend->getdata_laporan('dashboard_umkm', 'result_array');
-				$kebersihan  = $this->mbackend->getdata_laporan('dashboard_kebersihan', 'result_array');
-				$pkl         = $this->mbackend->getdata_laporan('dashboard_pkl', 'result_array');
-				$wamis       = $this->mbackend->getdata_laporan('dashboard_wamis', 'result_array');
-				$longwis     = $this->mbackend->getdata_laporan('dashboard_longwis', 'result_array');
-				$dasawisma   = $this->mbackend->getdata_laporan('dashboard_dasawisma', 'result_array');
-				$rt_rw       = $this->mbackend->getdata_laporan('dashboard_rt_rw', 'result_array');
-				$laporan_hasil_skm = $this->mbackend->getdata_laporan('beranda_hasil_skm', 'result_array');
+				$agama = $this->mbackend->getdata_laporan('dashboard_agama', 'result_array');
 
-				$retribusi_sampah = $this->mbackend->getdata_laporan(
-					'dashboard_retribusi_sampah',
-					'result_array'
-				);
+				$sekolah = $this->mbackend->getdata_laporan('dashboard_sekolah', 'result_array');
 
-				$pegawai_kel_kec = $this->mbackend->getdata_laporan(
-					'dashboard_pegawai_kel_kec',
-					'result_array'
-				);
+				$umkm = $this->mbackend->getdata_laporan('dashboard_umkm', 'result_array');
 
-				$ktp_tercetak = $this->mbackend->getdata_laporan(
-					'dashboard_ktp_tercetak',
-					'result_array'
-				);
+				$kebersihan = $this->mbackend->getdata_laporan('dashboard_kebersihan', 'result_array');
 
-				$range_umur = $this->mbackend->getdata_laporan(
-					'dashboard_range_umur',
-					'result_array'
-				);
+				$ibadah = $this->mbackend->getdata_laporan('dashboard_ibadah', 'result_array');
 
-				$status_data  = $this->mbackend->getdata_laporan('dashboard_status_data', 'result_array');
+				$pkl = $this->mbackend->getdata_laporan('dashboard_pkl', 'result_array');
+
+				$wamis = $this->mbackend->getdata_laporan('dashboard_wamis', 'result_array');
+
+				$longwis = $this->mbackend->getdata_laporan('dashboard_longwis', 'result_array');
+
+				$dasawisma = $this->mbackend->getdata_laporan('dashboard_dasawisma', 'result_array');
+
+				$rt_rw = $this->mbackend->getdata_laporan('dashboard_rt_rw', 'result_array');
+
+				$retribusi_sampah = $this->mbackend->getdata_laporan('dashboard_retribusi_sampah', 'result_array');
+
+				$pegawai_kel_kec = $this->mbackend->getdata_laporan('dashboard_pegawai_kel_kec', 'result_array');
+
+				$ktp_tercetak = $this->mbackend->getdata_laporan('dashboard_ktp_tercetak', 'result_array');
+
+				$range_umur = $this->mbackend->getdata_laporan('dashboard_range_umur', 'result_array');
+
+
+				$status_data = $this->mbackend->getdata_laporan('dashboard_status_data', 'result_array');
+
 				$status_kawin = $this->mbackend->getdata_laporan('dashboard_status_kawin', 'result_array');
-				$pendidikan   = $this->mbackend->getdata_laporan('dashboard_pendidikan', 'result_array');
 
-				// ===============================
-				// NORMALISASI SEMUA DASHBOARD_*
-				// ===============================
-				$jenis_kelamin     = $this->normalize_dashboard($jenis_kelamin);
-				$agama             = $this->normalize_dashboard($agama);
-				$pendidikan        = $this->normalize_dashboard($pendidikan);
-				$sekolah           = $this->normalize_dashboard($sekolah);
-				$ibadah            = $this->normalize_dashboard($ibadah);
-				$umkm              = $this->normalize_dashboard($umkm);
-				$kebersihan        = $this->normalize_dashboard($kebersihan);
-				$pkl               = $this->normalize_dashboard($pkl);
-				$wamis             = $this->normalize_dashboard($wamis);
-				$longwis           = $this->normalize_dashboard($longwis);
-				$dasawisma         = $this->normalize_dashboard($dasawisma);
-				$rt_rw             = $this->normalize_dashboard($rt_rw);
-				$retribusi_sampah  = $this->normalize_dashboard($retribusi_sampah);
-				$pegawai_kel_kec   = $this->normalize_dashboard($pegawai_kel_kec);
-				$ktp_tercetak      = $this->normalize_dashboard($ktp_tercetak);
-				$range_umur        = $this->normalize_dashboard($range_umur);
-				$status_data       = $this->normalize_dashboard($status_data);
-				$status_kawin      = $this->normalize_dashboard($status_kawin);
+				$pendidikan = $this->mbackend->getdata_laporan('dashboard_pendidikan', 'result_array');
 
 
-				// ===============================
-				// DATA KE VIEW
-				// ===============================
+
 				$data = array(
+
 					'jumlah_penduduk' => $jumlah_penduduk,
-					'jumlah_kk'       => $jumlah_kk,
-					'jumlah_surat'    => $jumlah_surat,
-					'jumlah_surat_masuk' => $jumlah_surat_masuk,
+
+					'jumlah_kk' => $jumlah_kk,
+
+					'jumlah_surat' => $jumlah_surat,
+
 
 					'summary_persuratan' => $summary_persuratan,
-					'summary_penduduk'   => $summary_penduduk,
+
+					'summary_penduduk' => $summary_penduduk,
+
 
 					'jenis_kelamin' => $jenis_kelamin,
-					'agama'         => $agama,
-					'sekolah'       => $sekolah,
-					'ibadah'        => $ibadah,
-					'umkm'          => $umkm,
-					'kebersihan'    => $kebersihan,
-					'pkl'           => $pkl,
-					'wamis'         => $wamis,
-					'longwis'       => $longwis,
-					'dasawisma'     => $dasawisma,
-					'rt_rw'         => $rt_rw,
+
+					'agama' => $agama,
+
+					'sekolah' => $sekolah,
+
+					'umkm' => $umkm,
+
+					'kebersihan' => $kebersihan,
+
+					'ibadah' => $ibadah,
+
+					'pkl' => $pkl,
+
+					'wamis' => $wamis,
+
+					'longwis' => $longwis,
+
+					'dasawisma' => $dasawisma,
+
+					'rt_rw' => $rt_rw,
 
 					'retribusi_sampah' => $retribusi_sampah,
-					'pegawai_kel_kec'  => $pegawai_kel_kec,
-					'ktp_tercetak'     => $ktp_tercetak,
-					'range_umur'       => $range_umur,
 
-					'status_data'  => $status_data,
+					'pegawai_kel_kec' => $pegawai_kel_kec,
+
+					'ktp_tercetak' => $ktp_tercetak,
+
+					'range_umur' => $range_umur,
+
+
+					'status_data' => $status_data,
+
 					'status_kawin' => $status_kawin,
-					'pendidikan'   => $pendidikan,
-					'skm' => $laporan_hasil_skm
+
+					'pendidikan' => $pendidikan,
+
 				);
+
+
 
 				$this->nsmarty->assign('data', $data);
 
-				// ===============================
-				// KHUSUS ADMIN
-				// ===============================
-				$this->nsmarty->assign(
-					'cl_kelurahan_desa_id',
-					$this->lib->fillcombo('cl_kelurahan_desa', 'return')
-				);
+				$this->nsmarty->assign("cl_kelurahan_desa_id", $this->lib->fillcombo("cl_kelurahan_desa", "return"));
 
 				break;
+
+			// case "beranda_admin":
+
+			// 	// SESSION & TAHUN LOGIN
+			// 	$session_data = unserialize(base64_decode($this->session->userdata('s3ntr4lb0')));
+			// 	$tahun_login  = isset($session_data['tahun']) ? $session_data['tahun'] : date('Y');
+
+			// 	// FILTER DASAR (ADMIN = GLOBAL)
+			// 	$array_penduduk = array(
+			// 		'status_data' => 'AKTIF'
+			// 	);
+
+			// 	// JUMLAH DATA UTAMA
+			// 	$this->db->where('YEAR(create_date) <=', $tahun_login);
+			// 	$jumlah_penduduk = $this->db
+			// 		->get_where('tbl_data_penduduk', $array_penduduk)
+			// 		->num_rows();
+
+			// 	$jumlah_kk = $this->db
+			// 		->get('tbl_kartu_keluarga')
+			// 		->num_rows();
+
+			// 	$this->db->where('YEAR(tgl_surat)', $tahun_login);
+			// 	$jumlah_surat = $this->db
+			// 		->get('tbl_data_surat')
+			// 		->num_rows();
+
+			// 	$this->db->where('YEAR(tgl_surat)', $tahun_login);
+			// 	$jumlah_surat_masuk = $this->db
+			// 		->get('tbl_data_surat_masuk')
+			// 		->num_rows();
+
+			// 	// SUMMARY & DASHBOARD (RAW)
+			// 	$summary_persuratan = $this->mbackend->getdata(
+			// 		'summary_persuratan',
+			// 		'result_array'
+			// 	);
+
+			// 	$summary_penduduk = $this->mbackend->getdata_laporan(
+			// 		'dashboard_summary_penduduk',
+			// 		'result_array'
+			// 	);
+
+			// 	$jenis_kelamin = $this->mbackend->getdata_laporan(
+			// 		'dashboard_jenis_kelamin',
+			// 		'result_array',
+			// 		$tahun_login
+			// 	);
+
+			// 	$agama       = $this->mbackend->getdata_laporan('dashboard_agama', 'result_array');
+			// 	$sekolah     = $this->mbackend->getdata_laporan('dashboard_sekolah', 'result_array');
+			// 	$ibadah      = $this->mbackend->getdata_laporan('dashboard_ibadah', 'result_array');
+			// 	$umkm        = $this->mbackend->getdata_laporan('dashboard_umkm', 'result_array');
+			// 	$kebersihan  = $this->mbackend->getdata_laporan('dashboard_kebersihan', 'result_array');
+			// 	$pkl         = $this->mbackend->getdata_laporan('dashboard_pkl', 'result_array');
+			// 	$wamis       = $this->mbackend->getdata_laporan('dashboard_wamis', 'result_array');
+			// 	$longwis     = $this->mbackend->getdata_laporan('dashboard_longwis', 'result_array');
+			// 	$dasawisma   = $this->mbackend->getdata_laporan('dashboard_dasawisma', 'result_array');
+			// 	$rt_rw       = $this->mbackend->getdata_laporan('dashboard_rt_rw', 'result_array');
+			// 	$laporan_hasil_skm = $this->mbackend->getdata_laporan('beranda_hasil_skm', 'result_array');
+
+			// 	$retribusi_sampah = $this->mbackend->getdata_laporan(
+			// 		'dashboard_retribusi_sampah',
+			// 		'result_array'
+			// 	);
+
+			// 	$pegawai_kel_kec = $this->mbackend->getdata_laporan(
+			// 		'dashboard_pegawai_kel_kec',
+			// 		'result_array'
+			// 	);
+
+			// 	$ktp_tercetak = $this->mbackend->getdata_laporan(
+			// 		'dashboard_ktp_tercetak',
+			// 		'result_array'
+			// 	);
+
+			// 	$range_umur = $this->mbackend->getdata_laporan(
+			// 		'dashboard_range_umur',
+			// 		'result_array'
+			// 	);
+
+			// 	$status_data  = $this->mbackend->getdata_laporan('dashboard_status_data', 'result_array');
+			// 	$status_kawin = $this->mbackend->getdata_laporan('dashboard_status_kawin', 'result_array');
+			// 	$pendidikan   = $this->mbackend->getdata_laporan('dashboard_pendidikan', 'result_array');
+
+			// 	// ===============================
+			// 	// NORMALISASI SEMUA DASHBOARD_*
+			// 	// ===============================
+			// 	$jenis_kelamin     = $this->normalize_dashboard($jenis_kelamin);
+			// 	$agama             = $this->normalize_dashboard($agama);
+			// 	$pendidikan        = $this->normalize_dashboard($pendidikan);
+			// 	$sekolah           = $this->normalize_dashboard($sekolah);
+			// 	$ibadah            = $this->normalize_dashboard($ibadah);
+			// 	$umkm              = $this->normalize_dashboard($umkm);
+			// 	$kebersihan        = $this->normalize_dashboard($kebersihan);
+			// 	$pkl               = $this->normalize_dashboard($pkl);
+			// 	$wamis             = $this->normalize_dashboard($wamis);
+			// 	$longwis           = $this->normalize_dashboard($longwis);
+			// 	$dasawisma         = $this->normalize_dashboard($dasawisma);
+			// 	$rt_rw             = $this->normalize_dashboard($rt_rw);
+			// 	$retribusi_sampah  = $this->normalize_dashboard($retribusi_sampah);
+			// 	$pegawai_kel_kec   = $this->normalize_dashboard($pegawai_kel_kec);
+			// 	$ktp_tercetak      = $this->normalize_dashboard($ktp_tercetak);
+			// 	$range_umur        = $this->normalize_dashboard($range_umur);
+			// 	$status_data       = $this->normalize_dashboard($status_data);
+			// 	$status_kawin      = $this->normalize_dashboard($status_kawin);
+
+
+			// 	// ===============================
+			// 	// DATA KE VIEW
+			// 	// ===============================
+			// 	$data = array(
+			// 		'jumlah_penduduk' => $jumlah_penduduk,
+			// 		'jumlah_kk'       => $jumlah_kk,
+			// 		'jumlah_surat'    => $jumlah_surat,
+			// 		'jumlah_surat_masuk' => $jumlah_surat_masuk,
+
+			// 		'summary_persuratan' => $summary_persuratan,
+			// 		'summary_penduduk'   => $summary_penduduk,
+
+			// 		'jenis_kelamin' => $jenis_kelamin,
+			// 		'agama'         => $agama,
+			// 		'sekolah'       => $sekolah,
+			// 		'ibadah'        => $ibadah,
+			// 		'umkm'          => $umkm,
+			// 		'kebersihan'    => $kebersihan,
+			// 		'pkl'           => $pkl,
+			// 		'wamis'         => $wamis,
+			// 		'longwis'       => $longwis,
+			// 		'dasawisma'     => $dasawisma,
+			// 		'rt_rw'         => $rt_rw,
+
+			// 		'retribusi_sampah' => $retribusi_sampah,
+			// 		'pegawai_kel_kec'  => $pegawai_kel_kec,
+			// 		'ktp_tercetak'     => $ktp_tercetak,
+			// 		'range_umur'       => $range_umur,
+
+			// 		'status_data'  => $status_data,
+			// 		'status_kawin' => $status_kawin,
+			// 		'pendidikan'   => $pendidikan,
+			// 		'skm' => $laporan_hasil_skm
+			// 	);
+
+			// 	$this->nsmarty->assign('data', $data);
+
+			// 	// ===============================
+			// 	// KHUSUS ADMIN
+			// 	// ===============================
+			// 	$this->nsmarty->assign(
+			// 		'cl_kelurahan_desa_id',
+			// 		$this->lib->fillcombo('cl_kelurahan_desa', 'return')
+			// 	);
+
+			// 	break;
 
 			case "beranda":
 
@@ -4093,6 +4093,8 @@ class Backendxx extends JINGGA_Controller
 				$this->nsmarty->assign("jab_rt_rw", $this->lib->fillcombo("jab_rt_rw", "return", ($sts == "edit" ? $data["jab_rt_rw"] : "")));
 
 				$this->nsmarty->assign("pilih_status", $this->lib->fillcombo("pilih_status", "return", ($sts == "edit" ? $data["status"] : "")));
+
+				$this->nsmarty->assign("pilih_tahun", $this->lib->fillcombo("pilih_tahun", "return", ($sts == "edit" ? $data["tahun"] : "")));
 
 				$this->nsmarty->assign("data_penduduk_id", $this->lib->fillcombo("data_penduduk_id", "return", ($sts == "edit" ? $data["nik"] : "")));
 
