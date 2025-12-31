@@ -575,7 +575,7 @@ class Mbackend extends CI_Model
 				if ($this->input->get('kelurahan_id', true) != '') {
 					$xkel = $this->input->get('kelurahan_id', true);
 				}
-				$query = $this->db->query("CALL sp_lap_penilaian_skm($tahun,$xkec,$xkel);");
+				$query = $this->db->query("CALL sp_lap_penilaian_skm(2025,$xkec,$xkel);");
 
 				$ret = $query->result_array();
 
@@ -7876,7 +7876,7 @@ class Mbackend extends CI_Model
 				}
 
 				// EXECUTE STORED PROCEDURE
-				$query = $this->db->query("CALL sp_lap_penilaian_skm($tahun,$xkec,$xkel)");
+				$query = $this->db->query("CALL sp_lap_penilaian_skm(2025,$xkec,$xkel)");
 				$raw = $query->result_array();
 				$query->free_result();
 				$this->db->conn_id->next_result();
@@ -7950,9 +7950,9 @@ class Mbackend extends CI_Model
 				}
 
 				// EXECUTE STORED PROCEDURE
-				$query = $this->db->query("CALL sp_lap_penilaian_skm($tahun,$xkec,$xkel)");
+				$query = $this->db->query("CALL sp_lap_penilaian_skm(2025,$xkec,$xkel)");
 				$raw = $query->result_array();
-				$query->free_result();
+				$query->free_result(); 
 				$this->db->conn_id->next_result();
 
 				// UNSUR TETAP
