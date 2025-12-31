@@ -17876,6 +17876,10 @@ class Mbackend extends CI_Model
 					$data['tgl_mulai_jabat'] = date('Y-m-d', strtotime($data['tgl_mulai_jabat']));
 				}
 
+				if (isset($data['tgl_sk_rt_rw'])) {
+					$data['tgl_sk_rt_rw'] = date('Y-m-d', strtotime($data['tgl_sk_rt_rw']));
+				}
+
 				if (!empty($_FILES['file']['name'])) {
 					$file = '';
 					$dir                     = date('Ymd');
