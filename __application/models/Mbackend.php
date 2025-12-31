@@ -5648,47 +5648,133 @@ class Mbackend extends CI_Model
 			//end data_retribusi_sampah
 
 			//data RT RW
-			case "data_rt_rw":
+			// case "data_rt_rw":
 
-				if (in_array($this->auth['cl_user_group_id'], [2, 4, 5])) {
+			// 	if (in_array($this->auth['cl_user_group_id'], [2, 4, 5])) {
 
-					$where .= "and a.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "' ";
-				} else {
-					$where .= "";
-				}
-				$kelurahan = $this->input->post('kelurahan');
+			// 		$where .= "and a.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "' ";
+			// 	} else {
+			// 		$where .= "";
+			// 	}
+			// 	$kelurahan = $this->input->post('kelurahan');
 
-				if ($kelurahan) {
+			// 	if ($kelurahan) {
 
-					$where .= "and a.cl_kelurahan_desa_id = '" . $kelurahan . "'";
-				}
+			// 		$where .= "and a.cl_kelurahan_desa_id = '" . $kelurahan . "'";
+			// 	}
 
-				$sql = "SELECT a.*, 
-				CASE 
-					WHEN a.jab_rt_rw = 'Ketua RW' THEN CONCAT('Ketua RW ', LPAD(a.rw, 3, '0'))
-					WHEN a.jab_rt_rw = 'Ketua RT' THEN CONCAT('Ketua RT ', LPAD(a.rt, 3, '0'), '/', LPAD(a.rw, 3, '0'))
-					ELSE a.jab_rt_rw
-				END AS jabatan_rt_rw,
+			// 	$sql = "SELECT a.*, 
+			// 	CASE 
+			// 		WHEN a.jab_rt_rw = 'Ketua RW' THEN CONCAT('Ketua RW ', LPAD(a.rw, 3, '0'))
+			// 		WHEN a.jab_rt_rw = 'Ketua RT' THEN CONCAT('Ketua RT ', LPAD(a.rt, 3, '0'), '/', LPAD(a.rw, 3, '0'))
+			// 		ELSE a.jab_rt_rw
+			// 	END AS jabatan_rt_rw,
 
-				c.nama_agama,d.nama,a.alamat as nama_keluahan_desa from tbl_data_rt_rw a
+			// 	c.nama_agama,d.nama,a.alamat as nama_keluahan_desa from tbl_data_rt_rw a
 
 				
-				left join cl_agama c on a.agama=c.id
+			// 	left join cl_agama c on a.agama=c.id
 
-				left join cl_kelurahan_desa d on a.cl_kelurahan_desa_id=d.id and a.cl_kecamatan_id=d.kecamatan_id
+			// 	left join cl_kelurahan_desa d on a.cl_kelurahan_desa_id=d.id and a.cl_kecamatan_id=d.kecamatan_id
 
-				$where
+			// 	$where
 
-				ORDER BY CASE a.status
-							WHEN 'Aktif' THEN 0
-							WHEN 'Tidak Aktif' THEN 1
-							ELSE 2
-						END,
-				a.rw,a.rt,a.id DESC
+			// 	ORDER BY CASE a.status
+			// 				WHEN 'Aktif' THEN 0
+			// 				WHEN 'Tidak Aktif' THEN 1
+			// 				ELSE 2
+			// 			END,
+			// 	a.rw,a.rt,a.id DESC
 
+			// 	";
+			// 	break;
+			case "data_rt_rw":
+
+				$where = " WHERE 1=1 ";
+
+				// ================== HAK AKSES USER ==================
+				if (in_array($this->auth['cl_user_group_id'], [2, 4, 5])) {
+					$where .= " 
+						AND a.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "' 
+					";
+				}
+
+				// ================== FILTER KELURAHAN (OPTIONAL) ==================
+				$kelurahan = $this->input->post('kelurahan');
+				if (!empty($kelurahan)) {
+					$where .= " 
+						AND a.cl_kelurahan_desa_id = '" . $kelurahan . "' 
+					";
+				}
+
+				// ================== TAB STATUS ==================
+				// default : AKTIF
+				$status_tab = $this->input->post('status_tab');
+
+				if (empty($status_tab) || $status_tab == 'aktif') {
+
+					// ===== AKTIF =====
+					// - status = Aktif
+					// - pilih_tahun = 2026
+					// - nik tidak boleh dobel
+					$where .= "
+						AND a.status = 'Aktif'
+						AND a.pilih_tahun = '2026'
+						AND a.id IN (
+							SELECT MAX(id)
+							FROM tbl_data_rt_rw
+							WHERE status = 'Aktif'
+							AND pilih_tahun = '2026'
+							GROUP BY nik
+						)
+					";
+
+				} elseif ($status_tab == 'tidak_aktif') {
+
+					// ===== TIDAK AKTIF =====
+					// - status = Tidak Aktif
+					// - pilih_tahun selain 2026
+					// - nik tidak boleh dobel
+					$where .= "
+						AND a.status = 'Tidak Aktif'
+						AND a.pilih_tahun <> '2026'
+						AND a.id IN (
+							SELECT MAX(id)
+							FROM tbl_data_rt_rw
+							WHERE status = 'Tidak Aktif'
+							AND pilih_tahun <> '2026'
+							GROUP BY nik
+						)
+					";
+				}
+				// ==================================================
+
+				$sql = "
+					SELECT 
+						a.*,
+						CASE 
+							WHEN a.jab_rt_rw = 'Ketua RW' 
+								THEN CONCAT('Ketua RW ', LPAD(a.rw, 3, '0'))
+							WHEN a.jab_rt_rw = 'Ketua RT' 
+								THEN CONCAT('Ketua RT ', LPAD(a.rt, 3, '0'), '/', LPAD(a.rw, 3, '0'))
+							ELSE a.jab_rt_rw
+						END AS jabatan_rt_rw,
+						c.nama_agama,
+						d.nama,
+						a.alamat AS nama_keluahan_desa
+					FROM tbl_data_rt_rw a
+					LEFT JOIN cl_agama c 
+						ON a.agama = c.id
+					LEFT JOIN cl_kelurahan_desa d 
+						ON a.cl_kelurahan_desa_id = d.id
+					AND a.cl_kecamatan_id = d.kecamatan_id
+					$where
+					ORDER BY 
+						a.rw, a.rt, a.id DESC
 				";
 
 				break;
+
 			//end RT RW
 
 			//data RT RW

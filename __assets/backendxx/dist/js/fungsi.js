@@ -571,6 +571,7 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
   var paging = true;
 
   switch (modnya) {
+    
     case "data_permohonan":
       judulnya = "";
       urlnya = modnya;

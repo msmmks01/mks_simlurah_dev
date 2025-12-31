@@ -322,14 +322,17 @@ $mod eq 'data_surat'}
 
         <!-- TAB STATUS (KIRI) -->
         <div class="col-lg-3">
-          <div class="btn-group tab-soft" role="group">
+          <div class="btn-group" role="group">
+            <!-- AKTIF (DEFAULT) -->
             <button type="button"
-              class="btn btn-tab-soft btn-danger-soft tab-status active tab-status me-2" data-status="tidak_aktif">
-              TIDAK AKTIF
+              class="btn btn-success btn-sm tab-status active me-2" data-status="aktif">
+              AKTIF
             </button>
 
-            <button type="button" class="btn btn-tab-soft btn-success-soft tab-status" data-status="aktif">
-              AKTIF
+            <!-- TIDAK AKTIF -->
+            <button type="button"
+              class="btn btn-danger btn-sm tab-status" data-status="tidak_aktif">
+              TIDAK AKTIF
             </button>
           </div>
         </div>
@@ -337,48 +340,49 @@ $mod eq 'data_surat'}
         <!-- FILTER (TENGAH) -->
         <div class="col-lg-5 text-center">
           <label style="width:70px">Kolom</label> :
+          
           <select name="kat_{$acak}" id="kat_{$acak}"
-            class="form-control d-inline"
-            style="width:28%; height:36px;">
+            class="form-control input-sm d-inline-block"
+            style="width:28%;">
             {$data_select|default:''}
           </select>
 
           <input type="text" name="key_{$acak}" id="key_{$acak}"
-            class="form-control d-inline"
-            style="width:45%; height:36px; margin-left:4px;" />
+            class="form-control input-sm d-inline-block"
+            style="width:45%; margin-left:4px;" />
 
           <button type="button"
-            class="btn btn-soft-gray"
+            class="btn btn-default btn-sm"
             onclick="cariData('{$mod}','{$acak}');">
             <i class="fa fa-search"></i>
           </button>
         </div>
 
         <!-- TOMBOL AKSI (KANAN) -->
-        <div class="col-lg-4 text-right action-soft">
+        <div class="col-lg-4 text-right">
           {if $button_add|default:'' eq 'true'}
-            <button class="btn btn-soft-success"
+            <button class="btn btn-success btn-sm"
               onclick="genform('add','{$mod}','{$mod}');">
               <i class="fa fa-plus"></i> Tambah
             </button>
           {/if}
 
           {if $button_edit|default:'' eq 'true'}
-            <button class="btn btn-soft-warning"
+            <button class="btn btn-warning btn-sm"
               onclick="genform('edit','{$mod}','{$mod}');">
               <i class="fa fa-edit"></i> Edit
             </button>
           {/if}
 
           {if $button_delete|default:'' eq 'true'}
-            <button class="btn btn-soft-danger"
+            <button class="btn btn-danger btn-sm"
               onclick="genform('delete','{$mod}','{$mod}');">
               <i class="fa fa-trash"></i> Hapus
             </button>
           {/if}
 
           {if $button_cetak_rt_rw|default:'' eq 'true'}
-            <button class="btn btn-soft-info"
+            <button class="btn btn-info btn-sm"
               onclick="kumpulAction('export_laporan_rt_rw','{$acak}');">
               <i class="fa fa-print"></i> Cetak
             </button>
@@ -442,7 +446,6 @@ $mod eq 'data_surat'}
       </div>
 
       {elseif $mod eq 'penilaian_rt_rw'}
-
       <!-- ROW TOMBOL -->
       <div class="row">
         <div class="col-lg-12 text-right pb-3">
@@ -2031,4 +2034,26 @@ $mod eq 'data_surat'}
 
   });
 
+
+$(function () {
+
+    // simpan status global
+    window.status_tab_rt_rw = 'aktif';
+
+    // TAB CLICK
+    $(document).on('click', '.tab-status', function () {
+      $('.tab-status').removeClass('active');
+      $(this).addClass('active');
+
+      window.status_tab_rt_rw = $(this).data('status');
+
+      // reload grid (grid SUDAH dibuat oleh fungsi.js)
+      $('#grid_data_rt_rw').datagrid('reload', {
+        status_tab: window.status_tab_rt_rw
+      });
+    });
+
+  });
+
 </script>
+

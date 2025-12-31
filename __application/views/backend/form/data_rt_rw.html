@@ -1,24 +1,3 @@
-<style>
-  
-.btn.btn-danger-soft {
-  background: #f8d7da !important;
-  color: #842029 !important;
-  border: 1px solid #f1aeb5 !important;
-}
-
-.btn.btn-success-soft {
-  background: #d1e7dd !important;
-  color: #0f5132 !important;
-  border: 1px solid #a3cfbb !important;
-}
-.tab-soft {
-  display: flex;
-  gap: 8px;
-}
-
-</style>
-
-
 
 <form
   id="form_{$acak}"
@@ -54,14 +33,6 @@
                   {include file="backend/template/input_form.html"  required="true" label="Nama Lengkap" class_width="col-lg-12" type="text" name="nama_lengkap"
                   id="nama_lengkap" value="{$data.nama_lengkap|default:''}"}
                 </div>
-                <!-- <div class="col-md-2">
-                  {include file="backend/template/input_form.html" required="true" label="Agama" class_width="col-lg-12"
-                  type="select" name="agama" id="agama" option={$agama|default:''} }
-                </div>
-                <div class="col-md-6">
-                  {include file="backend/template/input_form.html" label="Alamat" class_width="col-lg-12" type="text"
-                  name="alamat" id="alamat" value="{$data.alamat|default:''}"}
-                </div> -->
                 <div class="col-md-3">
                   {include file="backend/template/input_form.html" label="Jabatan RT/RW" class_width="col-lg-12" type="select"
                   name="jab_rt_rw" id="jab_rt_rw" option={$jab_rt_rw|default:''} }
@@ -107,15 +78,15 @@
 											INFORMASI TAMBAHAN</legend>
 									</fieldset>
 								</div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                   {include file="backend/template/input_form.html" label="No. Telp" class_width="col-lg-12" type="pnj_karakter" name="no_hp"
                   id="no_hp" value="{$data.no_hp|default:''}"}
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                   {include file="backend/template/input_form.html" label="No. Rekening" class_width="col-lg-12" type="text"
                   name="no_rekening" id="no_rekening" value="{$data.no_rekening|default:''}"}
                 </div>
-                 <div class="col-md-4">
+                 <div class="col-md-2">
                   {include file="backend/template/input_form.html" required="false" label="No. NPWP" class_width="col-lg-12"
                   type="pnj_karakter" name="no_npwp" id="no_npwp" value="{$data.no_npwp|default:''}"}
                 </div>
@@ -245,20 +216,8 @@
   });
 
 
-  $(function () {
-  var status_tab = 'tidak_aktif';
+  $("#grid_data_rt_rw").datagrid("reload");
 
-  $('.tab-status').on('click', function () {
-    $('.tab-status').removeClass('active');
-    $(this).addClass('active');
-
-    status_tab = $(this).data('status');
-
-    $('#grid_data_rt_rw').datagrid('load', {
-      status_tab: status_tab
-    });
-  });
-});
 
 </script>
 
