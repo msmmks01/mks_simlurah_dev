@@ -1938,9 +1938,23 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
         {
           field: "alamat",
           title: "Alamat",
-          width: 400,
+          width: 300,
           halign: "center",
           align: "left",
+        },
+        {
+          field: "rt",
+          title: "RT",
+          width: 70,
+          halign: "center",
+          align: "center",
+        },
+        {
+          field: "rw",
+          title: "RW",
+          width: 70,
+          halign: "center",
+          align: "center",
         },
 
         {

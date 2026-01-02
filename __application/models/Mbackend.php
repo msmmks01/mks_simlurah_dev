@@ -5300,17 +5300,11 @@ class Mbackend extends CI_Model
 					$where .= "and A.cl_kelurahan_desa_id = '" . $kelurahan . "'";
 				}
 
-				$sql = "
-
-					SELECT A.*
-
-					FROM cl_master_umkm A
+				$sql = "SELECT A.* FROM cl_master_umkm A
 
 					$where
 
-					ORDER BY id DESC
-
-				";
+					ORDER BY id DESC";
 
 				break;
 
@@ -6152,7 +6146,6 @@ class Mbackend extends CI_Model
 	
 						";
 				}
-
 
 				if (in_array($this->auth['cl_user_group_id'], [2, 4, 5])) {
 

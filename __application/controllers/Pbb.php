@@ -18,82 +18,147 @@ class Pbb extends JINGGA_Controller
 		$this->nsmarty->display('backend/form/menu_cek_pbb.html');
 	}
 
+	// public function get_data_pbb()
+	// {
+	// 	// pastikan ini dipanggil via POST
+	// 	$nop   = trim($this->input->get_post('nop'));
+	// 	$tahun = $this->input->get_post('tahun') ? $this->input->get_post('tahun') : date('Y');
+
+	// 	// jika nop kosong, kembalikan error JSON langsung
+	// 	if (empty($nop)) {
+	// 		header('Content-Type: application/json');
+	// 		echo json_encode(['status' => 'error', 'message' => 'NOP harus diisi.']);
+	// 		return;
+	// 	}
+
+	// 	$url = "https://pakinta.makassarkota.go.id/api/data/check";
+
+	// 	$data = [
+	// 		"jenis_pajak" => "pbbp2",
+	// 		"nop" => "$nop",
+	// 		"tahun_pajak" => "$tahun",
+	// 		"merchant" => "MSM"
+	// 	];
+
+	// 	$ch = curl_init();
+
+	// 	// URL tujuan
+	// 	curl_setopt($ch, CURLOPT_URL, $url);
+
+	// 	// Kembalikan hasil sebagai string
+	// 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+	// 	// Metode POST
+	// 	curl_setopt($ch, CURLOPT_POST, true);
+
+	// 	// Data body dalam format JSON
+	// 	curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+
+	// 	// Header
+	// 	curl_setopt($ch, CURLOPT_HTTPHEADER, [
+	// 		'Content-Type: application/json',
+	// 		'Authorization: Bearer 8f5f90ec1ba148d8cb39fc9749993f6b'
+	// 	]);
+
+	// 	// untuk development lokal (XAMPP) jika sertifikat bermasalah:
+	// 	// Hanya pakai ini untuk test di localhost. Hapus di production.
+	// 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	// 	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+
+	// 	$response = curl_exec($ch);
+	// 	$curl_errno = curl_errno($ch);
+	// 	$curl_error = curl_error($ch);
+	// 	$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+	// 	curl_close($ch);
+
+	// 	header('Content-Type: application/json');
+
+	// 	if ($curl_errno) {
+	// 		echo json_encode(['status' => 'error', 'message' => 'cURL Error: '.$curl_error]);
+	// 		return;
+	// 	}
+
+	// 	// coba decode response API — jika sudah JSON, kirim balik apa adanya
+	// 	$decoded = json_decode($response, true);
+	
+	// 	if (json_last_error() === JSON_ERROR_NONE) {
+	// 		// jika API mengirim struktur berbeda, kita normalisasi sedikit
+	// 		if (!isset($decoded['status'])) {
+	// 			// asumsi: jika ada 'data' maka sukses
+	// 			$decoded['status'] = isset($decoded['data']) ? 'success' : 'unknown';
+	// 		}
+	// 		echo json_encode($decoded);
+			
+	// 		return;
+	// 	}
+
+	// 	// kalau bukan JSON, kirim raw dalam field message (untuk debugging)
+	// 	echo json_encode(['status' => 'error', 'message' => 'Response API bukan JSON: '.substr($response,0,500)]);
+	// }
+
 	public function get_data_pbb()
 	{
-		// pastikan ini dipanggil via POST
-		$nop   = trim($this->input->get_post('nop'));
-		$tahun = $this->input->get_post('tahun') ? $this->input->get_post('tahun') : date('Y');
+		$nop   = preg_replace('/[^0-9]/', '', $this->input->get_post('nop'));
+		$tahun = $this->input->get_post('tahun'); // JANGAN default date('Y')
 
-		// jika nop kosong, kembalikan error JSON langsung
 		if (empty($nop)) {
-			header('Content-Type: application/json');
-			echo json_encode(['status' => 'error', 'message' => 'NOP harus diisi.']);
-			return;
+			return $this->_json(['status' => 'error', 'message' => 'NOP harus diisi']);
 		}
 
-		$url = "https://pakinta.makassarkota.go.id/api/data/check";
+		if (empty($tahun)) {
+			return $this->_json([
+				'status' => 'error',
+				'message' => 'Tahun pajak wajib dipilih'
+			]);
+		}
 
-		$data = [
+		$payload = [
 			"jenis_pajak" => "pbbp2",
-			"nop" => "$nop",
-			"tahun_pajak" => "$tahun",
-			"merchant" => "MSM"
+			"nop"         => $nop,
+			"tahun_pajak" => $tahun,
+			"merchant"    => "MSM"
 		];
 
-		$ch = curl_init();
+		$ch = curl_init("https://pakinta.makassarkota.go.id/api/data/check");
 
-		// URL tujuan
-		curl_setopt($ch, CURLOPT_URL, $url);
-
-		// Kembalikan hasil sebagai string
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-		// Metode POST
-		curl_setopt($ch, CURLOPT_POST, true);
-
-		// Data body dalam format JSON
-		curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-
-		// Header
-		curl_setopt($ch, CURLOPT_HTTPHEADER, [
-			'Content-Type: application/json',
-			'Authorization: Bearer 8f5f90ec1ba148d8cb39fc9749993f6b'
+		curl_setopt_array($ch, [
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_POST           => true,
+			CURLOPT_POSTFIELDS     => json_encode($payload),
+			CURLOPT_HTTPHEADER     => [
+				'Content-Type: application/json',
+				'Authorization: Bearer 8f5f90ec1ba148d8cb39fc9749993f6b'
+			],
+			CURLOPT_SSL_VERIFYPEER => false,
+			CURLOPT_SSL_VERIFYHOST => false
 		]);
 
-		// untuk development lokal (XAMPP) jika sertifikat bermasalah:
-		// Hanya pakai ini untuk test di localhost. Hapus di production.
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-
 		$response = curl_exec($ch);
-		$curl_errno = curl_errno($ch);
-		$curl_error = curl_error($ch);
-		$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+		if (curl_errno($ch)) {
+			return $this->_json([
+				'status' => 'error',
+				'message' => curl_error($ch)
+			]);
+		}
+
 		curl_close($ch);
 
-		header('Content-Type: application/json');
-
-		if ($curl_errno) {
-			echo json_encode(['status' => 'error', 'message' => 'cURL Error: '.$curl_error]);
-			return;
-		}
-
-		// coba decode response API — jika sudah JSON, kirim balik apa adanya
 		$decoded = json_decode($response, true);
-	
-		if (json_last_error() === JSON_ERROR_NONE) {
-			// jika API mengirim struktur berbeda, kita normalisasi sedikit
-			if (!isset($decoded['status'])) {
-				// asumsi: jika ada 'data' maka sukses
-				$decoded['status'] = isset($decoded['data']) ? 'success' : 'unknown';
-			}
-			echo json_encode($decoded);
-			
-			return;
-		}
 
-		// kalau bukan JSON, kirim raw dalam field message (untuk debugging)
-		echo json_encode(['status' => 'error', 'message' => 'Response API bukan JSON: '.substr($response,0,500)]);
+		return $this->_json([
+			'status' => 'success',
+			'tahun'  => $tahun,
+			'data'   => $decoded
+		]);
 	}
+
+	private function _json($data)
+	{
+		header('Content-Type: application/json');
+		echo json_encode($data);
+		exit;
+	}
+
 
 }
