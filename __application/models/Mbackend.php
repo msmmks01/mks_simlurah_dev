@@ -4816,9 +4816,11 @@ class Mbackend extends CI_Model
 						LEFT JOIN cl_kelurahan_desa F ON F.id = A.cl_kelurahan_desa_id
 						LEFT JOIN tbl_data_penandatanganan G ON A.nip = G.nip AND A.cl_kelurahan_desa_id = G.cl_kelurahan_desa_id
 
-						$where AND A.status_esign = 0
+						$where
 						ORDER BY A.id DESC
 				";
+				// ini di where kondisinya (disisi where)
+				// $where AND A.status_esign = 0
 				break;
 			//End Data Surat
 
