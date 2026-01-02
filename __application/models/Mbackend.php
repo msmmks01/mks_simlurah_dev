@@ -5357,6 +5357,12 @@ class Mbackend extends CI_Model
 			//Data Rekap Bulanan
 			case "data_rekap_bulan":
 
+				if (!empty($this->auth['tahun'])) {
+					$where .= "
+						AND YEAR(a.create_date) = '" . $this->auth['tahun'] . "'
+					";
+				}
+
 				if (in_array($this->auth['cl_user_group_id'], [2, 4, 5])) {
 					$where .= " AND a.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "' ";
 				}
