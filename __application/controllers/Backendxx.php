@@ -919,7 +919,7 @@ class Backendxx extends JINGGA_Controller
 			// 		$this->lib->fillcombo('cl_kelurahan_desa', 'return')
 			// 	);
 
-			// 	break;
+			// break;
 
 			case "beranda":
 
@@ -8391,41 +8391,42 @@ class Backendxx extends JINGGA_Controller
 	}
 
 	private function normalize_dashboard($rows)
-		{
-			if (empty($rows) || !is_array($rows)) {
-				return [];
-			}
-
-			$result = [];
-
-			foreach ($rows as $row) {
-
-				// ambil label/nama apapun yang tersedia
-				$nama = '';
-				if (isset($row['nama'])) {
-					$nama = $row['nama'];
-				} elseif (isset($row['label'])) {
-					$nama = $row['label'];
-				} elseif (isset($row['kategori'])) {
-					$nama = $row['kategori'];
-				}
-
-				// ambil jumlah / total
-				$jumlah = 0;
-				if (isset($row['jumlah'])) {
-					$jumlah = (int)$row['jumlah'];
-				} elseif (isset($row['total'])) {
-					$jumlah = (int)$row['total'];
-				}
-
-				$result[] = [
-					'nama'   => $nama,
-					'jumlah' => $jumlah
-				];
-			}
-
-			return $result;
+	{
+		if (empty($rows) || !is_array($rows)) {
+			return [];
 		}
 
+		$result = [];
+
+		foreach ($rows as $row) {
+
+			// ambil label/nama apapun yang tersedia
+			$nama = '';
+			if (isset($row['nama'])) {
+				$nama = $row['nama'];
+			} elseif (isset($row['label'])) {
+				$nama = $row['label'];
+			} elseif (isset($row['kategori'])) {
+				$nama = $row['kategori'];
+			}
+
+			// ambil jumlah / total
+			$jumlah = 0;
+			if (isset($row['jumlah'])) {
+				$jumlah = (int)$row['jumlah'];
+			} elseif (isset($row['total'])) {
+				$jumlah = (int)$row['total'];
+			}
+
+			$result[] = [
+				'nama'   => $nama,
+				'jumlah' => $jumlah
+			];
+		}
+
+		return $result;
+	}
 
 }
+
+

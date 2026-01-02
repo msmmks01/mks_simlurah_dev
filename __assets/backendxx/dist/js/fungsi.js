@@ -130,42 +130,105 @@ function genPieChart(divnya, tipe, judul, data) {
   });
 }
 
+// function genLineChart(divnya, tipe, judul, data) {
+//   Highcharts.chart(divnya, {
+//     chart: {
+//       plotBackgroundColor: null,
+
+//       plotBorderWidth: null,
+
+//       plotShadow: false,
+
+//       type: "line",
+//     },
+
+//     title: {
+//       text: judul,
+//     },
+
+//     tooltip: {
+//       pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>",
+//     },
+
+//     plotOptions: {
+//       pie: {
+//         allowPointSelect: false,
+
+//         cursor: "pointer",
+
+//         dataLabels: {
+//           enabled: false,
+
+//           format: "<b>{point.name}</b> : {point.percentage:.1f} %",
+
+//           style: {
+//             width: "100px",
+//           },
+//         },
+
+//         showInLegend: true,
+//       },
+//     },
+
+//     series: data,
+
+//     exporting: {
+//       buttons: {
+//         contextButton: {
+//           menuItems: ["downloadPNG", "downloadJPEG"],
+//         },
+//       },
+//     },
+
+//     credits: {
+//       enabled: false,
+//     },
+//   });
+// }
+
 function genLineChart(divnya, tipe, judul, data) {
+
+  var tooltipOpt = {
+    pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>"
+  };
+
+  // 🔥 KHUSUS SKM
+  if (tipe === 'skm') {
+    tooltipOpt = {
+      useHTML: true,
+      formatter: function () {
+        return '<b>' + this.y + '</b><br/>' + this.point.mutu;
+      },
+      positioner: function (labelWidth, labelHeight, point) {
+        return {
+          x: point.plotX + this.chart.plotLeft - labelWidth / 2,
+          y: point.plotY + this.chart.plotTop - labelHeight - 10
+        };
+      }
+    };
+  }
+
   Highcharts.chart(divnya, {
     chart: {
       plotBackgroundColor: null,
-
       plotBorderWidth: null,
-
       plotShadow: false,
-
       type: "line",
     },
 
-    title: {
-      text: judul,
-    },
+    title: { text: judul },
 
-    tooltip: {
-      pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>",
-    },
+    tooltip: tooltipOpt, // ✅ PAKAI HASIL KONDISI
 
     plotOptions: {
       pie: {
         allowPointSelect: false,
-
         cursor: "pointer",
-
         dataLabels: {
           enabled: false,
-
           format: "<b>{point.name}</b> : {point.percentage:.1f} %",
-
-          style: {
-            width: "100px",
-          },
+          style: { width: "100px" },
         },
-
         showInLegend: true,
       },
     },
@@ -180,13 +243,27 @@ function genLineChart(divnya, tipe, judul, data) {
       },
     },
 
-    credits: {
-      enabled: false,
-    },
+    credits: { enabled: false },
   });
 }
 
+
 function genColumnChart(divnya, type, xxChart, yyChart, judul, pointformat) {
+  var tooltipOpt = {
+    pointFormat: '{series.name}: <b>{point.y}</b>'
+  };
+
+  // 🔥 KHUSUS SKM SAJA
+  if (type === 'skm') {
+    tooltipOpt = {
+      useHTML: true,
+      formatter: function () {
+        return '<b>' + this.point.name + '</b><br>'
+          + 'NRR Per Unsur : <b>' + this.y.toFixed(2) + '</b><br>'
+          + '<b>' + (this.point.mutu || '') + '</b>';
+      }
+    };
+  }
   Highcharts.chart(divnya, {
     chart: {
       type: "column",
@@ -233,9 +310,7 @@ function genColumnChart(divnya, type, xxChart, yyChart, judul, pointformat) {
       enabled: false,
     },
 
-    tooltip: {
-      shared: true,
-    },
+    tooltip: tooltipOpt,
 
     plotOptions: {
       column: {

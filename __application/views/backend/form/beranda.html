@@ -758,16 +758,31 @@ var chartUmur = [{
   ]
 }];
 
+// var chartXXSkm = {$data.skm|json_encode nofilter}.map(u => u.nama);
+// var chartSkm = [{
+// 	name: 'NRR per Unsur',
+// 	colorByPoint: true,
+// 	data: {$data.skm|json_encode nofilter}.map(u => ({
+// 		name: u.nama,
+// 		y: parseFloat(u.nilai),
+// 		color:getRandomColor() // kalau pakai warna
+// 	}))
+// }];
+
 var chartXXSkm = {$data.skm|json_encode nofilter}.map(u => u.nama);
+
 var chartSkm = [{
-	name: 'NRR per Unsur',
-	colorByPoint: true,
-	data: {$data.skm|json_encode nofilter}.map(u => ({
-		name: u.nama,
-		y: parseFloat(u.nilai),
-		color:getRandomColor() // kalau pakai warna
-	}))
+    name: 'NRR per Unsur',
+    colorByPoint: true,
+    data: {$data.skm|json_encode nofilter}.map(u => ({
+        name: u.nama,
+        y: parseFloat(u.nilai),
+        mutu: u.mutu,
+        color: getRandomColor()
+    }))
 }];
+
+
 
 
 // function getRandomColor() {
