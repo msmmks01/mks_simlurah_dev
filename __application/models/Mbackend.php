@@ -17145,8 +17145,7 @@ class Mbackend extends CI_Model
 
 			// 		$nip = $this->input->post('nip');
 			// 	}
-			// 	break;
-
+			// break;
 			case "data_penandatanganan":
 				$sql = "SELECT nm_golongan AS id, CONCAT(pangkat, ', ', nm_golongan) AS txt FROM cl_golongan";
 				$data_pegawai = $this->db->query($sql)->row_array();
@@ -18031,8 +18030,6 @@ class Mbackend extends CI_Model
 				}
 
 				break;
-
-
 
 			case "data_rt_rw":
 				// if (@$data['koordinat'] != '') {

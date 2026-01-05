@@ -53,7 +53,12 @@
                                 <div class="col-md-8">
 									{include file="backend/template/input_form.html" label="Alamat" class_width="col-lg-12" type="textarea" name="alamat" id="alamat" required="true" value="{$data.alamat|default:''}"}
 								</div>
-                               
+                               	<div class="col-md-1">
+									{include file="backend/template/input_form.html" label="RT" class_width="col-lg-12" type="pnj_rt" name="rt" id="rt" value="{$data.rt|default:''}"}
+								</div>
+								<div class="col-md-1">
+									{include file="backend/template/input_form.html" label="RW" class_width="col-lg-12" type="pnj_rt" name="rw" id="rw" value="{$data.rw|default:''}"}
+								</div>
                             </div> 
 							<div class="row" style="margin-bottom:10px;">
                                 

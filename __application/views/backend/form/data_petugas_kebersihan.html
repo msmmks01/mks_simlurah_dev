@@ -24,13 +24,8 @@
                   id="cl_kelurahan_desa_id" value="{$kel.nama|default:''}" }
                 </div> -->
                 <div class="col-md-6">
-                  <input
-                    type="hidden"
-                    name="cl_kelurahan_desa_id"
-                    value="{$cl_kelurahan_desa_id}"
-                  />
-                  {include file="backend/template/input_form.html"
-                  required="true" label="Kelurahan" class_width="col-lg-12"
+                  <input type="hidden" name="cl_kelurahan_desa_id" value="{$cl_kelurahan_desa_id}"/>
+                  {include file="backend/template/input_form.html" required="true" label="Kelurahan" class_width="col-lg-12"
                   type="baca_aja" value="{$kel.nama|default:''}" }
                 </div>
               </div>
@@ -43,51 +38,50 @@
                 </div> -->
 
                 <div class="col-md-4">
-                  {include file="backend/template/input_form.html" label="Nama"
-                  class_width="col-lg-12" type="text" name="nama_petugas_keb"
-                  id="nama_petugas_keb"
-                  value="{$data.nama_petugas_keb|default:''}"}
+                  {include file="backend/template/input_form.html" label="Nama" class_width="col-lg-12" type="text" name="nama_petugas_keb"
+                  id="nama_petugas_keb" value="{$data.nama_petugas_keb|default:''}"}
                 </div>
-                <div class="col-md-4">
-                  {include file="backend/template/input_form.html" label="NIK"
-                  class_width="col-lg-12" type="text" name="nik_petugas"
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html" label="NIK" class_width="col-lg-12" type="text" name="nik_petugas"
                   id="nik_petugas" value="{$data.nik_petugas|default:''}"}
                 </div>
                 <div class="col-md-4">
-                  {include file="backend/template/input_form.html" label="Unit
-                  Kerja" class_width="col-lg-12" type="text" name="unit_kerja"
+                  {include file="backend/template/input_form.html" label="Unit Kerja" class_width="col-lg-12" type="text" name="unit_kerja"
                   id="unit_kerja" value="{$data.unit_kerja|default:''}"}
                 </div>
-                <div class="col-md-4">
-                  {include file="backend/template/input_form.html" label="Jenis
-                  Kelamin" class_width="col-lg-12" type="select"
-                  name="jenis_kelamin" id="jenis_kelamin"
-                  option={$jenis_kelamin|default:''} }
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html" label="Jenis Kelamin" class_width="col-lg-12" type="select"
+                  name="jenis_kelamin" id="jenis_kelamin" option={$jenis_kelamin|default:''} }
                 </div>
-                <div class="col-md-4">
-                  {include file="backend/template/input_form.html"
-                  label="Pekerjaan" class_width="col-lg-12" type="text"
-                  name="pekerjaan" id="pekerjaan"
-                  value="{$data.pekerjaan|default:''}"}
+                <div class="col-md-3">
+                  {include file="backend/template/input_form.html" label="Pekerjaan" class_width="col-lg-12" type="text"
+                  name="pekerjaan" id="pekerjaan" value="{$data.pekerjaan|default:''}"}
                 </div>
-                <div class="col-md-4">
-                  {include file="backend/template/input_form.html"
-                  label="Lokasi" class_width="col-lg-12" type="text"
+                <div class="col-md-3">
+                  {include file="backend/template/input_form.html" label="Lokasi" class_width="col-lg-12" type="text"
                   name="lokasi" id="lokasi" value="{$data.lokasi|default:''}"}
                 </div>
-                <div class="col-md-4">
-                  {include file="backend/template/input_form.html"
-                  label="Status" class_width="col-lg-12" type="select"
-                  name="status_pegawai" id="status_pegawai"
-                  option={$status_pegawai|default:''} }
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html" label="Status" class_width="col-lg-12" type="select"
+                  name="status_pegawai" id="status_pegawai" option={$status_pegawai|default:''} }
                 </div>
                 <div class="col-md-4">
-                  {include file="backend/template/input_form.html"
-                  label="Keterangan" class_width="col-lg-12" type="text"
-                  name="keterangan" id="keterangan"
-                  value="{$data.keterangan|default:''}"}
+                  {include file="backend/template/input_form.html" label="Keterangan" class_width="col-lg-12" type="text"
+                  name="keterangan" id="keterangan" value="{$data.keterangan|default:''}"}
                 </div>
               </div>
+
+              <div class="row" style="margin-bottom:10px;">
+                <div class="col-md-6">
+									{include file="backend/template/input_form.html" label="Alamat" class_width="col-lg-12" type="textarea" name="alamat" id="alamat" required="true" value="{$data.alamat|default:''}"}
+								</div>
+                <div class="col-md-1">
+									{include file="backend/template/input_form.html" label="RT" class_width="col-lg-12" type="pnj_rt" name="rt" id="rt" value="{$data.rt|default:''}"}
+								</div>
+								<div class="col-md-1">
+									{include file="backend/template/input_form.html" label="RW" class_width="col-lg-12" type="pnj_rt" name="rw" id="rw" value="{$data.rw|default:''}"}
+								</div>
+              </div> 
 
               <!-- <div class="row">
 								<div class='col-md-12'>
@@ -103,16 +97,11 @@
               <div class="row">
                 <div class="col-md-12">
                   <hr />
-                  {include file="backend/template/input_form.html" label="Upload
-                  File *jpg|jpeg|png|pdf" class_width="col-lg-12" type="file"
+                  {include file="backend/template/input_form.html" label="Upload File *jpg|jpeg|png|pdf" class_width="col-lg-12" type="file"
                   name="file" id="file" value="{$data.file|default:''}"}
                   <br />
-                  {include file="backend/template/button_save.html"
-                  text="Simpan" id_na="save" style_btn="btn-success"
-                  btn_goyz="false"} {include
-                  file="backend/template/button_save.html" text="Kembali"
-                  click="$('#grid_nya_{$mod}').show();$('#detil_nya_{$mod}').hide();"
-                  id_na="cancel" style_btn="btn-danger" btn_goyz="true"}
+                  {include file="backend/template/button_save.html" text="Simpan" id_na="save" style_btn="btn-success" btn_goyz="false"} 
+                  {include file="backend/template/button_save.html" text="Kembali" click="$('#grid_nya_{$mod}').show();$('#detil_nya_{$mod}').hide();" id_na="cancel" style_btn="btn-danger" btn_goyz="true"}
                 </div>
               </div>
             </div>

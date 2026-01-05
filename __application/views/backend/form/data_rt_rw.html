@@ -187,17 +187,30 @@
     messages: messagesnya,
     submitHandler: function (form) {
       $.LoadingOverlay("show");
+      // submit_form("form_{$acak}", function (r) {
+      //   if (r == 1) {
+      //     $.messager.alert(nama_apps, "Data Tersimpan", "info");
+      //     $("#cancel_{$acak}").trigger("click");
+      //     $("#grid_data_rt_rw").datagrid("reload");
+      //   } else {
+      //     $.messager.alert(
+      //       nama_apps,
+      //       "Proses Simpan Data Gagal " + r,
+      //       "warning"
+      //     );
+      //   }
+      //   $.LoadingOverlay("hide", true);
+      // });
       submit_form("form_{$acak}", function (r) {
         if (r == 1) {
           $.messager.alert(nama_apps, "Data Tersimpan", "info");
           $("#cancel_{$acak}").trigger("click");
-          $("#grid_data_rt_rw").datagrid("reload");
+
+          setTimeout(function () {
+            $("#grid_data_rt_rw").datagrid("reload");
+          }, 300);
         } else {
-          $.messager.alert(
-            nama_apps,
-            "Proses Simpan Data Gagal " + r,
-            "warning"
-          );
+          $.messager.alert(nama_apps, "Proses Simpan Data Gagal " + r, "warning");
         }
         $.LoadingOverlay("hide", true);
       });

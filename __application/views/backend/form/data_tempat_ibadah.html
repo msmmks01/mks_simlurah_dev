@@ -26,8 +26,14 @@
                                 <div class="col-md-4">
 									{include file="backend/template/input_form.html" label="Nama Tempat Ibadah" class_width="col-lg-12" type="text" name="nama_tempat_ibadah" id="nama_tempat_ibadah" value="{$data.nama_tempat_ibadah|default:''}"}
 								</div>
-                                <div class="col-md-8">
+                                <div class="col-md-6">
 									{include file="backend/template/input_form.html" label="Alamat" class_width="col-lg-12" type="text" name="alamat" id="alamat" value="{$data.alamat|default:''}"}
+								</div>
+								<div class="col-md-1">
+									{include file="backend/template/input_form.html" label="RT" class_width="col-lg-12" type="pnj_rt" name="rt" id="rt" value="{$data.rt|default:''}"}
+								</div>
+								<div class="col-md-1">
+									{include file="backend/template/input_form.html" label="RW" class_width="col-lg-12" type="pnj_rt" name="rw" id="rw" value="{$data.rw|default:''}"}
 								</div>
                                 <div class="col-md-4">
 									{include file="backend/template/input_form.html" label="Ketua Pengurus" class_width="col-lg-12" type="text" name="ketua_pengurus" id="ketua_pengurus" value="{$data.ketua_pengurus|default:''}"}

@@ -3986,8 +3986,7 @@ class Backendxx extends JINGGA_Controller
 			// 	// var_dump('masuk');
 			// 	// exit();
 
-			// 	break;	
-
+			// break;	
 			case "form_sub_indikator_rt_rw":
 
 				$this->nsmarty->assign("data_kategori_id", $this->lib->fillcombo("data_kategori_id", "return"));
@@ -4094,7 +4093,7 @@ class Backendxx extends JINGGA_Controller
 
 				$this->nsmarty->assign("pilih_status", $this->lib->fillcombo("pilih_status", "return", ($sts == "edit" ? $data["status"] : "")));
 
-				$this->nsmarty->assign("pilih_tahun", $this->lib->fillcombo("pilih_tahun", "return", ($sts == "edit" ? $data["tahun"] : "")));
+				$this->nsmarty->assign("pilih_tahun", $this->lib->fillcombo("pilih_tahun", "return", ($sts == "edit" ? $data["pilih_tahun"] : "")));
 
 				$this->nsmarty->assign("data_penduduk_id", $this->lib->fillcombo("data_penduduk_id", "return", ($sts == "edit" ? $data["nik"] : "")));
 
@@ -4116,8 +4115,7 @@ class Backendxx extends JINGGA_Controller
 
 			// 	$this->nsmarty->assign("bulan", $this->lib->fillcombo("pilih_bulan", "return", ($sts == "edit" ? $data["bulan"] : "")));
 
-			// 	break;
-
+			// break;
 			case "penilaian_rt_rw":
 
 				$data['bulan'] = '';

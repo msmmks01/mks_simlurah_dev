@@ -2529,7 +2529,7 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
           title: "NIK",
           width: 150,
           halign: "center",
-          align: "left",
+          align: "center",
         },
 
         {
@@ -2543,9 +2543,9 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
         {
           field: "jenis_kelamin",
           title: "Jenis Kelamin",
-          width: 200,
+          width: 150,
           halign: "center",
-          align: "left",
+          align: "centar",
         },
 
         {
@@ -2565,9 +2565,31 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
         },
 
         {
-          field: "nama_status",
+          field: "status_pegawai",
           title: "Status",
           width: 150,
+          halign: "center",
+          align: "center",
+        },
+
+        {
+          field: "alamat",
+          title: "Alamat",
+          width: 300,
+          halign: "center",
+          align: "left",
+        },
+        {
+          field: "rt",
+          title: "RT",
+          width: 70,
+          halign: "center",
+          align: "center",
+        },
+        {
+          field: "rw",
+          title: "RW",
+          width: 70,
           halign: "center",
           align: "center",
         },
@@ -3325,6 +3347,21 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
         },
 
         {
+          field: "rt",
+          title: "RT",
+          width: 70,
+          halign: "center",
+          align: "center",
+        },
+        {
+          field: "rw",
+          title: "RW",
+          width: 70,
+          halign: "center",
+          align: "center",
+        },
+
+        {
           field: "ketua_pengurus",
           title: "Pengurus",
           width: 250,
@@ -3355,6 +3392,7 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
       ];
 
       break;
+
     case "data_faskes":
       judulnya = "";
 
