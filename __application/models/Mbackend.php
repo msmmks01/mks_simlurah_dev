@@ -16897,11 +16897,6 @@ class Mbackend extends CI_Model
 
 			case "data_penduduk":
 
-				$data['cl_status_hubungan_keluarga_id'] =
-					(int) $this->input->post('cl_status_hubungan_keluarga_id');
-
-				$array = array();
-
 				if (isset($data['tgl_lahir'])) {
 					$data['tgl_lahir'] = date('Y-m-d', strtotime($data['tgl_lahir']));
 				}

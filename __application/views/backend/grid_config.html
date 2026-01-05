@@ -316,7 +316,6 @@ $mod eq 'data_surat'}
       </div>
 
       {elseif $mod eq 'data_rt_rw'}
-
       <!-- ===== BAR ATAS ===== -->
       <div class="row align-items-center" style="margin-bottom:10px;">
 
@@ -338,25 +337,30 @@ $mod eq 'data_surat'}
         </div>
 
         <!-- FILTER (TENGAH) -->
-        <div class="col-lg-5 text-center">
-          <label style="width:70px">Kolom</label> :
-          
+      <div class="col-lg-5">
+        <div class="d-flex align-items-center justify-content-center gap-2">
+          <label class="mb-0" style="width:80px;">Kolom</label>
+
           <select name="kat_{$acak}" id="kat_{$acak}"
-            class="form-control input-sm d-inline-block"
-            style="width:28%;">
+            class="form-control form-control-sm"
+            style="width:30%;">
             {$data_select|default:''}
           </select>
 
-          <input type="text" name="key_{$acak}" id="key_{$acak}"
-            class="form-control input-sm d-inline-block"
-            style="width:45%; margin-left:4px;" />
+          <input type="text"
+            name="key_{$acak}"
+            id="key_{$acak}"
+            class="form-control form-control-sm"
+            style="width:40%;"
+            onkeypress="return(handleKeyPress(event))"/>
 
           <button type="button"
             class="btn btn-default btn-sm"
-            onclick="cariData('{$mod}','{$acak}');">
+            onclick="cariData('{$mod}', '', '{$acak}');">
             <i class="fa fa-search"></i>
           </button>
         </div>
+      </div>
 
         <!-- TOMBOL AKSI (KANAN) -->
         <div class="col-lg-4 text-right">
