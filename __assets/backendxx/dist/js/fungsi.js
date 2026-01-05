@@ -7574,6 +7574,7 @@ function cariData(divnya, post_search, acaknya) {
   $("#grid_" + divnya).datagrid("reload", post_search);
 }
 
+
 function handleKeyPress(event) {
   // Cek apakah tombol yang ditekan adalah tombol "Enter" (kode 13)
   if (event.keyCode === 13) {

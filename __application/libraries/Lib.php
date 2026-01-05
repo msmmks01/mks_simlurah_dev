@@ -59,6 +59,7 @@ class Lib
 							'__assets/pluginsall/maskmoney/jquery.maskMoney.js',
 							'__assets/pluginsall/ckeditor/ckeditor.js',
 							'__assets/backendxx/dist/js/adminlte.min.js',
+							'__assets/backendxx/dist/js/sidebar-fix.js', // ✅ TAMBAH DI SINI
 							'__assets/backendxx/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js',
 							'__assets/backendxx/bower_components/jquery-slimscroll/jquery.slimscroll.min.js',
 							'__assets/backendxx/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',

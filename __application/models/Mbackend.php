@@ -5867,6 +5867,16 @@ class Mbackend extends CI_Model
 
 				$where = " WHERE 1=1 ";
 
+				// ================== PENCARIAN ==================
+				$kolom   = $this->input->post('kat'); 
+				$keyword = $this->input->post('key');
+
+				if (!empty($kolom) && !empty($keyword)) {
+					$where .= " 
+						AND {$kolom} LIKE '%" . $this->db->escape_like_str($keyword) . "%' 
+					";
+				}
+
 				// ================== HAK AKSES USER ==================
 				if (in_array($this->auth['cl_user_group_id'], [2, 4, 5])) {
 					$where .= " 
@@ -5924,9 +5934,7 @@ class Mbackend extends CI_Model
 				}
 				// ==================================================
 
-				$sql = "
-					SELECT 
-						a.*,
+				$sql = "SELECT  a.*,
 						CASE 
 							WHEN a.jab_rt_rw = 'Ketua RW' 
 								THEN CONCAT('Ketua RW ', LPAD(a.rw, 3, '0'))
@@ -16888,6 +16896,11 @@ class Mbackend extends CI_Model
 				break;
 
 			case "data_penduduk":
+
+				$data['cl_status_hubungan_keluarga_id'] =
+					(int) $this->input->post('cl_status_hubungan_keluarga_id');
+
+				$array = array();
 
 				if (isset($data['tgl_lahir'])) {
 					$data['tgl_lahir'] = date('Y-m-d', strtotime($data['tgl_lahir']));
