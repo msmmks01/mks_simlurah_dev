@@ -34,7 +34,7 @@
                   id="nama_lengkap" value="{$data.nama_lengkap|default:''}"}
                 </div>
                 <div class="col-md-3">
-                  {include file="backend/template/input_form.html" label="Jabatan RT/RW" class_width="col-lg-12" type="select"
+                  {include file="backend/template/input_form.html" required="true" label="Jabatan RT/RW" class_width="col-lg-12" type="select"
                   name="jab_rt_rw" id="jab_rt_rw" option={$jab_rt_rw|default:''} }
                 </div>
                 <div class="col-md-3">
@@ -169,6 +169,11 @@
     nama_ibu_kandung: "required",
     no_hp: "required",
     status: "required",
+    no_sk_rt_rw: "required",
+    tgl_sk_rt_rw: "required",
+    pilih_tahun: "required",
+    jab_rt_rw: "required",
+
   };
 
   var messagesnya = {
@@ -180,6 +185,10 @@
     nama_ibu_kandung: "<i style='color:red'>Harus Diisi</i>",
     no_hp: "<i style='color:red'>Harus Diisi</i>",
     status: "<i style='color:red'>Harus Diisi</i>",
+    no_sk_rt_rw: "<i style='color:red'>Harus Diisi</i>",
+    tgl_sk_rt_rw: "<i style='color:red'>Harus Diisi</i>",
+    pilih_tahun: "<i style='color:red'>Harus Diisi</i>",
+    jab_rt_rw: "<i style='color:red'>Harus Diisi</i>",
   };
 
   $("#form_{$acak}").validate({
