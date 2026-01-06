@@ -24,8 +24,14 @@
 								</div>
 							</div>
                             <div class="row" style="margin-bottom:10px;">
-                                <div class="col-md-8">
+                                <div class="col-md-6">
 									{include file="backend/template/input_form.html" label="Alamat" class_width="col-lg-12" type="text" name="alamat" id="alamat" value="{$data.alamat|default:''}"}
+								</div>
+								<div class="col-md-1">
+									{include file="backend/template/input_form.html" label="RT" class_width="col-lg-12" type="pnj_rt" name="rt" id="rt" value="{$data.rt|default:''}"}
+								</div>
+								<div class="col-md-1">
+									{include file="backend/template/input_form.html" label="RW" class_width="col-lg-12" type="pnj_rt" name="rw" id="rw" value="{$data.rw|default:''}"}
 								</div>
                                 <div class="col-md-4">
 									{include file="backend/template/input_form.html" required="true" label="Kelurahan" class_width="col-lg-12" type="baca_aja" name="cl_kelurahan_desa_id" id="cl_kelurahan_desa_id" value="{$kel.nama|default:''}" }

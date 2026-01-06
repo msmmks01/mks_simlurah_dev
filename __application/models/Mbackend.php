@@ -6293,7 +6293,6 @@ class Mbackend extends CI_Model
 
 					$where .= "
 
-
 						and cl_kecamatan_id = '" . $this->auth['cl_kecamatan_id'] . "'
 
 					";
@@ -6302,7 +6301,6 @@ class Mbackend extends CI_Model
 				if (in_array($this->auth['cl_user_group_id'], [2, 4, 5])) {
 
 					$where .= "
-
 
 						and cl_kecamatan_id = '" . $this->auth['cl_kecamatan_id'] . "'
 
@@ -6316,9 +6314,7 @@ class Mbackend extends CI_Model
 					$where .= "and a.cl_kelurahan_desa_id = '" . $kelurahan . "'";
 				}
 
-				$sql = "
-
-					SELECT A.*
+				$sql = " SELECT A.*
 
 					FROM tbl_data_rs A
 
@@ -6368,7 +6364,7 @@ class Mbackend extends CI_Model
 					$where .= "and A.cl_kelurahan_desa_id = '" . $kelurahan . "'";
 				}
 
-				$sql = "SELECT a.*,b.alamat,b.rw
+				$sql = "SELECT a.*,b.alamat,b.rw,b.rt
 	
 						FROM tbl_data_wamis a
 
@@ -17855,13 +17851,16 @@ class Mbackend extends CI_Model
 			case "data_faskes":
 
 
-				if (isset($data['koordinat'])) {
-					list($x, $y) = explode(', ', $data['koordinat']);
+				if (!empty($data['koordinat']) && strpos($data['koordinat'], ',') !== false) {
 
-					$data['lat'] = $x;
-					$data['long'] = $y;
+					$koor = explode(',', $data['koordinat']);
+
+					$data['lat']  = trim($koor[0]);
+					$data['long'] = trim($koor[1]);
+
 					unset($data['koordinat']);
 				}
+
 
 				$table = "tbl_data_rs";
 

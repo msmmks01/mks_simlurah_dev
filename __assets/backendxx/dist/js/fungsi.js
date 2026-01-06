@@ -2459,6 +2459,21 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
         },
 
         {
+          field: "rt",
+          title: "RT",
+          width: 70,
+          halign: "center",
+          align: "center",
+        },
+        {
+          field: "rw",
+          title: "RW",
+          width: 70,
+          halign: "center",
+          align: "center",
+        },
+
+        {
           field: "nama_usaha_pkl",
           title: "Nama Usaha",
           width: 150,
@@ -3414,35 +3429,43 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
         {
           field: "nama",
           title: "Nama RS",
-          width: 250,
+          width: 300,
+          halign: "center",
+          align: "left",
+        },
+       
+        {
+          field: "alamat",
+          title: "Alamat",
+          width: 300,
           halign: "center",
           align: "left",
         },
         {
-          field: "kelurahan",
-          title: "Kelurahan",
-          width: 150,
+          field: "rw",
+          title: "RW",
+          width: 50,
           halign: "center",
           align: "center",
         },
         {
-          field: "alamat",
-          title: "Alamat",
-          width: 250,
+          field: "rt",
+          title: "RW",
+          width: 50,
           halign: "center",
-          align: "left",
+          align: "center",
         },
         {
           field: "jenis",
           title: "Jenis",
-          width: 70,
+          width: 100,
           halign: "center",
           align: "left",
         },
         {
           field: "kelas",
           title: "Kelas",
-          width: 50,
+          width: 100,
           halign: "center",
           align: "left",
         },
@@ -3460,13 +3483,7 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
           halign: "center",
           align: "left",
         },
-        {
-          field: "kepemilikan",
-          title: "Kepemilikan",
-          width: 150,
-          halign: "center",
-          align: "left",
-        },
+        
         {
           field: "telp",
           title: "Telp",
@@ -3474,20 +3491,7 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
           halign: "center",
           align: "left",
         },
-        {
-          field: "lat",
-          title: "Latitude",
-          width: 150,
-          halign: "center",
-          align: "left",
-        },
-        {
-          field: "long",
-          title: "Longitude",
-          width: 150,
-          halign: "center",
-          align: "left",
-        },
+        
         {
           field: "file",
           title: "Action ",
@@ -3525,7 +3529,7 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
         {
           field: "kelurahan",
           title: "Kelurahan",
-          width: 250,
+          width: 200,
           halign: "center",
           align: "left",
         },
@@ -3556,6 +3560,13 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
 
         {
           field: "rw",
+          title: "RW",
+          width: 50,
+          halign: "center",
+          align: "center",
+        },
+        {
+          field: "rt",
           title: "RW",
           width: 50,
           halign: "center",

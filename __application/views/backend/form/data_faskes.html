@@ -18,83 +18,67 @@
             <div class="col-md-12">
               <div class="row" style="margin-bottom: 10px">
                 <div class="col-md-6">
-                  <input
-                    type="hidden"
-                    name="cl_kelurahan_desa_id"
-                    value="{$cl_kelurahan_desa_id}"
-                  />
-                  {include file="backend/template/input_form.html"
-                  required="true" label="Kelurahan" class_width="col-lg-12"
+                  <input type="hidden" name="cl_kelurahan_desa_id" value="{$cl_kelurahan_desa_id}"/>
+                  {include file="backend/template/input_form.html" required="true" label="Kelurahan" class_width="col-lg-12"
                   type="baca_aja" value="{$kel.nama|default:''}" }
                 </div>
               </div>
               <div class="row" style="margin-bottom: 10px">                
-                <div class="col-md-4">
-                  {include file="backend/template/input_form.html" label="Kode Faskes" 
-                  class_width="col-lg-12" type="pnj_karakter" required="true"
-                  name="kode" id="kode"
-                  value="{$data.kode|default:''}"}
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html" label="Kode Faskes" class_width="col-lg-12" type="pnj_karakter" required="true"
+                  name="kode" id="kode" value="{$data.kode|default:''}"}
                 </div>
                 <div class="col-md-4">
-                  {include file="backend/template/input_form.html" label="Nama
-                  Faskes" class_width="col-lg-12" type="text" required="true"
-                  name="nama" id="nama"
-                  value="{$data.nama|default:''}"}
+                  {include file="backend/template/input_form.html" label="Nama Faskes" class_width="col-lg-12" type="text" required="true"
+                  name="nama" id="nama" value="{$data.nama|default:''}"}
                 </div>
                 <div class="col-md-4">
-                  {include file="backend/template/input_form.html" label="Alamat" 
-                  class_width="col-lg-12" type="textarea" required="true"
-                  name="alamat" id="alamat"
-                  value="{$data.alamat|default:''}"}
+                  {include file="backend/template/input_form.html" label="Alamat" class_width="col-lg-12" type="textarea" required="true"
+                  name="alamat" id="alamat" value="{$data.alamat|default:''}"}
                 </div>
-                <div class="col-md-4">
-                  {include file="backend/template/input_form.html"
-                  label="Jenis" class_width="col-lg-12" type="select"
-                  required="true" name="jenis" id="jenis"
-                  option={$jenis_rs|default:''} }
-                </div>
-                <div class="col-md-4">
-                  {include file="backend/template/input_form.html"
-                  label="Kelas" class_width="col-lg-12" type="select"
-                  required="false" name="kelas" id="kelas"
-                  option={$kelas_rs|default:''} }
-                </div>
-                <div class="col-md-4">
-                  {include file="backend/template/input_form.html"
-                  label="Jenis Pelayanan" class_width="col-lg-12" type="select"
-                   name="jenis_pelayanan" id="jenis_pelayanan"
-                  option={$jenis_pelayanan|default:''} }
-                </div>
-                <div class="col-md-4">
-                  {include file="backend/template/input_form.html"
-                  label="Akreditasi" class_width="col-lg-12" type="select"
-                  required="true" name="akreditasi" id="akreditasi"
-                  option={$akreditasi|default:''} }
-                </div>
-                <div class="col-md-4">
-                  {include file="backend/template/input_form.html" label="Kepemilikan" 
-                  class_width="col-lg-12" type="text" required="true"
-                  name="kepemilikan" id="kepemilikan"
-                  value="{$data.kepemilikan|default:''}"}
-                </div>
-                <div class="col-md-4">
-                  {include file="backend/template/input_form.html" label="Pemilik" 
-                  class_width="col-lg-12" type="text" required="true"
-                  name="pemilik" id="pemilik"
-                  value="{$data.pemilik|default:''}"}
-                </div>
-                <div class="col-md-4">
-                  {include file="backend/template/input_form.html" label="Telp" 
-                  class_width="col-lg-12" type="text" required="true"
-                  name="telp" id="telp"
-                  value="{$data.telp|default:''}"}
-                </div>
-              <div class="col-md-4">
-                {include file="backend/template/input_form.html" label="Koordinat (Ambil Dari Google Map)" 
-                class_width="col-lg-12" type="text" required="true" placeholder="contoh: -5.13935799930719, 119.45180916240452"
-                name="koordinat" id="koordinat"
-                value="{$kor|default:''}"}
+                <div class="col-md-1">
+									{include file="backend/template/input_form.html" label="RT" class_width="col-lg-12" type="pnj_rt" name="rt" id="rt" value="{$data.rt|default:''}"}
+								</div>
+								<div class="col-md-1">
+									{include file="backend/template/input_form.html" label="RW" class_width="col-lg-12" type="pnj_rt" name="rw" id="rw" value="{$data.rw|default:''}"}
+								</div>
               </div>
+              <div class="row" style="margin-bottom: 10px"> 
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html" label="Jenis" class_width="col-lg-12" type="select"
+                  required="true" name="jenis" id="jenis" option={$jenis_rs|default:''} }
+                </div>
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html" label="Kelas" class_width="col-lg-12" type="select"
+                  required="false" name="kelas" id="kelas" option={$kelas_rs|default:''} }
+                </div>
+                <div class="col-md-4">
+                  {include file="backend/template/input_form.html" label="Jenis Pelayanan" class_width="col-lg-12" type="select"
+                  name="jenis_pelayanan" id="jenis_pelayanan" option={$jenis_pelayanan|default:''} }
+                </div>
+                <div class="col-md-4">
+                  {include file="backend/template/input_form.html" label="Akreditasi" class_width="col-lg-12" type="select"
+                  required="true" name="akreditasi" id="akreditasi" option={$akreditasi|default:''} }
+                </div>
+              </div>
+              <div class="row" style="margin-bottom: 10px"> 
+                <div class="col-md-3">
+                  {include file="backend/template/input_form.html" label="Kepemilikan" class_width="col-lg-12" type="text" required="true"
+                  name="kepemilikan" id="kepemilikan" value="{$data.kepemilikan|default:''}"}
+                </div>
+                <div class="col-md-3">
+                  {include file="backend/template/input_form.html" label="Pemilik" class_width="col-lg-12" type="text" required="true"
+                  name="pemilik" id="pemilik" value="{$data.pemilik|default:''}"}
+                </div>
+                <div class="col-md-3">
+                  {include file="backend/template/input_form.html" label="Telp" class_width="col-lg-12" type="text" required="true"
+                  name="telp" id="telp" value="{$data.telp|default:''}"}
+                </div>
+                <div class="col-md-3">
+                  {include file="backend/template/input_form.html" label="Koordinat (Ambil Dari Google Map)" 
+                  class_width="col-lg-12" type="text" required="true" placeholder="contoh: -5.13935799930719, 119.45180916240452"
+                  name="koordinat" id="koordinat" value="{$kor|default:''}"}
+                </div>
               </div>
 
               
