@@ -5867,13 +5867,25 @@ class Mbackend extends CI_Model
 
 				$where = " WHERE 1=1 ";
 
-				// ================== PENCARIAN ==================
-				$kolom   = $this->input->post('kat'); 
-				$keyword = $this->input->post('key');
+				$kolom      = $this->input->post('kat'); 
+				$keyword    = $this->input->post('key');
+				$status_tab = $this->input->post('status_tab');
 
-				if (!empty($kolom) && !empty($keyword)) {
+				// ================== MAPPING KOLOM (AMAN) ==================
+				$map_kolom = [
+					'a.nama_lengkap' => 'nama_lengkap',
+					'a.nik'          => 'nik',
+					'a.jab_rt_rw'    => 'jab_rt_rw'
+				];
+
+				$kolom_sub = isset($map_kolom[$kolom]) ? $map_kolom[$kolom] : '';
+
+				// ================== PENCARIAN ==================
+				
+				if(!empty($kolom) && !empty($keyword)) {
+
 					$where .= " 
-						AND {$kolom} LIKE '%" . $this->db->escape_like_str($keyword) . "%' 
+						AND {$kolom} LIKE '%" . $this->db->escape_like_str($keyword) . "%'
 					";
 				}
 
@@ -5884,7 +5896,7 @@ class Mbackend extends CI_Model
 					";
 				}
 
-				// ================== FILTER KELURAHAN (OPTIONAL) ==================
+				// ================== FILTER KELURAHAN ==================
 				$kelurahan = $this->input->post('kelurahan');
 				if (!empty($kelurahan)) {
 					$where .= " 
@@ -5893,15 +5905,9 @@ class Mbackend extends CI_Model
 				}
 
 				// ================== TAB STATUS ==================
-				// default : AKTIF
-				$status_tab = $this->input->post('status_tab');
-
 				if (empty($status_tab) || $status_tab == 'aktif') {
 
-					// ===== AKTIF =====
-					// - status = Aktif
-					// - pilih_tahun = 2026
-					// - nik tidak boleh dobel
+					// ===== AKTIF (TIDAK DIUBAH) =====
 					$where .= "
 						AND a.status = 'Aktif'
 						AND a.pilih_tahun = '2026'
@@ -5916,10 +5922,7 @@ class Mbackend extends CI_Model
 
 				} elseif ($status_tab == 'tidak_aktif') {
 
-					// ===== TIDAK AKTIF =====
-					// - status = Tidak Aktif
-					// - pilih_tahun selain 2026
-					// - nik tidak boleh dobel
+					// ===== TIDAK AKTIF (FINAL FIX) =====
 					$where .= "
 						AND a.status = 'Tidak Aktif'
 						AND a.pilih_tahun <> '2026'
@@ -5927,14 +5930,16 @@ class Mbackend extends CI_Model
 							SELECT MAX(id)
 							FROM tbl_data_rt_rw
 							WHERE status = 'Tidak Aktif'
-							AND pilih_tahun <> '2026'
-							GROUP BY nik
-						)
+							AND pilih_tahun <> '2026' GROUP BY nik)
 					";
-				}
-				// ==================================================
 
-				$sql = "SELECT  a.*,
+					// 🔴 LIKE KHUSUS DI SUBQUERY (TANPA alias a.)
+				
+				
+				}
+
+				// ================== QUERY FINAL ==================
+				$sql = "SELECT a.*,
 						CASE 
 							WHEN a.jab_rt_rw = 'Ketua RW' 
 								THEN CONCAT('Ketua RW ', LPAD(a.rw, 3, '0'))
@@ -5946,14 +5951,12 @@ class Mbackend extends CI_Model
 						d.nama,
 						a.alamat AS nama_keluahan_desa
 					FROM tbl_data_rt_rw a
-					LEFT JOIN cl_agama c 
-						ON a.agama = c.id
+					LEFT JOIN cl_agama c ON a.agama = c.id
 					LEFT JOIN cl_kelurahan_desa d 
 						ON a.cl_kelurahan_desa_id = d.id
-					AND a.cl_kecamatan_id = d.kecamatan_id
+						AND a.cl_kecamatan_id = d.kecamatan_id
 					$where
-					ORDER BY 
-						a.rw, a.rt, a.id DESC
+					ORDER BY a.rw, a.rt, a.id DESC
 				";
 
 				break;

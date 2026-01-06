@@ -319,46 +319,56 @@ $mod eq 'data_surat'}
       <!-- ===== BAR ATAS ===== -->
       <div class="row align-items-center" style="margin-bottom:10px;">
 
-        <!-- TAB STATUS (KIRI) -->
-        <div class="col-lg-3">
-          <div class="btn-group" role="group">
-            <!-- AKTIF (DEFAULT) -->
-            <button type="button"
-              class="btn btn-success btn-sm tab-status active me-2" data-status="aktif">
-              AKTIF
-            </button>
+      <!-- TAB STATUS (KIRI) -->
+      <div class="col-lg-3">
+        <div class="d-flex align-items-center gap-2" id="tab_status_rt_rw">
+          
+          <button type="button"
+            class="btn btn-success btn-sm tab-status active me-2"
+            data-status="aktif">
+            AKTIF
+          </button>
 
-            <!-- TIDAK AKTIF -->
-            <button type="button"
-              class="btn btn-danger btn-sm tab-status" data-status="tidak_aktif">
-              TIDAK AKTIF
-            </button>
-          </div>
+          <button type="button"
+            class="btn btn-danger btn-sm tab-status"
+            data-status="tidak_aktif">
+            TIDAK AKTIF
+          </button>
         </div>
 
-        <!-- FILTER (TENGAH) -->
+        <!-- SATU hidden saja (INI PENTING) -->
+        <input type="hidden" name="status_tab" id="status_tab_{$acak}" value="aktif">
+      </div>
+
+      <!-- FILTER (TENGAH) -->
       <div class="col-lg-5">
         <div class="d-flex align-items-center justify-content-center gap-2">
+
           <label class="mb-0" style="width:80px;">Kolom</label>
 
-          <select name="kat_{$acak}" id="kat_{$acak}"
+          <select
+            name="kat_{$acak}"
+            id="kat_{$acak}"
             class="form-control form-control-sm"
             style="width:30%;">
             {$data_select|default:''}
           </select>
 
-          <input type="text"
+          <input
+            type="text"
             name="key_{$acak}"
             id="key_{$acak}"
             class="form-control form-control-sm"
             style="width:40%;"
             onkeypress="return(handleKeyPress(event))"/>
 
-          <button type="button"
+          <button
+            type="button"
             class="btn btn-default btn-sm"
             onclick="cariData('{$mod}', '', '{$acak}');">
             <i class="fa fa-search"></i>
           </button>
+
         </div>
       </div>
 
@@ -2038,26 +2048,27 @@ $mod eq 'data_surat'}
 
   });
 
+  $(function () {
 
-$(function () {
+  $('.tab-status').on('click', function () {
+    $('.tab-status').removeClass('active');
+    $(this).addClass('active');
 
-    // simpan status global
-    window.status_tab_rt_rw = 'aktif';
+    const status = $(this).data('status');
 
-    // TAB CLICK
-    $(document).on('click', '.tab-status', function () {
-      $('.tab-status').removeClass('active');
-      $(this).addClass('active');
+    // set status tab
+    $('#status_tab_{$acak}').val(status);
 
-      window.status_tab_rt_rw = $(this).data('status');
+    // RESET FILTER (INI KUNCI FIX)
+    $('#key_{$acak}').val('');
+    $('#kat_{$acak}').prop('selectedIndex', 0);
 
-      // reload grid (grid SUDAH dibuat oleh fungsi.js)
-      $('#grid_data_rt_rw').datagrid('reload', {
-        status_tab: window.status_tab_rt_rw
-      });
-    });
-
+    // reload data sesuai tab
+    cariData('{$mod}', '', '{$acak}');
   });
+
+});
+
 
 </script>
 

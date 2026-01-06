@@ -45,11 +45,11 @@
               
               <div class="row" id="div_rt_rw" style="display: none;">
                 <div class="col-md-1" id="wrapper_rt">
-                  {include file="backend/template/input_form.html" label="RT" class_width="col-lg-12" type="pnj_rt" name="rt" id="rt"
+                  {include file="backend/template/input_form.html" label="RT" class_width="col-lg-12" type="text" name="rt" id="rt"
                   value="{$data.rt|default:''}"}
                 </div>
                 <div class="col-md-1" id="wrapper_rw">
-                  {include file="backend/template/input_form.html" label="RW" class_width="col-lg-12" type="pnj_rt" name="rw" id="rw"
+                  {include file="backend/template/input_form.html" label="RW" class_width="col-lg-12" type="text" name="rw" id="rw"
                   value="{$data.rw|default:''}"}
                 </div>
               </div>
@@ -189,12 +189,37 @@
     tgl_sk_rt_rw: "<i style='color:red'>Harus Diisi</i>",
     pilih_tahun: "<i style='color:red'>Harus Diisi</i>",
     jab_rt_rw: "<i style='color:red'>Harus Diisi</i>",
+    rt: "<i style='color:red'>RT wajib diisi minimal 001</i>",
+    rw: "<i style='color:red'>RW wajib diisi minimal 001</i>",
   };
 
   $("#form_{$acak}").validate({
     rules: rulesnya,
     messages: messagesnya,
     submitHandler: function (form) {
+      if ($('#wrapper_rt').is(':visible')) {
+        var rt = $('#rt').val().trim();
+        
+        // Validasi: RT harus memiliki 3 digit, tidak boleh kosong, dan tidak boleh '000'
+        if (rt.length !== 3  || rt === '000') {
+          $.messager.alert(nama_apps, 'RT wajib 3 digit minimal 001 dan tidak boleh 000', 'warning');
+          $('#rt').focus();
+          return false;
+        }
+      }
+
+      // ================= VALIDASI RW =================
+      if ($('#wrapper_rw').is(':visible')) {
+        var rw = $('#rw').val().trim();
+        
+        // Validasi: RW harus memiliki 3 digit, tidak boleh kosong, dan tidak boleh '000'
+        if (rw.length !== 3  || rw === '000') {
+          alert(rt);
+          $.messager.alert(nama_apps, 'RW wajib 3 digit minimal 001 dan tidak boleh 000', 'warning');
+          $('#rw').focus();
+          return false;
+        }
+      }
       $.LoadingOverlay("show");
       // submit_form("form_{$acak}", function (r) {
       //   if (r == 1) {
@@ -240,7 +265,9 @@
 
   $("#grid_data_rt_rw").datagrid("reload");
 
-
+$('#rt, #rw').on('input', function () { 
+  this.value = this.value.replace(/\D/g, '').substring(0, 3); 
+  });
 </script>
 
 

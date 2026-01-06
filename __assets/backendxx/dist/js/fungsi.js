@@ -2706,6 +2706,14 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
         },
 
         {
+          field: "jab_rt_rw",
+          title: "Jabatan",
+          width: 150,
+          halign: "center",
+          align: "left",
+        },
+
+        {
           field: "rw",
           title: "RW",
           width: 50,
@@ -7560,12 +7568,11 @@ function cariData(divnya, post_search, acaknya) {
     var post_search = {};
 
     post_search["kat"] = $("#kat_" + acaknya).val();
-
     post_search["key"] = $("#key_" + acaknya).val();
-
     post_search["kelurahan"] = $("#kelurahan_" + acaknya).val();
-
     post_search["bulan"] = $("#bulan").val();
+    post_search["status_tab"] = $("#status_tab_" + acaknya).val();
+
     if (divnya == "rekap_penilaian_kelrtrw") {
       post_search["rw"] = $("#rw").val();
     }
