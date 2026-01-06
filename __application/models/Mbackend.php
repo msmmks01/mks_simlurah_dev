@@ -5999,18 +5999,22 @@ class Mbackend extends CI_Model
 			//Penilaian RT RW
 			case "penilaian_rt_rw":
 
+				$where = " WHERE 1=1 ";
+				$tahun_login = $this->auth['tahun'];
+
+				$where .= " AND a.pilih_tahun = '$tahun_login' 
+							AND a.status = 'aktif' ";
+
 				if (in_array($this->auth['cl_user_group_id'], [2, 4, 5])) {
-
-					$where .= "and a.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "' ";
-				} else {
-					$where .= "";
+					$where .= " AND a.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "' ";
 				}
+
 				$kelurahan = $this->input->post('kelurahan');
-
 				if ($kelurahan) {
-
-					$where .= "and a.cl_kelurahan_desa_id = '" . $kelurahan . "'";
+					$where .= " AND a.cl_kelurahan_desa_id = '" . $kelurahan . "' ";
 				}
+
+
 				$on_bulan = '';
 				if ($this->input->post('bulan') != '') {
 					$on_bulan = " AND '" . $this->input->post('bulan') . "'=c.bulan";
