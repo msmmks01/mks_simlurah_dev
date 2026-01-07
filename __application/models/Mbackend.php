@@ -16954,68 +16954,150 @@ class Mbackend extends CI_Model
 
 				break;
 
+			// case "data_penduduk_asing":
+
+			// 	if (isset($data['tgl_lahir'])) {
+			// 		$data['tgl_lahir'] = date('Y-m-d', strtotime($data['tgl_lahir']));
+			// 	}
+
+			// 	if (isset($data['tgl_kel_passport'])) {
+			// 		$data['tgl_kel_passport'] = date('Y-m-d', strtotime($data['tgl_kel_passport']));
+			// 	}
+
+			// 	if (isset($data['tgl_akhir_passport'])) {
+			// 		$data['tgl_akhir_passport'] = date('Y-m-d', strtotime($data['tgl_akhir_passport']));
+			// 	}
+
+			// 	$file = '';
+			// 	$dir                     = date('Ymd');
+			// 	if (!is_dir('./__data/' . $dir)) {
+			// 		mkdir('./__data/' . $dir, 0755);
+			// 	}
+
+			// 	$config['upload_path']          = './__data/' . $dir;
+			// 	$config['allowed_types']        = 'pdf|jpg|png';
+			// 	$config['max_size']             = 2048;
+			// 	$config['encrypt_name']			= true;
+
+
+			// 	$this->load->library('upload', $config);
+			// 	$this->upload->initialize($config);
+
+			// 	if (!$this->upload->do_upload('file')) {
+			// 		$error = array('error' => $this->upload->display_errors());
+			// 	} else {
+			// 		$file = '__data/' . $dir . '/' . $this->upload->data()['file_name'];
+			// 	}
+
+			// 	$data['file'] = $file;
+
+			// 	$table = "tbl_data_penduduk_asing";
+
+			// 	$array = array();
+
+
+			// 	if ($sts_crud == "add" || $sts_crud == "edit") {
+
+			// 		$data['cl_provinsi_id'] = $this->auth['cl_provinsi_id'];
+
+			// 		$data['cl_kab_kota_id'] = $this->auth['cl_kab_kota_id'];
+
+			// 		$data['cl_kecamatan_id'] = $this->auth['cl_kecamatan_id'];
+
+			// 		$data['cl_kelurahan_desa_id'] = $this->auth['cl_kelurahan_desa_id'];
+			// 		$nik = $this->input->post('no_passport');
+			// 	}
+
+			// 	if ($sts_crud == "add") {
+			// 		$data['id'] = $this->db->query("
+			// 				SELECT IFNULL(MAX(id),0)+1 as id FROM(
+			// 				SELECT id FROM tbl_data_penduduk
+			// 				UNION
+			// 				SELECT id FROM tbl_data_penduduk_asing
+			// 			)a
+			// 		")->row('id');
+			// 	}
+
+			// break;
 			case "data_penduduk_asing":
 
-				if (isset($data['tgl_lahir'])) {
+				// ================= FORMAT TANGGAL =================
+				if (!empty($data['tgl_lahir'])) {
 					$data['tgl_lahir'] = date('Y-m-d', strtotime($data['tgl_lahir']));
 				}
 
-				if (isset($data['tgl_kel_passport'])) {
+				if (!empty($data['tgl_kel_passport'])) {
 					$data['tgl_kel_passport'] = date('Y-m-d', strtotime($data['tgl_kel_passport']));
 				}
 
-				if (isset($data['tgl_akhir_passport'])) {
+				if (!empty($data['tgl_akhir_passport'])) {
 					$data['tgl_akhir_passport'] = date('Y-m-d', strtotime($data['tgl_akhir_passport']));
 				}
 
+				// ================= UPLOAD FILE =================
 				$file = '';
-				$dir                     = date('Ymd');
+				$dir  = date('Ymd');
+
 				if (!is_dir('./__data/' . $dir)) {
 					mkdir('./__data/' . $dir, 0755);
 				}
 
-				$config['upload_path']          = './__data/' . $dir;
-				$config['allowed_types']        = 'pdf|jpg|png';
-				$config['max_size']             = 2048;
-				$config['encrypt_name']			= true;
+				$config = [
+					'upload_path'   => './__data/' . $dir,
+					'allowed_types' => 'pdf|jpg|png',
+					'max_size'      => 2048,
+					'encrypt_name'  => true
+				];
 
-
-				$this->load->library('upload', $config);
+				$this->load->library('upload');
 				$this->upload->initialize($config);
 
-				if (!$this->upload->do_upload('file')) {
-					$error = array('error' => $this->upload->display_errors());
-				} else {
-					$file = '__data/' . $dir . '/' . $this->upload->data()['file_name'];
+				if ($this->upload->do_upload('file')) {
+					$file = '__data/' . $dir . '/' . $this->upload->data('file_name');
 				}
 
 				$data['file'] = $file;
 
-				$table = "tbl_data_penduduk_asing";
-
-				$array = array();
-
-
+				// ================= SET WILAYAH =================
 				if ($sts_crud == "add" || $sts_crud == "edit") {
 
-					$data['cl_provinsi_id'] = $this->auth['cl_provinsi_id'];
-
-					$data['cl_kab_kota_id'] = $this->auth['cl_kab_kota_id'];
-
-					$data['cl_kecamatan_id'] = $this->auth['cl_kecamatan_id'];
-
+					$data['cl_provinsi_id']       = $this->auth['cl_provinsi_id'];
+					$data['cl_kab_kota_id']       = $this->auth['cl_kab_kota_id'];
+					$data['cl_kecamatan_id']      = $this->auth['cl_kecamatan_id'];
 					$data['cl_kelurahan_desa_id'] = $this->auth['cl_kelurahan_desa_id'];
-					$nik = $this->input->post('no_passport');
 				}
 
+				$table       = "tbl_data_penduduk_asing";
+				$no_passport = $this->input->post('no_passport');
+
+				// ================= ADD =================
 				if ($sts_crud == "add") {
-					$data['id'] = $this->db->query("
-							SELECT IFNULL(MAX(id),0)+1 as id FROM(
-							SELECT id FROM tbl_data_penduduk
-							UNION
-							SELECT id FROM tbl_data_penduduk_asing
-						)a
-					")->row('id');
+
+					// VALIDASI DUPLIKAT (KELURAHAN SAJA)
+					$cek = $this->db->where('no_passport', $no_passport)
+						->where('cl_kecamatan_id', $this->auth['cl_kecamatan_id'])
+						->where('cl_kelurahan_desa_id', $this->auth['cl_kelurahan_desa_id'])
+						->get($table)
+						->num_rows();
+
+					if ($cek > 0) {
+						echo json_encode([
+							'status' => false,
+							'msg'    => 'No Passport sudah terdaftar di kelurahan ini'
+						]);
+						exit;
+					}
+
+					// INSERT (ID AUTO_INCREMENT)
+					$this->db->insert($table, $data);
+				}
+
+				// ================= EDIT =================
+				if ($sts_crud == "edit") {
+
+					$this->db->where('id', $this->input->post('id'));
+					$this->db->where('cl_kelurahan_desa_id', $this->auth['cl_kelurahan_desa_id']);
+					$this->db->update($table, $data);
 				}
 
 				break;
