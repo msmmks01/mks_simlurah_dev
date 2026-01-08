@@ -6553,6 +6553,20 @@ async function kumpulAction(type, p1, p2, p3, p4, p5) {
       window.open(url, "_blank");
 
       break;
+      
+    case "export_laporan_rt_rw_excel":
+      param["tgl_mulai"] = $("#date_start_" + p1).val();
+
+      param["tgl_selesai"] = $("#date_end_" + p1).val();
+
+      param["kelurahan_id"] = $("#kelurahan_" + p1).val();
+
+      var url =
+        host + "backoffice-cetak/laporan_rt_rw_excel?" + $.param(param);
+
+      window.open(url, "_blank");
+
+      break;
 
     case "export_laporan_rekap_pengantar_kendaraan_excel":
       param["tgl_mulai"] = $("#date_start_" + p1).val();

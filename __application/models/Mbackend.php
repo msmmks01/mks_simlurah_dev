@@ -3510,9 +3510,7 @@ class Mbackend extends CI_Model
 
 
 
-				$sql = "
-
-					select a.*, b.jenis_surat, c.nama as nama_kelurahan_desa,e.nama as nama_penandatanganan,
+				$sql = "SELECT a.*, b.jenis_surat, c.nama as nama_kelurahan_desa,e.nama as nama_penandatanganan,
 
 						d.nama_lengkap,
 
@@ -3566,6 +3564,104 @@ class Mbackend extends CI_Model
 
 				";
 
+
+				break;
+
+			case "laporan_rt_rw_excel":
+
+				$where = " WHERE 1=1 ";
+
+				$kolom      = $this->input->post('kat'); 
+				$keyword    = $this->input->post('key');
+				$status_tab = $this->input->post('status_tab');
+
+				// ================== MAPPING KOLOM (AMAN) ==================
+				$map_kolom = [
+					'a.nama_lengkap' => 'nama_lengkap',
+					'a.nik'          => 'nik',
+					'a.jab_rt_rw'    => 'jab_rt_rw'
+				];
+
+				$kolom_sub = isset($map_kolom[$kolom]) ? $map_kolom[$kolom] : '';
+
+				// ================== PENCARIAN ==================
+				
+				if(!empty($kolom) && !empty($keyword)) {
+
+					$where .= " 
+						AND {$kolom} LIKE '%" . $this->db->escape_like_str($keyword) . "%'
+					";
+				}
+
+				// ================== HAK AKSES USER ==================
+				if (in_array($this->auth['cl_user_group_id'], [2, 4, 5])) {
+					$where .= " 
+						AND a.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "' 
+					";
+				}
+
+				// ================== FILTER KELURAHAN ==================
+				$kelurahan = $this->input->post('kelurahan');
+				if (!empty($kelurahan)) {
+					$where .= " 
+						AND a.cl_kelurahan_desa_id = '" . $kelurahan . "' 
+					";
+				}
+
+				// ================== TAB STATUS ==================
+				if (empty($status_tab) || $status_tab == 'aktif') {
+
+					// ===== AKTIF (TIDAK DIUBAH) =====
+					$where .= "
+						AND a.status = 'Aktif'
+						AND a.pilih_tahun = '2026'
+						AND a.id IN (
+							SELECT MAX(id)
+							FROM tbl_data_rt_rw
+							WHERE status = 'Aktif'
+							AND pilih_tahun = '2026'
+							GROUP BY nik
+						)
+					";
+
+				} elseif ($status_tab == 'tidak_aktif') {
+
+					// ===== TIDAK AKTIF (FINAL FIX) =====
+					$where .= "
+						AND a.status = 'Tidak Aktif'
+						AND a.pilih_tahun <> '2026'
+						AND a.id IN (
+							SELECT MAX(id)
+							FROM tbl_data_rt_rw
+							WHERE status = 'Tidak Aktif'
+							AND pilih_tahun <> '2026' GROUP BY nik)
+					";
+
+					// 🔴 LIKE KHUSUS DI SUBQUERY (TANPA alias a.)
+				
+				
+				}
+
+				// ================== QUERY FINAL ==================
+				$sql = "SELECT a.*,
+						CASE 
+							WHEN a.jab_rt_rw = 'Ketua RW' 
+								THEN CONCAT('Ketua RW ', LPAD(a.rw, 3, '0'))
+							WHEN a.jab_rt_rw = 'Ketua RT' 
+								THEN CONCAT('Ketua RT ', LPAD(a.rt, 3, '0'), '/', LPAD(a.rw, 3, '0'))
+							ELSE a.jab_rt_rw
+						END AS jabatan_rt_rw,
+						c.nama_agama,
+						d.nama,
+						a.alamat AS nama_keluahan_desa
+					FROM tbl_data_rt_rw a
+					LEFT JOIN cl_agama c ON a.agama = c.id
+					LEFT JOIN cl_kelurahan_desa d 
+						ON a.cl_kelurahan_desa_id = d.id
+						AND a.cl_kecamatan_id = d.kecamatan_id
+					$where
+					ORDER BY a.rw, a.rt, a.id DESC
+				";
 
 				break;
 

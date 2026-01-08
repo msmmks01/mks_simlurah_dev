@@ -6171,6 +6171,17 @@ class Backendxx extends JINGGA_Controller
 
 				break;
 
+			case "laporan_rt_rw_excel":
+
+				$data = $this->mbackend->getdata('laporan_rt_rw_excel', 'result_array');
+
+				$filename = "laporan-rt-rw-excel-" . date('YmdHis');-
+				$temp = "backend/cetak/laporan_rt_rw_excel.html";
+
+				$this->hasil_output('excel', $mod, $data, $filename, $temp, 'utf-8', array(215, 330));
+
+				break;
+
 			case "laporan_persuratan_rt_rw":
 
 				$data = $this->mbackend->getdata('laporan_persuratan_rt_rw', 'result_array');
@@ -6465,192 +6476,171 @@ class Backendxx extends JINGGA_Controller
 
 			case "daftar_esign":
 
-				/* ================== SETTING & DATA ================== */
-				$array_setting = array(
-					'a.cl_provinsi_id'  => $this->auth['cl_provinsi_id'],
-					'a.cl_kab_kota_id'  => $this->auth['cl_kab_kota_id'],
-					'a.cl_kecamatan_id' => $this->auth['cl_kecamatan_id'],
-					'c.id'              => $p3
-				);
-
-				$this->setting = $this->db->where($array_setting)
-					->join('tbl_data_penandatanganan b', "a.nip_kepala_desa=b.nip 
-						and a.cl_kecamatan_id=b.cl_kecamatan_id 
-						and a.cl_kelurahan_desa_id=b.cl_kelurahan_desa_id", 'left')
-					->join('tbl_data_surat c', 'a.cl_kelurahan_desa_id=c.cl_kelurahan_desa_id', 'inner')
-					->get("tbl_setting_apps a")->row_array();
-
-				$this->nsmarty->assign("setting", $this->setting);
-
-				$data = $this->mbackend->getdata('cetak_surat', 'variable', $p1, $p2, $p3);
-
-				$jenis_surat = $this->db
-					->get_where('cl_jenis_surat', ['id' => $p1])
-					->row_array();
-
-				/* ================== BLOKIR SURAT NON E-SIGN ================== */
-				if ((int)$jenis_surat['identitas_surat'] !== 1) {
-					echo json_encode([
-						'stat' => false,
-						'msg'  => 'Surat ini tidak memenuhi syarat untuk penandatanganan elektronik'
-					]);
-					return; // ⛔ STOP TOTAL
-				}
-
-
-				/* ================== FILE PDF ================== */
-				$dir = date('Ymd');
-				if (!is_dir('./__data/' . $dir)) {
-					mkdir('./__data/' . $dir, 0755, true);
-				}
-
-				$nama_surat_safe = preg_replace('/[^A-Za-z0-9_\-]/', '_', $jenis_surat['jenis_surat']);
-
-				$filename = "__data/$dir/" .
-					$nama_surat_safe . "_" .
-					$p2 . "_" . date('YmdHis') . ".pdf";
-
-
-				$temp = "backend/cetak/surat_" . $p1 . ".html";
-				$status_esign = $this->input->post('status_esign');
-
-				if ($status_esign != 2 && !empty($data['surat']['file_src_esign'])) {
-					$filename = $data['surat']['file_src_esign'];
-				} else {
-					$this->hasil_output('pdf', $mod, $data, $filename, $temp, [215, 330], 'F', true, '');
-				}
-
-				if (($this->input->post('nip_pemeriksa_esign') == '' || $this->input->post('nip_pemeriksa_esign') == null) && $status_esign == 2) {
-					$status_esign = 3;
-				}
-
-				/* ================== APPROVAL ESIGN ================== */
-				$file_approved_esign = '';
-				$data_register['stamp_esign'] = '';
-
-				if ($status_esign == 1) {
-
-					if ($this->input->post('nik_esign') == '' || $this->input->post('passphrase_esign') == '') {
-						echo json_encode(['stat' => false, 'msg' => 'NIK atau password salah']);
-						return;
-					}
-
-					$id = $this->db->select("IFNULL(MAX(id),0)+1 as id")->get('tbl_register_esign')->row('id');
-					$subregister = $this->db->select("IFNULL(MAX(CAST(RIGHT(nomor_register,3) AS UNSIGNED)),0)+1 as subregister")
-						->where("LEFT(nomor_register,6)", date('Ym'))
-						->get('tbl_register_esign')->row('subregister');
-
-					$nomor_register = date('Ym') . sprintf("%03d", $subregister);
-					$stamp_esign = $this->generate_esign($nomor_register, $this->auth['cl_kelurahan_desa_id']);
-
-					$nama_surat_safe = preg_replace('/[^A-Za-z0-9_\-]/', '_', $jenis_surat['jenis_surat']);
-					$filename_temp = "__data/$dir/" .
-						$nama_surat_safe . "_" .
-						$p2 . "_" . date('YmdHis') . ".pdf";
-
-					$this->hasil_output('pdf', $mod, $data, $filename_temp, $temp, [215, 330], 'F', false, 'ESIGN');
-					$file_approved_esign = $this->generate_pdf_esign(
-						$stamp_esign,
-						$filename_temp,
-						$this->input->post('nik_esign'),
-						$this->input->post('passphrase_esign')
-					);
-
-					unlink($filename_temp);
-
-					if (!$stamp_esign || !$file_approved_esign) {
-						echo json_encode(['stat' => false, 'msg' => 'Proses e-sign gagal']);
-						return;
-					}
-
-					$data_register = [
-						'id' => $id,
-						'nomor_register' => $nomor_register,
-						'cl_kelurahan_desa_id' => $this->auth['cl_kelurahan_desa_id'],
-						'tbl_data_surat_id' => $data['surat']['id'],
-						'jenis_surat' => $jenis_surat['jenis_surat'],
-						'tanggal_register' => date('Y-m-d H:i:s'),
-						'stamp_esign' => $stamp_esign,
-						'file_lampiran' => $file_approved_esign,
-						'created_by' => $this->auth['nama_lengkap'],
-					];
-
-					$this->db->insert('tbl_register_esign', $data_register);
-				}
-
-				// hapus riwayat esign sebelumnya untuk surat ini
-				$this->db->where('tbl_data_surat_id', $data['surat']['id'])
-					->delete('tbl_riwayat_esign');
-
-
-				/* ================== RIWAYAT ================== */
-				$this->db->insert('tbl_riwayat_esign', [
-					'tbl_data_surat_id' => $data['surat']['id'],
-					'status_esign' => $status_esign,
-					'file_src' => ($status_esign == 1 ? $file_approved_esign : $filename),
-					'cl_user_group_id' => $this->auth['cl_user_group_id'],
-					'tbl_user_id' => $this->auth['id'],
-					'nama_pegawai' => $this->auth['nama_lengkap'],
-					'catatan' => htmlspecialchars($this->input->post('catatan_esign'), ENT_QUOTES),
-					'created_by' => $this->auth['nama_lengkap'],
-				]);
-
-				/* ================== UPDATE SURAT ================== */
-				$data_surat = [
-					'status_esign' => $status_esign,
-					'file_src_esign' => $filename,
-					'stamp_esign' => $data_register['stamp_esign'],
-					'file_approved_esign' => $file_approved_esign,
-				];
-
-				// === TAMBAHAN: tentukan file final ===
-				$file_final = ($status_esign == 1) ? $file_approved_esign : $filename;
-
-				$sql = $this->db->where('id', $data['surat']['id'])
-					->update('tbl_data_surat', $data_surat);
-
-				/* ================== COPY KE MOBILE ================== */
-				if ($sql) {
-
-					// ambil ulang identitas_surat dari DB (FINAL & AMAN)
-					$identitas_surat = (int) $jenis_surat['identitas_surat'];
-
-					if ($identitas_surat === 1) {
-
-						$file_asal = FCPATH . $file_final;
-						$public_html = dirname(FCPATH);
-						$base_mobile = $public_html . '/mobile/uploads';
-
-						$target_dir = $base_mobile . '/ttd'
-							. '/_' . $this->auth['cl_kecamatan_id']
-							. '/_' . $this->auth['cl_kelurahan_desa_id']
-							. '/_' . date('Ymd');
-
-						if (!is_dir($target_dir)) {
-							mkdir($target_dir, 0755, true);
-						}
-
-						$target_file = $target_dir . '/' . basename($file_asal);
-
-						if (file_exists($file_asal)) {
-							copy($file_asal, $target_file);
-						}
-
-						echo json_encode([
-							'stat' => true,
-							'msg'  => 'Data tersimpan & file masuk mobile'
-						]);
-					} else {
-
-						// 🔒 surat pernyataan / non identitas
-						echo json_encode([
-							'stat' => true,
-							'msg'  => 'Data tersimpan (tidak dikirim ke mobile)'
-						]);
-					}
-				}
-
-				break;
+                header('Content-Type: application/json');
+            
+                /* ================== SETTING & DATA ================== */
+                $array_setting = [
+                    'a.cl_provinsi_id'  => $this->auth['cl_provinsi_id'],
+                    'a.cl_kab_kota_id'  => $this->auth['cl_kab_kota_id'],
+                    'a.cl_kecamatan_id' => $this->auth['cl_kecamatan_id'],
+                    'c.id'              => $p3
+                ];
+            
+                $this->setting = $this->db->where($array_setting)
+                    ->join('tbl_data_penandatanganan b', "a.nip_kepala_desa=b.nip 
+                        AND a.cl_kecamatan_id=b.cl_kecamatan_id 
+                        AND a.cl_kelurahan_desa_id=b.cl_kelurahan_desa_id", 'left')
+                    ->join('tbl_data_surat c', 'a.cl_kelurahan_desa_id=c.cl_kelurahan_desa_id', 'inner')
+                    ->get("tbl_setting_apps a")
+                    ->row_array();
+            
+                $this->nsmarty->assign("setting", $this->setting);
+            
+                $data = $this->mbackend->getdata('cetak_surat', 'variable', $p1, $p2, $p3);
+                $jenis_surat = $this->db->get_where('cl_jenis_surat', ['id' => $p1])->row_array();
+            
+                /* ================== VALIDASI ================== */
+                if ((int)$jenis_surat['identitas_surat'] !== 1) {
+                    echo json_encode(['stat' => false, 'msg' => 'Surat tidak memenuhi syarat E-Sign']);
+                    return;
+                }
+            
+                /* ================== FILE PDF ================== */
+                $dir = date('Ymd');
+                if (!is_dir(FCPATH . "__data/$dir")) {
+                    mkdir(FCPATH . "__data/$dir", 0755, true);
+                }
+            
+                $nama_surat_safe = preg_replace('/[^A-Za-z0-9_\-]/', '_', $jenis_surat['jenis_surat']);
+                $filename = "__data/$dir/{$nama_surat_safe}_{$p2}_" . date('YmdHis') . ".pdf";
+                $temp = "backend/cetak/surat_" . $p1 . ".html";
+            
+                $status_esign = (int)$this->input->post('status_esign');
+            
+                if ($status_esign != 2 && !empty($data['surat']['file_src_esign'])) {
+                    $filename = $data['surat']['file_src_esign'];
+                } else {
+                    $this->hasil_output('pdf', $mod, $data, $filename, $temp, [215,330], 'F', true, '');
+                }
+            
+                if (empty($this->input->post('nip_pemeriksa_esign')) && $status_esign == 2) {
+                    $status_esign = 3;
+                }
+            
+                /* ================== APPROVAL ESIGN ================== */
+                $file_approved_esign = '';
+                $stamp_esign = '';
+            
+                if ($status_esign == 1) {
+            
+                    if (!$this->input->post('nik_esign') || !$this->input->post('passphrase_esign')) {
+                        echo json_encode(['stat' => false, 'msg' => 'NIK / Passphrase wajib diisi']);
+                        return;
+                    }
+            
+                    $subregister = $this->db
+                        ->select("IFNULL(MAX(CAST(RIGHT(nomor_register,3) AS UNSIGNED)),0)+1 AS sub")
+                        ->where("LEFT(nomor_register,6)", date('Ym'))
+                        ->get('tbl_register_esign')
+                        ->row('sub');
+            
+                    $nomor_register = date('Ym') . sprintf('%03d', $subregister);
+                    $stamp_esign = $this->generate_esign($nomor_register, $this->auth['cl_kelurahan_desa_id']);
+            
+                    $tmp = "__data/$dir/tmp_" . time() . ".pdf";
+                    $this->hasil_output('pdf', $mod, $data, $tmp, $temp, [215,330], 'F', false, 'ESIGN');
+            
+                    $file_approved_esign = $this->generate_pdf_esign(
+                        $stamp_esign,
+                        $tmp,
+                        $this->input->post('nik_esign'),
+                        $this->input->post('passphrase_esign')
+                    );
+            
+                    @unlink($tmp);
+            
+                    if (!$file_approved_esign) {
+                        echo json_encode(['stat' => false, 'msg' => 'Proses E-Sign gagal']);
+                        return;
+                    }
+            
+                    $this->db->insert('tbl_register_esign', [
+                        'nomor_register'       => $nomor_register,
+                        'cl_kelurahan_desa_id' => $this->auth['cl_kelurahan_desa_id'],
+                        'tbl_data_surat_id'    => $data['surat']['id'],
+                        'jenis_surat'          => $jenis_surat['jenis_surat'],
+                        'tanggal_register'    => date('Y-m-d H:i:s'),
+                        'stamp_esign'          => $stamp_esign,
+                        'file_lampiran'        => $file_approved_esign,
+                        'created_by'           => $this->auth['nama_lengkap']
+                    ]);
+                }
+            
+                /* ================== RIWAYAT ================== */
+                $this->db->where('tbl_data_surat_id', $data['surat']['id'])->delete('tbl_riwayat_esign');
+            
+                $this->db->insert('tbl_riwayat_esign', [
+                    'tbl_data_surat_id' => $data['surat']['id'],
+                    'status_esign'      => $status_esign,
+                    'file_src'          => ($status_esign == 1 ? $file_approved_esign : $filename),
+                    'cl_user_group_id'  => $this->auth['cl_user_group_id'],
+                    'tbl_user_id'       => $this->auth['id'],
+                    'nama_pegawai'      => $this->auth['nama_lengkap'],
+                    'catatan'           => htmlspecialchars($this->input->post('catatan_esign'), ENT_QUOTES),
+                    'created_by'        => $this->auth['nama_lengkap']
+                ]);
+            
+                /* ================== UPDATE SURAT ================== */
+                $file_final = ($status_esign == 1) ? $file_approved_esign : $filename;
+            
+                $this->db->where('id', $data['surat']['id'])->update('tbl_data_surat', [
+                    'status_esign'        => $status_esign,
+                    'file_src_esign'      => $filename,
+                    'stamp_esign'         => $stamp_esign,
+                    'file_approved_esign' => $file_approved_esign
+                ]);
+            
+                /* ================== COPY KE MOBILE ================== */
+                $file_asal = FCPATH . $file_final;
+                if (file_exists($file_asal)) {
+            
+                    $base_mobile = dirname(FCPATH) . '/mobile/uploads/ttd';
+                    $target_dir = $base_mobile
+                        . '/_' . $this->auth['cl_kecamatan_id']
+                        . '/_' . $this->auth['cl_kelurahan_desa_id']
+                        . '/_' . date('Ymd');
+            
+                    if (!is_dir($target_dir)) {
+                        mkdir($target_dir, 0755, true);
+                    }
+            
+                    copy($file_asal, $target_dir . '/' . basename($file_asal));
+            
+                    $path_mobile = 'uploads/ttd'
+                        . '/_' . $this->auth['cl_kecamatan_id']
+                        . '/_' . $this->auth['cl_kelurahan_desa_id']
+                        . '/_' . date('Ymd')
+                        . '/' . basename($file_asal);
+            
+                    if ($this->db->field_exists('file_src_mobile', 'tbl_data_surat')) {
+                        $this->db->where('id', $data['surat']['id'])
+                            ->update('tbl_data_surat', ['file_src_mobile' => $path_mobile]);
+                    }
+            
+                    if ($this->db->field_exists('file_src_mobile', 'tbl_riwayat_esign')) {
+                        $this->db->where('tbl_data_surat_id', $data['surat']['id'])
+                            ->order_by('id', 'DESC')->limit(1)
+                            ->update('tbl_riwayat_esign', ['file_src_mobile' => $path_mobile]);
+                    }
+                }
+            
+                echo json_encode([
+                    'stat' => true,
+                    'msg'  => 'E-Sign berhasil, file desktop & mobile sinkron'
+                ]);
+                return;
+            
+            break;
 
 			case "cetak_himbauan":
 

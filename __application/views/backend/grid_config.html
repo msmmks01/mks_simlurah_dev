@@ -1,3 +1,9 @@
+{assign var=button_add value="false"}
+{assign var=button_edit value="false"}
+{assign var=button_delete value="false"}
+{assign var=button_cetak_rt_rw value="false"}
+{assign var=button_cetak_rt_rw_excel value="false"}
+
 {if $prev.buat eq '1'} 
 {assign var=button_add value='true'} 
 {else} 
@@ -51,6 +57,10 @@ var=button_edit value='true'}
 {/if}
 {if $mod eq 'data_rt_rw'} 
 {assign var=button_cetak_rt_rw value="true"} 
+{/if}
+{if $mod eq 'data_rt_rw'} 
+  {assign var=button_cetak_rt_rw value="true"} 
+  {assign var=button_cetak_rt_rw_excel value="true"} 
 {/if}
 {if $mod eq 'usulan_penilaian_rt_rw'} 
 {assign var=button_cetak_rt_rw value="true"} 
@@ -398,9 +408,17 @@ $mod eq 'data_surat'}
           {if $button_cetak_rt_rw|default:'' eq 'true'}
             <button class="btn btn-info btn-sm"
               onclick="kumpulAction('export_laporan_rt_rw','{$acak}');">
-              <i class="fa fa-print"></i> Cetak
+              <i class="fa fa-print"></i> Cetak Pdf
             </button>
           {/if}
+          
+          {if $button_cetak_rt_rw_excel eq 'true'}
+            <button class="btn btn-success btn-sm"
+              onclick="kumpulAction('export_laporan_rt_rw_excel','{$acak}');">
+              <i class="fa fa-file-excel-o"></i> Cetak Excel
+            </button>
+          {/if}
+
         </div>
       </div>
     
