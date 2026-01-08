@@ -6175,10 +6175,24 @@ class Backendxx extends JINGGA_Controller
 
 				$data = $this->mbackend->getdata('laporan_rt_rw_excel', 'result_array');
 
-				$filename = "laporan-rt-rw-excel-" . date('YmdHis');-
+				// ⛑️ AMAN PHP 5.x
+				if (!isset($data['data_surat'])) {
+					$data['data_surat'] = array();
+				}
+
+				$filename = "laporan-rt-rw-excel-" . date('YmdHis');
+
 				$temp = "backend/cetak/laporan_rt_rw_excel.html";
 
-				$this->hasil_output('excel', $mod, $data, $filename, $temp, 'utf-8', array(215, 330));
+				$this->hasil_output(
+					'excel',
+					$mod,
+					$data,
+					$filename,
+					$temp,
+					'utf-8',
+					array(215, 330)
+				);
 
 				break;
 
@@ -6472,8 +6486,7 @@ class Backendxx extends JINGGA_Controller
 			// 	}
 
 
-			// 	break;
-
+			// break;
 			case "daftar_esign":
 
                 header('Content-Type: application/json');
@@ -6641,7 +6654,6 @@ class Backendxx extends JINGGA_Controller
                 return;
             
             break;
-
 			case "cetak_himbauan":
 
 				$array_setting = array(

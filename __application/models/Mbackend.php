@@ -3575,25 +3575,14 @@ class Mbackend extends CI_Model
 				$keyword    = $this->input->post('key');
 				$status_tab = $this->input->post('status_tab');
 
-				// ================== MAPPING KOLOM (AMAN) ==================
-				$map_kolom = [
-					'a.nama_lengkap' => 'nama_lengkap',
-					'a.nik'          => 'nik',
-					'a.jab_rt_rw'    => 'jab_rt_rw'
-				];
-
-				$kolom_sub = isset($map_kolom[$kolom]) ? $map_kolom[$kolom] : '';
-
 				// ================== PENCARIAN ==================
-				
-				if(!empty($kolom) && !empty($keyword)) {
-
+				if (!empty($kolom) && !empty($keyword)) {
 					$where .= " 
 						AND {$kolom} LIKE '%" . $this->db->escape_like_str($keyword) . "%'
 					";
 				}
 
-				// ================== HAK AKSES USER ==================
+				// ================== HAK AKSES ==================
 				if (in_array($this->auth['cl_user_group_id'], [2, 4, 5])) {
 					$where .= " 
 						AND a.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "' 
@@ -3608,10 +3597,9 @@ class Mbackend extends CI_Model
 					";
 				}
 
-				// ================== TAB STATUS ==================
+				// ================== STATUS TAB ==================
 				if (empty($status_tab) || $status_tab == 'aktif') {
 
-					// ===== AKTIF (TIDAK DIUBAH) =====
 					$where .= "
 						AND a.status = 'Aktif'
 						AND a.pilih_tahun = '2026'
@@ -3626,7 +3614,6 @@ class Mbackend extends CI_Model
 
 				} elseif ($status_tab == 'tidak_aktif') {
 
-					// ===== TIDAK AKTIF (FINAL FIX) =====
 					$where .= "
 						AND a.status = 'Tidak Aktif'
 						AND a.pilih_tahun <> '2026'
@@ -3634,16 +3621,16 @@ class Mbackend extends CI_Model
 							SELECT MAX(id)
 							FROM tbl_data_rt_rw
 							WHERE status = 'Tidak Aktif'
-							AND pilih_tahun <> '2026' GROUP BY nik)
+							AND pilih_tahun <> '2026'
+							GROUP BY nik
+						)
 					";
-
-					// 🔴 LIKE KHUSUS DI SUBQUERY (TANPA alias a.)
-				
-				
 				}
 
-				// ================== QUERY FINAL ==================
-				$sql = "SELECT a.*,
+				// ================== QUERY ==================
+				$sql = "
+					SELECT 
+						a.*,
 						CASE 
 							WHEN a.jab_rt_rw = 'Ketua RW' 
 								THEN CONCAT('Ketua RW ', LPAD(a.rw, 3, '0'))
@@ -3652,8 +3639,8 @@ class Mbackend extends CI_Model
 							ELSE a.jab_rt_rw
 						END AS jabatan_rt_rw,
 						c.nama_agama,
-						d.nama,
-						a.alamat AS nama_keluahan_desa
+						d.nama AS nama_kelurahan,
+						a.alamat
 					FROM tbl_data_rt_rw a
 					LEFT JOIN cl_agama c ON a.agama = c.id
 					LEFT JOIN cl_kelurahan_desa d 
@@ -3663,7 +3650,7 @@ class Mbackend extends CI_Model
 					ORDER BY a.rw, a.rt, a.id DESC
 				";
 
-				break;
+				return $this->db->query($sql)->result_array();
 
 			case "laporan_rekap_pengantar_kendaraan":
 
