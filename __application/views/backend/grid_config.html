@@ -1388,7 +1388,7 @@ $mod eq 'data_surat'}
         <div class="row" style="margin-bottom: 5px">
        
           {if in_array($mod, ['data_penduduk','data_kendaraan','data_indikator_skm','form_sub_indikator_rt_rw','data_sub_indikator_rt_rw','data_penduduk_asing', 'data_keluarga', 'data_surat','surat_himbauan','broadcast'])}
-          <div class="col-lg-8" style="margin-bottom: 10px;">
+          <div class="col-lg-7" style="margin-bottom: 10px;">
           {else}
           <div class="col-lg-9" style="margin-bottom: 10px;">
           {/if}
@@ -1436,7 +1436,7 @@ $mod eq 'data_surat'}
             </select>
           </div>
           {/if}
-          <div class="col-lg-4 text-right">
+          <div class="col-lg-5 text-right">
             {if $button_add|default:'' eq 'true' and !in_array($mod, ['data_penilaian_skm'])}
             <a href="javascript:void(0)" title="Add" class="btn-flat btn-success btn-sm" onClick="genform('add', '{$mod}','{$mod}');">
               <i class="fa fa-plus"></i> Tambah
