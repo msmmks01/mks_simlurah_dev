@@ -18210,18 +18210,84 @@ class Mbackend extends CI_Model
 
 				break;
 
+			// case "data_rt_rw":
+			// 	// if (@$data['koordinat'] != '') {
+
+			// 	// 	if (isset($data['koordinat'])) {
+			// 	// 		list($x, $y) = explode(', ', $data['koordinat']);
+
+			// 	// 		$data['lat'] = $x;
+			// 	// 		$data['long'] = $y;
+			// 	// 		unset($data['koordinat']);
+			// 	// 	}
+			// 	// }
+
+
+			// 	if (isset($data['tgl_mulai_jabat'])) {
+			// 		$data['tgl_mulai_jabat'] = date('Y-m-d', strtotime($data['tgl_mulai_jabat']));
+			// 	}
+
+			// 	if (isset($data['tgl_sk_rt_rw'])) {
+			// 		$data['tgl_sk_rt_rw'] = date('Y-m-d', strtotime($data['tgl_sk_rt_rw']));
+			// 	}
+
+			// 	if (!empty($_FILES['file']['name'])) {
+			// 		$file = '';
+			// 		$dir                     = date('Ymd');
+			// 		if (!is_dir('./__data/' . $dir)) {
+			// 			mkdir('./__data/' . $dir, 0755);
+			// 		}
+
+			// 		$config['upload_path']          = './__data/' . $dir;
+			// 		$config['allowed_types']        = 'pdf|jpg|jpeg|png';
+			// 		$config['max_size']             = 2048;
+			// 		$config['encrypt_name']			= true;
+
+
+			// 		$this->load->library('upload', $config);
+			// 		$this->upload->initialize($config);
+
+			// 		if (!$this->upload->do_upload('file')) {
+			// 			$error = array('error' => $this->upload->display_errors());
+			// 		} else {
+			// 			$file = '__data/' . $dir . '/' . $this->upload->data()['file_name'];
+			// 		}
+
+			// 		$data['file'] = $file;
+			// 	}
+
+			// 	$table = "tbl_data_rt_rw";
+
+			// 	$array = array();
+
+			// 	if ($sts_crud == "add" || $sts_crud == "edit") {
+
+			// 		$data['cl_provinsi_id'] = $this->auth['cl_provinsi_id'];
+
+			// 		$data['cl_kab_kota_id'] = $this->auth['cl_kab_kota_id'];
+
+			// 		$data['cl_kecamatan_id'] = $this->auth['cl_kecamatan_id'];
+
+			// 		$data['cl_kelurahan_desa_id'] = $this->auth['cl_kelurahan_desa_id'];
+
+			// 		// Ambil nama kelurahan dari tabel cl_kelurahan_desa
+			// 		$kelurahan = $this->db->get_where('cl_kelurahan_desa', array('id' => $data['cl_kelurahan_desa_id']))->row_array();
+			// 		$data['kelurahan'] = $kelurahan['nama']; // sesuaikan field nama di tabel
+
+			// 		$data['nik'] = $this->input->post('nik');
+			// 		if ($this->input->post('rt') != '') {
+			// 			$data['rt'] = str_pad($this->input->post('rt'), 3, '0', STR_PAD_LEFT);
+			// 		} else {
+			// 			$data['rt'] = '';
+			// 		}
+			// 		$data['rw'] = str_pad($this->input->post('rw'), 3, '0', STR_PAD_LEFT);
+
+			// 		$data['nama_lengkap'] = $this->input->post('nama_lengkap');
+			// 	}
+
+			// break;
+
 			case "data_rt_rw":
-				// if (@$data['koordinat'] != '') {
-
-				// 	if (isset($data['koordinat'])) {
-				// 		list($x, $y) = explode(', ', $data['koordinat']);
-
-				// 		$data['lat'] = $x;
-				// 		$data['long'] = $y;
-				// 		unset($data['koordinat']);
-				// 	}
-				// }
-
 
 				if (isset($data['tgl_mulai_jabat'])) {
 					$data['tgl_mulai_jabat'] = date('Y-m-d', strtotime($data['tgl_mulai_jabat']));
@@ -18275,18 +18341,27 @@ class Mbackend extends CI_Model
 					$data['kelurahan'] = $kelurahan['nama']; // sesuaikan field nama di tabel
 
 					$data['nik'] = $this->input->post('nik');
-					if ($this->input->post('rt') != '') {
-						$data['rt'] = str_pad($this->input->post('rt'), 3, '0', STR_PAD_LEFT);
+					
+					// ================= RT =================
+					$rt = trim($this->input->post('rt'));
+					if ($rt !== '' && (int)$rt > 0) {
+						$data['rt'] = str_pad($rt, 3, '0', STR_PAD_LEFT);
 					} else {
 						$data['rt'] = '';
 					}
-					$data['rw'] = str_pad($this->input->post('rw'), 3, '0', STR_PAD_LEFT);
+
+					// ================= RW =================
+					$rw = trim($this->input->post('rw'));
+					if ($rw !== '' && (int)$rw > 0) {
+						$data['rw'] = str_pad($rw, 3, '0', STR_PAD_LEFT);
+					} else {
+						$data['rw'] = '';
+					}
 
 					$data['nama_lengkap'] = $this->input->post('nama_lengkap');
 				}
 
 				break;
-
 			case "penilaian_rt_rw":
 
 				$file = '';

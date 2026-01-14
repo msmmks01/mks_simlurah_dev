@@ -197,12 +197,12 @@
     rules: rulesnya,
     messages: messagesnya,
     submitHandler: function (form) {
+      // ================= VALIDASI RT =================
       if ($('#wrapper_rt').is(':visible')) {
         var rt = $('#rt').val().trim();
-        
-        // Validasi: RT harus memiliki 3 digit, tidak boleh kosong, dan tidak boleh '000'
-        if (rt.length !== 3  || rt === '000') {
-          $.messager.alert(nama_apps, 'RT wajib 3 digit minimal 001 dan tidak boleh 000', 'warning');
+
+        if (rt === '' || parseInt(rt, 10) <= 0) {
+          $.messager.alert(nama_apps, 'RT wajib diisi dan tidak boleh 0', 'warning');
           $('#rt').focus();
           return false;
         }
@@ -211,11 +211,9 @@
       // ================= VALIDASI RW =================
       if ($('#wrapper_rw').is(':visible')) {
         var rw = $('#rw').val().trim();
-        
-        // Validasi: RW harus memiliki 3 digit, tidak boleh kosong, dan tidak boleh '000'
-        if (rw.length !== 3  || rw === '000') {
-          alert(rt);
-          $.messager.alert(nama_apps, 'RW wajib 3 digit minimal 001 dan tidak boleh 000', 'warning');
+
+        if (rw === '' || parseInt(rw, 10) <= 0) {
+          $.messager.alert(nama_apps, 'RW wajib diisi dan tidak boleh 0', 'warning');
           $('#rw').focus();
           return false;
         }
