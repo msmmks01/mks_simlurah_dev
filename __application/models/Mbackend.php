@@ -2820,7 +2820,7 @@ class Mbackend extends CI_Model
 				break;
 			//end Daftar Agenda Kegiatan
 
-			//Laporan Hasil Agenda Kegiatan
+			//Laporan Hasil Agenda Kegiatan lama
 			// case "laporan_hasil_kegiatan":
 
 			// 	$where = " WHERE 1=1 ";
@@ -2865,64 +2865,139 @@ class Mbackend extends CI_Model
 			// 	ORDER BY a.id DESC
 			// 	";
 			// break;
+			//end
+
+			//Laporan Hail Agenda Kegiatan Baru dan terpakai
+			// case "laporan_hasil_kegiatan":
+
+			// 	$where = " WHERE 1=1 ";
+
+			// 	if (!empty($this->auth['tahun'])) {
+			// 		$where .= "
+			// 			AND YEAR(a.tgl_hasil_agenda) = '" . $this->auth['tahun'] . "'
+			// 		";
+			// 	}
+
+			// 	$tgl_mulai   = $this->input->post('tgl_mulai');
+			// 	$tgl_selesai = $this->input->post('tgl_selesai');
+
+			// 	if (!empty($tgl_mulai) && !empty($tgl_selesai)) {
+
+			// 		// dd-mm-yyyy → yyyy-mm-dd
+			// 		$tgl_mulai   = date('Y-m-d', strtotime(str_replace('-', '/', $tgl_mulai)));
+			// 		$tgl_selesai = date('Y-m-d', strtotime(str_replace('-', '/', $tgl_selesai)));
+
+			// 		$where .= "
+			// 			AND DATE(a.tgl_hasil_agenda) BETWEEN '$tgl_mulai' AND '$tgl_selesai'
+			// 		";
+			// 	}
+
+			// 	if ($this->auth['cl_user_group_id'] == 3) {
+			// 		$where .= "
+			// 			AND a.cl_provinsi_id = '" . $this->auth['cl_provinsi_id'] . "'
+			// 			AND a.cl_kab_kota_id = '" . $this->auth['cl_kab_kota_id'] . "'
+			// 			AND a.cl_kecamatan_id = '" . $this->auth['cl_kecamatan_id'] . "'
+			// 			AND a.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "'
+			// 		";
+			// 	}
+
+			// 	if (in_array($this->auth['cl_user_group_id'], [2, 4, 5])) {
+			// 		$where .= "
+			// 			AND a.cl_provinsi_id = '" . $this->auth['cl_provinsi_id'] . "'
+			// 			AND a.cl_kab_kota_id = '" . $this->auth['cl_kab_kota_id'] . "'
+			// 			AND a.cl_kecamatan_id = '" . $this->auth['cl_kecamatan_id'] . "'
+			// 			AND a.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "'
+			// 		";
+			// 	}
+
+			// 	$sql = "SELECT 
+			// 			a.*,
+			// 			b.nama AS kecamatan,
+			// 			c.nama AS kelurahan,
+			// 			d.perihal_kegiatan AS agenda,
+			// 			DATE_FORMAT(a.create_date, '%d-%m-%Y %H:%i') AS tanggal_buat
+			// 		FROM tbl_data_hasil_agenda a
+			// 		LEFT JOIN cl_kecamatan b ON b.id = a.cl_kecamatan_id
+			// 		LEFT JOIN cl_kelurahan_desa c ON c.id = a.cl_kelurahan_desa_id
+			// 		LEFT JOIN tbl_data_daftar_agenda d ON d.id = a.perihal_hasil_agenda
+			// 		$where
+			// 		ORDER BY a.id DESC
+			// 	";
+			// break;
+			//end Laporan Hasil Agenda Kegiatan
 
 			case "laporan_hasil_kegiatan":
 
 				$where = " WHERE 1=1 ";
 
+				/* ================== TAHUN LOGIN ================== */
 				if (!empty($this->auth['tahun'])) {
-					$where .= "
-						AND YEAR(a.tgl_hasil_agenda) = '" . $this->auth['tahun'] . "'
-					";
+					$where .= " AND YEAR(a.tgl_kegiatan) = '".$this->auth['tahun']."' ";
 				}
 
+				/* ================== FILTER ROLE ================== */
+				if (in_array($this->auth['cl_user_group_id'], [2,4,5])) {
+					$where .= " AND a.cl_kelurahan_desa_id = '".$this->auth['cl_kelurahan_desa_id']."' ";
+				}
+
+				/* ================== FILTER KELURAHAN ================== */
+				$kelurahan = $this->input->post('kelurahan');
+				if ($kelurahan) {
+					$where .= " AND a.cl_kelurahan_desa_id = '".$kelurahan."' ";
+				}
+
+				/* ================== FILTER TANGGAL (JOIN) ================== */
+				$on_tanggal = "";
 				$tgl_mulai   = $this->input->post('tgl_mulai');
 				$tgl_selesai = $this->input->post('tgl_selesai');
 
-				if (!empty($tgl_mulai) && !empty($tgl_selesai)) {
+				if ($tgl_mulai && $tgl_selesai) {
+					$tgl_mulai   = date('Y-m-d', strtotime($tgl_mulai));
+					$tgl_selesai = date('Y-m-d', strtotime($tgl_selesai));
 
-					// dd-mm-yyyy → yyyy-mm-dd
-					$tgl_mulai   = date('Y-m-d', strtotime(str_replace('-', '/', $tgl_mulai)));
-					$tgl_selesai = date('Y-m-d', strtotime(str_replace('-', '/', $tgl_selesai)));
-
-					$where .= "
-						AND DATE(a.tgl_hasil_agenda) BETWEEN '$tgl_mulai' AND '$tgl_selesai'
+					$on_tanggal = " 
+						AND DATE(b.tgl_hasil_agenda) 
+						BETWEEN '$tgl_mulai' AND '$tgl_selesai'
 					";
 				}
 
-				if ($this->auth['cl_user_group_id'] == 3) {
-					$where .= "
-						AND a.cl_provinsi_id = '" . $this->auth['cl_provinsi_id'] . "'
-						AND a.cl_kab_kota_id = '" . $this->auth['cl_kab_kota_id'] . "'
-						AND a.cl_kecamatan_id = '" . $this->auth['cl_kecamatan_id'] . "'
-						AND a.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "'
-					";
-				}
+				/* ================== SQL ================== */
+					$sql = "SELECT
+							a.id AS agenda_id,
+							a.perihal_kegiatan,          -- ✅ perihal dari A (AGENDA)
+							a.tgl_kegiatan,
+							a.lokasi_kegiatan,
 
-				if (in_array($this->auth['cl_user_group_id'], [2, 4, 5])) {
-					$where .= "
-						AND a.cl_provinsi_id = '" . $this->auth['cl_provinsi_id'] . "'
-						AND a.cl_kab_kota_id = '" . $this->auth['cl_kab_kota_id'] . "'
-						AND a.cl_kecamatan_id = '" . $this->auth['cl_kecamatan_id'] . "'
-						AND a.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "'
-					";
-				}
+							b.id AS hasil_id,
+							b.tgl_hasil_agenda,
+							b.notulen_hasil_agenda,
+							b.file,
 
-				$sql = "SELECT 
-						a.*,
-						b.nama AS kecamatan,
-						c.nama AS kelurahan,
-						d.perihal_kegiatan AS agenda,
-						DATE_FORMAT(a.create_date, '%d-%m-%Y %H:%i') AS tanggal_buat
-					FROM tbl_data_hasil_agenda a
-					LEFT JOIN cl_kecamatan b ON b.id = a.cl_kecamatan_id
-					LEFT JOIN cl_kelurahan_desa c ON c.id = a.cl_kelurahan_desa_id
-					LEFT JOIN tbl_data_daftar_agenda d ON d.id = a.perihal_hasil_agenda
-					$where
-					ORDER BY a.id DESC
-				";
+							(CASE WHEN b.id IS NULL THEN 0 ELSE 1 END) AS ada_hasil,
+
+							d.nama AS nama_kelurahan,
+
+							DATE_FORMAT(
+								IFNULL(b.tgl_hasil_agenda, a.tgl_kegiatan),
+								'%d-%m-%Y'
+							) AS tanggal_tampil
+
+						FROM tbl_data_daftar_agenda a
+
+						LEFT JOIN tbl_data_hasil_agenda b 
+							ON b.perihal_hasil_agenda = a.id
+							$on_tanggal
+
+						LEFT JOIN cl_kelurahan_desa d 
+							ON a.cl_kelurahan_desa_id = d.id
+							AND a.cl_kecamatan_id = d.kecamatan_id
+
+						$where
+
+						ORDER BY 
+						IFNULL(b.tgl_hasil_agenda, a.tgl_kegiatan) DESC
+					";
 				break;
-			//end Laporan Hasil Agenda Kegiatan
 
 			//Data Pemohon
 			case "data_permohonan":
@@ -6167,9 +6242,7 @@ class Mbackend extends CI_Model
 					$where
 
 					GROUP BY a.id, MONTH(tgl_surat), YEAR(tgl_surat)
-					ORDER BY CONCAT(a.rw, '.', IF(a.rt = '' OR a.rt is null, '000', a.rt))
-					         
-
+					ORDER BY CONCAT(a.rw, '.', IF(a.rt = '' OR a.rt is null, '000', a.rt))				        
 				";
 
 				break;

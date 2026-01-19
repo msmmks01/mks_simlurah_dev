@@ -4621,6 +4621,70 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
       ];
       break;
 
+    // case "laporan_hasil_kegiatan":
+    //   judulnya = "";
+    //   urlnya = modnya;
+    //   fitnya = true;
+    //   row_number = true;
+
+    //   frozen[modnya] = [
+    //       {
+    //           field: "tgl_hasil_agenda",
+    //           title: "Hari/Tanggal",
+    //           width: 150,
+    //           halign: "center",
+    //           align: "center",
+    //           formatter: function(value, row) {
+    //               return formatTanggalIndonesia(value);
+    //           }
+    //       },
+    //   ];
+
+    //   kolom[modnya] = [
+    //       {
+    //           field: "agenda",
+    //           title: "Agenda",
+    //           width: 350,
+    //           halign: "center",
+    //           align: "left",
+    //       },
+    //       {
+    //           field: "notulen_hasil_agenda",
+    //           title: "Notulen",
+    //           width: 700,
+    //           halign: "center",
+    //           align: "left",
+    //       },
+    //       {
+    //           field: "ket_hasil_agenda",
+    //           title: "Keterangan",
+    //           width: 250,
+    //           halign: "center",
+    //           align: "left",
+    //       },
+    //       {
+    //       field: "file",
+    //       title: "Arsip ",
+    //       width: 150,
+    //       halign: "center",
+    //       align: "center",
+
+    //       formatter: function (value, rowData, rowIndex) {
+    //         var n = "";
+    //         if (value != null && value != "") {
+    //           n +=
+    //             '<a class="btn btn-sm btn-info" target="_blank" href="' +
+    //             rowData.file +
+    //             '"><i class="fa fa-eye"></i> Lihat</a>';
+    //         } else {
+    //           n += "-";
+    //         }
+    //         return n;
+    //       },
+    //     },
+    //   ];
+    // break;
+  
     case "laporan_hasil_kegiatan":
       judulnya = "";
       urlnya = modnya;
@@ -4628,62 +4692,58 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
       row_number = true;
 
       frozen[modnya] = [
-          {
-              field: "tgl_hasil_agenda",
-              title: "Hari/Tanggal",
-              width: 150,
-              halign: "center",
-              align: "center",
-              formatter: function(value, row) {
-                  return formatTanggalIndonesia(value);
-              }
-          },
-      ];
-
-      kolom[modnya] = [
-          {
-              field: "agenda",
-              title: "Agenda",
-              width: 350,
-              halign: "center",
-              align: "left",
-          },
-          {
-              field: "notulen_hasil_agenda",
-              title: "Notulen",
-              width: 700,
-              halign: "center",
-              align: "left",
-          },
-          {
-              field: "ket_hasil_agenda",
-              title: "Keterangan",
-              width: 250,
-              halign: "center",
-              align: "left",
-          },
-          {
-          field: "file",
-          title: "Arsip ",
+        {
+          field: "tanggal_tampil",
+          title: "Hari / Tanggal",
           width: 150,
           halign: "center",
           align: "center",
+        },
+      ];
 
-          formatter: function (value, rowData, rowIndex) {
-            var n = "";
-            if (value != null && value != "") {
-              n +=
-                '<a class="btn btn-sm btn-info" target="_blank" href="' +
-                rowData.file +
-                '"><i class="fa fa-eye"></i> Lihat</a>';
-            } else {
-              n += "-";
+      kolom[modnya] = [
+        {
+          field: "perihal_kegiatan",
+          title: "Agenda",
+          width: 350,
+          halign: "center",
+          align: "left",
+        },
+        {
+          field: "notulen_hasil_agenda",
+          title: "Notulen",
+          width: 600,
+          halign: "center",
+          align: "left",
+          formatter: function(value, row){
+            return value ? value : "<i>Belum ada hasil</i>";
+          }
+        },
+        {
+          field: "keterangan_hasil",
+          title: "Keterangan",
+          width: 250,
+          halign: "center",
+          align: "left",
+        },
+        {
+          field: "file_dokumentasi",
+          title: "Arsip",
+          width: 150,
+          halign: "center",
+          align: "center",
+          formatter: function (value) {
+            if (value) {
+              return `
+                <a class="btn btn-sm btn-info" target="_blank" href="${value}">
+                  <i class="fa fa-eye"></i> Lihat
+                </a>`;
             }
-            return n;
+            return "-";
           },
         },
       ];
-      break;
+    break;
 
     case "data_kendaraan":
       judulnya = "";
