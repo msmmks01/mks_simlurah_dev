@@ -2928,25 +2928,24 @@ class Mbackend extends CI_Model
 
 			case "laporan_hasil_kegiatan":
 
+				$tahun_login    = $this->auth['tahun'];
+				$tahun_berjalan = date('Y');
+
 				$where = " WHERE 1=1 ";
 
-				/* ================== TAHUN LOGIN ================== */
-				if (!empty($this->auth['tahun'])) {
-					$where .= " AND YEAR(a.tgl_kegiatan) = '".$this->auth['tahun']."' ";
-				}
+				/* ================= FILTER DASAR ================= */
+				$where .= " AND YEAR(a.tgl_kegiatan) = '$tahun_login' ";
 
-				/* ================== FILTER ROLE ================== */
+				/* ================= HAK AKSES ================= */
 				if (in_array($this->auth['cl_user_group_id'], [2,4,5])) {
 					$where .= " AND a.cl_kelurahan_desa_id = '".$this->auth['cl_kelurahan_desa_id']."' ";
 				}
 
-				/* ================== FILTER KELURAHAN ================== */
-				$kelurahan = $this->input->post('kelurahan');
-				if ($kelurahan) {
-					$where .= " AND a.cl_kelurahan_desa_id = '".$kelurahan."' ";
+				if ($this->input->post('kelurahan')) {
+					$where .= " AND a.cl_kelurahan_desa_id = '".$this->input->post('kelurahan')."' ";
 				}
 
-				/* ================== FILTER TANGGAL (JOIN) ================== */
+				/* ================= FILTER TANGGAL (opsional) ================= */
 				$on_tanggal = "";
 				$tgl_mulai   = $this->input->post('tgl_mulai');
 				$tgl_selesai = $this->input->post('tgl_selesai');
@@ -2955,50 +2954,50 @@ class Mbackend extends CI_Model
 					$tgl_mulai   = date('Y-m-d', strtotime($tgl_mulai));
 					$tgl_selesai = date('Y-m-d', strtotime($tgl_selesai));
 
-					$on_tanggal = " 
-						AND DATE(b.tgl_hasil_agenda) 
-						BETWEEN '$tgl_mulai' AND '$tgl_selesai'
-					";
+					$on_tanggal = " AND DATE(b.tgl_hasil_agenda) BETWEEN '$tgl_mulai' AND '$tgl_selesai' ";
 				}
 
-				/* ================== SQL ================== */
+				/* ================= SQL FINAL ================= */
 					$sql = "SELECT
-							a.id AS agenda_id,
-							a.perihal_kegiatan,          -- ✅ perihal dari A (AGENDA)
-							a.tgl_kegiatan,
-							a.lokasi_kegiatan,
+								a.id AS agenda_id,
+								a.perihal_kegiatan,
+								a.tgl_kegiatan,
+								a.lokasi_kegiatan,
 
-							b.id AS hasil_id,
-							b.tgl_hasil_agenda,
-							b.notulen_hasil_agenda,
-							b.file,
+								b.id AS hasil_id,
+								COALESCE(b.notulen_hasil_agenda, '') AS notulen_hasil_agenda,
+								COALESCE(b.ket_hasil_agenda, '') AS ket_hasil_agenda,
+								COALESCE(b.file, '') AS file_dokumentasi,
 
-							(CASE WHEN b.id IS NULL THEN 0 ELSE 1 END) AS ada_hasil,
+								CASE 
+									WHEN b.id IS NULL THEN 'Belum Ada Hasil'
+									ELSE 'Sudah Dilaporkan'
+								END AS status_hasil,
 
-							d.nama AS nama_kelurahan,
+								d.nama AS nama_kelurahan,
 
-							DATE_FORMAT(
-								IFNULL(b.tgl_hasil_agenda, a.tgl_kegiatan),
-								'%d-%m-%Y'
-							) AS tanggal_tampil
+								DATE_FORMAT(
+									IFNULL(b.tgl_hasil_agenda, a.tgl_kegiatan),
+									'%d-%m-%Y'
+								) AS tanggal_tampil
 
-						FROM tbl_data_daftar_agenda a
+							FROM tbl_data_daftar_agenda a
 
-						LEFT JOIN tbl_data_hasil_agenda b 
-							ON b.perihal_hasil_agenda = a.id
-							$on_tanggal
+							LEFT JOIN tbl_data_hasil_agenda b
+								ON b.perihal_hasil_agenda = a.id
+								
 
-						LEFT JOIN cl_kelurahan_desa d 
-							ON a.cl_kelurahan_desa_id = d.id
-							AND a.cl_kecamatan_id = d.kecamatan_id
+							LEFT JOIN cl_kelurahan_desa d
+								ON a.cl_kelurahan_desa_id = d.id
+								AND a.cl_kecamatan_id = d.kecamatan_id
 
-						$where
+							$where
 
-						ORDER BY 
-						IFNULL(b.tgl_hasil_agenda, a.tgl_kegiatan) DESC
+							ORDER BY IFNULL(b.tgl_hasil_agenda, a.tgl_kegiatan) DESC
 					";
 				break;
 
+			
 			//Data Pemohon
 			case "data_permohonan":
 
@@ -6157,95 +6156,119 @@ class Mbackend extends CI_Model
 			//Penilaian RT RW
 			case "penilaian_rt_rw":
 
+				$tahun_login    = $this->auth['tahun'];
+				$tahun_berjalan = date('Y');
+
+				/* ================= STATUS DATA ================= */
+				$status_target = ($tahun_login == $tahun_berjalan)
+					? 'aktif'
+					: 'tidak aktif';
+
 				$where = " WHERE 1=1 ";
-				$tahun_login = $this->auth['tahun'];
 
-				$where .= " AND a.pilih_tahun = '$tahun_login' 
-							AND a.status = 'aktif' ";
-
-				if (in_array($this->auth['cl_user_group_id'], [2, 4, 5])) {
-					$where .= " AND a.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "' ";
-				}
-
-				$kelurahan = $this->input->post('kelurahan');
-				if ($kelurahan) {
-					$where .= " AND a.cl_kelurahan_desa_id = '" . $kelurahan . "' ";
-				}
-
-
-				$on_bulan = '';
-				if ($this->input->post('bulan') != '') {
-					$on_bulan = " AND '" . $this->input->post('bulan') . "'=c.bulan";
-				}
-
-				$sql = "SELECT a.id as rt_rw_id,c.penilaian_id as id,c.tgl_surat,c.kategori_penilaian_rt_rw_id,c.kategori,c.uraian,c.satuan,c.target,c.capaian,
-					CEIL(SUM(c.nilai)/COUNT(c.id)) AS nilai,
-
-					(CASE
-						WHEN e.id is not null then 1 else 0 end) as lpj,  
-
-					CASE 
-						WHEN CEIL(SUM(c.nilai)/COUNT(c.id)) < 60 THEN '--'
-						WHEN CEIL(SUM(c.nilai)/COUNT(c.id)) BETWEEN 60 AND 70 THEN 'Cukup'
-						WHEN CEIL(SUM(c.nilai)/COUNT(c.id)) BETWEEN 71 AND 80 THEN 'Cukup Baik'
-						WHEN CEIL(SUM(c.nilai)/COUNT(c.id)) BETWEEN 81 AND 90 THEN 'Baik'
-						WHEN CEIL(SUM(c.nilai)/COUNT(c.id)) >= 91 THEN 'Sangat Baik'
-						ELSE 'Belum Dinilai'
-					END AS standar_nilai,
-					CASE 
-						WHEN CEIL(SUM(c.nilai)/COUNT(c.id)) < 60 THEN 'Rp. 0,00'
-						WHEN CEIL(SUM(c.nilai)/COUNT(c.id)) BETWEEN 60 AND 70 THEN 'Rp. 300.000,00'
-						WHEN CEIL(SUM(c.nilai)/COUNT(c.id)) BETWEEN 71 AND 80 THEN 'Rp. 600.000,00'
-						WHEN CEIL(SUM(c.nilai)/COUNT(c.id)) BETWEEN 81 AND 90 THEN 'Rp. 900.000,00'
-						WHEN CEIL(SUM(c.nilai)/COUNT(c.id)) >=91 THEN 'Rp. 1.200.000,00'
-						ELSE 0
-					END AS usulan_insentif,
-					c.create_date,c.create_by,a.nik,a.nama_lengkap,c.bulan,b.nama_bulan,d.nama AS nama_keluahan_desa,
-
-					CONCAT(
-							DAY(c.tgl_surat),' ',
-							CASE MONTH(c.tgl_surat) 
-							  WHEN 1 THEN 'Januari' 
-							  WHEN 2 THEN 'Februari' 
-							  WHEN 3 THEN 'Maret' 
-							  WHEN 4 THEN 'April' 
-							  WHEN 5 THEN 'Mei' 
-							  WHEN 6 THEN 'Juni' 
-							  WHEN 7 THEN 'Juli' 
-							  WHEN 8 THEN 'Agustus' 
-							  WHEN 9 THEN 'September'
-							  WHEN 10 THEN 'Oktober' 
-							  WHEN 11 THEN 'November' 
-							  WHEN 12 THEN 'Desember' 
-							END,' ',
-							YEAR(c.tgl_surat)
-						) AS tanggal_surat, 
-
-						 DATE_FORMAT(c.create_date, '%d-%m-%Y %H:%i') as tanggal_buat,
-						 CASE 
-					WHEN a.jab_rt_rw = 'Ketua RW' THEN CONCAT('Ketua RW ', LPAD(a.rw, 3, '0'))
-					WHEN a.jab_rt_rw = 'PJ RW' THEN CONCAT('PJ RW ', LPAD(a.rw, 3, '0'))
-					WHEN a.jab_rt_rw = 'Ketua RT' THEN CONCAT('Ketua RT ', LPAD(a.rt, 3, '0'), '/', LPAD(a.rw, 3, '0'))
-					WHEN a.jab_rt_rw = 'PJ RT' THEN CONCAT('PJ RT ', LPAD(a.rt, 3, '0'), '/', LPAD(a.rw, 3, '0'))
-					ELSE a.jab_rt_rw
-					END AS jabatan_rt_rw
-					
-					FROM tbl_data_rt_rw a
-
-					LEFT JOIN tbl_penilaian_rt_rw c ON c.tbl_data_rt_rw_id = a.id $on_bulan
-					
-					LEFT JOIN cl_pilih_bulan b ON c.bulan = b.id
-					
-					LEFT JOIN cl_kelurahan_desa d on a.cl_kelurahan_desa_id=d.id and a.cl_kecamatan_id=d.kecamatan_id
-
-					LEFT JOIN tbl_lpj_rtrw e on a.nik=e.nik
-					$where
-
-					GROUP BY a.id, MONTH(tgl_surat), YEAR(tgl_surat)
-					ORDER BY CONCAT(a.rw, '.', IF(a.rt = '' OR a.rt is null, '000', a.rt))				        
+				/* ================= FILTER DASAR ================= */
+				$where .= "
+					AND a.pilih_tahun = '$tahun_login'
+					AND a.status = '$status_target'
 				";
 
-				break;
+				/* ================= HAK AKSES ================= */
+				if (in_array($this->auth['cl_user_group_id'], [2, 4, 5])) {
+					$where .= " AND a.cl_kelurahan_desa_id = '".$this->auth['cl_kelurahan_desa_id']."' ";
+				}
+
+				if ($this->input->post('kelurahan')) {
+					$where .= " AND a.cl_kelurahan_desa_id = '".$this->input->post('kelurahan')."' ";
+				}
+
+				/* ================= FILTER PENILAIAN ================= */
+				$on_penilaian = "
+					AND YEAR(c.tgl_surat) = '$tahun_login'
+				";
+
+				if ($this->input->post('bulan') != '') {
+					$on_penilaian .= " AND c.bulan = '".$this->input->post('bulan')."' ";
+				}
+
+				$sql = "SELECT 
+					a.id AS rt_rw_id,
+					a.nik,
+					a.nama_lengkap,
+
+					/* ================= PENENTU WARNA ================= */
+					COUNT(c.id) AS total_penilaian,
+					CASE 
+						WHEN COUNT(c.id) > 0 THEN 1 
+						ELSE 0 
+					END AS is_dinilai,
+
+					/* ================= NILAI ================= */
+				
+						
+						(CEIL(SUM(c.nilai) / NULLIF(COUNT(c.id), 0))) AS nilai,
+
+					/* ================= LPJ ================= */
+					CASE 
+						WHEN e.id IS NOT NULL THEN 1 
+						ELSE 0 
+					END AS lpj,
+
+					/* ================= STANDAR NILAI ================= */
+					CASE 
+						WHEN COUNT(c.id) = 0 THEN 'Belum Dinilai'
+						WHEN CEIL(SUM(c.nilai) / COUNT(c.id)) < 60 THEN '--'
+						WHEN CEIL(SUM(c.nilai) / COUNT(c.id)) BETWEEN 60 AND 70 THEN 'Cukup'
+						WHEN CEIL(SUM(c.nilai) / COUNT(c.id)) BETWEEN 71 AND 80 THEN 'Cukup Baik'
+						WHEN CEIL(SUM(c.nilai) / COUNT(c.id)) BETWEEN 81 AND 90 THEN 'Baik'
+						WHEN CEIL(SUM(c.nilai) / COUNT(c.id)) >= 91 THEN 'Sangat Baik'
+						ELSE 'Belum Dinilai'
+					END AS standar_nilai,
+
+					/* ================= INSENTIF ================= */
+					CASE 
+						WHEN COUNT(c.id) = 0 THEN 'Rp. 0,00'
+						WHEN CEIL(SUM(c.nilai) / COUNT(c.id)) < 60 THEN 'Rp. 0,00'
+						WHEN CEIL(SUM(c.nilai) / COUNT(c.id)) BETWEEN 60 AND 70 THEN 'Rp. 300.000,00'
+						WHEN CEIL(SUM(c.nilai) / COUNT(c.id)) BETWEEN 71 AND 80 THEN 'Rp. 600.000,00'
+						WHEN CEIL(SUM(c.nilai) / COUNT(c.id)) BETWEEN 81 AND 90 THEN 'Rp. 900.000,00'
+						WHEN CEIL(SUM(c.nilai) / COUNT(c.id)) >= 91 THEN 'Rp. 1.200.000,00'
+						ELSE 'Rp. 0,00'
+					END AS usulan_insentif,
+
+					d.nama AS nama_kelurahan_desa,
+
+					/* ================= JABATAN ================= */
+					CASE 
+						WHEN a.jab_rt_rw = 'Ketua RW' THEN CONCAT('Ketua RW ', LPAD(a.rw, 3, '0'))
+						WHEN a.jab_rt_rw = 'PJ RW' THEN CONCAT('PJ RW ', LPAD(a.rw, 3, '0'))
+						WHEN a.jab_rt_rw = 'Ketua RT' THEN CONCAT('Ketua RT ', LPAD(a.rt, 3, '0'), '/', LPAD(a.rw, 3, '0'))
+						WHEN a.jab_rt_rw = 'PJ RT' THEN CONCAT('PJ RT ', LPAD(a.rt, 3, '0'), '/', LPAD(a.rw, 3, '0'))
+						ELSE a.jab_rt_rw
+					END AS jabatan_rt_rw
+
+				FROM tbl_data_rt_rw a
+
+				LEFT JOIN tbl_penilaian_rt_rw c
+					ON c.tbl_data_rt_rw_id = a.id
+					$on_penilaian
+
+				LEFT JOIN cl_kelurahan_desa d
+					ON a.cl_kelurahan_desa_id = d.id
+					AND a.cl_kecamatan_id = d.kecamatan_id
+
+				LEFT JOIN tbl_lpj_rtrw e
+					ON a.nik = e.nik
+
+				$where
+
+				GROUP BY a.id
+
+				ORDER BY CONCAT(
+					a.rw, '.', 
+					IF(a.rt IS NULL OR a.rt = '', '000', a.rt)
+				)";
+
+			break;
 			//end Penilaian RT RW
 
 			//Rekap RT RW
@@ -8939,15 +8962,25 @@ class Mbackend extends CI_Model
 
 			case "asal_kelurahan":
 
-				$sql = "
-
-					SELECT id, nama as txt
+				$sql = "SELECT id, nama as txt
 
 					FROM cl_kelurahan_desa
 
 				";
 
 				break;
+
+				case "agenda_kegiatan":
+
+					$sql = "SELECT
+							id,
+							perihal_kegiatan AS txt
+						FROM tbl_data_daftar_agenda
+						ORDER BY tgl_kegiatan DESC
+					";
+
+				break;
+
 
 			case "pilih_tahun":
 
@@ -17505,48 +17538,95 @@ class Mbackend extends CI_Model
 
 				break;
 
+			// case "laporan_hasil_kegiatan":
+
+			// 	$file = '';
+			// 	$dir                     = date('Ymd');
+			// 	if (!is_dir('./__data/' . $dir)) {
+			// 		mkdir('./__data/' . $dir, 0755);
+			// 	}
+
+			// 	$config['upload_path']          = './__data/' . $dir;
+			// 	$config['allowed_types']        = 'pdf|jpg|jpeg|png';
+			// 	$config['max_size']             = 2048;
+			// 	$config['encrypt_name']			= true;
+
+
+			// 	$this->load->library('upload', $config);
+			// 	$this->upload->initialize($config);
+
+			// 	if (!$this->upload->do_upload('file')) {
+			// 		$error = array('error' => $this->upload->display_errors());
+			// 	} else {
+			// 		$file = '__data/' . $dir . '/' . $this->upload->data()['file_name'];
+			// 	}
+
+			// 	$data['file'] = $file;
+
+			// 	if (isset($data['tgl_hasil_agenda'])) {
+			// 		$data['tgl_hasil_agenda'] = date('Y-m-d', strtotime($data['tgl_hasil_agenda']));
+			// 	}
+
+			// 	$table = "tbl_data_hasil_agenda";
+
+			// 	if ($sts_crud == "add" || $sts_crud == "edit") {
+
+			// 		$data['cl_provinsi_id'] = $this->auth['cl_provinsi_id'];
+
+			// 		$data['cl_kab_kota_id'] = $this->auth['cl_kab_kota_id'];
+
+			// 		$data['cl_kecamatan_id'] = $this->auth['cl_kecamatan_id'];
+
+			// 		$data['cl_kelurahan_desa_id'] = $this->auth['cl_kelurahan_desa_id'];
+			// 	}
+
+			// break;
+
 			case "laporan_hasil_kegiatan":
 
-				$file = '';
-				$dir                     = date('Ymd');
+				/* ================== UPLOAD FILE ================== */
+				$file = null;
+				$dir  = date('Ymd');
+
 				if (!is_dir('./__data/' . $dir)) {
-					mkdir('./__data/' . $dir, 0755);
+					mkdir('./__data/' . $dir, 0755, true);
 				}
 
-				$config['upload_path']          = './__data/' . $dir;
-				$config['allowed_types']        = 'pdf|jpg|jpeg|png';
-				$config['max_size']             = 2048;
-				$config['encrypt_name']			= true;
+				$config = [
+					'upload_path'   => './__data/' . $dir,
+					'allowed_types' => 'pdf|jpg|jpeg|png',
+					'max_size'      => 2048,
+					'encrypt_name'  => true
+				];
 
-
-				$this->load->library('upload', $config);
+				$this->load->library('upload');
 				$this->upload->initialize($config);
 
-				if (!$this->upload->do_upload('file')) {
-					$error = array('error' => $this->upload->display_errors());
-				} else {
-					$file = '__data/' . $dir . '/' . $this->upload->data()['file_name'];
+				if (!empty($_FILES['file']['name'])) {
+					if ($this->upload->do_upload('file')) {
+						$file = '__data/' . $dir . '/' . $this->upload->data('file_name');
+						$data['file_dokumentasi'] = $file;
+					}
+				}
+				/* jika tidak upload → file lama tetap */
+
+				/* ================== FORMAT TANGGAL ================== */
+				if (!empty($data['tgl_hasil_agenda'])) {
+					$data['tgl_hasil_agenda'] = date(
+						'Y-m-d',
+						strtotime($data['tgl_hasil_agenda'])
+					);
 				}
 
-				$data['file'] = $file;
-
-				if (isset($data['tgl_hasil_agenda'])) {
-					$data['tgl_hasil_agenda'] = date('Y-m-d', strtotime($data['tgl_hasil_agenda']));
-				}
-
-				$table = "tbl_data_hasil_agenda";
-
-				if ($sts_crud == "add" || $sts_crud == "edit") {
-
-					$data['cl_provinsi_id'] = $this->auth['cl_provinsi_id'];
-
-					$data['cl_kab_kota_id'] = $this->auth['cl_kab_kota_id'];
-
-					$data['cl_kecamatan_id'] = $this->auth['cl_kecamatan_id'];
-
+				/* ================== DATA WILAYAH ================== */
+				if (in_array($sts_crud, ['add', 'edit'])) {
+					$data['cl_provinsi_id']       = $this->auth['cl_provinsi_id'];
+					$data['cl_kab_kota_id']       = $this->auth['cl_kab_kota_id'];
+					$data['cl_kecamatan_id']      = $this->auth['cl_kecamatan_id'];
 					$data['cl_kelurahan_desa_id'] = $this->auth['cl_kelurahan_desa_id'];
 				}
 
+				$table = "tbl_data_hasil_agenda";
 				break;
 
 			case "data_kendaraan":

@@ -1,74 +1,181 @@
-<form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/laporan_hasil_kegiatan" enctype="multipart/form-data" >
-    <input type="hidden" name="id" value="{$data.id|default:''}">
-	<input type="hidden" name="editstatus" value="{$sts|default:'add'}">
+<form id="form_{$acak}" method="post"
+      url="{$host}backoffice-simpan/laporan_hasil_kegiatan"
+      enctype="multipart/form-data">
 
-	<div class="row">
-		<div class="col-md-12">
-			<div class="box box-primary">
-				<div class="box-header with-border">
-					<h3 class="box-title">Form Isian</h3>
-				</div>
-				<div class="box-body">
-					<div class="row">
-						<div class="col-md-12"> 
-							
-							<div class="row" >
-								<div class='col-md-12'>
-									<fieldset class='form-group'>
-										<legend style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>DATA PENANDATANGANAN</legend>
-									</fieldset>
+    <input type="hidden" name="id" value="{$data.id|default:''}">
+    <input type="hidden" name="editstatus" value="{$sts|default:'add'}">
+
+    <!-- relasi agenda -->
+    <input type="hidden" name="perihal_hasil_agenda" value="{$data.agenda_id|default:''}">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Form Isian</h3>
+                </div>
+
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <!-- ================= DATA AGENDA ================= -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <fieldset class="form-group">
+                                        <legend style="
+                                            border-color:#E17A35 !important;
+                                            border-width:3px !important;
+                                            padding:5px;
+                                            color:#E17A35;
+                                            font-weight:bold;
+                                            font-size:16px;
+                                            margin-bottom:5px;
+                                            margin-top:15px;">
+                                            DATA AGENDA KEGIATAN
+                                        </legend>
+                                    </fieldset>
+                                </div>
+
+                                <!-- Tanggal Agenda -->
+								<div class="col-md-3">
+									{include file="backend/template/input_form.html"
+										label="Tanggal Kegiatan"
+										class_width="col-lg-12"
+										type="text"
+										name="tgl_hasil_agenda"
+										id="tgl_hasil_agenda"
+										value="{tgl_indo_format($agenda.tgl_kegiatan)|default:''}"
+										readonly="true"}
 								</div>
-								<div class="col-md-2">
-									{include file="backend/template/input_form.html" required="true" label="Hari/Tanggal" 
-									placeholder="dd-mm-yyyy" class_width="col-lg-12" type="date" name="tgl_hasil_agenda" id="tgl_hasil_agenda"
-									value="{tgl_indo_format($data.tgl_hasil_agenda)|default:''}"}
-								</div>
+
+								<!-- Lokasi Agenda -->
 								<div class="col-md-4">
-									{include file="backend/template/input_form.html" required="true" label="Perihal/Agenda" class_width="col-lg-12" type="select2" name="perihal_hasil_agenda" id="perihal_hasil_agenda" option={$perihal_hasil_agenda|default:''} }
+									{include file="backend/template/input_form.html"
+										label="Lokasi Kegiatan"
+										class_width="col-lg-12"
+										type="text"
+										name="lokasi_kegiatan_hasil"
+										id="lokasi_kegiatan_hasil"
+										value="{$agenda.lokasi_kegiatan|default:''}"
+										readonly="true"}
 								</div>
-							</div>
-							<div class="row" style="margin-bottom:10px;"> 
-								<div class="col-md-12">
-									{include file="backend/template/input_form.html" required="true" label="Notulen" class_width="col-lg-12" type="textarea_wysig" name="notulen_hasil_agenda" id="notulen_hasil_agenda" value="{$data.notulen_hasil_agenda|default:''}"}
+
+								<!-- Perihal Agenda -->
+								<div class="col-md-5">
+									{include file="backend/template/input_form.html"
+										label="Perihal / Agenda"
+										class_width="col-lg-12"
+										type="text"
+										name="perihal_kegiatan_hasil"
+										id="perihal_kegiatan_hasil"
+										value="{$agenda.perihal_kegiatan|default:''}"
+										readonly="true"}
 								</div>
-							</div>
-							<div class="row" style="margin-bottom:10px;"> 
-								<div class="col-md-12">
-									{include file="backend/template/input_form.html" required="false" label="Keterangan" class_width="col-lg-12" type="textarea" name="ket_hasil_agenda" id="ket_hasil_agenda" value="{$data.ket_hasil_agenda|default:''}"}
-								</div>
-							</div>
-							
-							<div class="row">
-								<div class="col-md-12">
-									<hr/>
-									{include file="backend/template/input_form.html" label="Upload File *jpg|jpeg|png|pdf" class_width="col-lg-12" type="file"
-									name="file" id="file" value="{$data.file|default:''}"}
-									<br/>
-									{include file="backend/template/button_save.html" text="Simpan" id_na="save" style_btn="btn-success"  btn_goyz="false"}
-									{include file="backend/template/button_save.html" text="Kembali" click="$('#grid_nya_{$mod}').show();$('#detil_nya_{$mod}').hide();" id_na="cancel" style_btn="btn-danger"  btn_goyz="true"}	
-								</div>
-							</div>
-							
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	
+
+                            <!-- ================= DATA HASIL KEGIATAN ================= -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <fieldset class="form-group">
+                                        <legend style="
+                                            border-color:#3C8DBC !important;
+                                            border-width:3px !important;
+                                            padding:5px;
+                                            color:#3C8DBC;
+                                            font-weight:bold;
+                                            font-size:16px;
+                                            margin-bottom:5px;
+                                            margin-top:15px;">
+                                            DATA HASIL KEGIATAN
+                                        </legend>
+                                    </fieldset>
+                                </div>
+
+                                <!-- Tanggal Hasil -->
+                                <div class="col-md-3">
+                                    {include file="backend/template/input_form.html"
+                                        required="true"
+                                        label="Tanggal Hasil Kegiatan"
+                                        placeholder="dd-mm-yyyy"
+                                        class_width="col-lg-12"
+                                        type="date"
+                                        name="tgl_hasil_agenda"
+                                        id="tgl_hasil_agenda"
+                                        value="{tgl_indo_format($data.tgl_hasil_agenda)|default:''}"}
+                                </div>
+                            </div>
+
+                            <!-- Notulen -->
+                            <div class="row" style="margin-bottom:10px;">
+                                <div class="col-md-12">
+                                    {include file="backend/template/input_form.html"
+                                        required="true"
+                                        label="Notulen / Hasil Kegiatan"
+                                        class_width="col-lg-12"
+                                        type="textarea_wysig"
+                                        name="notulen_hasil_agenda"
+                                        id="notulen_hasil_agenda"
+                                        value="{$data.notulen_hasil_agenda|default:''}"}
+                                </div>
+                            </div>
+
+                            <!-- Keterangan -->
+                            <div class="row" style="margin-bottom:10px;">
+                                <div class="col-md-12">
+                                    {include file="backend/template/input_form.html"
+                                        label="Keterangan"
+                                        class_width="col-lg-12"
+                                        type="textarea"
+                                        name="ket_hasil_agenda"
+                                        id="ket_hasil_agenda"
+                                        value="{$data.ket_hasil_agenda|default:''}"}
+                                </div>
+                            </div>
+
+                            <!-- Upload -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <hr/>
+                                    {include file="backend/template/input_form.html"
+                                        label="Upload File (jpg|jpeg|png|pdf)"
+                                        class_width="col-lg-12"
+                                        type="file"
+                                        name="file"
+                                        id="file"}
+                                    <br/>
+
+                                    {include file="backend/template/button_save.html"
+                                        text="Simpan"
+                                        id_na="save"
+                                        style_btn="btn-success"
+                                        btn_goyz="false"}
+
+                                    {include file="backend/template/button_save.html"
+                                        text="Kembali"
+                                        click="$('#grid_nya_{$mod}').show();$('#detil_nya_{$mod}').hide();"
+                                        id_na="cancel"
+                                        style_btn="btn-danger"
+                                        btn_goyz="true"}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>
 
 <script>
 	var rulesnya = {
 		tgl_hasil_agenda : "required",
-		perihal_hasil_agenda : "required",
-        notulen_hasil_agenda : "required",
+    	notulen_hasil_agenda : "required"
 	};
 
 	var messagesnya = {
 		tgl_hasil_agenda : "<i style='color:red'>Harus Diisi</i>",
-		perihal_hasil_agenda : "<i style='color:red'>Harus Diisi</i>",
-        notulen_hasil_agenda : "<i style='color:red'>Harus Diisi</i>",
+    	notulen_hasil_agenda : "<i style='color:red'>Harus Diisi</i>"
 	};
 
 	$("#form_{$acak}").validate({

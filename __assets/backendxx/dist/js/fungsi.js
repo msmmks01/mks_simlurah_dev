@@ -4716,15 +4716,21 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
           halign: "center",
           align: "left",
           formatter: function(value, row){
-            return value ? value : "<i>Belum ada hasil</i>";
+            return row.ada_hasil ? value : '<i>Belum ada hasil</i>';
           }
         },
         {
-          field: "keterangan_hasil",
+          field: "ket_hasil_agenda",
           title: "Keterangan",
-          width: 250,
+          width: 450,
           halign: "center",
           align: "left",
+          formatter: function(value, row){
+            if (!row.ada_hasil) {
+              return '<i class="text-muted">Belum ada hasil</i>';
+            }
+            return value;
+          }
         },
         {
           field: "file_dokumentasi",

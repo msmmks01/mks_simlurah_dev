@@ -952,29 +952,32 @@ $mod eq 'data_surat'}
             {/if}
           </div>
         </div>
+        
         {elseif $mod eq 'laporan_hasil_kegiatan'}
-        <div class="row" style="margin-bottom: 5px;">
-          <div class="col-lg-12 text-right">
-            {if $button_add|default:'' eq 'true'}
-            <a href="javascript:void(0)" title="Add" class="btn-flat btn-success btn-sm" onClick="genform('add', '{$mod}','{$mod}');">
-              <i class="fa fa-plus"></i> Tambah
-            </a>
-            {/if}
-            {if $button_edit|default:'' eq 'true'} &nbsp;
-            <a href="javascript:void(0)" title="Edit" class="btn-flat btn-warning btn-sm" onClick="genform('edit', '{$mod}','{$mod}');">
+        <div class="row">
+          <div class="col-lg-12 text-right pb-3">
+
+            {if $button_edit|default:'' eq 'true'}
+            <a href="javascript:void(0)" title="Edit"
+              class="btn-flat btn-warning btn-sm"
+              onClick="genform('edit','{$mod}','{$mod}');">
               <i class="fa fa-edit"></i> Edit
             </a>
             {/if}
+
             {if $button_delete|default:'' eq 'true'} &nbsp;
-            <a href="javascript:void(0)" title="Delete" class="btn-flat btn-danger btn-sm" onClick="genform('delete', '{$mod}','{$mod}');">
+            <a href="javascript:void(0)" title="Hapus"
+              class="btn-flat btn-danger btn-sm"
+              onClick="genform('delete','{$mod}','{$mod}');">
               <i class="fa fa-remove"></i> Hapus
             </a>
             {/if}
-            {if $button_cetak_hasil_agenda|default:'' eq 'true'} &nbsp;
-            <a href="javascript:void(0)" title="Cetak" class="btn-flat btn-warning btn-sm" onClick="kumpulAction('export_laporan_hasil_agenda', '{$acak}');">
+
+            &nbsp;
+            <a href="javascript:void(0)" class="btn-flat btn-success btn-sm"
+              onClick="kumpulAction('cetak_laporan_hasil_kegiatan','{$acak}');">
               <i class="fa fa-print"></i> Cetak
             </a>
-            {/if} 
           </div>
           <!---Kolom Pencarian Daftar Agenda Kegiatan-->
           <div class="col-lg-4" style="margin-top: 3px;margin-bottom: 3px;">
@@ -1011,6 +1014,7 @@ $mod eq 'data_surat'}
             </div>
           </div>
         </div>
+
         {elseif $mod eq 'data_jenis_persuratan'}
         <div class="row" style="margin-bottom: 5px">
           <div class="col-lg-6">
