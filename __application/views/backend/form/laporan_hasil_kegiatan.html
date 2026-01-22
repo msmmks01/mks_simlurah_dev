@@ -2,6 +2,10 @@
       url="{$host}backoffice-simpan/laporan_hasil_kegiatan"
       enctype="multipart/form-data">
 
+	<!-- ID AGENDA (WAJIB) -->
+    <input type="hidden" name="id_agenda" value="{$agenda.id|default:''}">
+
+    <!-- optional / legacy -->
     <input type="hidden" name="id" value="{$data.id|default:''}">
     <input type="hidden" name="editstatus" value="{$sts|default:'add'}">
 
@@ -43,8 +47,8 @@
 										label="Tanggal Kegiatan"
 										class_width="col-lg-12"
 										type="text"
-										name="tgl_hasil_agenda"
-										id="tgl_hasil_agenda"
+										name="tgl_kegiatan"
+										id="tgl_kegiatan"
 										value="{tgl_indo_format($agenda.tgl_kegiatan)|default:''}"
 										readonly="true"}
 								</div>

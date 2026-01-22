@@ -3901,38 +3901,34 @@ class Backendxx extends JINGGA_Controller
 
 			case "laporan_hasil_kegiatan":
 
-				// ================= DEFAULT =================
 				$data   = [];
 				$agenda = [];
-				$sts    = 'add';
 
-				$id = $this->input->post('id'); // 🔥 ID DARI GRID (WAJIB)
+				if ($sts == 'edit') {
 
-				if ($id) {
+					$id = $this->input->post('id');
 
-					/* ================== CEK APAKAH ID INI HASIL AGENDA ================== */
-					$hasil = $this->db
+					// 1️⃣ Coba ambil dari HASIL KEGIATAN (kalau sudah ada)
+					$data = $this->db
 						->get_where(
 							'tbl_data_hasil_agenda',
 							['id' => $id]
 						)
 						->row_array();
 
-					if ($hasil) {
-						// ===== EDIT HASIL =====
-						$sts  = 'edit';
-						$data = $hasil;
+					if (!empty($data)) {
 
-						// ambil agenda dari hasil
+						// 2️⃣ Kalau hasil SUDAH ADA → ambil agenda via relasi
 						$agenda = $this->db
 							->get_where(
 								'tbl_data_daftar_agenda',
-								['id' => $hasil['perihal_hasil_agenda']]
+								['id' => $data['perihal_hasil_agenda']]
 							)
 							->row_array();
 
 					} else {
-						// ===== ADD HASIL (ID = AGENDA) =====
+
+						// 3️⃣ Kalau hasil BELUM ADA → id = agenda_id
 						$agenda = $this->db
 							->get_where(
 								'tbl_data_daftar_agenda',
@@ -3940,38 +3936,28 @@ class Backendxx extends JINGGA_Controller
 							)
 							->row_array();
 
-						if ($agenda) {
-							$data = [
-								'id'                  => '',
-								'perihal_hasil_agenda'=> $agenda['id'],
-								'tgl_hasil_agenda'    => '',
-								'notulen_hasil_agenda'=> '',
-								'ket_hasil_agenda'    => '',
-								'file'                => ''
-							];
-						}
+						// 4️⃣ Siapkan data kosong untuk form hasil
+						$data = [
+							'id' => '',
+							'perihal_hasil_agenda' => $id,
+							'tgl_hasil_agenda' => '',
+							'notulen_hasil_agenda' => '',
+							'ket_hasil_agenda' => ''
+						];
 					}
 				}
-
-				$data['sts'] = $sts;
-
-				/* ================== ASSIGN KE VIEW ================== */
+				
 				$this->nsmarty->assign('data', $data);
 				$this->nsmarty->assign('agenda', $agenda);
 
-				/* ================== COMBO PERIHAL (DIKUNCI) ================== */
-				if (!empty($agenda)) {
-					$this->nsmarty->assign(
+				$this->nsmarty->assign(
+					"perihal_hasil_agenda",
+					$this->lib->fillcombo(
 						"perihal_hasil_agenda",
-						"<option value='{$agenda['id']}' selected>{$agenda['perihal_kegiatan']}</option>"
-					);
-				} else {
-					$this->nsmarty->assign(
-						"perihal_hasil_agenda",
-						$this->lib->fillcombo("perihal_hasil_agenda", "return")
-					);
-				}
-
+						"return",
+						($sts == "edit" ? $data['perihal_hasil_agenda'] : "")
+					)
+				);
 			break;
 
 			case "data_kendaraan":

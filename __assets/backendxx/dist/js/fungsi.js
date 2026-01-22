@@ -5405,6 +5405,15 @@ function genform(type, modulnya, submodulnya, stswindow, p1, p2, p3) {
           if (row.rt_rw_id != undefined) {
             rt_rw_id = row.rt_rw_id;
           }
+
+          // === KHUSUS LAPORAN HASIL KEGIATAN ===
+          if (
+            table === "laporan_hasil_kegiatan" &&
+            (row.id === null || row.id === "" || typeof row.id === "undefined")
+          ) {
+            row.id = row.agenda_id; // 🔥 fallback ke agenda
+          }
+
           $.post(
             urlpost,
             {
@@ -6754,7 +6763,7 @@ async function kumpulAction(type, p1, p2, p3, p4, p5) {
 
       param["nip"] = $("#nip").val();
 
-      $("#grid_laporan_hasil_agenda").datagrid("reload", param);
+      $("#grid_laporan_hasil_kegiatan").datagrid("reload", param);
 
       break;
 
