@@ -3,7 +3,10 @@
       enctype="multipart/form-data">
 
 	<!-- ID AGENDA (WAJIB) -->
-    <input type="hidden" name="id_agenda" value="{$agenda.id|default:''}">
+    <input type="hidden" name="id_agenda" value="{$agenda.id}">
+	<input type="hidden" name="sts_crud" value="edit">
+	<input type="hidden" name="table" value="laporan_hasil_kegiatan">
+
 
     <!-- optional / legacy -->
     <input type="hidden" name="id" value="{$data.id|default:''}">

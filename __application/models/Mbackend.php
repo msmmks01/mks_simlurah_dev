@@ -2964,28 +2964,32 @@ class Mbackend extends CI_Model
 								a.tgl_kegiatan,
 								a.lokasi_kegiatan,
 
-								b.id AS id,
-								COALESCE(b.notulen_hasil_agenda, '') AS notulen_hasil_agenda,
-								COALESCE(b.ket_hasil_agenda, '') AS ket_hasil_agenda,
-								COALESCE(b.file, '') AS file_dokumentasi,
+								a.notulen_hasil_agenda,
+								a.ket_hasil_agenda,
+								a.file AS file_dokumentasi,
 
-								CASE 
-									WHEN b.id IS NULL THEN 'Belum Ada Hasil'
+								CASE
+									WHEN a.notulen_hasil_agenda IS NULL 
+										OR a.notulen_hasil_agenda = ''
+									THEN 0
+									ELSE 1
+								END AS ada_hasil,
+
+								CASE
+									WHEN a.notulen_hasil_agenda IS NULL 
+										OR a.notulen_hasil_agenda = ''
+									THEN 'Belum Ada Hasil'
 									ELSE 'Sudah Dilaporkan'
 								END AS status_hasil,
 
 								d.nama AS nama_kelurahan,
 
 								DATE_FORMAT(
-									IFNULL(b.tgl_hasil_agenda, a.tgl_kegiatan),
+									IFNULL(a.tgl_hasil_agenda, a.tgl_kegiatan),
 									'%d-%m-%Y'
 								) AS tanggal_tampil
 
 							FROM tbl_data_daftar_agenda a
-
-							LEFT JOIN tbl_data_hasil_agenda b
-								ON b.perihal_hasil_agenda = a.id
-								
 
 							LEFT JOIN cl_kelurahan_desa d
 								ON a.cl_kelurahan_desa_id = d.id
@@ -2993,7 +2997,7 @@ class Mbackend extends CI_Model
 
 							$where
 
-							ORDER BY IFNULL(b.tgl_hasil_agenda, a.tgl_kegiatan) DESC
+							ORDER BY IFNULL(a.tgl_hasil_agenda, a.tgl_kegiatan) DESC
 					";
 				break;
 
@@ -17581,66 +17585,6 @@ class Mbackend extends CI_Model
 			// 	}
 
 			// break;
-
-			case "laporan_hasil_kegiatan":
-
-				/* ================== AMBIL ID AGENDA (WAJIB) ================== */
-				$id_agenda = $this->input->post('id_agenda');
-
-				if (empty($id_agenda)) {
-					return 0; // atau throw error / json msg
-				}
-
-				/* ================== AMBIL DATA POST ================== */
-				$data = $this->input->post();
-
-				/* ================== UPLOAD FILE ================== */
-				$dir = date('Ymd');
-
-				if (!is_dir('./__data/' . $dir)) {
-					mkdir('./__data/' . $dir, 0755, true);
-				}
-
-				$config = [
-					'upload_path'   => './__data/' . $dir,
-					'allowed_types' => 'pdf|jpg|jpeg|png',
-					'max_size'      => 2048,
-					'encrypt_name'  => true
-				];
-
-				$this->load->library('upload');
-				$this->upload->initialize($config);
-
-				if (!empty($_FILES['file']['name'])) {
-					if ($this->upload->do_upload('file')) {
-						$data['file'] = '__data/' . $dir . '/' . $this->upload->data('file_name');
-					}
-				}
-
-				/* ================== FORMAT TANGGAL ================== */
-				$tgl_hasil = $this->input->post('tgl_hasil_agenda');
-				$tgl_hasil = !empty($tgl_hasil)
-					? date('Y-m-d', strtotime($tgl_hasil))
-					: null;
-
-				/* ================== DATA UPDATE ================== */
-				$data_update = [
-					'tgl_hasil_agenda'     => $tgl_hasil,
-					'notulen_hasil_agenda' => $this->input->post('notulen_hasil_agenda', true),
-					'ket_hasil_agenda'     => $this->input->post('ket_hasil_agenda', true),
-				];
-
-				if (!empty($data['file'])) {
-					$data_update['file'] = $data['file'];
-				}
-
-				/* ================== UPDATE AGENDA ================== */
-				$this->db->where('id', $id_agenda);
-				$this->db->update('tbl_data_daftar_agenda', $data_update);
-
-				return 1;
-			break;
-
 			case "data_kendaraan":
 				$data['nilai_perolehan'] = str_replace(",", "", @$data['nilai_perolehan']);
 
@@ -19163,6 +19107,33 @@ class Mbackend extends CI_Model
 							]);
 						}
 					}
+				} elseif ($table == "laporan_hasil_kegiatan") {
+
+					$id_agenda = $this->input->post('id_agenda');
+
+					if (empty($id_agenda)) {
+						return 0;
+					}
+
+					// format tanggal
+					$tgl_hasil = $this->input->post('tgl_hasil_agenda');
+					$tgl_hasil = !empty($tgl_hasil)
+						? date('Y-m-d', strtotime($tgl_hasil))
+						: null;
+
+					$data_update = [
+						'tgl_hasil_agenda'     => $tgl_hasil,
+						'notulen_hasil_agenda' => $this->input->post('notulen_hasil_agenda', true),
+						'ket_hasil_agenda'     => $this->input->post('ket_hasil_agenda', true),
+					];
+
+					// file (jika ada)
+					if (!empty($data['file'])) {
+						$data_update['file'] = $data['file'];
+					}
+
+					$this->db->where('id', $id_agenda);
+					$this->db->update('tbl_data_daftar_agenda', $data_update);
 				} else {
 
 					$update = $this->db->update($table, $data, array('id' => $id));
