@@ -5217,6 +5217,12 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
           return "background-color: lightgreen;";
         }
       }
+      /* ==== 🔥 TAMBAHKAN INI ==== */
+      if (modnya == "daftar_agenda_kegiatan") {
+        if (parseInt(row.status) === 1) {
+          return "background-color:#cfe2ff;color:#084298;";
+        }
+      }
     },
 
     onLoadSuccess: function (data) {
@@ -5514,6 +5520,19 @@ function genform(type, modulnya, submodulnya, stswindow, p1, p2, p3) {
       var row = $("#grid_" + submodulnya).datagrid("getSelected");
 
       if (row) {
+
+        if (
+          submodulnya === "daftar_agenda_kegiatan" &&
+          parseInt(row.status) === 1
+        ) {
+          $.messager.alert(
+            nama_apps,
+            "Agenda ini sudah memiliki hasil laporan dan tidak dapat dihapus.",
+            "warning"
+          );
+          return false; // ⛔ STOP TOTAL
+        }
+
         $.messager.confirm(
           nama_apps,
           "Anda Yakin Ingin Menghapus Data Ini ?",

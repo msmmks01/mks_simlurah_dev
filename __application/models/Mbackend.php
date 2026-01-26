@@ -2807,7 +2807,7 @@ class Mbackend extends CI_Model
 					";
 				}
 
-				$sql = "SELECT a.*,
+				$sql = "SELECT a.*, a.status,
 						b.nama AS kecamatan,
 						c.nama AS kelurahan,
 						DATE_FORMAT(a.create_date, '%d-%m-%Y %H:%i') AS tanggal_buat
@@ -2969,11 +2969,14 @@ class Mbackend extends CI_Model
 								a.file AS file_dokumentasi,
 
 								CASE
-									WHEN a.notulen_hasil_agenda IS NULL 
-										OR a.notulen_hasil_agenda = ''
-									THEN 0
-									ELSE 1
-								END AS ada_hasil,
+									WHEN a.status = 1 THEN 1
+									ELSE 0
+									END AS ada_hasil,
+
+									CASE
+									WHEN a.status = 1 THEN 'Sudah Dilaporkan'
+									ELSE 'Belum Ada Hasil'
+								END AS status_hasil,
 
 								CASE
 									WHEN a.notulen_hasil_agenda IS NULL 
@@ -2996,12 +2999,19 @@ class Mbackend extends CI_Model
 								AND a.cl_kecamatan_id = d.kecamatan_id
 
 							$where
+							ORDER BY
+								CASE
+									WHEN a.notulen_hasil_agenda IS NULL 
+										OR a.notulen_hasil_agenda = ''
+									THEN 0        -- belum ada hasil → paling atas
+									ELSE 1
+								END ASC,
+								a.id DESC
 
-							ORDER BY IFNULL(a.tgl_hasil_agenda, a.tgl_kegiatan) DESC
+							-- ORDER BY IFNULL(a.tgl_hasil_agenda, a.tgl_kegiatan) DESC
 					";
 				break;
 
-			
 			//Data Pemohon
 			case "data_permohonan":
 
@@ -19132,8 +19142,13 @@ class Mbackend extends CI_Model
 						$data_update['file'] = $data['file'];
 					}
 
+					// $this->db->where('id', $id_agenda);
+					// $this->db->update('tbl_data_daftar_agenda', $data_update);
+					$data_update['status'] = 1; // ⬅️ penanda sudah ada hasil
+
 					$this->db->where('id', $id_agenda);
 					$this->db->update('tbl_data_daftar_agenda', $data_update);
+
 				} else {
 
 					$update = $this->db->update($table, $data, array('id' => $id));

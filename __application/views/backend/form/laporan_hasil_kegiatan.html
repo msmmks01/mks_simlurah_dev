@@ -1,3 +1,19 @@
+<style>
+  .disabled_aja{
+    pointer-events: none;  
+    opacity: 0.6;         
+    cursor: not-allowed; 
+  }
+  .w-80px{
+    width: 80px;
+  }
+  .border-0{
+    border:none!important;
+  }
+  .bg-transparent{
+    background: transparent;
+  }
+</style>
 <form id="form_{$acak}" method="post"
       url="{$host}backoffice-simpan/laporan_hasil_kegiatan"
       enctype="multipart/form-data">
@@ -6,7 +22,6 @@
     <input type="hidden" name="id_agenda" value="{$agenda.id}">
 	<input type="hidden" name="sts_crud" value="edit">
 	<input type="hidden" name="table" value="laporan_hasil_kegiatan">
-
 
     <!-- optional / legacy -->
     <input type="hidden" name="id" value="{$data.id|default:''}">
@@ -48,37 +63,35 @@
 								<div class="col-md-3">
 									{include file="backend/template/input_form.html"
 										label="Tanggal Kegiatan"
-										class_width="col-lg-12"
+										class_width="col-lg-12 disabled_aja"
 										type="text"
 										name="tgl_kegiatan"
 										id="tgl_kegiatan"
-										value="{tgl_indo_format($agenda.tgl_kegiatan)|default:''}"
-										readonly="true"}
+										value="{tgl_indo_format($agenda.tgl_kegiatan)|default:''}"}
 								</div>
 
 								<!-- Lokasi Agenda -->
 								<div class="col-md-4">
 									{include file="backend/template/input_form.html"
 										label="Lokasi Kegiatan"
-										class_width="col-lg-12"
+										class_width="col-lg-12 disabled_aja"
 										type="text"
 										name="lokasi_kegiatan_hasil"
 										id="lokasi_kegiatan_hasil"
-										value="{$agenda.lokasi_kegiatan|default:''}"
-										readonly="true"}
+										value="{$agenda.lokasi_kegiatan|default:''}"}
 								</div>
 
 								<!-- Perihal Agenda -->
 								<div class="col-md-5">
 									{include file="backend/template/input_form.html"
 										label="Perihal / Agenda"
-										class_width="col-lg-12"
+										class_width="col-lg-12 disabled_aja"
 										type="text"
 										name="perihal_kegiatan_hasil"
 										id="perihal_kegiatan_hasil"
-										value="{$agenda.perihal_kegiatan|default:''}"
-										readonly="true"}
+										value="{$agenda.perihal_kegiatan|default:''}"}
 								</div>
+                            </div>
 
                             <!-- ================= DATA HASIL KEGIATAN ================= -->
                             <div class="row">
