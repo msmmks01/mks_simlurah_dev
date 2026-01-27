@@ -2963,6 +2963,7 @@ class Mbackend extends CI_Model
 								a.perihal_kegiatan,
 								a.tgl_kegiatan,
 								a.lokasi_kegiatan,
+								a.status,
 
 								a.notulen_hasil_agenda,
 								a.ket_hasil_agenda,

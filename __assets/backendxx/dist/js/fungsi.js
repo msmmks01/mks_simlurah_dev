@@ -5207,19 +5207,28 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
             return "background-color:#FFDDDD;"; // warna merah terang - staff BO
           }
         }
+      
+      /* ==== DATA SURAT ==== */
       } else if (modnya == "data_surat") {
         if (row.flag_reg == "Y") {
           return "background-color:#FDF0C5;";
         }
-      }
-      if (modnya == "penilaian_rt_rw") {
+
+      /* ==== PENILAIAN RT RW ==== */
+      } else if (modnya == "penilaian_rt_rw") {
         if (row.nilai != null) {
           return "background-color: lightgreen;";
         }
-      }
-      /* ==== 🔥 TAMBAHKAN INI ==== */
-      if (modnya == "daftar_agenda_kegiatan") {
+      
+      /* ==== 🔥 Warna untuk Daftar Agenda ==== */
+      } else if (modnya == "daftar_agenda_kegiatan") {
         if (parseInt(row.status) === 1) {
+          return "background-color:#cfe2ff;color:#084298;";
+        }
+      
+      /* ==== 🔥 Warna untuk Laporan Hasil ==== */
+      } else if (modnya == "laporan_hasil_kegiatan") {
+        if (parseInt(row.ada_hasil) === 1) {
           return "background-color:#cfe2ff;color:#084298;";
         }
       }
