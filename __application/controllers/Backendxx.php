@@ -3908,45 +3908,24 @@ class Backendxx extends JINGGA_Controller
 
 					$id = $this->input->post('id');
 
-					// 1️⃣ Coba ambil dari HASIL KEGIATAN (kalau sudah ada)
-					$data = $this->db
+					// 🔥 AMBIL LANGSUNG DARI TABEL AGENDA
+					$agenda = $this->db
 						->get_where(
-							'tbl_data_hasil_agenda',
+							'tbl_data_daftar_agenda',
 							['id' => $id]
 						)
 						->row_array();
 
-					if (!empty($data)) {
-
-						// 2️⃣ Kalau hasil SUDAH ADA → ambil agenda via relasi
-						$agenda = $this->db
-							->get_where(
-								'tbl_data_daftar_agenda',
-								['id' => $data['perihal_hasil_agenda']]
-							)
-							->row_array();
-
-					} else {
-
-						// 3️⃣ Kalau hasil BELUM ADA → id = agenda_id
-						$agenda = $this->db
-							->get_where(
-								'tbl_data_daftar_agenda',
-								['id' => $id]
-							)
-							->row_array();
-
-						// 4️⃣ Siapkan data kosong untuk form hasil
-						$data = [
-							'id' => '',
-							'perihal_hasil_agenda' => $id,
-							'tgl_hasil_agenda' => '',
-							'notulen_hasil_agenda' => '',
-							'ket_hasil_agenda' => ''
-						];
-					}
+					// 🔥 DATA FORM HASIL KEGIATAN
+					$data = [
+						'id'                   => $agenda['id'],
+						'perihal_hasil_agenda' => $agenda['id'],
+						'tgl_hasil_agenda'     => isset($agenda['tgl_hasil_agenda']) ? $agenda['tgl_hasil_agenda'] : '',
+						'notulen_hasil_agenda' => isset($agenda['notulen_hasil_agenda']) ? $agenda['notulen_hasil_agenda'] : '',
+						'ket_hasil_agenda'     => isset($agenda['ket_hasil_agenda']) ? $agenda['ket_hasil_agenda'] : ''
+					];
 				}
-				
+
 				$this->nsmarty->assign('data', $data);
 				$this->nsmarty->assign('agenda', $agenda);
 

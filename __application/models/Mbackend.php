@@ -19183,6 +19183,13 @@ class Mbackend extends CI_Model
 
 			case "delete":
 
+				$id = $this->input->post('id');
+
+				if (empty($id)) {
+					return 0;
+				}
+
+				//Delete Data Penduduk
 				if ($table == "tbl_data_penduduk") {
 					$cek = $this->db->query("SELECT no_kk from tbl_data_penduduk where id='$id' ")->row('no_kk');
 					$cek2 = $this->db->query("SELECT * from tbl_data_surat where tbl_data_penduduk_id='$id' ")->num_rows();
@@ -19198,6 +19205,19 @@ class Mbackend extends CI_Model
 
 					// $pen = $this->db->query("DELETE FROM tbl_penilaian_rt_rw WHERE id='$id'");
 					$this->db->delete($table, array('penilaian_id' => $id));
+				} else if ($table == "laporan_hasil_kegiatan") {
+
+					$this->db->where('id', $id);
+					$this->db->update('tbl_data_daftar_agenda', array(
+						'tgl_hasil_agenda'      => NULL,
+						'notulen_hasil_agenda'  => NULL,
+						'ket_hasil_agenda'      => NULL,
+						'file'                  => NULL,
+						'status'                => 0
+					));
+
+
+				// ================= DELETE DEFAULT =================
 				} else {
 					if ($table == "tbl_data_surat") {
 						$kon = $this->db->query("SELECT * from tbl_data_surat where id='$id' and arsip!=''")->num_rows();

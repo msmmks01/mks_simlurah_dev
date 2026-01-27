@@ -5521,6 +5521,14 @@ function genform(type, modulnya, submodulnya, stswindow, p1, p2, p3) {
 
       if (row) {
 
+        // 🔥 KHUSUS LAPORAN HASIL KEGIATAN
+        if (
+          submodulnya === "laporan_hasil_kegiatan" &&
+          (row.id === null || row.id === "" || typeof row.id === "undefined")
+        ) {
+          row.id = row.agenda_id;
+        }
+
         if (
           submodulnya === "daftar_agenda_kegiatan" &&
           parseInt(row.status) === 1
