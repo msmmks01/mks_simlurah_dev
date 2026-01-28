@@ -3899,6 +3899,8 @@ class Backendxx extends JINGGA_Controller
 
 			// break;
 
+			
+
 			case "laporan_hasil_kegiatan":
 
 				$data   = [];
@@ -4156,6 +4158,7 @@ class Backendxx extends JINGGA_Controller
 			// 	$this->nsmarty->assign("bulan", $this->lib->fillcombo("pilih_bulan", "return", ($sts == "edit" ? $data["bulan"] : "")));
 
 			// break;
+
 			case "penilaian_rt_rw":
 
 				$data['bulan'] = '';
@@ -4781,6 +4784,16 @@ class Backendxx extends JINGGA_Controller
 				$opt .= "<option value='a.nik'>NIK</option>";
 
 				$opt .= "<option value='a.jab_rt_rw'>Jabatan</option>";
+
+				break;
+
+			case "verifikasi_lpj_rt_rw":
+
+				$opt .= "<option value='a.nama_lengkap'>Nama</option>";
+
+				$opt .= "<option value='a.nik'>NIK</option>";
+
+				// $opt .= "<option value='a.jab_rt_rw'>Jabatan</option>";
 
 				break;
 
@@ -5413,7 +5426,7 @@ class Backendxx extends JINGGA_Controller
 			// 		'default_font' => '',
 			// 	]);
 
-			// 	break;
+			// break;
 
 			case "laporan_hasil_skm":
 				$tahun = $this->input->get('tahun');

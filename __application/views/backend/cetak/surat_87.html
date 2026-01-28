@@ -204,9 +204,73 @@
 		</table>
 	</div>
 	<br>
-	{ttd_1($data,$setting)}
+	{if $data.surat.info_tambahan.nama_penjamin neq ''}
+		<div style="padding-right: 5.82mm;padding-left: 20.44mm; padding-bottom: 1mm; font-size: 16px;">
+			<table style="border-collapse: collapse;width: 100%;" border="0" cellpadding="0">
+				<tr>
+					<td valign="bottom" width="40%"><br></td>
+					<td valign="bottom" width="10%">&nbsp;</td>
+					<td valign="bottom" width="50%">
+						{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'.......'}, {$data.surat.tanggal_surat|default:'............................'}
+					</td>
+				</tr>
+				<tr>
+					<td valign="bottom"><b>Penjamin</b></td>
+					<td valign="bottom">&nbsp;</td>
+					<td valign="bottom" align="left">
 
-	
+							{if count($data.ttd)==1}
+							{$data.ttd[0]['center']}
+							{else}
+							{$data.ttd[0]['center']}<br>{$data.ttd[1]['center']}
+							{/if}
+
+					</td>
+				</tr>
+				<tr>
+					<td><br></td>
+					<td><br></td>
+					<td><br></td>
+				</tr>
+				<tr>
+					<td><br></td>
+					<td><br></td>
+					<td><br></td>
+				</tr>
+				<tr>
+					<td><br></td>
+					<td><br></td>
+					<td><br></td>
+				</tr>
+				<tr>
+					<td>
+						{$data.surat.info_tambahan.nama_penjamin|default:'.....................'}
+					</td>
+					<td>&nbsp;</td>
+					<td>
+						{$data.pemohon.nama|default:'...............................'}
+					</td>
+				</tr>
+				<tr>
+					<td><br></td>
+					<td>&nbsp;</td>
+					<td align="left">
+						Pangkat : {$data.pemohon.pangkat|default:'............................'}
+					</td>
+				</tr>
+				<tr>
+					<td><br></td>
+					<td>&nbsp;</td>
+					<td align="left">
+						NIP : {$data.pemohon.nip|default:'...............................'}
+					</td>
+				</tr>
+			</table>
+		</div>
+	{else}
+		{ttd_1($data,$setting)}
+	{/if}
+
 	{if $data.surat.info_tambahan.catatan_undangan != ''}
 	<div style=" font-size: 12px;position: absolute;left: 100;bottom: 30;">
 		<u>Catatan</u> : {$data.surat.info_tambahan.catatan_undangan|default:'.....................'}

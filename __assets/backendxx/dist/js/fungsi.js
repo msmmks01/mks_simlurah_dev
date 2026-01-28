@@ -2816,6 +2816,80 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
 
       break;
 
+    case "verifikasi_lpj_rt_rw":
+      judulnya = "";
+
+      param["bulan"] = $("#bulan").val();
+
+      urlnya = modnya;
+
+      fitnya = true;
+
+      row_number = true;
+
+      kolom[modnya] = [
+        {
+          field: "nik",
+          title: "NIK",
+          width: 200,
+          halign: "center",
+          align: "left",
+        },
+        {
+          field: "nama_lengkap",
+          title: "Nama",
+          width: 350,
+          halign: "center",
+          align: "left",
+        },
+        {
+          field: "jabatan_rt_rw",
+          title: "Jabatan",
+          width: 250,
+          halign: "center",
+          align: "left",
+        },
+        {
+          field: "rw",
+          title: "RW",
+          width: 70,
+          halign: "center",
+          align: "center",
+        },
+        {
+          field: "rt",
+          title: "RT",
+          width: 70,
+          halign: "center",
+          align: "center",
+        },
+
+        {
+          field: "nilai",
+          title: "Persentase",
+          width: 200,
+          align: "center",
+          formatter: function (v) {
+            return v + " %";
+          },
+        },
+
+        {
+          field: "ket_status_verifikasi",
+          title: "Status",
+          width: 220,
+          align: "center",
+          formatter: function (v, r) {
+            return r.status_verifikasi == 1
+              ? '<span class="text-success font-weight-bold">' + v + '</span>'
+              : '<span class="text-danger">' + v + '</span>';
+          },
+        },
+
+      ];
+
+      break;
+
     case "penilaian_rt_rw":
       judulnya = "";
 

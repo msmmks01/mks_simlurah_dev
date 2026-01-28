@@ -3008,8 +3008,6 @@ class Mbackend extends CI_Model
 									ELSE 1
 								END ASC,
 								a.id DESC
-
-							-- ORDER BY IFNULL(a.tgl_hasil_agenda, a.tgl_kegiatan) DESC
 					";
 				break;
 
@@ -4461,9 +4459,9 @@ class Mbackend extends CI_Model
 					LEFT JOIN cl_status_kawin h ON h.id = b.status_kawin
 					LEFT JOIN tbl_data_penandatanganan i ON i.id = a.id_penandatanganan
 					LEFT JOIN cl_golongan j ON i.pangkat = j.pangkat
-					WHERE a.id = '" . $p3 . "'
+					WHERE a.id = '" . $p3 . "' and if(a.cl_jenis_surat_id='87',b.no_passport<>'',b.nik<>'')
 				";
-
+				
 				$data = $this->db->query($sql)->row_array();
 
 
@@ -6167,6 +6165,8 @@ class Mbackend extends CI_Model
 
 			// break;
 			//end RT RW
+
+			
 
 			//Penilaian RT RW
 			case "penilaian_rt_rw":
