@@ -4450,7 +4450,7 @@ class Mbackend extends CI_Model
 							alamat_asal,
 							jenis_passport
 						FROM tbl_data_penduduk_asing
-					) b ON a.tbl_data_penduduk_id = b.id
+					) b ON a.tbl_data_penduduk_id = b.id AND(a.cl_jenis_surat_id <> '87' OR (a.cl_jenis_surat_id = '87' AND b.wn = '1'))
 					LEFT JOIN cl_kab_kota c ON c.id = a.cl_kab_kota_id
 					LEFT JOIN cl_kecamatan d ON d.id = a.cl_kecamatan_id
 					LEFT JOIN cl_kelurahan_desa e ON e.id = a.cl_kelurahan_desa_id
