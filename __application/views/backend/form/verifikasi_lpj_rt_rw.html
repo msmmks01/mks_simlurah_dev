@@ -1,0 +1,312 @@
+<style>
+  .disabled_aja{
+    pointer-events: none;  
+    opacity: 0.6;         
+    cursor: not-allowed; 
+  }
+  .w-80px{
+    width: 80px;
+  }
+  .border-0{
+    border:none!important;
+  }
+  .bg-transparent{
+    background: transparent;
+  }
+</style>
+<form
+  id="form_{$acak}"
+  method="post"
+  url="{$host}backoffice-simpan/verifikasi_lpj_rt_rw"
+  enctype="multipart/form-data"
+>
+  <input type="hidden" name="id" value="{$data.penilaian_id|default:''}" />
+  <input type="hidden" name="editstatus" value="{$sts|default:'add'}" />
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">Form Isian</h3>
+        </div>
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row" style="margin-bottom: 10px">
+                <div class="col-md-4">
+                  {include file="backend/template/input_form.html" required="true" label="Kelurahan" class_width="col-lg-12"
+                  type="baca_aja" name="cl_kelurahan_desa_id" id="cl_kelurahan_desa_id" value="{$kel.nama|default:''}"}
+                </div>
+                <div class="col-md-4">
+                  {include file="backend/template/input_form.html" label="NIK" required="true" class_width="col-lg-12 disabled_aja" type="select2" name="tbl_data_rt_rw_id" id="tbl_data_rt_rw_id"
+                  option="{$data_rt_rw_id|default:''}"}
+                </div>
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html" required="true" label="Periode Penilaian" 
+                  class_width="col-lg-12 disabled_aja" type="select"  name="bulan" id="bulan" 
+                  option={$bulan|default:''} }
+                </div>
+                <div class="col-md-2">
+                  {include file="backend/template/input_form.html" required="true" label="Tanggal
+                  Penilaian" class_width="col-lg-12" type="date" placeholder="dd-mm-yyyy" limit="true" startDate="{$startDate}" endDate="{$endDate}" name="tgl_surat" id="tgl_surat"
+                  value="{$data.tgl_surat|default:''}"}
+                </div>
+              </div>
+
+              <div class="row" style="margin-bottom: 10px">
+              <div class="row">
+                <div class='col-md-12'>
+									<fieldset class='form-group'>
+										<legend
+											style='border-color:#E17A35 !important;border-width:3px !important;padding:5px;color:#E17A35;font-weight:bold;font-size:16px;margin-bottom:5px;margin-top:15px;'>
+											INFORMASI VERIFIKASI LPJ RT RW</legend>
+									</fieldset>
+								</div>
+                <style>
+                  .row-hover:hover{
+                    background-color: #7fffd46e;
+                  }
+                </style>
+                <table cellspacing="0" cellpadding="10" border="0" style="border-collapse: collapse;width:100%;">
+                  <tr>
+                    <td style="border:1px solid #000" align="center" width="40"><b>NO</b></td>
+                    <td style="border:1px solid #000" align="center"><b>INDIKATOR PENILAIAN</b></td>
+                    <td style="border:1px solid #000" align="center" width="120"><b>Vol &amp; Sat</b></td>
+                    <td style="border:1px solid #000" align="center" width="80"><b>ACTION</b></td>
+                  </tr>
+
+                  {assign var=no value=1}
+                  {foreach from=$kategori_penilaian item=row}
+                  <tr class="row-hover">
+                    <td style="border:1px solid #000" align="center">
+                      {$no}
+                      <input type="hidden" name="kategori_penilaian_id[]" value="{$row.id}">
+                    </td>
+                    <td style="border:1px solid #000">
+                      {$row.uraian}
+                    </td>
+                    <td style="border:1px solid #000" align="center">
+                      {$row.satuan|default:'-'}
+                    </td>
+                    <td style="border:1px solid #000" align="center">
+                      <input type="checkbox"
+                            class="cek-verifikasi"
+                            name="verifikasi[]"
+                            value="{$row.id}"
+                            {if $row.verifikasi eq 1}checked{/if}>
+                    </td>
+                  </tr>
+                  {assign var=no value=$no+1}
+                  {/foreach}
+                </table>
+              </div>
+
+              <div class="row" style="margin-top:15px">
+                <div class="col-md-12">
+                  <label style="font-weight:bold;cursor:pointer;">
+                    <input type="checkbox" id="cek_all_verifikasi">
+                    All ceklis verifikasi
+                  </label>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <br/>
+                  {include file="backend/template/button_save.html" text="Simpan" id_na="save" style_btn="btn-success" btn_goyz="false"} {include
+                  file="backend/template/button_save.html" text="Kembali" click="$('#grid_nya_{$mod}').show();$('#detil_nya_{$mod}').hide();" id_na="cancel" style_btn="btn-danger" btn_goyz="true"}
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<script>
+
+  $('.angka').autoNumeric('init', {
+		aSep: '.',
+		aDec: ',',
+		mDec: '0'
+	});
+
+var dstatus = '{$data.sts}';
+
+  $('#nilai_kategori_1,#nilai_kategori_2').on('change', function(e) {
+      e.preventDefault();
+      var nilai_kategori_1 = $("#nilai_kategori_1").find(":selected").attr("value");
+      var nilai_kategori_2 = $("#nilai_kategori_2").find(":selected").attr("value");
+      if(nilai_kategori_1 === null || nilai_kategori_1 == undefined){
+          nilai_kategori_1 = 0;
+      }
+      if(nilai_kategori_2 === null || nilai_kategori_2 == undefined){
+          nilai_kategori_2 = 0;
+      }
+      document.getElementById("jml_max1").value = parseFloat(nilai_kategori_1)+parseFloat(nilai_kategori_2);
+  });
+
+
+
+  var rulesnya = {
+    cl_kelurahan_desa_id: "required",
+    nik: "required",
+    tgl_surat: "required",
+    bulan: "required",
+  };
+
+  var messagesnya = {
+    cl_kelurahan_desa_id: "<i style='color:red'>Harus Diisi</i>",
+    nik: "<i style='color:red'>Harus Diisi</i>",
+    tgl_surat: "<i style='color:red'>Harus Diisi</i>",
+    bulan: "<i style='color:red'>Harus Diisi</i>",
+  };
+
+
+
+    $("#form_{$acak}").validate({
+      rules: rulesnya,
+      messages: messagesnya,
+      submitHandler: function (form) {
+        $.LoadingOverlay("show");
+        submit_form("form_{$acak}", function (r) {
+          if (r == 1) {
+            $.messager.alert(nama_apps, "Data Tersimpan", "info");
+            $("#cancel_{$acak}").trigger("click");
+            $("#grid_penilaian_rt_rw").datagrid("reload");
+          } else {
+            $.messager.alert(
+              nama_apps,
+              "Proses Simpan Data Gagal " + r,
+              "warning"
+            );
+          }
+          $.LoadingOverlay("hide", true);
+        });
+        //*/
+      },
+      errorPlacement: function (error, element) {
+        var name = element.attr("name");
+        var errorSelector = '.validation_error_message[for="' + name + '"]';
+        var $element = $(errorSelector);
+        if ($element.length) {
+          $(errorSelector).html(error.html());
+        } else {
+          error.insertAfter(element);
+        }
+      },
+    });
+
+  $('.btn-nilai-max').click(function(e) {
+    $(this).closest('tr').find('.capaian').val($(this).closest('tr').find('.target').val());
+    $(this).closest('tr').find('.nilai').val(100).trigger('change');
+    $(this).closest('tr').find('.nilai').removeAttr('style');
+  });
+
+  function hitungNilai(index) {
+    var target = parseFloat($('#target' + index).val());
+    var capaian = parseFloat($('#capaian' + index).val());
+    var nilai = $('#nilai' + index);
+    
+    if (!isNaN(target) && target > 0) {
+      $('#capaian' + index).prop('readonly',false);
+    }else{
+      $('#capaian' + index).prop('readonly',true).val('');
+    }
+    
+
+    if (!isNaN(target) && !isNaN(capaian) && target > 0) {
+      var hitung = Math.round((capaian / target) * 100 * 100) / 100;
+      if (hitung > 0 && hitung < 60) hitung = 60;
+      if (hitung > 100) hitung = 100;
+      nilai.val(hitung);
+    } else {
+      nilai.val('');
+    }
+  }
+
+  function angka(evt) {
+    const charCode = evt.which ? evt.which : evt.keyCode;
+    // Angka 0–9 => charCode 48–57
+    if (charCode < 48 || charCode > 57) {
+      return false; // Tolak selain angka
+    }
+    return true;
+  }
+
+  function decimal_only(event) {
+    $(event.target).removeAttr('style');
+    let inputValue = event.target.value;
+
+    // Remove any non-numeric characters except for decimal point
+    inputValue = inputValue.replace(/[^0-9.]/g, "");
+
+    // If the input starts with a zero and is not just "0" or "0."
+    if (inputValue.charAt(0) === '0' && inputValue.length > 1 && inputValue.charAt(1) !== '.') {
+        inputValue = inputValue.substring(1); // Remove leading zero
+    }
+
+    // Check if there is a decimal point
+    if (inputValue.indexOf('.') !== -1) {
+        // Allow only two decimal places
+        let parts = inputValue.split('.');
+        parts[1] = parts[1].substring(0, 2); // Limit to two decimals
+        inputValue = parts.join('.');
+    }
+
+    // Set the formatted value back to the input field
+    event.target.value = inputValue;
+  }
+
+  function min_max_nilai(e) {
+    if (((e.target.value > 0 && e.target.value < 60) || e.target.value > 100) && e.target.value != '') {
+      $(e.target).val('').focus();
+      $(e.target).css({
+        'color': 'white',
+        'background-color': '#f00'
+      });
+      $.messager.alert('Peringatan',"Nilai ("+$(e.target).data('text')+") tidak sesuai.<br>Min 60. Max 100", 'warning');
+    }    
+  }
+
+  function hapus_target_capaian(index) {
+    $('#target' + index).val('');
+    $('#capaian' + index).val('');
+  }
+
+  //Fungsi js untuk all verifikasi 
+  $('#cek_all_verifikasi').on('change', function () {
+    $('.cek-verifikasi').prop('checked', this.checked);
+  });
+
+  $('.btn-salin').click(function(e) {
+    var bulan_lalu = $('#bulan').val();
+    var rt_rw_id = $('#tbl_data_rt_rw_id').val();
+    $.ajax({
+      url:"{$host}get-data-penilaian-rt-rw-id",
+      data:{
+        bulan_lalu,rt_rw_id
+      },
+      type:'post',
+      dataType:'json',
+      success:function(data){
+        if (data.status==false) {
+          $.messager.alert('Peringatan',data.message, 'warning');
+          return;
+        }
+        $.each(data.data,function(i,v) {
+          $('#target'+v.kategori_penilaian_rt_rw_id).val(v.target==0?'':(v.target*1));
+          $('#capaian'+v.kategori_penilaian_rt_rw_id).val(v.capaian==0?'':(v.capaian*1));
+          $('#nilai'+v.kategori_penilaian_rt_rw_id).val(v.nilai==0?'':(v.nilai*1));
+        });
+        $.messager.alert('Peringatan',data.message, 'info');
+      },
+      error:function(xhr,status,error){
+        $.messager.alert('Peringatan',error, 'warning');
+      }
+    });
+  });
+</script>

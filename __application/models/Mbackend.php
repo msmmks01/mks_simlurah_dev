@@ -4459,7 +4459,7 @@ class Mbackend extends CI_Model
 					LEFT JOIN cl_status_kawin h ON h.id = b.status_kawin
 					LEFT JOIN tbl_data_penandatanganan i ON i.id = a.id_penandatanganan
 					LEFT JOIN cl_golongan j ON i.pangkat = j.pangkat
-					WHERE a.id = '" . $p3 . "' and if(a.cl_jenis_surat_id='87',b.no_passport<>'',b.nik<>'')
+					WHERE a.id = '" . $p3 . "'
 				";
 				
 				$data = $this->db->query($sql)->row_array();
