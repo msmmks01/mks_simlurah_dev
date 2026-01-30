@@ -490,8 +490,8 @@ $mod eq 'data_surat'}
           
           {if $button_verifikasi_lpj|default:'' eq 'true'} &nbsp;
           <a href="javascript:void(0)" title="Verifikasi" class="btn-flat btn-warning btn-sm"
-            onclick="button_verifikasi_lpj('{$mod}')">
-            <i class="fa fa-edit"></i> Verifikasi
+              onclick="button_verifikasi_lpj('{$mod}')">
+              <i class="fa fa-edit"></i> Verifikasi
           </a>
           {/if}
 
@@ -2162,46 +2162,47 @@ $mod eq 'data_surat'}
 
   $(function () {
 
-  $('.tab-status').on('click', function () {
-    $('.tab-status').removeClass('active');
-    $(this).addClass('active');
+    $('.tab-status').on('click', function () {
+      $('.tab-status').removeClass('active');
+      $(this).addClass('active');
 
-    const status = $(this).data('status');
+      const status = $(this).data('status');
 
-    // set status tab
-    $('#status_tab_{$acak}').val(status);
+      // set status tab
+      $('#status_tab_{$acak}').val(status);
 
-    // RESET FILTER (INI KUNCI FIX)
-    $('#key_{$acak}').val('');
-    $('#kat_{$acak}').prop('selectedIndex', 0);
+      // RESET FILTER (INI KUNCI FIX)
+      $('#key_{$acak}').val('');
+      $('#kat_{$acak}').prop('selectedIndex', 0);
 
-    // reload data sesuai tab
-    cariData('{$mod}', '', '{$acak}');
+      // reload data sesuai tab
+      cariData('{$mod}', '', '{$acak}');
+    });
+
   });
 
-});
+ function button_verifikasi_lpj(mod) {
 
-  function button_verifikasi_lpj(mod) {
-      var row = $('#dg').datagrid('getSelected');
+    var $grid = $('#grid_verifikasi_lpj_rt_rw');
 
-      if (!row) {
-          $.messager.alert('Peringatan', 'Silakan pilih data terlebih dahulu');
-          return;
-      }
+    if ($grid.length === 0) {
+        console.error('Grid verifikasi LPJ RT RW tidak ditemukan');
+        return;
+    }
 
-      // pastikan ID LPJ / RT RW ada
-      if (!row.id_lpj_rt_rw) {
-          $.messager.alert('Peringatan', 'Data LPJ tidak valid');
-          return;
-      }
+    var row = $grid.datagrid('getSelected');
+    console.log('ROW TERPILIH:', row);
 
-      genform(
-          'verifikasi',
-          mod,
-          mod,
-          row.id_lpj_rt_rw // <- kirim ID ke form
-      );
-  }
+    if (!row) {
+        $.messager.alert('Peringatan', 'Silakan pilih data terlebih dahulu');
+        return;
+    }
+
+    // pastikan kirim ID LPJ
+    genform('edit', mod, mod, row.id);
+}
+
+
 
 </script>
 

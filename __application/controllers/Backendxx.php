@@ -262,6 +262,7 @@ class Backendxx extends JINGGA_Controller
 
 				$this->nsmarty->assign("kelurahan", $this->lib->fillcombo("kelurahan_report", "return", ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0" ? $this->auth["cl_kelurahan_desa_id"] : ""), ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0" ? $this->auth["cl_kelurahan_desa_id"] : "")));
 				break;
+			
 			case "penilaian_rt_rw":
 
 				$this->nsmarty->assign("kelurahan", $this->lib->fillcombo("kelurahan_report", "return", ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0" ? $this->auth["cl_kelurahan_desa_id"] : ""), ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0" ? $this->auth["cl_kelurahan_desa_id"] : "")));
@@ -272,6 +273,7 @@ class Backendxx extends JINGGA_Controller
 
 				$this->nsmarty->assign("nik_pembuat", $this->lib->fillcombo("pilih_ttd_lain_pembuat", "return", ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0" ? $this->auth["cl_kelurahan_desa_id"] : ""), ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0" ? $this->auth["cl_kelurahan_desa_id"] : "")));
 				break;
+
 			// case "usulan_penilaian_rt_rw":
 
 			// 	$this->nsmarty->assign("kelurahan", $this->lib->fillcombo("kelurahan_report", "return", ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0" ? $this->auth["cl_kelurahan_desa_id"] : ""), ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0" ? $this->auth["cl_kelurahan_desa_id"] : "")));
@@ -3898,7 +3900,6 @@ class Backendxx extends JINGGA_Controller
 			// 	$this->nsmarty->assign("perihal_hasil_agenda", $this->lib->fillcombo("perihal_hasil_agenda", "return"));
 
 			// break;
-
 			case "laporan_hasil_kegiatan":
 
 				$data   = [];
@@ -4157,6 +4158,39 @@ class Backendxx extends JINGGA_Controller
 
 			// break;
 
+			case "verifikasi_lpj_rt_rw":
+
+				$rt_rw_id = $this->input->post('rt_rw_id');
+				$bulan    = $this->input->post('bulan');
+
+				/* DATA RT RW */
+				$rt_rw = $this->db->get_where('tbl_data_rt_rw', [
+					'id' => $rt_rw_id
+				])->row_array();
+
+				/* DATA LPJ */
+				$lpj = $this->db->get_where('tbl_lpj_rtrw', [
+					'id_indikator' => $id_indikator,
+					'bulan'    => $bulan
+				])->row_array();
+
+				/* INDIKATOR VERIFIKASI */
+				$indikator = $this->db->query("
+					SELECT 
+						id,
+						kategori AS nama_indikator,
+						uraian
+					FROM tbl_kategori_penilaian_rt_rw
+					ORDER BY id
+				")->result_array();
+
+				$this->nsmarty->assign('rt_rw', $rt_rw);
+				$this->nsmarty->assign('lpj', $lpj);
+				$this->nsmarty->assign('bulan', $bulan);
+				$this->nsmarty->assign('indikator', $indikator);
+
+			break;
+
 			case "penilaian_rt_rw":
 
 				$data['bulan'] = '';
@@ -4256,7 +4290,6 @@ class Backendxx extends JINGGA_Controller
 				$this->nsmarty->assign('kel', $kel);
 
 			break;		
-
 			case "data_kunjungan_rumah":
 
 				if ($sts == 'edit') {
@@ -4826,7 +4859,7 @@ class Backendxx extends JINGGA_Controller
 
 				break;
 
-				
+
 
 			case "penilaian_rt_rw":
 
@@ -4908,8 +4941,6 @@ class Backendxx extends JINGGA_Controller
 
 			case "data_kunjungan_rumah":
 
-
-
 				$opt .= "<option value='A.nama_kk'>Nama Kepala Keluarga</option>";
 
 				$opt .= "<option value='A.no_kk'>No. Kepala Keluarga</option>";
@@ -4917,6 +4948,16 @@ class Backendxx extends JINGGA_Controller
 				$opt .= "<option value='A.rt'>RT</option>";
 
 				$opt .= "<option value='A.rw'>RW</option>";
+
+				break;
+
+			case "verifikasi_lpj_rt_rw":
+
+				$opt .= "<option value='a.nama_lengkap'>Nama</option>";
+
+				$opt .= "<option value='a.nik'>NIK</option>";
+
+				// $opt .= "<option value='a.jab_rt_rw'>Jabatan</option>";
 
 				break;
 

@@ -13117,28 +13117,28 @@ class Mbackend extends CI_Model
 
 						case "80":
 
+							$array['hubungan_dg_alm'] = $data['hubungan_dg_alm'];
 							$array['nama_almarhum'] = $data['nama_almarhum'];
-
 							$array['jenis_kelamin_alm'] = $data['jenis_kelamin_alm'];
-
+							$array['jenis_kelamin_alm'] = $data['jenis_kelamin_alm'];
 							$array['alamat_terakhir'] = $data['alamat_terakhir'];
-
+							$array['alamat_terakhir'] = $data['alamat_terakhir'];
 							$array['tgl_meninggal'] = $data['tgl_meninggal'];
-
+							$array['tgl_meninggal'] = $data['tgl_meninggal'];
 							$array['dikebumikan_di_pernyataan'] = $data['dikebumikan_di_pernyataan'];
-
+							$array['dikebumikan_di_pernyataan'] = $data['dikebumikan_di_pernyataan'];
 							$array['rt_alm'] = $data['rt_alm'];
-
+							$array['rt_alm'] = $data['rt_alm'];
 							$array['kota_meninggal'] = $data['kota_meninggal'];
-
+							$array['kota_meninggal'] = $data['kota_meninggal'];
 							$array['no_pengantar_rt_alm'] = $data['no_pengantar_rt_alm'];
-
+							$array['no_pengantar_rt_alm'] = $data['no_pengantar_rt_alm'];
 							$array['tgl_pengantar_rt_alm'] = $data['tgl_pengantar_rt_alm'];
-
+							$array['tgl_pengantar_rt_alm'] = $data['tgl_pengantar_rt_alm'];
 							$array['no_reg_lurah'] = $data['no_reg_lurah'];
-
+							$array['no_reg_lurah'] = $data['no_reg_lurah'];
 							$array['tgl_register'] = $data['tgl_register'];
-
+							$array['tgl_register'] = $data['tgl_register'];
 							$array['ceklis_ttd_pejabat'] = isset($data['ceklis_ttd_pejabat']);
 
 							$array['data_saksi'] = [];
