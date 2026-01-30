@@ -71,6 +71,9 @@ var=button_edit value='true'}
 {if $mod eq 'verifikasi_lpj_rt_rw'} 
 {assign var=button_cetak_staff value="true"} 
 {/if}
+{if $mod eq 'verifikasi_lpj_rt_rw'} 
+{assign var=button_verifikasi_lpj value="true"} 
+{/if}
 {if $mod eq 'penilaian_rt_rw'} 
 {assign var=button_cetak_staff value="true"} 
 {/if}
@@ -485,9 +488,9 @@ $mod eq 'data_surat'}
       <div class="row">
         <div class="col-lg-12 text-right pb-3">
           
-          {if $button_edit|default:'' eq 'true'} &nbsp;
-          <a href="javascript:void(0)" title="Edit" class="btn-flat btn-warning btn-sm"
-            onClick="genform('edit', '{$mod}','{$mod}');">
+          {if $button_verifikasi_lpj|default:'' eq 'true'} &nbsp;
+          <a href="javascript:void(0)" title="Verifikasi" class="btn-flat btn-warning btn-sm"
+            onclick="button_verifikasi_lpj('{$mod}')">
             <i class="fa fa-edit"></i> Verifikasi
           </a>
           {/if}
@@ -2178,6 +2181,27 @@ $mod eq 'data_surat'}
 
 });
 
+  function button_verifikasi_lpj(mod) {
+      var row = $('#dg').datagrid('getSelected');
+
+      if (!row) {
+          $.messager.alert('Peringatan', 'Silakan pilih data terlebih dahulu');
+          return;
+      }
+
+      // pastikan ID LPJ / RT RW ada
+      if (!row.id_lpj_rt_rw) {
+          $.messager.alert('Peringatan', 'Data LPJ tidak valid');
+          return;
+      }
+
+      genform(
+          'verifikasi',
+          mod,
+          mod,
+          row.id_lpj_rt_rw // <- kirim ID ke form
+      );
+  }
 
 </script>
 

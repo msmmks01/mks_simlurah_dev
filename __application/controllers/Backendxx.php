@@ -3899,8 +3899,6 @@ class Backendxx extends JINGGA_Controller
 
 			// break;
 
-			
-
 			case "laporan_hasil_kegiatan":
 
 				$data   = [];
@@ -4162,61 +4160,102 @@ class Backendxx extends JINGGA_Controller
 			case "penilaian_rt_rw":
 
 				$data['bulan'] = '';
-				$data['nik'] = '';
+				$data['nik']   = '';
 
+				$rt_rw_id = $this->input->post('rt_rw_id');
+				$bulan    = $this->input->post('bulan');
+				$id       = $this->input->post('id');
+
+				/* ================= HEADER ================= */
 				if ($sts == 'edit') {
-					if ($this->input->post('rt_rw_id') != '' && $this->input->post('id') == '') {
-						$data = $this->db->select("id tbl_data_rt_rw_id,nik,nama_lengkap")->where([
-							'id' => $this->input->post('rt_rw_id'),
-						])->get('tbl_data_rt_rw')->row_array();
-						$data['tgl_surat'] = '';
-						$bln = $this->input->post('bulan');
 
-						// $this->nsmarty->assign("bulan", "<option value=\"$data[bulan]\">" . getBulan($data['bulan']) . "</option>");
-						// $this->nsmarty->assign("bulan", $this->lib->fillcombo("pilih_bulan", "return", ""));
-						$data['penilaian_id'] = '';
-						$sts = 'add';
-						$data['sts'] = 'add';
-						$this->nsmarty->assign("bulan", $this->lib->fillcombo("pilih_bulan", "return", ($sts == "add" ? $bln : "")));
+					// ambil data RT/RW
+					$data_rt = $this->db->get_where('tbl_data_rt_rw', [
+						'id' => $rt_rw_id
+					])->row_array();
+
+					$data['tbl_data_rt_rw_id'] = $data_rt['id'];
+					$data['nik']               = $data_rt['nik'];
+					$data['nama_lengkap']      = $data_rt['nama_lengkap'];
+
+					// cari penilaian sesuai bulan
+					$penilaian = $this->db->get_where('tbl_penilaian_rt_rw', [
+						'tbl_data_rt_rw_id' => $rt_rw_id,
+						'bulan'             => $bulan
+					])->row_array();
+
+					if ($penilaian) {
+						// ==== EDIT ====
+						$data['penilaian_id'] = $penilaian['penilaian_id'];
+						$data['tgl_surat']    = date('d-m-Y', strtotime($penilaian['tgl_surat']));
+						$sts                  = 'edit';
+						$data['sts']          = 'edit';
 					} else {
-						$data = $this->db->get_where('tbl_penilaian_rt_rw', array('penilaian_id' => $this->input->post('id')))->row_array();
-						$data['tgl_surat'] = date('d-m-Y', strtotime($data['tgl_surat']));
-						$this->nsmarty->assign("bulan", "<option value=\"$data[bulan]\">" . getBulan($data['bulan']) . "</option>");
-						$sts = 'edit';
-						$data['sts'] = 'edit';
+						// ==== ADD (bulan baru) ====
+						$data['penilaian_id'] = '';
+						$data['tgl_surat']    = '';
+						$sts                  = 'add';
+						$data['sts']          = 'add';
 					}
-					$this->nsmarty->assign('data', $data);
+
+					$this->nsmarty->assign(
+						"bulan",
+						$this->lib->fillcombo("pilih_bulan", "return", $bulan)
+					);
+
+					$this->nsmarty->assign("data", $data);
+					$this->nsmarty->assign(
+						"data_rt_rw_id",
+						"<option value=\"$data[tbl_data_rt_rw_id]\">$data[nik]-$data[nama_lengkap]</option>"
+					);
 				}
 
-
+				/* ================= DETAIL PENILAIAN ================= */
 				if ($sts == 'edit') {
-					if ($this->input->post('rt_rw_id') != '' && $this->input->post('id') != '') {
-						$this->nsmarty->assign("data_rt_rw_id", "<option value=\"$data[tbl_data_rt_rw_id]\">$data[nik]-$data[nama_lengkap]</option>");
 
-						$kategori_penilaian = $this->db->query("SELECT a.id,a.kategori,a.uraian,a.satuan,ifnull(b.target,'')target,ifnull(b.capaian,'')capaian,ifnull(b.nilai,'')nilai 
-									from tbl_kategori_penilaian_rt_rw a
-									left join(
-									select penilaian_id,kategori_penilaian_rt_rw_id,satuan,target,capaian,nilai from tbl_penilaian_rt_rw where penilaian_id='$data[penilaian_id]'
-									)b on a.id=b.kategori_penilaian_rt_rw_id  
-									group by a.id")->result_array();
-						$sts = 'edit';
-						$data['sts'] = 'edit';
-					}
+					$kategori_penilaian = $this->db->query("
+						SELECT 
+							a.id,
+							a.kategori,
+							a.uraian,
+							a.satuan,
+							IFNULL(b.target,'')  AS target,
+							IFNULL(b.capaian,'') AS capaian,
+							IFNULL(b.nilai,'')   AS nilai
+						FROM tbl_kategori_penilaian_rt_rw a
+						LEFT JOIN tbl_penilaian_rt_rw b 
+							ON a.id = b.kategori_penilaian_rt_rw_id
+							AND b.tbl_data_rt_rw_id = '$rt_rw_id'
+							AND b.bulan = '$bulan'
+						ORDER BY a.id
+					")->result_array();
+
 				} else {
-					// var_dump($sts);
-					// exit();
-					$kategori_penilaian = $this->db->query("SELECT a.id,a.kategori,a.uraian,a.satuan,('')target,('')capaian,(0)nilai 
-									from tbl_kategori_penilaian_rt_rw a")->result_array();
-					// $this->nsmarty->assign("bulan", $this->lib->fillcombo("pilih_bulan", "return", ($sts == "edit" ? $data["bulan"] : "")));
-					$this->nsmarty->assign("data_rt_rw_id", "<option value=\"$data[tbl_data_rt_rw_id]\">$data[nik]-$data[nama_lengkap]</option>");
+
+					// ADD (nilai kosong)
+					$kategori_penilaian = $this->db->query("
+						SELECT 
+							id,
+							kategori,
+							uraian,
+							satuan,
+							'' AS target,
+							'' AS capaian,
+							0  AS nilai
+						FROM tbl_kategori_penilaian_rt_rw
+						ORDER BY id
+					")->result_array();
 				}
 
 				$this->nsmarty->assign("kategori_penilaian", $kategori_penilaian);
-				$kel = $this->db->get_where('cl_kelurahan_desa', array('id' => $this->auth['cl_kelurahan_desa_id']))->row_array();
+
+				$kel = $this->db->get_where('cl_kelurahan_desa', [
+					'id' => $this->auth['cl_kelurahan_desa_id']
+				])->row_array();
+
 				$this->nsmarty->assign('kel', $kel);
 
-
-				break;
+			break;		
 
 			case "data_kunjungan_rumah":
 
@@ -4787,15 +4826,7 @@ class Backendxx extends JINGGA_Controller
 
 				break;
 
-			case "verifikasi_lpj_rt_rw":
-
-				$opt .= "<option value='a.nama_lengkap'>Nama</option>";
-
-				$opt .= "<option value='a.nik'>NIK</option>";
-
-				// $opt .= "<option value='a.jab_rt_rw'>Jabatan</option>";
-
-				break;
+				
 
 			case "penilaian_rt_rw":
 

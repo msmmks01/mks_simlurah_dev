@@ -14,14 +14,14 @@
     background: transparent;
   }
 </style>
+
 <form
   id="form_{$acak}"
   method="post"
   url="{$host}backoffice-simpan/verifikasi_lpj_rt_rw"
   enctype="multipart/form-data"
 >
-  <input type="hidden" name="id" value="{$data.penilaian_id|default:''}" />
-  <input type="hidden" name="editstatus" value="{$sts|default:'add'}" />
+  <input type="hidden" name="button_verifikasi_lpj" value="{$sts|default:'add'}" />
 
   <div class="row">
     <div class="col-md-12">
@@ -93,7 +93,7 @@
                             class="cek-verifikasi"
                             name="verifikasi[]"
                             value="{$row.id}"
-                            {if $row.verifikasi eq 1}checked{/if}>
+                            {if $row.status_verifikasi eq 1}checked{/if}>
                     </td>
                   </tr>
                   {assign var=no value=$no+1}
