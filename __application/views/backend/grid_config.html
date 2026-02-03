@@ -68,12 +68,12 @@ var=button_edit value='true'}
 {if $mod eq 'data_pegawai_kel_kec'} 
 {assign var=button_cetak_staff value="true"} 
 {/if}
-{if $mod eq 'verifikasi_lpj_rt_rw'} 
+<!-- {if $mod eq 'verifikasi_lpj_rt_rw'} 
 {assign var=button_cetak_staff value="true"} 
 {/if}
 {if $mod eq 'verifikasi_lpj_rt_rw'} 
 {assign var=button_verifikasi_lpj value="true"} 
-{/if}
+{/if} -->
 {if $mod eq 'penilaian_rt_rw'} 
 {assign var=button_cetak_staff value="true"} 
 {/if}
@@ -331,16 +331,13 @@ $mod eq 'data_surat'}
         </div>
       </div>
 
-      {elseif $mod eq 'data_rt_rw'}
-      <!-- ===== BAR ATAS ===== -->
-      <div class="row align-items-center" style="margin-bottom:10px;">
-
-      <!-- TAB STATUS (KIRI) -->
-      <div class="col-lg-3">
+     {elseif $mod eq 'data_rt_rw'}
+    <!-- ===== LAYER 1 : TAB STATUS ===== -->
+    <div class="row mb-2">
+      <div class="col-lg-12">
         <div class="d-flex align-items-center gap-2" id="tab_status_rt_rw">
-          
           <button type="button"
-            class="btn btn-success btn-sm tab-status active me-2"
+            class="btn btn-success btn-sm tab-status active"
             data-status="aktif">
             AKTIF
           </button>
@@ -352,81 +349,107 @@ $mod eq 'data_surat'}
           </button>
         </div>
 
-        <!-- SATU hidden saja (INI PENTING) -->
         <input type="hidden" name="status_tab" id="status_tab_{$acak}" value="aktif">
       </div>
+    </div>
 
-      <!-- FILTER (TENGAH) -->
-      <div class="col-lg-5">
-        <div class="d-flex align-items-center justify-content-center gap-2">
+    <!-- ===== LAYER 2 : FILTER ===== -->
+    <div class="row align-items-center mb-2">
 
-          <label class="mb-0" style="width:80px;">Kolom</label>
+      <!-- FILTER KOLOM + KEYWORD (KIRI) -->
+      <div class="col-lg-6">
+      <div class="d-flex align-items-center gap-2">
+        <label class="mb-0" style="width:80px;">Kolom</label>
 
-          <select
-            name="kat_{$acak}"
-            id="kat_{$acak}"
-            class="form-control form-control-sm"
-            style="width:30%;">
-            {$data_select|default:''}
-          </select>
+        <select
+          name="kat_{$acak}"
+          id="kat_{$acak}"
+          class="form-control form-control-sm"
+          style="width:30%;">
+          {$data_select|default:''}
+        </select>
 
-          <input
-            type="text"
-            name="key_{$acak}"
-            id="key_{$acak}"
-            class="form-control form-control-sm"
-            style="width:40%;"
-            onkeypress="return(handleKeyPress(event))"/>
+        <input
+          type="text"
+          name="key_{$acak}"
+          id="key_{$acak}"
+          class="form-control form-control-sm"
+          style="width:35%;"
+          onkeypress="return(handleKeyPress(event))"/>
 
-          <button
-            type="button"
-            class="btn btn-default btn-sm"
-            onclick="cariData('{$mod}', '', '{$acak}');">
-            <i class="fa fa-search"></i>
+        <button
+          type="button"
+          class="btn btn-default btn-sm"
+          onclick="cariData('{$mod}', '', '{$acak}');">
+          <i class="fa fa-search"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- FILTER KELURAHAN + CARI (TENGAH) -->
+    {if in_array($cl_user_group_id,[3])}
+    <div class="col-lg-4">
+      <div class="d-flex align-items-center gap-2">
+        <select
+          name="kelurahan_{$acak}"
+          id="kelurahan_{$acak}"
+          class="form-control form-control-sm">
+          <option value="">- Semua Kelurahan -</option>
+          {$kelurahan|default:''}
+        </select>
+
+        <button
+          type="button"
+          class="btn btn-default btn-sm"
+          onclick="cariData('{$mod}', '', '{$acak}');">
+          <i class="fa fa-search"></i>
+        </button>
+        </div>
+      </div>
+      {/if}
+    </div>
+
+    <!-- ===== LAYER 3 : TOMBOL AKSI (KANAN, DI ATAS TABEL) ===== -->
+    <div class="row mb-2">
+      <div class="col-lg-12 text-right">
+
+        {if $button_cetak_rt_rw|default:'' eq 'true'}
+          <button class="btn btn-info btn-sm"
+            onclick="kumpulAction('export_laporan_rt_rw','{$acak}');">
+            <i class="fa fa-print"></i> Cetak Pdf
           </button>
+        {/if}
 
-        </div>
+        {if $button_cetak_rt_rw_excel eq 'true'}
+          <button class="btn btn-success btn-sm"
+            onclick="kumpulAction('export_laporan_rt_rw_excel','{$acak}');">
+            <i class="fa fa-file-excel-o"></i> Cetak Excel
+          </button>
+        {/if}
+
+        {if $button_add|default:'' eq 'true'}
+          <button class="btn btn-success btn-sm"
+            onclick="genform('add','{$mod}','{$mod}');">
+            <i class="fa fa-plus"></i> Tambah
+          </button>
+        {/if}
+
+        {if $button_edit|default:'' eq 'true'}
+          <button class="btn btn-warning btn-sm"
+            onclick="genform('edit','{$mod}','{$mod}');">
+            <i class="fa fa-edit"></i> Edit
+          </button>
+        {/if}
+
+        {if $button_delete|default:'' eq 'true'}
+          <button class="btn btn-danger btn-sm"
+            onclick="genform('delete','{$mod}','{$mod}');">
+            <i class="fa fa-trash"></i> Hapus
+          </button>
+        {/if}
+
       </div>
-
-        <!-- TOMBOL AKSI (KANAN) -->
-        <div class="col-lg-4 text-right">
-          {if $button_add|default:'' eq 'true'}
-            <button class="btn btn-success btn-sm"
-              onclick="genform('add','{$mod}','{$mod}');">
-              <i class="fa fa-plus"></i> Tambah
-            </button>
-          {/if}
-
-          {if $button_edit|default:'' eq 'true'}
-            <button class="btn btn-warning btn-sm"
-              onclick="genform('edit','{$mod}','{$mod}');">
-              <i class="fa fa-edit"></i> Edit
-            </button>
-          {/if}
-
-          {if $button_delete|default:'' eq 'true'}
-            <button class="btn btn-danger btn-sm"
-              onclick="genform('delete','{$mod}','{$mod}');">
-              <i class="fa fa-trash"></i> Hapus
-            </button>
-          {/if}
-
-          {if $button_cetak_rt_rw|default:'' eq 'true'}
-            <button class="btn btn-info btn-sm"
-              onclick="kumpulAction('export_laporan_rt_rw','{$acak}');">
-              <i class="fa fa-print"></i> Cetak Pdf
-            </button>
-          {/if}
-          
-          {if $button_cetak_rt_rw_excel eq 'true'}
-            <button class="btn btn-success btn-sm"
-              onclick="kumpulAction('export_laporan_rt_rw_excel','{$acak}');">
-              <i class="fa fa-file-excel-o"></i> Cetak Excel
-            </button>
-          {/if}
-
-        </div>
-      </div>
+    </div>
     
       {elseif $mod eq 'usulan_penilaian_rt_rw'}
         <div class="row">

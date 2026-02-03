@@ -977,78 +977,59 @@ class Mbackend extends CI_Model
 
 			case "laporan_rt_rw":
 
-				$desa_id = $this->input->post('kelurahan_id');
+				$where = " WHERE 1=1 ";
 
 				$rt = $this->input->post('rt');
-
-				$rw = $this->input->post('rw');
-
+				$rw= $this->input->post('rw');
 				$rt_get = $this->input->get('rt');
-
 				$rw_get = $this->input->get('rw');
 
-
 				if ($rt_get) {
-
 					$where .= "and A.rt like '%" . $rt_get . "%'";
 				}
-
 				if ($rw_get) {
-
 					$where .= "and A.rw like '%" . $rw_get . "%'";
 				}
-
-
 				if ($rt) {
-
 					$where .= "and A.rt like '%" . $rt . "%'";
 				}
-
 				if ($rw) {
-
 					$where .= "and A.rw like '%" . $rw . "%'";
 				}
 
+				$desa_id = $this->input->post('kelurahan_id') ?: $this->input->get('kelurahan_id');
 
-
-				if ($desa_id) {
-
-					$where .= "and A.cl_kelurahan_desa_id = '" . $desa_id . "'";
-				} else {
-
-					if ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0") {
-
-						$where .= "and A.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "'";
-					}
-
-
-
-					if ($this->input->get('kelurahan_id')) {
-
-						$where .= "and A.cl_kelurahan_desa_id = '" . $this->input->get('kelurahan_id') . "'";
-					}
+				if (in_array($this->auth['cl_user_group_id'], [2,4,5])) {
+					$where .= " AND a.cl_kelurahan_desa_id = '".$this->auth['cl_kelurahan_desa_id']."'";
+				} elseif ($this->auth['cl_user_group_id'] == 3 && $desa_id) {
+    			$where .= " AND a.cl_kelurahan_desa_id = '".$desa_id."'";
 				}
 
+				$tahun_aktif = " (SELECT MAX(pilih_tahun) FROM tbl_data_rt_rw)";
+				$status = strtolower($this->input->post('status_tab') ?: 'Aktif');
 
+				if ($status == 'aktif') {
+					$where .= "AND a.status = 'Aktif'AND a.pilih_tahun = $tahun_aktif";
+				} else {
+					$where .= "AND a.status = 'Tidak Aktif'AND a.pilih_tahun <> $tahun_aktif";
+				}
 
 				$sql = " SELECT a.*,
-				CASE 
-				WHEN a.jab_rt_rw = 'Ketua RW' THEN CONCAT('Ketua RW ', LPAD(a.rw, 3, '0'))
-				WHEN a.jab_rt_rw = 'Ketua RT' THEN CONCAT('Ketua RT ', LPAD(a.rt, 3, '0'), '/', LPAD(a.rw, 3, '0'))
-				ELSE a.jab_rt_rw
-				END AS jab_rt_rw,
-				DATE_FORMAT(a.create_date, '%d-%m-%Y %H:%i') as tanggal_buat,a.agama nama_agama,a.alamat from tbl_data_rt_rw a 
-				
-				left join cl_agama b on a.agama=b.id
-
-				where a.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "' 
-				
-				ORDER BY CONCAT(a.rw,'.',if(a.rt='' OR a.rt IS NULL,'000',a.rt))
-
+						CASE 
+							WHEN a.jab_rt_rw = 'Ketua RW'
+								THEN CONCAT('Ketua RW ', LPAD(a.rw,3,'0'))
+							WHEN a.jab_rt_rw = 'Ketua RT'
+								THEN CONCAT('Ketua RT ', LPAD(a.rt,3,'0'),'/',LPAD(a.rw,3,'0'))
+							ELSE a.jab_rt_rw
+						END AS jab_rt_rw,
+						DATE_FORMAT(a.create_date,'%d-%m-%Y %H:%i') AS tanggal_buat,
+						b.nama_agama,
+						a.alamat
+					FROM tbl_data_rt_rw a
+					LEFT JOIN cl_agama b ON a.agama = b.id
+					$where
+					ORDER BY CONCAT(a.rw,'.',if(a.rt='' OR a.rt IS NULL,'000',a.rt))
 				";
-
-
-
 				//echo $sql;exit;
 
 				break;
@@ -6166,92 +6147,92 @@ class Mbackend extends CI_Model
 			// break;
 			//end RT RW
 
-			case "verifikasi_lpj_rt_rw":
+			// case "verifikasi_lpj_rt_rw":
 
-				$tahun_login = $this->auth['tahun'];
+			// 	$tahun_login = $this->auth['tahun'];
 
-				$where = " WHERE 1=1 ";
+			// 	$where = " WHERE 1=1 ";
 
-				/* ================= HAK AKSES ================= */
-				if (in_array($this->auth['cl_user_group_id'], [2,4,5])) {
-					$where .= " AND a.cl_kelurahan_desa_id = '".$this->auth['cl_kelurahan_desa_id']."' ";
-				}
+			// 	/* ================= HAK AKSES ================= */
+			// 	if (in_array($this->auth['cl_user_group_id'], [2,4,5])) {
+			// 		$where .= " AND a.cl_kelurahan_desa_id = '".$this->auth['cl_kelurahan_desa_id']."' ";
+			// 	}
 
-				if ($this->input->post('kelurahan')) {
-					$where .= " AND a.cl_kelurahan_desa_id = '".$this->input->post('kelurahan')."' ";
-				}
+			// 	if ($this->input->post('kelurahan')) {
+			// 		$where .= " AND a.cl_kelurahan_desa_id = '".$this->input->post('kelurahan')."' ";
+			// 	}
 
-				$sql = "SELECT
-							a.id AS rt_rw_id,
-							a.nik,
-							a.nama_lengkap,
-							a.jab_rt_rw,
-							a.rt,
-							a.rw,
+			// 	$sql = "SELECT
+			// 				a.id AS rt_rw_id,
+			// 				a.nik,
+			// 				a.nama_lengkap,
+			// 				a.jab_rt_rw,
+			// 				a.rt,
+			// 				a.rw,
 
-							d.nama AS nama_kelurahan_desa,
+			// 				d.nama AS nama_kelurahan_desa,
 
-							/* ================= TOTAL SUB INDIKATOR (MASTER) ================= */
-							(
-								SELECT COUNT(id)
-								FROM tbl_kategori_penilaian_rt_rw
-							) AS total_sub_indikator,
+			// 				/* ================= TOTAL SUB INDIKATOR (MASTER) ================= */
+			// 				(
+			// 					SELECT COUNT(id)
+			// 					FROM tbl_kategori_penilaian_rt_rw
+			// 				) AS total_sub_indikator,
 
-							/* ================= TOTAL LPJ DIINPUT ================= */
-							COUNT(DISTINCT b.id) AS total_lpj_input,
+			// 				/* ================= TOTAL LPJ DIINPUT ================= */
+			// 				COUNT(DISTINCT b.id) AS total_lpj_input,
 
-							/* ================= PERSENTASE ================= */
-							ROUND(
-								(COUNT(DISTINCT b.id) /
-									NULLIF(
-										(SELECT COUNT(id) FROM tbl_kategori_penilaian_rt_rw),
-										0
-									)
-								) * 100,
-								2
-							) AS nilai,
+			// 				/* ================= PERSENTASE ================= */
+			// 				ROUND(
+			// 					(COUNT(DISTINCT b.id) /
+			// 						NULLIF(
+			// 							(SELECT COUNT(id) FROM tbl_kategori_penilaian_rt_rw),
+			// 							0
+			// 						)
+			// 					) * 100,
+			// 					2
+			// 				) AS nilai,
 
-							/* ================= STATUS VERIFIKASI ================= */
-							CASE
-								WHEN MAX(b.status) = 2 THEN 1
-								ELSE 0
-							END AS status_verifikasi,
+			// 				/* ================= STATUS VERIFIKASI ================= */
+			// 				CASE
+			// 					WHEN MAX(b.status) = 2 THEN 1
+			// 					ELSE 0
+			// 				END AS status_verifikasi,
 
-							CASE
-								WHEN MAX(b.status) = 2 THEN 'Sudah Diverifikasi ✓'
-								ELSE 'Belum Terverifikasi'
-							END AS ket_status_verifikasi,
+			// 				CASE
+			// 					WHEN MAX(b.status) = 2 THEN 'Sudah Diverifikasi ✓'
+			// 					ELSE 'Belum Terverifikasi'
+			// 				END AS ket_status_verifikasi,
 
-							/* ================= JABATAN ================= */
-							CASE 
-								WHEN a.jab_rt_rw = 'Ketua RW' THEN CONCAT('Ketua RW ', LPAD(a.rw,3,'0'))
-								WHEN a.jab_rt_rw = 'PJ RW' THEN CONCAT('PJ RW ', LPAD(a.rw,3,'0'))
-								WHEN a.jab_rt_rw = 'Ketua RT' THEN CONCAT('Ketua RT ', LPAD(a.rt,3,'0'),'/',LPAD(a.rw,3,'0'))
-								WHEN a.jab_rt_rw = 'PJ RT' THEN CONCAT('PJ RT ', LPAD(a.rt,3,'0'),'/',LPAD(a.rw,3,'0'))
-								ELSE a.jab_rt_rw
-							END AS jabatan_rt_rw
+			// 				/* ================= JABATAN ================= */
+			// 				CASE 
+			// 					WHEN a.jab_rt_rw = 'Ketua RW' THEN CONCAT('Ketua RW ', LPAD(a.rw,3,'0'))
+			// 					WHEN a.jab_rt_rw = 'PJ RW' THEN CONCAT('PJ RW ', LPAD(a.rw,3,'0'))
+			// 					WHEN a.jab_rt_rw = 'Ketua RT' THEN CONCAT('Ketua RT ', LPAD(a.rt,3,'0'),'/',LPAD(a.rw,3,'0'))
+			// 					WHEN a.jab_rt_rw = 'PJ RT' THEN CONCAT('PJ RT ', LPAD(a.rt,3,'0'),'/',LPAD(a.rw,3,'0'))
+			// 					ELSE a.jab_rt_rw
+			// 				END AS jabatan_rt_rw
 
-						FROM tbl_data_rt_rw a
+			// 			FROM tbl_data_rt_rw a
 
-						LEFT JOIN tbl_lpj_rtrw b
-							ON a.nik = b.nik
-							AND YEAR(b.tgl_kegiatan) = '$tahun_login'
+			// 			LEFT JOIN tbl_lpj_rtrw b
+			// 				ON a.nik = b.nik
+			// 				AND YEAR(b.tgl_kegiatan) = '$tahun_login'
 
-						LEFT JOIN cl_kelurahan_desa d
-							ON a.cl_kelurahan_desa_id = d.id
-							AND a.cl_kecamatan_id = d.kecamatan_id
+			// 			LEFT JOIN cl_kelurahan_desa d
+			// 				ON a.cl_kelurahan_desa_id = d.id
+			// 				AND a.cl_kecamatan_id = d.kecamatan_id
 
-						$where
+			// 			$where
 
-						GROUP BY a.id
+			// 			GROUP BY a.id
 
-						ORDER BY
-							status_verifikasi ASC,
-							a.rw,
-							a.rt
-				";
+			// 			ORDER BY
+			// 				status_verifikasi ASC,
+			// 				a.rw,
+			// 				a.rt
+			// 	";
 
-			break;
+			// break;
 
 			//Penilaian RT RW
 			case "penilaian_rt_rw":
