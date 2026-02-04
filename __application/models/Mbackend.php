@@ -6147,92 +6147,92 @@ class Mbackend extends CI_Model
 			// break;
 			//end RT RW
 
-			// case "verifikasi_lpj_rt_rw":
+			case "verifikasi_lpj_rt_rw":
 
-			// 	$tahun_login = $this->auth['tahun'];
+				$tahun_login = $this->auth['tahun'];
 
-			// 	$where = " WHERE 1=1 ";
+				$where = " WHERE 1=1 ";
 
-			// 	/* ================= HAK AKSES ================= */
-			// 	if (in_array($this->auth['cl_user_group_id'], [2,4,5])) {
-			// 		$where .= " AND a.cl_kelurahan_desa_id = '".$this->auth['cl_kelurahan_desa_id']."' ";
-			// 	}
+				/* ================= HAK AKSES ================= */
+				if (in_array($this->auth['cl_user_group_id'], [2,4,5])) {
+					$where .= " AND a.cl_kelurahan_desa_id = '".$this->auth['cl_kelurahan_desa_id']."' ";
+				}
 
-			// 	if ($this->input->post('kelurahan')) {
-			// 		$where .= " AND a.cl_kelurahan_desa_id = '".$this->input->post('kelurahan')."' ";
-			// 	}
+				if ($this->input->post('kelurahan')) {
+					$where .= " AND a.cl_kelurahan_desa_id = '".$this->input->post('kelurahan')."' ";
+				}
 
-			// 	$sql = "SELECT
-			// 				a.id AS rt_rw_id,
-			// 				a.nik,
-			// 				a.nama_lengkap,
-			// 				a.jab_rt_rw,
-			// 				a.rt,
-			// 				a.rw,
+				$sql = "SELECT
+							a.id AS rt_rw_id,
+							a.nik,
+							a.nama_lengkap,
+							a.jab_rt_rw,
+							a.rt,
+							a.rw,
 
-			// 				d.nama AS nama_kelurahan_desa,
+							d.nama AS nama_kelurahan_desa,
 
-			// 				/* ================= TOTAL SUB INDIKATOR (MASTER) ================= */
-			// 				(
-			// 					SELECT COUNT(id)
-			// 					FROM tbl_kategori_penilaian_rt_rw
-			// 				) AS total_sub_indikator,
+							/* ================= TOTAL SUB INDIKATOR (MASTER) ================= */
+							(
+								SELECT COUNT(id)
+								FROM tbl_kategori_penilaian_rt_rw
+							) AS total_sub_indikator,
 
-			// 				/* ================= TOTAL LPJ DIINPUT ================= */
-			// 				COUNT(DISTINCT b.id) AS total_lpj_input,
+							/* ================= TOTAL LPJ DIINPUT ================= */
+							COUNT(DISTINCT b.id) AS total_lpj_input,
 
-			// 				/* ================= PERSENTASE ================= */
-			// 				ROUND(
-			// 					(COUNT(DISTINCT b.id) /
-			// 						NULLIF(
-			// 							(SELECT COUNT(id) FROM tbl_kategori_penilaian_rt_rw),
-			// 							0
-			// 						)
-			// 					) * 100,
-			// 					2
-			// 				) AS nilai,
+							/* ================= PERSENTASE ================= */
+							ROUND(
+								(COUNT(DISTINCT b.id) /
+									NULLIF(
+										(SELECT COUNT(id) FROM tbl_kategori_penilaian_rt_rw),
+										0
+									)
+								) * 100,
+								2
+							) AS nilai,
 
-			// 				/* ================= STATUS VERIFIKASI ================= */
-			// 				CASE
-			// 					WHEN MAX(b.status) = 2 THEN 1
-			// 					ELSE 0
-			// 				END AS status_verifikasi,
+							/* ================= STATUS VERIFIKASI ================= */
+							CASE
+								WHEN MAX(b.status) = 2 THEN 1
+								ELSE 0
+							END AS status_verifikasi,
 
-			// 				CASE
-			// 					WHEN MAX(b.status) = 2 THEN 'Sudah Diverifikasi ✓'
-			// 					ELSE 'Belum Terverifikasi'
-			// 				END AS ket_status_verifikasi,
+							CASE
+								WHEN MAX(b.status) = 2 THEN 'Sudah Diverifikasi ✓'
+								ELSE 'Belum Terverifikasi'
+							END AS ket_status_verifikasi,
 
-			// 				/* ================= JABATAN ================= */
-			// 				CASE 
-			// 					WHEN a.jab_rt_rw = 'Ketua RW' THEN CONCAT('Ketua RW ', LPAD(a.rw,3,'0'))
-			// 					WHEN a.jab_rt_rw = 'PJ RW' THEN CONCAT('PJ RW ', LPAD(a.rw,3,'0'))
-			// 					WHEN a.jab_rt_rw = 'Ketua RT' THEN CONCAT('Ketua RT ', LPAD(a.rt,3,'0'),'/',LPAD(a.rw,3,'0'))
-			// 					WHEN a.jab_rt_rw = 'PJ RT' THEN CONCAT('PJ RT ', LPAD(a.rt,3,'0'),'/',LPAD(a.rw,3,'0'))
-			// 					ELSE a.jab_rt_rw
-			// 				END AS jabatan_rt_rw
+							/* ================= JABATAN ================= */
+							CASE 
+								WHEN a.jab_rt_rw = 'Ketua RW' THEN CONCAT('Ketua RW ', LPAD(a.rw,3,'0'))
+								WHEN a.jab_rt_rw = 'PJ RW' THEN CONCAT('PJ RW ', LPAD(a.rw,3,'0'))
+								WHEN a.jab_rt_rw = 'Ketua RT' THEN CONCAT('Ketua RT ', LPAD(a.rt,3,'0'),'/',LPAD(a.rw,3,'0'))
+								WHEN a.jab_rt_rw = 'PJ RT' THEN CONCAT('PJ RT ', LPAD(a.rt,3,'0'),'/',LPAD(a.rw,3,'0'))
+								ELSE a.jab_rt_rw
+							END AS jabatan_rt_rw
 
-			// 			FROM tbl_data_rt_rw a
+						FROM tbl_data_rt_rw a
 
-			// 			LEFT JOIN tbl_lpj_rtrw b
-			// 				ON a.nik = b.nik
-			// 				AND YEAR(b.tgl_kegiatan) = '$tahun_login'
+						LEFT JOIN tbl_lpj_rtrw b
+							ON a.nik = b.nik
+							AND YEAR(b.tgl_kegiatan) = '$tahun_login'
 
-			// 			LEFT JOIN cl_kelurahan_desa d
-			// 				ON a.cl_kelurahan_desa_id = d.id
-			// 				AND a.cl_kecamatan_id = d.kecamatan_id
+						LEFT JOIN cl_kelurahan_desa d
+							ON a.cl_kelurahan_desa_id = d.id
+							AND a.cl_kecamatan_id = d.kecamatan_id
 
-			// 			$where
+						$where
 
-			// 			GROUP BY a.id
+						GROUP BY a.id
 
-			// 			ORDER BY
-			// 				status_verifikasi ASC,
-			// 				a.rw,
-			// 				a.rt
-			// 	";
+						ORDER BY
+							status_verifikasi ASC,
+							a.rw,
+							a.rt
+				";
 
-			// break;
+			break;
 
 			//Penilaian RT RW
 			case "penilaian_rt_rw":

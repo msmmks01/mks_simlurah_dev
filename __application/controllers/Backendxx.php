@@ -274,6 +274,14 @@ class Backendxx extends JINGGA_Controller
 				$this->nsmarty->assign("nik_pembuat", $this->lib->fillcombo("pilih_ttd_lain_pembuat", "return", ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0" ? $this->auth["cl_kelurahan_desa_id"] : ""), ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0" ? $this->auth["cl_kelurahan_desa_id"] : "")));
 				break;
 
+			case "verifikasi_lpj_rt_rw":
+
+				$this->nsmarty->assign("kelurahan", $this->lib->fillcombo("kelurahan_report", "return", ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0" ? $this->auth["cl_kelurahan_desa_id"] : ""), ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0" ? $this->auth["cl_kelurahan_desa_id"] : "")));
+
+				$this->nsmarty->assign("nip_id", $this->lib->fillcombo("data_penandatanganan_4", "return", ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0" ? $this->auth["cl_kelurahan_desa_id"] : ""), ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0" ? $this->auth["cl_kelurahan_desa_id"] : "")));
+
+				break;
+
 			// case "usulan_penilaian_rt_rw":
 
 			// 	$this->nsmarty->assign("kelurahan", $this->lib->fillcombo("kelurahan_report", "return", ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0" ? $this->auth["cl_kelurahan_desa_id"] : ""), ($this->auth['cl_kelurahan_desa_id'] != "" && $this->auth['cl_kelurahan_desa_id'] != "0" ? $this->auth["cl_kelurahan_desa_id"] : "")));
@@ -4158,45 +4166,59 @@ class Backendxx extends JINGGA_Controller
 
 			// break;
 
-			// case "verifikasi_lpj_rt_rw":
+			case "verifikasi_lpj_rt_rw":
 
-			// 	$rt_rw_id = $this->input->post('rt_rw_id');
-			// 	$bulan    = $this->input->post('bulan');
+				// ================== AMBIL PARAMETER (AMAN) ==================
+				$rt_rw_id = '';
+				if ($this->input->post('tbl_data_rt_rw_id')) {
+					$rt_rw_id = $this->input->post('tbl_data_rt_rw_id');
+				} elseif ($this->input->get('tbl_data_rt_rw_id')) {
+					$rt_rw_id = $this->input->get('tbl_data_rt_rw_id');
+				} elseif ($this->input->post('id')) {
+					$rt_rw_id = $this->input->post('id');
+				} elseif ($this->input->get('id')) {
+					$rt_rw_id = $this->input->get('id');
+				}
 
-			// 	$rt_rw = $this->db->get_where('tbl_data_rt_rw', [
-			// 		'id' => $rt_rw_id
-			// 	])->row_array();
+				$bulan = '';
+				if ($this->input->post('bulan')) {
+					$bulan = $this->input->post('bulan');
+				} elseif ($this->input->get('bulan')) {
+					$bulan = $this->input->get('bulan');
+				}
 
-			// 	$lpj = null;
-			// 	if ($rt_rw) {
-			// 		$lpj = $this->db
-			// 			->where('nik', $rt_rw['nik'])
-			// 			->where('MONTH(tgl_kegiatan)', $bulan)
-			// 			->get('tbl_lpj_rtrw')
-			// 			->row_array();
-			// 	}
+				if (empty($bulan)) {
+					$bulan = date('m');
+				}
 
-			// 	$kategori_penilaian = $this->db->query("
-			// 	SELECT 
-			// 		k.id,
-			// 		k.uraian,
-			// 		k.satuan,
-			// 		IFNULL(p.nilai,0) AS nilai,
-			// 		IFNULL(p.id,0) AS penilaian_id
-			// 	FROM tbl_kategori_penilaian_rt_rw k
-			// 	LEFT JOIN tbl_penilaian_rt_rw p
-			// 		ON p.kategori_penilaian_rt_rw_id = k.id
-			// 	AND p.tbl_data_rt_rw_id = ?
-			// 	AND p.bulan = ?
-			// 	ORDER BY k.id
-			// 	", [$rt_rw_id, $bulan])->result_array();
+				// ================== DATA RT RW ==================
+				$rt_rw = null;
+				if (!empty($rt_rw_id)) {
+					$rt_rw = $this->db->get_where('tbl_data_rt_rw', [
+					'id' => $rt_rw_id
+					])->row_array();
+				}
 
-			// 	$this->nsmarty->assign('rt_rw', $rt_rw);
-			// 	$this->nsmarty->assign('lpj', $lpj);
-			// 	$this->nsmarty->assign('bulan', $bulan);
-			// 	$this->nsmarty->assign('kategori_penilaian', $kategori_penilaian);
+				// ================== DATA KELURAHAN (LOGIN) ==================
+				$kel = $this->db->get_where('cl_kelurahan_desa', [
+					'id' => $this->auth['cl_kelurahan_desa_id']
+				])->row_array();
 
-			// break;
+				// ================== KATEGORI PENILAIAN ==================
+				$kategori_penilaian = $this->db->query("SELECT id,uraian,satuan FROM tbl_kategori_penilaian_rt_rw ORDER BY id")->result_array();
+
+				// ================== ASSIGN KE VIEW ==================
+				$this->nsmarty->assign('tbl_data_rt_rw_id', $rt_rw_id);
+				$this->nsmarty->assign('rt_rw', $rt_rw); // boleh null
+				$this->nsmarty->assign('kel', $kel);
+				$this->nsmarty->assign('bulan', $bulan);
+				$this->nsmarty->assign('bulan_text', date('F', mktime(0, 0, 0, $bulan, 1)));
+				$this->nsmarty->assign('kategori_penilaian', $kategori_penilaian);
+
+				// optional – biar view aman
+				$this->nsmarty->assign('nik', isset($rt_rw['nik']) ? $rt_rw['nik'] : '');
+  				$this->nsmarty->assign('nama_rt_rw', isset($rt_rw['nama']) ? $rt_rw['nama'] : '');
+				break;
 
 			case "penilaian_rt_rw":
 
@@ -4958,13 +4980,13 @@ class Backendxx extends JINGGA_Controller
 
 				break;
 
-			// case "verifikasi_lpj_rt_rw":
+			case "verifikasi_lpj_rt_rw":
 
-			// 	$opt .= "<option value='a.nama_lengkap'>Nama</option>";
+				$opt .= "<option value='a.nama_lengkap'>Nama</option>";
 
-			// 	$opt .= "<option value='a.nik'>NIK</option>";
+				$opt .= "<option value='a.nik'>NIK</option>";
 
-			// 	break;
+				break;
 
 			case "data_kerja_bakti":
 
