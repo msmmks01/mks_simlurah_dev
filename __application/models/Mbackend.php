@@ -1038,21 +1038,27 @@ class Mbackend extends CI_Model
 			case "laporan_penilaian_rt_rw":
 
 				$desa_id = $this->input->post('kelurahan_id');
-
 				$rt = $this->input->post('rt');
-
 				$rw = $this->input->post('rw');
-
 				$rt_get = $this->input->get('rt');
-
 				$rw_get = $this->input->get('rw');
-
 				$rt_rw_id = $this->input->get('rt_rw_id');
-
 				$nik = $this->input->get('nik');
-
 				$bulan = $this->input->get('bulan');
 
+				if ($bulan == '' || $bulan == null) {
+					$q = $this->db->query("
+						SELECT MAX(bulan) AS bulan
+						FROM tbl_penilaian_rt_rw
+						WHERE tbl_data_rt_rw_id = '$rt_rw_id'
+					")->row_array();
+
+					if (!empty($q) && !empty($q['bulan'])) {
+						$bulan = $q['bulan'];
+					} else {
+						$bulan = date('n'); // fallback bulan sekarang
+					}
+				}
 
 				if ($rt_get) {
 
