@@ -177,7 +177,15 @@
 	</table>
 </table>
 {ttd_1($data,$setting)}	
-	
+
+{if $data.surat.info_tambahan.tembusan !=''}
+<div style="padding-left: 10px;padding-top: 350px;">
+	<h5>Tembusan :</h5>
+	<dl>
+		<dt style="font-size: 12px;padding-top: -15px">{nl2br({$data.surat.info_tambahan.tembusan|default:'.....................'})}</dt>
+	</dl>
+</div>
+{/if}	
 </div>
 </body>
 </html>

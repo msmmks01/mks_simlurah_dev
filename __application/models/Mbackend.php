@@ -13598,40 +13598,24 @@ class Mbackend extends CI_Model
 						case "67":
 
 							$array['jenis_teguran'] = $data['jenis_teguran'];
-
 							$array['kpd_yth'] = $data['kpd_yth'];
-
 							$array['di_undangan'] = $data['di_undangan'];
-
 							$array['perihal'] = $data['perihal'];
-
 							$array['lampiran'] = $data['lampiran'];
-
 							$array['dasar_teguran'] = $data['dasar_teguran'];
-
 							$array['alasan_teguran'] = $data['alasan_teguran'];
-
 							$array['jns_surat_teguran'] = $data['jns_surat_teguran'];
-
 							$array['tujuan_teguran_rt'] = $data['tujuan_teguran_rt'];
-
 							$array['no_teguran'] = $data['no_teguran'];
-
 							$array['tentang_teguran'] = $data['tentang_teguran'];
-
 							$array['nama_ditegur'] = $data['nama_ditegur'];
-
 							$array['jabatan_ditegur'] = $data['jabatan_ditegur'];
-
 							$array['jns_surat_teguran_rt'] = $data['jns_surat_teguran_rt'];
-
 							$array['tujuan_teguran_warga'] = $data['tujuan_teguran_warga'];
-
 							$array['alasan_teguran2'] = $data['alasan_teguran2'];
-
 							$array['jns_surat_pegawai'] = $data['jns_surat_pegawai'];
-
 							$array['tujuan_teguran_warga2'] = $data['tujuan_teguran_warga2'];
+							$array['tembusan'] = $data['tembusan'];
 
 							$data['info_tambahan'] = json_encode($array);
 
