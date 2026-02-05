@@ -1030,6 +1030,7 @@ class Mbackend extends CI_Model
 					$where
 					ORDER BY CONCAT(a.rw,'.',if(a.rt='' OR a.rt IS NULL,'000',a.rt))
 				";
+				
 				//echo $sql;exit;
 
 				break;
@@ -1164,65 +1165,100 @@ class Mbackend extends CI_Model
 				// 		) a
 				// ";
 
-				$sql = "SELECT (CASE WHEN nor = 1 THEN @nh := @nh + 1 ELSE NULL END) AS urutHeader,
+				$sql = "SELECT 
+						(CASE WHEN nor = 1 THEN @nh := @nh + 1 ELSE NULL END) AS urutHeader,
 						a.*
-						FROM (
+					FROM (
 						SELECT 
-							a.nor, 
+							a.nor,
 							a.id,
-							a.xid, 
-							a.singkatan, 
-							a.kategori, 
+							a.xid,
+							a.singkatan,
+							a.kategori,
 							a.uraian,
-							(CASE WHEN a.nor = 3 THEN a.satuan ELSE b.satuan END) AS satuan, 
-							b.target, 
-							b.capaian, 
-						
-							
-							-- Tambahkan kolom total nilai per kategori di baris nor = 3
-							(CASE WHEN a.nor = 3 THEN total.total_nilai ELSE b.nilai END) AS nilai
+
+							-- SATUAN
+							(CASE 
+								WHEN a.nor = 3 THEN a.satuan 
+								ELSE b.satuan 
+							END) AS satuan,
+
+							-- TARGET & CAPAIAN
+							b.target,
+							b.capaian,
+
+							-- NILAI
+							(CASE 
+								WHEN a.nor = 2 THEN IFNULL(b.nilai, 0)
+								WHEN a.nor = 3 THEN IFNULL(total.total_nilai, 0)
+								ELSE NULL
+							END) AS nilai
 
 						FROM (
-							-- Struktur 3 baris per kategori (nor 1=header, 2=indikator, 3=total)
-							SELECT MIN(id) AS id, NULL AS xid, 1 AS nor, '' AS singkatan, kategori, '' AS uraian, 0 AS satuan
-							FROM tbl_kategori_penilaian_rt_rw 
+							-- HEADER KATEGORI
+							SELECT 
+								MIN(id) AS id,
+								NULL AS xid,
+								1 AS nor,
+								'' AS singkatan,
+								kategori,
+								'' AS uraian,
+								0 AS satuan
+							FROM tbl_kategori_penilaian_rt_rw
 							GROUP BY kategori
 
 							UNION ALL
 
-							SELECT id, id AS xid, 2 AS nor, '' AS singkatan, kategori, uraian, 0 AS satuan 
-							FROM tbl_kategori_penilaian_rt_rw 
+							-- DETAIL INDIKATOR
+							SELECT 
+								id,
+								id AS xid,
+								2 AS nor,
+								'' AS singkatan,
+								kategori,
+								uraian,
+								0 AS satuan
+							FROM tbl_kategori_penilaian_rt_rw
 
 							UNION ALL
 
-							SELECT MAX(id) AS id, NULL AS xid, 3 AS nor, '' AS singkatan, kategori, 'Maksimal Skor' AS uraian, COUNT(id) * 100 AS satuan 
-							FROM tbl_kategori_penilaian_rt_rw 
+							-- TOTAL / MAKSIMAL SKOR
+							SELECT 
+								MAX(id) AS id,
+								NULL AS xid,
+								3 AS nor,
+								'' AS singkatan,
+								kategori,
+								'Maksimal Skor' AS uraian,
+								COUNT(id) * 100 AS satuan
+							FROM tbl_kategori_penilaian_rt_rw
 							GROUP BY kategori
-						) a 
+						) a
 
-						-- Join detail nilai indikator
-						LEFT JOIN (
-							SELECT kategori_penilaian_rt_rw_id, nik, satuan, target, capaian, nilai 
-							FROM tbl_penilaian_rt_rw 
-							WHERE tbl_data_rt_rw_id = '$rt_rw_id' AND bulan = '$bulan'
-						) b ON b.kategori_penilaian_rt_rw_id = a.xid
+						-- NILAI PER INDIKATOR
+						LEFT JOIN tbl_penilaian_rt_rw b
+							ON b.kategori_penilaian_rt_rw_id = a.xid
+							AND b.tbl_data_rt_rw_id = '$rt_rw_id'
+							AND b.bulan = '$bulan'
 
-						-- Join total nilai per kategori, berdasarkan nama kategori
+						-- TOTAL NILAI PER KATEGORI
 						LEFT JOIN (
 							SELECT 
-							k.kategori,
-							SUM(p.nilai) AS total_nilai
+								k.kategori,
+								SUM(p.nilai) AS total_nilai
 							FROM tbl_penilaian_rt_rw p
-							JOIN tbl_kategori_penilaian_rt_rw k ON p.kategori_penilaian_rt_rw_id = k.id
-							WHERE p.tbl_data_rt_rw_id = '$rt_rw_id' AND p.bulan = '$bulan'
+							JOIN tbl_kategori_penilaian_rt_rw k 
+								ON p.kategori_penilaian_rt_rw_id = k.id
+							WHERE p.tbl_data_rt_rw_id = '$rt_rw_id'
+							AND p.bulan = '$bulan'
 							GROUP BY k.kategori
-						) total ON total.kategori = a.kategori
+						) total 
+							ON total.kategori = a.kategori
 
-						) a, (SELECT @nh := 0) urut
-
-						ORDER BY a.id, a.kategori, nor;
-
-				";
+					) a,
+					(SELECT @nh := 0) urut
+					ORDER BY a.id, a.kategori, nor
+					";
 
 				//echo $sql;exit;
 
