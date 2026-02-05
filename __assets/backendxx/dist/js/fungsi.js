@@ -5874,22 +5874,52 @@ async function kumpulAction(type, p1, p2, p3, p4, p5) {
 
       break;
 
+    // case "export_penilaian_rt_rw":
+    //   var row = $("#grid_penilaian_rt_rw").datagrid("getSelected");
+    //   param["rt_rw_id"] = row.rt_rw_id;
+    //   param["nik"] = row.nik;
+    //   param["rt"] = row.rt;
+    //   param["rw"] = row.rw;
+    //   param["bulan"] = row.bulan;
+    //   param["nip"] = $("#nip").val();
+    //   param["nik_lsm"] = $("#nik_lsm").val();
+    //   param["nik_pembuat"] = $("#nik_pembuat").val();
+
+    //   var url =
+    //     host + "backoffice-cetak/laporan_penilaian_rt_rw?" + $.param(param);
+
+    //   window.open(url, "_blank");
+
+    // break;
+
     case "export_penilaian_rt_rw":
       var row = $("#grid_penilaian_rt_rw").datagrid("getSelected");
+      if (!row) {
+          alert("Pilih data terlebih dahulu");
+          return;
+      }
+
+      // 🔥 ambil bulan dari query datagrid
+      var opts = $("#grid_penilaian_rt_rw").datagrid("options");
+      var bulan = opts.queryParams.bulan;
+
+      if (!bulan) {
+          alert("Pilih bulan terlebih dahulu");
+          return;
+      }
+
+      var param = {};
       param["rt_rw_id"] = row.rt_rw_id;
       param["nik"] = row.nik;
       param["rt"] = row.rt;
       param["rw"] = row.rw;
-      param["bulan"] = row.bulan;
+      param["bulan"] = bulan;
       param["nip"] = $("#nip").val();
       param["nik_lsm"] = $("#nik_lsm").val();
       param["nik_pembuat"] = $("#nik_pembuat").val();
 
-      var url =
-        host + "backoffice-cetak/laporan_penilaian_rt_rw?" + $.param(param);
-
+      var url = host + "backoffice-cetak/laporan_penilaian_rt_rw?" + $.param(param);
       window.open(url, "_blank");
-
       break;
 
     case "export_rekap_penilaian_kelrtrw":

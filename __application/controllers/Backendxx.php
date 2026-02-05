@@ -5283,12 +5283,28 @@ class Backendxx extends JINGGA_Controller
 
 			case "laporan_penilaian_rt_rw":
 				$rt_rw_id = $this->input->get('rt_rw_id');
-				$bulan = $this->input->get('bulan');
+				// $bulan = $this->input->get('bulan');
 				$tgl_cetak = $this->input->get('tanggal');
 				$tgl_cetak = $tgl_cetak ? (date('Y-m-d', strtotime($tgl_cetak))) : (date("Y-m-d"));
 				$nip = $this->input->get('nip');
 				$nik_lsm = $this->input->get('nik_lsm');
 				$nik_pembuat = $this->input->get('nik_pembuat');
+				$bulan = $this->input->get('bulan');
+
+				if ($bulan == '' || $bulan == null) {
+					$q = $this->db->query("
+						SELECT MAX(bulan) AS bulan
+						FROM tbl_penilaian_rt_rw
+						WHERE tbl_data_rt_rw_id = '$rt_rw_id'
+					")->row_array();
+
+					if (!empty($q) && !empty($q['bulan'])) {
+						$bulan = $q['bulan'];
+					} else {
+						$bulan = date('n'); // fallback bulan sekarang
+					}
+				}
+
 				$array_setting = array(
 					'a.cl_provinsi_id'  => $this->auth['cl_provinsi_id'],
 					'a.cl_kab_kota_id'  => $this->auth['cl_kab_kota_id'],
