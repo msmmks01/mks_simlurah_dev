@@ -49,9 +49,11 @@
             <div class="col-md-4">
               <label>NIK</label>
               <input type="text"
-                     class="form-control"
-                     value="{$nik|default:''}"
-                     readonly>
+                    class="form-control"
+                    name="nik"
+                    id="nik"
+                    value="{$rt_rw.nik|default:''}"
+                    readonly>
               <input type="hidden"
                      name="tbl_data_rt_rw_id"
                      value="{$tbl_data_rt_rw_id|default:''}">

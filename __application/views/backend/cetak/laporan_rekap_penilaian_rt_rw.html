@@ -158,13 +158,13 @@
 								<td align="left"><b>Pangkat: {$setting.pangkat_camat|default:'.......'}</b></td>
 								<td align="left"><br></td>
 								<td align="left"><b>Pangkat: {$setting.pangkat_lurah|default:'.......'}</b></td>
-								<td align="left"><br></td>
+								<td align="left"><b>{if $setting.pangkat_pembuat=='-'}{else}Pangkat: {$setting.pangkat_pembuat|default:'.......'}{/if}</b></td>
 							</tr>
 							<tr>
 								<td align="left"><b>NIP: {$setting.nip_camat|default:'.......'}</b></td>
 								<td align="left"><br></td>
 								<td align="left"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
-								<td align="left"><br></td>
+								<td align="left"><b>NIP: {$setting.nik_pembuat|default:'.......'}</td>
 							</tr>
 						</table>
 						{elseif $ttd.camat neq "" && $ttd.lsm eq "" && $ttd.pembuat neq ""}
@@ -191,12 +191,12 @@
 							<tr>
 								<td align="left"><b>Pangkat: {$setting.pangkat_camat|default:'.......'}</b></td>
 								<td align="left"><b>Pangkat: {$setting.pangkat_lurah|default:'.......'}</b></td>
-								<td align="left"><br></td>
+								<td align="left"><b>{if $setting.pangkat_pembuat=='-'}{else}Pangkat: {$setting.pangkat_pembuat|default:'.......'}{/if}</b></td>
 							</tr>
 							<tr>
 								<td align="left"><b>NIP: {$setting.nip_camat|default:'.......'}</b></td>
 								<td align="left"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
-								<td align="left"><br></td>
+								<td align="left"><b>NIP: {$setting.nik_pembuat|default:'.......'}</td>
 							</tr>
 						</table>
 						{elseif $ttd.camat neq "" && $ttd.lsm neq "" && $ttd.pembuat eq ""}
@@ -320,12 +320,12 @@
 							<tr>
 								<td align="left"><br></td>
 								<td align="left"><b>Pangkat: {$setting.pangkat_lurah|default:'.......'}</b></td>
-								<td align="left"><br></td>
+								<td align="left"><b>{if $setting.pangkat_pembuat=='-'}{else}Pangkat: {$setting.pangkat_pembuat|default:'.......'}{/if}</b></td>
 							</tr>
 							<tr>
 								<td align="left"><br></td>
 								<td align="left"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
-								<td align="left"><br></td>
+								<td align="left"><b>NIP: {$setting.nik_pembuat|default:'.......'}</td>
 							</tr>
 						</table>
 						{elseif $ttd.camat eq '' && $ttd.lsm eq '' && $ttd.pembuat neq ''}
@@ -352,12 +352,12 @@
 							<tr>
 								<td align="left"></td>
 								<td align="left"><b>Pangkat: {$setting.pangkat_lurah|default:'.......'}</b></td>
-								<td align="left"><br></td>
+								<td align="left"><b>{if $setting.pangkat_pembuat=='-'}{else}Pangkat: {$setting.pangkat_pembuat|default:'.......'}{/if}</b></td>
 							</tr>
 							<tr>
 								<td align="left"></td>
 								<td align="left"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
-								<td align="left"><br></td>
+								<td align="left"><b>NIP: {$setting.nik_pembuat|default:'.......'}</td>
 							</tr>
 						</table>
 						{elseif $ttd.camat eq '' && $ttd.lsm eq '' && $ttd.pembuat eq ''}
@@ -415,7 +415,7 @@
 									<td align="center"><b>NIP: {$setting.nip_camat|default:'.......'}</b></td>
 									<td align="center"><br></td>
 									<td align="center"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
-									<td align="center"><br></td>
+									<td align="center"><b>NIP: {$setting.nik_pembuat|default:'.......'}</td>
 								</tr>
 							{elseif $ttd.camat neq "" && $ttd.lsm eq "" && $ttd.pembuat neq ""}
 							{* camat, lurah, pembuat *}
@@ -439,7 +439,7 @@
 								<tr>
 									<td align="center"><b>NIP: {$setting.nip_camat|default:'.......'}</b></td>
 									<td align="center"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
-									<td align="center"><br></td>
+									<td align="center"><b>NIP: {$setting.nik_pembuat|default:'.......'}</td>
 								</tr>
 							{elseif $ttd.camat neq "" && $ttd.lsm neq "" && $ttd.pembuat eq ""}
 								{* camat, lurah, lsm *}
@@ -530,7 +530,7 @@
 								<tr>
 									<td align="center"><br></td>
 									<td align="center"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
-									<td align="center"><br></td>
+									<td align="center"><b>NIP: {$setting.nik_pembuat|default:'.......'}</td>
 								</tr>
 							{elseif $ttd.camat eq '' && $ttd.lsm eq '' && $ttd.pembuat neq ''}
 								{* lurah, pembuat *}
@@ -551,7 +551,7 @@
 								</tr>
 								<tr>
 									<td align="center"><b>NIP: {$setting.nip_lurah|default:'.......'}</b></td>
-									<td align="center"><br></td>
+									<td align="center"><b>NIP: {$setting.nik_pembuat|default:'.......'}</td>
 								</tr>
 							{elseif $ttd.camat eq '' && $ttd.lsm eq '' && $ttd.pembuat eq ''}
 								{* lurah *}

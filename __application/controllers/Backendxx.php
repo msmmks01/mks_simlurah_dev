@@ -4195,7 +4195,7 @@ class Backendxx extends JINGGA_Controller
 				$rt_rw = null;
 				if (!empty($rt_rw_id)) {
 					$rt_rw = $this->db->get_where('tbl_data_rt_rw', [
-					'id' => $rt_rw_id
+						'id' => $rt_rw_id
 					])->row_array();
 				}
 
@@ -4211,9 +4211,12 @@ class Backendxx extends JINGGA_Controller
 				$this->nsmarty->assign('tbl_data_rt_rw_id', $rt_rw_id);
 				$this->nsmarty->assign('rt_rw', $rt_rw); // boleh null
 				$this->nsmarty->assign('kel', $kel);
+				$this->nsmarty->assign('nik', isset($rt_rw['nik']) ? $rt_rw['nik'] : '');
+				$this->nsmarty->assign('nama_rt_rw', isset($rt_rw['nama']) ? $rt_rw['nama'] : '');
 				$this->nsmarty->assign('bulan', $bulan);
 				$this->nsmarty->assign('bulan_text', date('F', mktime(0, 0, 0, $bulan, 1)));
 				$this->nsmarty->assign('kategori_penilaian', $kategori_penilaian);
+			
 
 				// optional – biar view aman
 				$this->nsmarty->assign('nik', isset($rt_rw['nik']) ? $rt_rw['nik'] : '');
@@ -5375,7 +5378,6 @@ class Backendxx extends JINGGA_Controller
 
 				break;
 
-
 			case "laporan_rekap_penilaian_rt_rw":
 				ini_set('memory_limit', -1);
 				ini_set('max_execution_time', -1);
@@ -5383,6 +5385,8 @@ class Backendxx extends JINGGA_Controller
 
 				$nik_lsm = $this->input->get('nik_lsm');
 				$nik_pembuat = $this->input->get('nik_pembuat');
+				// var_dump($nik_pembuat);
+				// exit;
 				$bulan = $this->input->get('bulan'); // contoh: '05' dari Mei
 				$rw = $this->input->get('rw');
 				$kelurahan_id = $this->input->get('kelurahan_id');
@@ -5441,7 +5445,7 @@ class Backendxx extends JINGGA_Controller
 
 
 				// mulai query
-				$this->db->select('a.*,d.nip as nip_camat,d.nama as nama_camat,d.jabatan as jabatan_camat,d.pangkat as pangkat_camat,e.nama as nama_lsm,e.nip as nik_lsm,e.jabatan as jabatan_lsm,f.nip as nik_pembuat,f.nama as nama_pembuat,f.jabatan as jabatan_pembuat,g.nip as nip_lurah,g.nama as nama_lurah,g.jabatan as jabatan_lurah,g.pangkat as pangkat_lurah')
+				$this->db->select('a.*,d.nip as nip_camat,d.nama as nama_camat,d.jabatan as jabatan_camat,d.pangkat as pangkat_camat,e.nama as nama_lsm,e.nip as nik_lsm,e.jabatan as jabatan_lsm,f.nip as nik_pembuat,f.nama as nama_pembuat,f.jabatan as jabatan_pembuat,f.pangkat as pangkat_pembuat,g.nip as nip_lurah,g.nama as nama_lurah,g.jabatan as jabatan_lurah,g.pangkat as pangkat_lurah')
 					->where($array_setting)
 					->join('tbl_data_penandatanganan d', "a.cl_kecamatan_id=d.cl_kecamatan_id AND d.tingkat_jabatan='1.1' AND d.nip='$nip'", 'left')
 					->join('tbl_data_penandatanganan e', "a.cl_kecamatan_id=e.cl_kecamatan_id and a.cl_kelurahan_desa_id=e.cl_kelurahan_desa_id AND e.tingkat_jabatan='3.1' AND e.nip='$nik_lsm'", 'left')
