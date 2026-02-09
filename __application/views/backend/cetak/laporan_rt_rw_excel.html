@@ -115,6 +115,8 @@
                     <th width="15%" style="text-align: center" ><b>NAMA</b></th>
                     <th width="10%" style="text-align: center" ><b>AGAMA</b></th>
                     <th width="10%" style="text-align: center" ><b>JABATAN</b></th>
+                    <th width="5%" style="text-align: center" ><b>RW</b></th>
+                    <th width="5%" style="text-align: center" ><b>RT</b></th>
                     <th width="10%" style="text-align: center" ><b>alamat</b></th>
                     <th width="10%" style="text-align: center" ><b>NO TELP</b></th>
                     <th width="10%" style="text-align: center" ><b>NO REKENING</b></th>
@@ -131,6 +133,13 @@
                         <td style="text-align: left">{$rows.nama_lengkap|default:'-'}</td>
                         <td style="text-align: center">{$rows.nama_agama|default:'-'}</td>
                         <td style="text-align: center">{$rows.jab_rt_rw|default:'-'}</td>
+                        <td style="text-align:center; mso-number-format:'\@';">
+                          {if $rows.rw neq ''}{$rows.rw|string_format:"%03d"}{/if}
+                      </td>
+
+                      <td style="text-align:center; mso-number-format:'\@';">
+                          {if $rows.rt neq ''}{$rows.rt|string_format:"%03d"}{/if}
+                      </td>
                         <td style="text-align: left">{$rows.alamat|default:'-'}</td>
                         <td style="text-align: center">'{$rows.no_hp|default:'-'}</td>
                         <td style="text-align: center">'{$rows.no_rekening|default:'-'}</td>
