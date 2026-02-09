@@ -4179,6 +4179,8 @@ class Backendxx extends JINGGA_Controller
 				} elseif ($this->input->get('id')) {
 					$rt_rw_id = $this->input->get('id');
 				}
+				// var_dump($rt_rw_id);
+				// die;
 
 				$bulan = '';
 				if ($this->input->post('bulan')) {
@@ -6345,15 +6347,13 @@ class Backendxx extends JINGGA_Controller
 
 			case "laporan_rt_rw_excel":
 
-				$data = $this->mbackend->getdata('laporan_rt_rw_excel', 'result_array');
+				$data = array();
+				$data['rows'] = $this->mbackend->getdata('laporan_rt_rw_excel', 'result_array');
 
-				// ⛑️ AMAN PHP 5.x
-				if (!isset($data['data_surat'])) {
-					$data['data_surat'] = array();
-				}
+				// 🔧 penting supaya hasil_output tidak error
+				$data['data_surat'] = '';
 
 				$filename = "laporan-rt-rw-excel-" . date('YmdHis');
-
 				$temp = "backend/cetak/laporan_rt_rw_excel.html";
 
 				$this->hasil_output(
@@ -6365,7 +6365,6 @@ class Backendxx extends JINGGA_Controller
 					'utf-8',
 					array(215, 330)
 				);
-
 				break;
 
 			case "laporan_persuratan_rt_rw":

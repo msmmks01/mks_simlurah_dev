@@ -331,7 +331,7 @@ $mod eq 'data_surat'}
         </div>
       </div>
 
-     {elseif $mod eq 'data_rt_rw'}
+    {elseif $mod eq 'data_rt_rw'}
     <!-- ===== LAYER 1 : TAB STATUS ===== -->
     <div class="row mb-2">
       <div class="col-lg-12">
@@ -2204,25 +2204,30 @@ $mod eq 'data_surat'}
 
   });
 
- function button_verifikasi_lpj(mod) {
+
+function button_verifikasi_lpj(mod) {
 
     var $grid = $('#grid_verifikasi_lpj_rt_rw');
-
-    if ($grid.length === 0) {
-        console.error('Grid verifikasi LPJ RT RW tidak ditemukan');
-        return;
-    }
-
     var row = $grid.datagrid('getSelected');
-    console.log('ROW TERPILIH:', row);
 
     if (!row) {
         $.messager.alert('Peringatan', 'Silakan pilih data terlebih dahulu');
         return;
     }
 
-    // pastikan kirim ID LPJ
-    genform('edit', mod, mod, row.id);
+    if (!row.rt_rw_id) {
+        $.messager.alert('Error', 'ID RT/RW tidak ditemukan');
+        return;
+    }
+
+    // ✅ override id supaya genform baca id RT/RW
+    row.id = row.rt_rw_id;
+
+    // optional debug
+    console.log('ID DIKIRIM:', row.id);
+
+    // panggil genform seperti biasa
+    genform('edit', mod, mod);
 }
 
 
