@@ -16274,23 +16274,16 @@ class Mbackend extends CI_Model
 						case "4":
 
 							$array['masa_berlaku_surat']    = $data['masa_berlaku_surat'];
-
 							$array['pernyataan_tdk_mampu'] = $data['pernyataan_tdk_mampu'];
-
 							$array['tgl_pernyataan_tdk_mampu'] = $data['tgl_pernyataan_tdk_mampu'];
-
 							$array['no_pengantar']    = $data['no_pengantar'];
-
 							$array['tgl_pengantar']   = $data['tgl_pengantar'];
-
 							$array['keperluan_surat'] = $data['keperluan_surat'];
-
 							$array['alamat_domisili_sktm'] = $data['alamat_domisili_sktm'];
-
+							$array['desil'] = $data['desil'];
 							$array['ceklis_psktm'] = isset($data['ceklis_psktm']);
-
+							
 							$array['data_tidak_mampu'] = [];
-
 							for ($i = 0; $i < count($data['nama_tidak_mampu']); $i++) {
 								$res = $this->db->select("a.*,b.nama_pekerjaan,c.nama_status_kawin,d.nama_agama")->where([
 									'a.id' => $data['nama_tidak_mampu'][$i],
