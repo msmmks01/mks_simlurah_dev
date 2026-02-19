@@ -6190,7 +6190,7 @@ class Mbackend extends CI_Model
 			//end RT RW
 
 			case "verifikasi_lpj_rt_rw":
-
+  
 				$tahun_login = $this->auth['tahun'];
 
 				$where = " WHERE 1=1 ";
@@ -6204,15 +6204,7 @@ class Mbackend extends CI_Model
 					$where .= " AND a.cl_kelurahan_desa_id = '".$this->input->post('kelurahan')."' ";
 				}
 
-				$sql = "SELECT
-							a.id AS rt_rw_id,
-							a.nik,
-							a.nama_lengkap,
-							a.jab_rt_rw,
-							a.rt,
-							a.rw,
-
-							d.nama AS nama_kelurahan_desa,
+				$sql = "SELECT a.id AS rt_rw_id, a.nik, a.nama_lengkap, a.jab_rt_rw, a.rt, a.rw, d.nama AS nama_kelurahan_desa, MAX(c.file_path) AS file_path,
 
 							/* ================= TOTAL SUB INDIKATOR (MASTER) ================= */
 							(
@@ -6259,6 +6251,9 @@ class Mbackend extends CI_Model
 						LEFT JOIN tbl_lpj_rtrw b
 							ON a.nik = b.nik
 							AND YEAR(b.tgl_kegiatan) = '$tahun_login'
+
+						LEFT JOIN tbl_dok_lpj_rtrw c
+							ON b.id = c.id_lpj_rtrw
 
 						LEFT JOIN cl_kelurahan_desa d
 							ON a.cl_kelurahan_desa_id = d.id
@@ -9559,7 +9554,6 @@ class Mbackend extends CI_Model
 		}
 
 
-
 		if ($sts_crud == "add") {
 
 			$data['create_date'] = date('Y-m-d H:i:s');
@@ -9570,7 +9564,6 @@ class Mbackend extends CI_Model
 
 			unset($data['id']);
 		}
-
 
 
 		if ($sts_crud == "edit") {

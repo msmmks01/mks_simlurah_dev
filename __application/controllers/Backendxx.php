@@ -4207,7 +4207,24 @@ class Backendxx extends JINGGA_Controller
 				])->row_array();
 
 				// ================== KATEGORI PENILAIAN ==================
-				$kategori_penilaian = $this->db->query("SELECT id,uraian,satuan FROM tbl_kategori_penilaian_rt_rw ORDER BY id")->result_array();
+				$tahun_login = $this->auth['tahun'];
+				$nik = isset($rt_rw['nik']) ? $rt_rw['nik'] : '';
+
+				$file_lpj = $this->db->query("SELECT MAX(c.file_path) AS file_path
+					FROM tbl_lpj_rtrw b
+					LEFT JOIN tbl_dok_lpj_rtrw c ON b.id = c.id_lpj_rtrw
+					WHERE b.nik = '".$nik."'
+					AND MONTH(b.tgl_kegiatan) = '".$bulan."'
+					AND YEAR(b.tgl_kegiatan) = '".$tahun_login."'
+				")->row_array();
+
+				$kategori_penilaian = $this->db->query("SELECT id, uraian, satuan FROM tbl_kategori_penilaian_rt_rw
+					ORDER BY id
+				")->result_array();
+
+				foreach($kategori_penilaian as &$row){
+					$row['file_path'] = !empty($file_lpj['file_path']) ? $file_lpj['file_path'] : '';
+				}
 
 				// ================== ASSIGN KE VIEW ==================
 				$this->nsmarty->assign('tbl_data_rt_rw_id', $rt_rw_id);
@@ -7690,14 +7707,33 @@ class Backendxx extends JINGGA_Controller
 		echo json_encode($notifx);
 	}
 
+	// public function get_data_riwayat_esign($id)
+	// {
+	// 	$res = $this->db->where('tbl_data_surat_id', $id)->order_by('id', 'asc')->get('tbl_riwayat_esign')->result();
+	// 	$data = [];
+	// 	foreach ($res as $row) {
+	// 		$row->created_at = date('d/m/Y H:i', strtotime($row->created_at));
+	// 		$data[] = $row;
+	// 	}
+	// 	echo json_encode($data);
+	// }
+
 	public function get_data_riwayat_esign($id)
 	{
 		$res = $this->db->where('tbl_data_surat_id', $id)->order_by('id', 'asc')->get('tbl_riwayat_esign')->result();
 		$data = [];
-		foreach ($res as $row) {
-			$row->created_at = date('d/m/Y H:i', strtotime($row->created_at));
-			$data[] = $row;
-		}
+			foreach ($res as $row) {
+				$tanggal = !empty($row->created_at)
+					? $row->created_at
+					: $row->date_update;
+
+				$row->created_at = !empty($tanggal)
+					? date('d/m/Y H:i', strtotime($tanggal))
+					: '';
+
+				$data[] = $row;
+			}
+
 		echo json_encode($data);
 	}
 

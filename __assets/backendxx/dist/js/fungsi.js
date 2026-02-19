@@ -7248,6 +7248,25 @@ function get_data_riwayat_esign() {
 
     $("#nama_ttd").text(row.nama_ttd + " - " + row.jabatan_ttd);
     $("#pemeriksa_id").val(row.nip_pemeriksa_esign);
+
+    // nip yang sudah dipakai sebagai bertandatangan
+    var nip_ttd = row.nip;
+
+    // reset dulu semua option
+    $("#pemeriksa_id option").show().prop("disabled", false);
+
+    // sembunyikan yang sama dengan bertandatangan
+    $("#pemeriksa_id option").each(function () {
+        if ($(this).val() == nip_ttd) {
+            $(this).hide();
+        }
+    });
+
+    // kalau pemeriksa sama dengan TTD → kosongkan
+    if ($("#pemeriksa_id").val() == nip_ttd) {
+        $("#pemeriksa_id").val("");
+    }
+
     $.ajax({
       url: host + "Backendxx/get_data_riwayat_esign/" + row.id,
       dataType: "json",
@@ -7264,7 +7283,13 @@ function get_data_riwayat_esign() {
           "Ditolak",
         ];
 
-        if (group_user == 2 && row.status_esign == 0) {
+        // if (group_user == 2 && row.status_esign == 0) {
+        //   $("#pemeriksa_id").prop("disabled", false);
+        // } else {
+        //   $("#pemeriksa_id").prop("disabled", true);
+        // }
+
+        if (group_user == 2 && (row.status_esign == 0 || row.status_esign == 4 || row.status_esign == 5)) {
           $("#pemeriksa_id").prop("disabled", false);
         } else {
           $("#pemeriksa_id").prop("disabled", true);

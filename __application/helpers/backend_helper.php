@@ -178,55 +178,56 @@ if (!function_exists('ttd_1')) {
 if (!function_exists('ttd_1muf')) {
     function ttd_1muf($data, $setting, $tgl_cetak)
     {
-        $html = "<div id=\"ttd\" style=\"padding-right: 10.82mm;padding-left: 15.44mm; padding-bottom: 1mm; font-size: 14px;\">
-                    <table style=\"border-collapse: collapse;width: 100%;\" border=\"0\" cellpadding=\"0\">
+        $html = "<div id=\"ttd\" style=\"padding-right:10.82mm;padding-left:15.44mm;padding-bottom:1mm;font-size:14px;\">
+                    <table style=\"border-collapse:collapse;width:100%;\" border=\"0\" cellpadding=\"0\">
                         <tr>
                             <td width=\"100%\" align=\"right\">";
 
-        if ((count($data['ttd']) == 1 && strlen($data['ttd'][0]['center']) > 45) || 
+        // atur lebar tabel jika teks panjang
+        if ((count($data['ttd']) == 1 && strlen($data['ttd'][0]['center']) > 45) ||
             (count($data['ttd']) == 2 && strlen($data['ttd'][1]['center']) > 45)) {
-            $html .= "<table style=\"border-collapse: collapse;width: 350px;\" border=\"0\" cellpadding=\"0\">";
+            $html .= "<table style=\"border-collapse:collapse;width:350px;\" border=\"0\" cellpadding=\"0\">";
         } else {
-            $html .= "<table style=\"border-collapse: collapse;\" border=\"0\" cellpadding=\"0\">";
+            $html .= "<table style=\"border-collapse:collapse;\" border=\"0\" cellpadding=\"0\">";
         }
 
         $html .= "<tr>
                     <td align=\"left\">
-                        <table style=\"float: right;\" border=\"0\" cellspacing=\"0\">
+                        <table style=\"float:right;\" border=\"0\" cellspacing=\"0\">
+
+                            <!-- Tanggal -->
                             <tr>
                                 <td></td>
-                                <td>
-                                    " . ucwords(strtolower(str_replace('KOTA', '', $setting['nama_kab_kota']))) . ", " . tgl_indo($tgl_cetak) . "
-                                </td>
+                                <td>" .
+                                    ucwords(strtolower(str_replace('KOTA', '', $setting['nama_kab_kota']))) .
+                                    ", " . tgl_indo($tgl_cetak) .
+                                "</td>
                             </tr>";
 
-        // baris ttd (misal: bila ada baris khusus di data['ttd'])
-        for ($i = 0; $i < count($data['ttd']); $i++) {
+        // ================== BLOK JABATAN ==================
+
+        $jabatan = isset($setting['jabatan_asli']) ? trim($setting['jabatan_asli']) : '';
+
+        // dianggap lurah utama hanya jika diawali kata "Lurah"
+        $is_lurah = (stripos($jabatan, 'lurah') === 0);
+
+        // jika bukan lurah utama → tampilkan a.n
+        if (!$is_lurah && $jabatan != '') {
             $html .= "<tr>
                         <td></td>
-                        <td><b>" . $data['ttd'][$i]['center'] . "</b></td>
-                    </tr>";
-        }
-
-        // tampilkan dulu jabatan_ttd (mis. "a.n Lurah") jika tersedia,
-        // jika tidak ada gunakan fallback 'a.n Lurah'
-        $jabatan_ttd = isset($setting['jabatan_ttd']) && $setting['jabatan_ttd'] !== '' 
-                        ? $setting['jabatan_ttd'] 
-                        : 'a.n Lurah';
-
-        $html .= "<tr>
-                    <td></td>
-                    <td><b>" . $jabatan_ttd . "</b></td>
-                </tr>";
-
-        // lalu tampilkan jabatan asli (mis. "KASI PEMERINTAHAN...") jika ada
-        if (!empty($setting['jabatan_asli'])) {
-            // pakai strtoupper agar sesuai contoh
-            $html .= "<tr>
-                        <td></td>
-                        <td><b>" . strtoupper($setting['jabatan_asli']) . "</b></td>
+                        <td><b>a.n Lurah</b></td>
                       </tr>";
         }
+
+        // tampilkan jabatan hanya SATU KALI
+        if ($jabatan != '') {
+            $html .= "<tr>
+                        <td></td>
+                        <td><b>" . strtoupper($jabatan) . "</b></td>
+                      </tr>";
+        }
+
+        // ================== BLOK TANDA TANGAN ==================
 
         $html .= "
                 <tr>
@@ -241,12 +242,13 @@ if (!function_exists('ttd_1muf')) {
                         NIP: " . $setting['nip'] . "
                     </td>
                 </tr>
+
+                        </table>
+                    </td>
+                </tr>
             </table>
         </td>
     </tr>
-</table>
-</td>
-</tr>
 </table>
 </div>";
 
@@ -254,54 +256,6 @@ if (!function_exists('ttd_1muf')) {
     }
 }
 
-
-if (!function_exists('ttd_xalamat')) {
-    function ttd_xalamat($data, $setting)
-    {
-        $html = "<div id=\"ttd\" style=\"padding-right: 10.82mm;padding-left: 15.44mm; padding-bottom: 1mm; font-size: 14px;\">
-                        <table style=\"border-collapse: collapse;width: 100%;\" border=\"0\" cellpadding=\"0\">
-                            <tr>
-                                <td width=\"100%\" align=\"right\">";
-        if ((count($data['ttd']) == 1 && strlen($data['ttd'][0]['center']) > 45) || (count($data['ttd']) == 2 && strlen($data['ttd'][1]['center']) > 45)) {
-            $html .= "<table style=\"border-collapse: collapse;width: 350px;\" border=\"0\" cellpadding=\"0\">";
-        } else {
-            $html .= "<table style=\"border-collapse: collapse;\" border=\"0\" cellpadding=\"0\">";
-        }
-        $html .= " <tr>
-                        <td align=\"left\">
-                            <table style=\"float: right;\" border=\"0\" cellspacing=\"0\">
-                                
-                                ";
-
-        for ($i = 0; $i < count($data['ttd']); $i++) {
-            $html .= "<tr><td align=\"right\"><b>" . $data['ttd'][$i]['start'] . "</b></td><td><b>" . $data['ttd'][$i]['center'] . $data['ttd'][$i]['end'] . "</b></td></tr>";
-        }
-        $html .= "
-                                                    <tr>
-                                                        <td></td>
-                                                        <td valign=\"middle\" style=\"height:70px;padding-left:70px;padding-bottom:10px;color:white\">~<br></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td></td>
-                                                        <td>
-                                                            <u><b>" . $data['pemohon']['nama'] . "</b></u>
-                                                            <br>
-                                                            Pangkat: " . $data['pemohon']['pangkat'] . "
-                                                            <br>
-                                                            NIP: " . $data['pemohon']['nip'] . "
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>";
-        return $html;
-    }
-}
 
 if (!function_exists('ttd_2')) {
     // function ttd_2($data, $setting)

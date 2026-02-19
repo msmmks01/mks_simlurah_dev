@@ -59,8 +59,6 @@
                      value="{$tbl_data_rt_rw_id|default:''}">
             </div>
 
-
-
             <!-- Bulan -->
             <div class="col-md-2">
               <label>Bulan</label>
@@ -94,8 +92,9 @@
           <table style="width:100%;border-collapse:collapse">
             <tr>
               <th style="border:1px solid #000;width:40px;text-align:center">NO</th>
-              <th style="border:1px solid #000">INDIKATOR / SUB INDIKATOR</th>
-              <th style="border:1px solid #000;width:120px;text-align:center">Vol &amp; Sat</th>
+              <th style="border:1px solid #000;width:350px;text-align:left">INDIKATOR / SUB INDIKATOR</th>
+              <th style="border:1px solid #000;width:40px;text-align:center">Vol &amp; Sat</th>
+              <th style="border:1px solid #000;width:200px;text-align:center">File</th>
               <th style="border:1px solid #000;width:80px;text-align:center">ACTION</th>
             </tr>
 
@@ -113,10 +112,18 @@
                 {$row.satuan|default:'-'}
               </td>
               <td style="border:1px solid #000;text-align:center">
+                {if $row.file_path neq ''}
+                  <img src="{$host}{$row.file_path}" width="80">
+                {else}
+                  <small style="color:red">Belum upload</small>
+                {/if}
+              </td>
+              <td style="border:1px solid #000;text-align:center">
                 <input type="checkbox"
-                       class="cek-verifikasi"
-                       name="verifikasi[]"
-                       value="{$row.id}">
+                      class="cek-verifikasi"
+                      name="verifikasi[]"
+                      value="{$row.id}"
+                      {if empty($row.file_path)}disabled="disabled"{/if}>
               </td>
             </tr>
             {assign var=no value=$no+1}
