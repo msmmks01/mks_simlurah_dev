@@ -164,7 +164,34 @@
 	</table>
 </table>
 
-{ttd_xalamat($data,$setting)} 
+<table width="100%" style="margin-bottom: 20px; font-weight: none; font-size: 14px;padding-top: -20px;">
+	<tr>
+		<td width="55%">
+			&nbsp;
+		</td>
+		<td align="left" width="40%">  
+			
+		
+			{if count($data.ttd)==1}
+			{$data.ttd[0]['center']}
+			{else}
+			{$data.ttd[0]['center']}<br>{$data.ttd[1]['center']}
+			{/if}
+				
+			<br/>
+			<br/>
+			<br/>
+			<br/> 
+			<br/>
+			
+			{$data.pemohon.nama|default:'...............................'}		
+			<br/>
+			Pangkat : {$data.pemohon.pangkat|default:'............................'}
+			<br/>
+			NIP : {$data.pemohon.nip|default:'...............................'}
+		</td>
+	</tr>
+</table>
 </div>
 </body>
 </html>
