@@ -307,13 +307,13 @@
                             <td valign="bottom" width="35%"><br /></td>
                             <td valign="bottom" width="10%">&nbsp;</td>
                             <td valign="top" width="55%">
-                                <b>{ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'.......'}, {tgl_indo($tgl_cetak)}</b>
+                                {ucwords(strtolower(str_replace('KOTA','',$setting.nama_kab_kota)))|default:'.......'}, {tgl_indo($tgl_cetak)}
                             </td>
                         </tr>
                         <tr>
                             <td valign="bottom">&nbsp;</td>
                             <td valign="bottom">&nbsp;</td>
-                            <td valign="top" align="left"><b>{$setting.jabatan|default:'............................'},</b></td>
+                            <td valign="top" align="left">{$setting.jabatan|default:'............................'},</td>
                         </tr>
                         <tr>
                             <td><br/></td>
@@ -339,25 +339,20 @@
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>
-                                <b><u>{$setting.nama|default:'...............................'}</u></b>
+                                <u>{$setting.nama|default:'...............................'}</u>
                             </td>
                         </tr>
                         <tr>
                             <td><br /></td>
                             <td>&nbsp;</td>
-                            <td align="left"><b>
-                                Pangkat : {$setting.pangkat|default:'............................'}
-                            </b></td>
+                            <td align="left">Pangkat : {$setting.pangkat|default:'............................'}</td>
                         </tr>
                         <tr>
                             <td><br /></td>
                             <td>&nbsp;</td>
-                            <td align="left"><b>
-                                NIP : {$setting.nip|default:'...............................'}
-                            </b></td>
+                            <td align="left">NIP : {$setting.nip|default:'...............................'}</td>
                         </tr>
 					</table>
-				   <!-- {ttd_1muf($data,$setting, $tgl_cetak)}  -->
                 </td>
 			</tr>
 		</table>	
