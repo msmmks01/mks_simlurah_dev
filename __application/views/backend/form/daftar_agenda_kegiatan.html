@@ -23,8 +23,11 @@
 									placeholder="dd-mm-yyyy" class_width="col-lg-12" type="date" name="tgl_kegiatan" id="tgl_kegiatan"
 									value="{tgl_indo_format($data.tgl_kegiatan)|default:''}"}
 								</div>
-								<div class="col-md-2">
-									{include file="backend/template/input_form.html" required="true" label="Waktu Kegiatan" class_width="col-lg-12" type="time" name="waktu_kegiatan" id="waktu_kegiatan" value="{$data.waktu_kegiatan|default:''}"}
+								<div class="col-md-1">
+									{include file="backend/template/input_form.html" required="true" label="Waktu Awal" class_width="col-lg-12" type="time" name="waktu_awal_kegiatan" id="waktu_awal_kegiatan" value="{$data.waktu_awal_kegiatan|default:''}"}
+								</div>
+								<div class="col-md-1">
+									{include file="backend/template/input_form.html" required="false" label="Waktu Akhir" class_width="col-lg-12" type="time" name="waktu_akhir_kegiatan" id="waktu_akhir_kegiatan" value="{$data.waktu_akhir_kegiatan|default:''}"}
 								</div>
 								<div class="col-md-4">
 									{include file="backend/template/input_form.html" required="true" label="Lokasi Kegiatan" class_width="col-lg-12" type="text" name="lokasi_kegiatan" id="lokasi_kegiatan" value="{$data.lokasi_kegiatan|default:''}"}
@@ -35,7 +38,7 @@
 							</div>
 							<div class="row" style="margin-bottom:10px;"> 
 								<div class="col-md-5">
-									{include file="backend/template/input_form.html" required="true" label="Perihal" class_width="col-lg-12" type="text" name="perihal_kegiatan" id="perihal_kegiatan" value="{$data.perihal_kegiatan|default:''}"}
+									{include file="backend/template/input_form.html" required="true" label="Perihal" class_width="col-lg-12" type="textarea" name="perihal_kegiatan" id="perihal_kegiatan" value="{$data.perihal_kegiatan|default:''}"}
 								</div>
 								<div class="col-md-3">
 									{include file="backend/template/input_form.html" required="true" label="Penanggung Jawab" class_width="col-lg-12" type="text" name="pj_kegiatan" id="pj_kegiatan" value="{$data.pj_kegiatan|default:''}"}
@@ -45,10 +48,13 @@
 								</div>
 							</div>
 							<div class="row" style="margin-bottom: 10px;">
-								<div class="col-md-2">
+								<div class="col-md-8">
+									{include file="backend/template/input_form.html" required="true" label="Jenis Agenda" class_width="col-lg-12" type="textarea" name="jenis_agenda" id="jenis_agenda" value="{$data.jenis_agenda|default:''}"}
+								</div>
+								<!-- <div class="col-md-2">
 									{include file="backend/template/input_form.html" required="true" label="Jenis Agenda" class_width="col-lg-12"
 									type="select" name="jenis_agenda" id="jenis_agenda" option={$jenis_agenda|default:''} }
-								</div>
+								</div> -->
 							</div>
 							
 							<div class="row">

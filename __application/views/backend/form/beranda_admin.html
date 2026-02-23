@@ -763,14 +763,28 @@
 </section>
 
 <script type="text/javascript">
-    localStorage.setItem('cl_user_group_id',"{$cl_user_group_id}");
-	$('#filter_data').on('click', function(){
-        $("#beranda_admin").empty().addClass("loading");
-        $.post(host+'backoffice-form/beranda_admin_filter', { 'cl_kelurahan_desa_id_filter':$('#cl_kelurahan_id').val() }, function(resp){
-            $("#beranda_admin").html(resp).removeClass("loading");
-            $('#reload_beranda').show();
-        } );
-    });
+    
+    (function(){
+
+        localStorage.setItem('cl_user_group_id',"{$cl_user_group_id}");
+
+        // 🔥 prevent double binding
+        $(document).off('click','#filter_data')
+                .on('click','#filter_data', function(){
+
+            $("#beranda_admin").empty().addClass("loading");
+
+            $.post(
+                host+'backoffice-form/beranda_admin_filter',
+                { 'cl_kelurahan_desa_id_filter':$('#cl_kelurahan_id').val() },
+                function(resp){
+                    $("#beranda_admin").html(resp).removeClass("loading");
+                    $('#reload_beranda').show();
+                }
+            );
+        });
+
+    })();
     
     var chartStatusKawin =  [{
         name: 'STATUS KAWIN',

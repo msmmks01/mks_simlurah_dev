@@ -4624,16 +4624,28 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
       ];
 
       kolom[modnya] = [
-          {
-              field: "waktu_kegiatan",
+            {
+              field: "waktu_awal_kegiatan",
               title: "Jam",
               width: 100,
               halign: "center",
               align: "center",
-              formatter: function(value,row){
-                  if(!value) return "-";
-                  let jam = value.substring(0,5).replace(":", ".");
-                  return jam + " - Selesai";
+              formatter: function(value, row) {
+
+                  if (!row.waktu_awal_kegiatan) return "-";
+
+                  let jamAwal = row.waktu_awal_kegiatan.substring(0,5).replace(":", ".");
+
+                  // cek waktu akhir valid dan bukan 00:00:00
+                  if (row.waktu_akhir_kegiatan && 
+                      row.waktu_akhir_kegiatan !== "00:00:00") {
+
+                      let jamAkhir = row.waktu_akhir_kegiatan.substring(0,5).replace(":", ".");
+                      return jamAwal + " - " + jamAkhir;
+                  }
+
+                  // jika akhir kosong atau 00:00:00
+                  return jamAwal + " - Selesai";
               }
           },
           {
