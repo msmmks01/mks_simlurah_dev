@@ -1273,6 +1273,8 @@ class Mbackend extends CI_Model
 			case "laporan_rekap_penilaian_rt_rw":
 				$wheres = '';
 				$whereb = '';
+				$tahun_login = $this->auth['tahun'];
+
 				if (in_array($this->auth['cl_user_group_id'], [2, 3, 4, 5])) {
 
 					$where .= "
@@ -1315,15 +1317,10 @@ class Mbackend extends CI_Model
 				}
 
 				$desa_id = $this->input->post('kelurahan_id');
-
 				$rt = $this->input->post('rt');
-
 				$rw = $this->input->post('rw');
-
 				$rt_get = $this->input->get('rt');
-
 				$rw_get = $this->input->get('rw');
-
 				$bulan = $this->input->get('bulan');
 
 				$wherebln = '';
@@ -1370,6 +1367,8 @@ class Mbackend extends CI_Model
 
 				$desa_id = $this->auth['cl_kelurahan_desa_id'];
 
+				$where .= " AND b.pilih_tahun = '$tahun_login' ";
+				$where .= " AND b.status = 'Aktif' ";
 
 				$sql = "SELECT nor,
 					a.nik,
@@ -1477,7 +1476,6 @@ class Mbackend extends CI_Model
 					$where
 					AND (b.status='Aktif' OR a.bulan!='')
 					ORDER BY CONCAT(b.rw,'.',if(b.rt='' OR b.rt is null,'000',b.rt))";
-
 				break;
 
 			case "laporan_staff":
@@ -6419,7 +6417,7 @@ class Mbackend extends CI_Model
 				}
 
 				/* filter WAJIB tahun surat */
-				$where .= " AND pilih_tahun = '$tahun_login' ";
+				$where .= " AND a.pilih_tahun = '$tahun_login' ";
 
 				$sql = " SELECT c.id,a.nama_lengkap,c.tgl_surat,c.kategori_penilaian_rt_rw_id,c.kategori,c.uraian,c.satuan,c.target,c.capaian,
 					ceil(SUM(c.nilai)/COUNT(c.id)) AS nilai,
@@ -6428,24 +6426,24 @@ class Mbackend extends CI_Model
 					CONCAT(
 							DAY(c.tgl_surat),' ',
 							CASE MONTH(c.tgl_surat) 
-							  WHEN 1 THEN 'Januari' 
-							  WHEN 2 THEN 'Februari' 
-							  WHEN 3 THEN 'Maret' 
-							  WHEN 4 THEN 'April' 
-							  WHEN 5 THEN 'Mei' 
-							  WHEN 6 THEN 'Juni' 
-							  WHEN 7 THEN 'Juli' 
-							  WHEN 8 THEN 'Agustus' 
-							  WHEN 9 THEN 'September'
-							  WHEN 10 THEN 'Oktober' 
-							  WHEN 11 THEN 'November' 
-							  WHEN 12 THEN 'Desember' 
+							WHEN 1 THEN 'Januari' 
+							WHEN 2 THEN 'Februari' 
+							WHEN 3 THEN 'Maret' 
+							WHEN 4 THEN 'April' 
+							WHEN 5 THEN 'Mei' 
+							WHEN 6 THEN 'Juni' 
+							WHEN 7 THEN 'Juli' 
+							WHEN 8 THEN 'Agustus' 
+							WHEN 9 THEN 'September'
+							WHEN 10 THEN 'Oktober' 
+							WHEN 11 THEN 'November' 
+							WHEN 12 THEN 'Desember' 
 							END,' ',
 							YEAR(c.tgl_surat)
 						) AS tanggal_surat, 
 
-						 DATE_FORMAT(c.create_date, '%d-%m-%Y %H:%i') as tanggal_buat,
-						 CASE 
+						DATE_FORMAT(c.create_date, '%d-%m-%Y %H:%i') as tanggal_buat,
+						CASE 
 							WHEN a.rw!='' AND a.rt='' THEN CONCAT(a.jab_rt_rw,' ', LPAD(a.rw, 3, '0'))
 							WHEN a.rw!='' AND a.rt!='' THEN CONCAT(a.jab_rt_rw,' ', LPAD(a.rt, 3, '0'), '/', LPAD(a.rw, 3, '0'))
 							ELSE a.jab_rt_rw
@@ -6453,10 +6451,9 @@ class Mbackend extends CI_Model
 					
 					from tbl_data_rt_rw a
 
-					left join tbl_penilaian_rt_rw c ON c.tbl_data_rt_rw_id = a.id
+					LEFT JOIN tbl_penilaian_rt_rw c ON c.tbl_data_rt_rw_id = a.id AND YEAR(c.tgl_surat) = '$tahun_login'
 
 					left join cl_pilih_bulan b ON c.bulan = b.id
-
 					
 					left join cl_kelurahan_desa d on a.cl_kelurahan_desa_id=d.id and a.cl_kecamatan_id=d.kecamatan_id
 
@@ -6467,8 +6464,6 @@ class Mbackend extends CI_Model
 					ORDER BY c.bulan,CONCAT(a.rw,'.',if(a.rt='' OR a.rt is null,'000',a.rt))
 
 				";
-
-
 			break;
 			//end Rekap RT RW
 
