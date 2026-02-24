@@ -6056,6 +6056,9 @@ class Mbackend extends CI_Model
 
 			case "data_rt_rw":
 
+				$tahun_login    = $this->auth['tahun'];
+				$tahun_berjalan = date('Y');
+
 				$where = " WHERE 1=1 ";
 
 				$kolom      = $this->input->post('kat'); 
@@ -6072,85 +6075,76 @@ class Mbackend extends CI_Model
 				$kolom_sub = isset($map_kolom[$kolom]) ? $map_kolom[$kolom] : '';
 
 				// ================== PENCARIAN ==================
-				
 				if(!empty($kolom) && !empty($keyword)) {
-
-					$where .= " 
-						AND {$kolom} LIKE '%" . $this->db->escape_like_str($keyword) . "%'
-					";
+					$where .= " AND {$kolom} LIKE '%" . $this->db->escape_like_str($keyword) . "%' ";
 				}
 
 				// ================== HAK AKSES USER ==================
 				if (in_array($this->auth['cl_user_group_id'], [2, 4, 5])) {
-					$where .= " 
-						AND a.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "' 
-					";
+					$where .= " AND a.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "' ";
 				}
 
 				// ================== FILTER KELURAHAN ==================
 				$kelurahan = $this->input->post('kelurahan');
 				if (!empty($kelurahan)) {
-					$where .= " 
-						AND a.cl_kelurahan_desa_id = '" . $kelurahan . "' 
-					";
+					$where .= " AND a.cl_kelurahan_desa_id = '" . $kelurahan . "' ";
 				}
 
-				// ================== TAB STATUS ==================
-				if (empty($status_tab) || $status_tab == 'aktif') {
-
-					// ===== AKTIF (TIDAK DIUBAH) =====
-					$where .= "
-						AND a.status = 'Aktif'
-						AND a.pilih_tahun = '2026'
-						AND a.id IN (
-							SELECT MAX(id)
-							FROM tbl_data_rt_rw
-							WHERE status = 'Aktif'
-							AND pilih_tahun = '2026'
-							GROUP BY nik
-						)
-					";
-
-				} elseif ($status_tab == 'tidak_aktif') {
-
-					// ===== TIDAK AKTIF (FINAL FIX) =====
-					$where .= "
-						AND a.status = 'Tidak Aktif'
-						AND a.pilih_tahun <> '2026'
-						AND a.id IN (
-							SELECT MAX(id)
-							FROM tbl_data_rt_rw
-							WHERE status = 'Tidak Aktif'
-							AND pilih_tahun <> '2026' GROUP BY nik)
-					";
-
-					// 🔴 LIKE KHUSUS DI SUBQUERY (TANPA alias a.)
-				
-				
+				// ================== TAB STATUS & TAHUN ==================
+				if ($tahun_login == $tahun_berjalan) {
+					// Login di tahun berjalan -> gunakan tab Aktif / Tidak Aktif
+					if (empty($status_tab) || $status_tab == 'aktif') {
+						$where .= "
+							AND a.status = 'Aktif'
+							AND a.pilih_tahun = '$tahun_berjalan'
+							AND a.id IN (
+								SELECT MAX(id)
+								FROM tbl_data_rt_rw
+								WHERE status = 'Aktif'
+								AND pilih_tahun = '$tahun_berjalan'
+								GROUP BY nik
+							)
+						";
+					} elseif ($status_tab == 'tidak_aktif') {
+						$where .= "
+							AND a.status = 'Tidak Aktif'
+							AND a.pilih_tahun <> '$tahun_berjalan'
+							AND a.id IN (
+								SELECT MAX(id)
+								FROM tbl_data_rt_rw
+								WHERE status = 'Tidak Aktif'
+								AND pilih_tahun <> '$tahun_berjalan'
+								GROUP BY nik
+							)
+						";
+					}
+				} else {
+					// Login di tahun sebelumnya -> tampilkan semua RT/RW tahun login, abaikan status dan tab
+					$where .= " AND a.pilih_tahun = '$tahun_login' ";
 				}
 
 				// ================== QUERY FINAL ==================
 				$sql = "SELECT a.*,
-						CASE 
-							WHEN a.jab_rt_rw = 'Ketua RW' 
-								THEN CONCAT('Ketua RW ', LPAD(a.rw, 3, '0'))
-							WHEN a.jab_rt_rw = 'Ketua RT' 
-								THEN CONCAT('Ketua RT ', LPAD(a.rt, 3, '0'), '/', LPAD(a.rw, 3, '0'))
-							ELSE a.jab_rt_rw
-						END AS jabatan_rt_rw,
-						c.nama_agama,
-						d.nama,
-						a.alamat AS nama_keluahan_desa
-					FROM tbl_data_rt_rw a
-					LEFT JOIN cl_agama c ON a.agama = c.id
-					LEFT JOIN cl_kelurahan_desa d 
-						ON a.cl_kelurahan_desa_id = d.id
-						AND a.cl_kecamatan_id = d.kecamatan_id
-					$where
-					ORDER BY a.rw, a.rt, a.id DESC
+							CASE 
+								WHEN a.jab_rt_rw = 'Ketua RW' 
+									THEN CONCAT('Ketua RW ', LPAD(a.rw, 3, '0'))
+								WHEN a.jab_rt_rw = 'Ketua RT' 
+									THEN CONCAT('Ketua RT ', LPAD(a.rt, 3, '0'), '/', LPAD(a.rw, 3, '0'))
+								ELSE a.jab_rt_rw
+							END AS jabatan_rt_rw,
+							c.nama_agama,
+							d.nama,
+							a.alamat AS nama_keluahan_desa
+						FROM tbl_data_rt_rw a
+						LEFT JOIN cl_agama c ON a.agama = c.id
+						LEFT JOIN cl_kelurahan_desa d 
+							ON a.cl_kelurahan_desa_id = d.id
+							AND a.cl_kecamatan_id = d.kecamatan_id
+						$where
+						ORDER BY a.rw, a.rt, a.id DESC
 				";
 
-				break;
+			break;
 
 			//end RT RW
 
@@ -6275,18 +6269,21 @@ class Mbackend extends CI_Model
 				$tahun_login    = $this->auth['tahun'];
 				$tahun_berjalan = date('Y');
 
-				/* ================= STATUS DATA ================= */
-				$status_target = ($tahun_login == $tahun_berjalan)
-					? 'aktif'
-					: 'tidak aktif';
-
 				$where = " WHERE 1=1 ";
 
 				/* ================= FILTER DASAR ================= */
-				$where .= "
-					AND a.pilih_tahun = '$tahun_login'
-					AND a.status = '$status_target'
-				";
+				// Tahun login = tahun berjalan → filter aktif
+				if($tahun_login == $tahun_berjalan){
+					$where .= "
+						AND a.pilih_tahun = '$tahun_login'
+						AND a.status = 'Aktif'
+					";
+				} else {
+					// Tahun login < tahun berjalan → tampilkan semua pejabat tahun itu, abaikan status
+					$where .= "
+						AND a.pilih_tahun = '$tahun_login'
+					";
+				}
 
 				/* ================= HAK AKSES ================= */
 				if (in_array($this->auth['cl_user_group_id'], [2, 4, 5])) {
@@ -6298,14 +6295,12 @@ class Mbackend extends CI_Model
 				}
 
 				/* ================= FILTER PENILAIAN ================= */
-				$on_penilaian = "
-					AND YEAR(c.tgl_surat) = '$tahun_login'
-				";
-
+				$on_penilaian = " AND YEAR(c.tgl_surat) = '$tahun_login' ";
 				if ($this->input->post('bulan') != '') {
 					$on_penilaian .= " AND c.bulan = '".$this->input->post('bulan')."' ";
 				}
 
+				/* ================= QUERY FINAL ================= */
 				$sql = "SELECT 
 					a.id AS rt_rw_id,
 					a.nik,
@@ -6313,24 +6308,16 @@ class Mbackend extends CI_Model
 
 					/* ================= PENENTU WARNA ================= */
 					COUNT(c.id) AS total_penilaian,
-					CASE 
-						WHEN COUNT(c.id) > 0 THEN 1 
-						ELSE 0 
-					END AS is_dinilai,
+					CASE WHEN COUNT(c.id) > 0 THEN 1 ELSE 0 END AS is_dinilai,
 
 					/* ================= NILAI ================= */
-				
-						
-						(CEIL(SUM(c.nilai) / NULLIF(COUNT(c.id), 0))) AS nilai,
+					(CEIL(SUM(c.nilai) / NULLIF(COUNT(c.id),0))) AS nilai,
 
 					/* ================= LPJ ================= */
-					CASE 
-						WHEN e.id IS NOT NULL THEN 1 
-						ELSE 0 
-					END AS lpj,
+					CASE WHEN e.id IS NOT NULL THEN 1 ELSE 0 END AS lpj,
 
 					/* ================= STANDAR NILAI ================= */
-					CASE 
+					CASE
 						WHEN COUNT(c.id) = 0 THEN 'Belum Dinilai'
 						WHEN CEIL(SUM(c.nilai) / COUNT(c.id)) < 60 THEN '--'
 						WHEN CEIL(SUM(c.nilai) / COUNT(c.id)) BETWEEN 60 AND 70 THEN 'Cukup'
@@ -6341,7 +6328,7 @@ class Mbackend extends CI_Model
 					END AS standar_nilai,
 
 					/* ================= INSENTIF ================= */
-					CASE 
+					CASE
 						WHEN COUNT(c.id) = 0 THEN 'Rp. 0,00'
 						WHEN CEIL(SUM(c.nilai) / COUNT(c.id)) < 60 THEN 'Rp. 0,00'
 						WHEN CEIL(SUM(c.nilai) / COUNT(c.id)) BETWEEN 60 AND 70 THEN 'Rp. 300.000,00'
@@ -6355,34 +6342,25 @@ class Mbackend extends CI_Model
 
 					/* ================= JABATAN ================= */
 					CASE 
-						WHEN a.jab_rt_rw = 'Ketua RW' THEN CONCAT('Ketua RW ', LPAD(a.rw, 3, '0'))
-						WHEN a.jab_rt_rw = 'PJ RW' THEN CONCAT('PJ RW ', LPAD(a.rw, 3, '0'))
-						WHEN a.jab_rt_rw = 'Ketua RT' THEN CONCAT('Ketua RT ', LPAD(a.rt, 3, '0'), '/', LPAD(a.rw, 3, '0'))
-						WHEN a.jab_rt_rw = 'PJ RT' THEN CONCAT('PJ RT ', LPAD(a.rt, 3, '0'), '/', LPAD(a.rw, 3, '0'))
+						WHEN a.jab_rt_rw = 'Ketua RW' THEN CONCAT('Ketua RW ', LPAD(a.rw,3,'0'))
+						WHEN a.jab_rt_rw = 'PJ RW' THEN CONCAT('PJ RW ', LPAD(a.rw,3,'0'))
+						WHEN a.jab_rt_rw = 'Ketua RT' THEN CONCAT('Ketua RT ', LPAD(a.rt,3,'0'),'/',LPAD(a.rw,3,'0'))
+						WHEN a.jab_rt_rw = 'PJ RT' THEN CONCAT('PJ RT ', LPAD(a.rt,3,'0'),'/',LPAD(a.rw,3,'0'))
 						ELSE a.jab_rt_rw
 					END AS jabatan_rt_rw
 
 				FROM tbl_data_rt_rw a
-
 				LEFT JOIN tbl_penilaian_rt_rw c
 					ON c.tbl_data_rt_rw_id = a.id
 					$on_penilaian
-
 				LEFT JOIN cl_kelurahan_desa d
 					ON a.cl_kelurahan_desa_id = d.id
 					AND a.cl_kecamatan_id = d.kecamatan_id
-
 				LEFT JOIN tbl_lpj_rtrw e
 					ON a.nik = e.nik
-
 				$where
-
 				GROUP BY a.id
-
-				ORDER BY CONCAT(
-					a.rw, '.', 
-					IF(a.rt IS NULL OR a.rt = '', '000', a.rt)
-				)";
+				ORDER BY CONCAT(a.rw,'.',IF(a.rt IS NULL OR a.rt='','000',a.rt))";
 
 			break;
 			//end Penilaian RT RW
