@@ -9267,13 +9267,14 @@ class Mbackend extends CI_Model
 				";
 
 				break;
+				
 			case "data_penandatanganan_4":
 
 				$sql = "SELECT nip as id, nama as txt
 
 					FROM tbl_data_penandatanganan 
 
-					where  tingkat_jabatan = '1.1'
+					where  tingkat_jabatan = '1.1' AND status='Aktif'
 				";
 
 				break;
@@ -17560,30 +17561,75 @@ class Mbackend extends CI_Model
 
 				break;
 
+			// case "daftar_agenda_kegiatan":
+
+			// 	$file = '';
+			// 	$dir                     = date('Ymd');
+			// 	if (!is_dir('./__data/' . $dir)) {
+			// 		mkdir('./__data/' . $dir, 0755);
+			// 	}
+
+			// 	$config['upload_path']          = './__data/' . $dir;
+			// 	$config['allowed_types']        = 'pdf|jpg|jpeg|png';
+			// 	$config['max_size']             = 2048;
+			// 	$config['encrypt_name']			= true;
+
+
+			// 	$this->load->library('upload', $config);
+			// 	$this->upload->initialize($config);
+
+			// 	if (!$this->upload->do_upload('file')) {
+			// 		$error = array('error' => $this->upload->display_errors());
+			// 	} else {
+			// 		$file = '__data/' . $dir . '/' . $this->upload->data()['file_name'];
+			// 	}
+
+			// 	$data['file'] = $file;
+
+			// 	if (isset($data['tgl_kegiatan'])) {
+			// 		$data['tgl_kegiatan'] = date('Y-m-d', strtotime($data['tgl_kegiatan']));
+			// 	}
+
+			// 	$table = "tbl_data_daftar_agenda";
+
+			// 	if ($sts_crud == "add" || $sts_crud == "edit") {
+
+			// 		$data['cl_provinsi_id'] = $this->auth['cl_provinsi_id'];
+
+			// 		$data['cl_kab_kota_id'] = $this->auth['cl_kab_kota_id'];
+
+			// 		$data['cl_kecamatan_id'] = $this->auth['cl_kecamatan_id'];
+
+			// 		$data['cl_kelurahan_desa_id'] = $this->auth['cl_kelurahan_desa_id'];
+			// 	}
+
+			// break;
+
 			case "daftar_agenda_kegiatan":
 
+				$data = $this->input->post();
+				unset($data['editstatus']);
+				unset($data['id']);
+
 				$file = '';
-				$dir                     = date('Ymd');
+				$dir  = date('Ymd');
+
 				if (!is_dir('./__data/' . $dir)) {
 					mkdir('./__data/' . $dir, 0755);
 				}
 
-				$config['upload_path']          = './__data/' . $dir;
-				$config['allowed_types']        = 'pdf|jpg|jpeg|png';
-				$config['max_size']             = 2048;
-				$config['encrypt_name']			= true;
-
+				$config['upload_path']   = './__data/' . $dir;
+				$config['allowed_types'] = 'pdf|jpg|jpeg|png';
+				$config['max_size']      = 2048;
+				$config['encrypt_name']  = true;
 
 				$this->load->library('upload', $config);
 				$this->upload->initialize($config);
 
-				if (!$this->upload->do_upload('file')) {
-					$error = array('error' => $this->upload->display_errors());
-				} else {
+				if ($this->upload->do_upload('file')) {
 					$file = '__data/' . $dir . '/' . $this->upload->data()['file_name'];
+					$data['file'] = $file;
 				}
-
-				$data['file'] = $file;
 
 				if (isset($data['tgl_kegiatan'])) {
 					$data['tgl_kegiatan'] = date('Y-m-d', strtotime($data['tgl_kegiatan']));
@@ -17593,16 +17639,73 @@ class Mbackend extends CI_Model
 
 				if ($sts_crud == "add" || $sts_crud == "edit") {
 
-					$data['cl_provinsi_id'] = $this->auth['cl_provinsi_id'];
-
-					$data['cl_kab_kota_id'] = $this->auth['cl_kab_kota_id'];
-
-					$data['cl_kecamatan_id'] = $this->auth['cl_kecamatan_id'];
-
+					$data['cl_provinsi_id']       = $this->auth['cl_provinsi_id'];
+					$data['cl_kab_kota_id']       = $this->auth['cl_kab_kota_id'];
+					$data['cl_kecamatan_id']      = $this->auth['cl_kecamatan_id'];
 					$data['cl_kelurahan_desa_id'] = $this->auth['cl_kelurahan_desa_id'];
 				}
 
-				break;
+				// ================= SIMPAN DATA =================
+				if ($sts_crud == "add") {
+
+					$this->db->insert($table, $data);
+					$agenda_id = $this->db->insert_id();
+
+				} elseif ($sts_crud == "edit") {
+
+					$agenda_id = $this->input->post('id');
+					$this->db->where('id', $agenda_id);
+					$this->db->update($table, $data);
+				}
+
+				// ================= PROSES TAGING =================
+				$bagikan = $this->input->post('bagikan');
+
+				if (!empty($bagikan)) {
+
+					$tags = json_decode($bagikan, true);
+
+					if (is_array($tags)) {
+
+						foreach ($tags as $t) {
+
+							$group_tag = strtoupper(str_replace('#', '', $t['value']));
+
+							// 1️⃣ Ambil data group
+							$group = $this->db
+								->get_where('cl_user_group', array(
+									'user_group' => $group_tag
+								))
+								->row_array();
+
+							if ($group) {
+
+								// 2️⃣ Ambil semua user dalam group tersebut
+								$users = $this->db
+									->get_where('tbl_user', array(
+										'cl_user_group_id' => $group['id']
+									))
+									->result_array();
+
+								foreach ($users as $u) {
+
+									$data_disposisi = array(
+										'agenda_id' => $agenda_id,
+										'user_id'   => $u['id'], // ini id user
+										'pesan'     => 'Anda menerima agenda kegiatan baru',
+										'created_at'=> date('Y-m-d H:i:s')
+									);
+
+									$this->db->insert('tbl_disposisi_online', $data_disposisi);
+								}
+							}
+						}
+					}
+				}
+
+				echo 1;
+
+			break;
 
 			// case "laporan_hasil_kegiatan":
 

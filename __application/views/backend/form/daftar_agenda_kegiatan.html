@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css">
+<script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
+
 <form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/daftar_agenda_kegiatan" enctype="multipart/form-data" >
     <input type="hidden" name="id" value="{$data.id|default:''}">
 	<input type="hidden" name="editstatus" value="{$sts|default:'add'}">
@@ -49,13 +52,18 @@
 							</div>
 							<div class="row" style="margin-bottom: 10px;">
 								<div class="col-md-8">
-									{include file="backend/template/input_form.html" required="true" label="Jenis Agenda" class_width="col-lg-12" type="textarea" name="jenis_agenda" id="jenis_agenda" value="{$data.jenis_agenda|default:''}"}
+									<div class="form-group">
+										<label for="bagikan">Bagikan <span style="color:red">*</span></label>
+										<input name="bagikan" id="bagikan" class="form-control">
+									</div>
 								</div>
-								<!-- <div class="col-md-2">
+							</div>
+							<!-- <div class="row" style="margin-bottom: 10px;">
+								<div class="col-md-2">
 									{include file="backend/template/input_form.html" required="true" label="Jenis Agenda" class_width="col-lg-12"
 									type="select" name="jenis_agenda" id="jenis_agenda" option={$jenis_agenda|default:''} }
-								</div> -->
-							</div>
+								</div>
+							</div> -->
 							
 							<div class="row">
 								<div class="col-md-12">
@@ -74,7 +82,6 @@
 			</div>
 		</div>
 	</div>
-	
 </form>
 
 <script>
@@ -85,6 +92,7 @@
 		instansi_pengirim : "required",
 		perihal_kegiatan : "required",
 		pj_kegiatan : "required",
+		bagikan : "required",
 	};
 
 	var messagesnya = {
@@ -94,6 +102,7 @@
 		instansi_pengirim : "<i style='color:red'>Harus Diisi</i>",
 		perihal_kegiatan : "<i style='color:red'>Harus Diisi</i>",
 		pj_kegiatan : "<i style='color:red'>Harus Diisi</i>",
+		bagikan : "<i style='color:red'>Harus Diisi</i>",
 	};
 
 	$("#form_{$acak}").validate({
@@ -120,4 +129,22 @@
 		}
 
 	});
+
+	//FUNGSI TAGING
+	$(document).ready(function(){
+
+    var input = document.querySelector('#bagikan');
+
+		if(input){
+			var tagify = new Tagify(input, {
+				pattern: /^#\w+$/,
+				whitelist: ["#rt", "#rw", "#sekcam", "#lurah"],
+				dropdown: {
+					enabled: 1,
+					maxItems: 10
+				}
+			});
+		}
+	});
+
 </script>
