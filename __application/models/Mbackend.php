@@ -19449,11 +19449,12 @@ class Mbackend extends CI_Model
 
 				$id = $this->input->post('id');
 
-				if (empty($id)) {
-					return 0;
-				}
+				// if (empty($id)) {
+				// 	return 0;
+				// }
 
 				//Delete Data Penduduk
+				
 				if ($table == "tbl_data_penduduk") {
 					$cek = $this->db->query("SELECT no_kk from tbl_data_penduduk where id='$id' ")->row('no_kk');
 					$cek2 = $this->db->query("SELECT * from tbl_data_surat where tbl_data_penduduk_id='$id' ")->num_rows();
@@ -19465,18 +19466,22 @@ class Mbackend extends CI_Model
 						return '3';
 					}
 				} else if ($table == "tbl_penilaian_rt_rw") {
-						$rt_rw_id    = (int)$this->input->post('rt_rw_id');
+
+					$rt_rw_id    = (int)$this->input->post('rt_rw_id');
 					$bulan       = (int)$this->input->post('bulan');
 					$tahun_login = (int)$this->auth['tahun'];
-					$this->db->where('tbl_data_rt_rw_id', $rt_rw_id);
+
+					if ($rt_rw_id > 0 && $bulan > 0) {
+
+						$this->db->where('tbl_data_rt_rw_id', $rt_rw_id);
 						$this->db->where('bulan', $bulan);
 						$this->db->where('YEAR(tgl_surat)', $tahun_login);
 
 						$this->db->delete('tbl_penilaian_rt_rw');
-					// Cek apakah data penilaian di tbl_penilaian_rt_rw ada
 
-					// $pen = $this->db->query("DELETE FROM tbl_penilaian_rt_rw WHERE id='$id'");
-					// $this->db->delete($table, array('penilaian_id' => $id));
+					} else {
+						return 0;
+					}
 				} else if ($table == "laporan_hasil_kegiatan") {
 
 					$this->db->where('id', $id);
