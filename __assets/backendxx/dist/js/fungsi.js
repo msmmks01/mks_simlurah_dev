@@ -5611,11 +5611,101 @@ function genform(type, modulnya, submodulnya, stswindow, p1, p2, p3) {
       }
       break;
 
+    // case "delete":
+    //   var row = $("#grid_" + submodulnya).datagrid("getSelected");
+
+    //   if (row) {
+        
+    //     // 🔥 KHUSUS LAPORAN HASIL KEGIATAN
+    //     if (
+    //       submodulnya === "laporan_hasil_kegiatan" &&
+    //       (row.id === null || row.id === "" || typeof row.id === "undefined")
+    //     ) {
+    //       row.id = row.agenda_id;
+    //     }
+
+    //     if (
+    //       submodulnya === "daftar_agenda_kegiatan" &&
+    //       parseInt(row.status) === 1
+    //     ) {
+    //       $.messager.alert(
+    //         nama_apps,
+    //         "Agenda ini sudah memiliki hasil laporan dan tidak dapat dihapus.",
+    //         "warning"
+    //       );
+    //       return false; // ⛔ STOP TOTAL
+    //     }
+
+    //     $.messager.confirm(
+    //       nama_apps,
+    //       "Anda Yakin Ingin Menghapus Data Ini ?",
+    //       function (re) {
+    //         if (re) {
+    //           if (adafilenya) {
+    //             nama_file = row.nama_file;
+    //           }
+
+    //           $.LoadingOverlay("show");
+
+    //           $.post(
+    //             urldelete,
+    //             {
+    //               id: row.id,
+    //               editstatus: "delete",
+    //               id_tambahan: id_tambahan,
+    //             },
+    //             function (r) {
+    //               if (r == 1) {
+    //                 $.messager.alert(nama_apps, "Data Terhapus", "info");
+
+    //                 grid_nya.datagrid("reload");
+    //               } else if (r == 3) {
+    //                 $.messager.alert(
+    //                   nama_apps,
+    //                   "Gagal Menghapus Data karena NIK sudah terdaftar di Kartu Keluarga",
+    //                   "warning"
+    //                 );
+    //               } else if (r == 4) {
+    //                 $.messager.alert(
+    //                   nama_apps,
+    //                   "Gagal Menghapus Data karena sudah ada Surat dengan NIK ini",
+    //                   "warning"
+    //                 );
+    //               } else if (r == 5) {
+    //                 $.messager.alert(
+    //                   nama_apps,
+    //                   "Data tidak boleh dihapus!!!",
+    //                   "warning"
+    //                 );
+    //               } else {
+    //                 $.messager.alert(
+    //                   nama_apps,
+    //                   "Gagal Menghapus Data " + r,
+    //                   "error"
+    //                 );
+    //               }
+
+    //               $.LoadingOverlay("hide", true);
+    //             }
+    //           );
+    //         }
+    //       }
+    //     );
+    //   } else {
+    //     $.messager.alert(
+    //       nama_apps,
+    //       "Pilih Data Yang Akan Dihapus/Diedit",
+    //       "error"
+    //     );
+    //   }
+
+    // break;
+
     case "delete":
       var row = $("#grid_" + submodulnya).datagrid("getSelected");
 
       if (row) {
-
+        
         // 🔥 KHUSUS LAPORAN HASIL KEGIATAN
         if (
           submodulnya === "laporan_hasil_kegiatan" &&
@@ -5649,11 +5739,17 @@ function genform(type, modulnya, submodulnya, stswindow, p1, p2, p3) {
 
               $.post(
                 urldelete,
-                {
-                  id: row.id,
-                  editstatus: "delete",
-                  id_tambahan: id_tambahan,
-                },
+                (submodulnya === "penilaian_rt_rw")
+                  ? {
+                      rt_rw_id: row.rt_rw_id,
+                      bulan: $("#bulan").val(), // 🔥 ambil langsung dari dropdown
+                      editstatus: "delete"
+                    }
+                  : {
+                      id: row.id,
+                      editstatus: "delete",
+                      id_tambahan: id_tambahan
+                    },
                 function (r) {
                   if (r == 1) {
                     $.messager.alert(nama_apps, "Data Terhapus", "info");
@@ -5699,7 +5795,7 @@ function genform(type, modulnya, submodulnya, stswindow, p1, p2, p3) {
         );
       }
 
-      break;
+    break;
   }
 }
 

@@ -6264,6 +6264,112 @@ class Mbackend extends CI_Model
 			break;
 
 			//Penilaian RT RW
+			// case "penilaian_rt_rw":
+
+			// 	$tahun_login    = $this->auth['tahun'];
+			// 	$tahun_berjalan = date('Y');
+
+			// 	$where = " WHERE 1=1 ";
+
+			// 	/* ================= FILTER DASAR ================= */
+			// 	// Tahun login = tahun berjalan → filter aktif
+			// 	if($tahun_login == $tahun_berjalan){
+			// 		$where .= "
+			// 			AND a.pilih_tahun = '$tahun_login'
+			// 			AND a.status = 'Aktif'
+			// 		";
+			// 	} else {
+			// 		// Tahun login < tahun berjalan → tampilkan semua pejabat tahun itu, abaikan status
+			// 		$where .= "
+			// 			AND a.pilih_tahun = '$tahun_login'
+			// 		";
+			// 	}
+
+			// 	/* ================= HAK AKSES ================= */
+			// 	if (in_array($this->auth['cl_user_group_id'], [2, 4, 5])) {
+			// 		$where .= " AND a.cl_kelurahan_desa_id = '".$this->auth['cl_kelurahan_desa_id']."' ";
+			// 	}
+
+			// 	if ($this->input->post('kelurahan')) {
+			// 		$where .= " AND a.cl_kelurahan_desa_id = '".$this->input->post('kelurahan')."' ";
+			// 	}
+
+			// 	/* ================= FILTER PENILAIAN ================= */
+			// 	$bulan = $this->input->post('bulan');
+
+			// 	if ($bulan == '') {
+			// 		$bulan = date('n'); // default bulan sekarang
+			// 	}
+
+			// 	$on_penilaian = "
+			// 		AND YEAR(c.tgl_surat) = '$tahun_login'
+			// 		AND c.bulan = '$bulan'
+			// 	";
+
+			// 	/* ================= QUERY FINAL ================= */
+			// 	$sql = "SELECT 
+			// 		a.id AS rt_rw_id,
+			// 		a.nik,
+			// 		a.nama_lengkap,
+
+			// 		/* ================= PENENTU WARNA ================= */
+			// 		COUNT(c.id) AS total_penilaian,
+			// 		CASE WHEN COUNT(c.id) > 0 THEN 1 ELSE 0 END AS is_dinilai,
+
+			// 		/* ================= NILAI ================= */
+			// 		(CEIL(SUM(c.nilai) / NULLIF(COUNT(c.id),0))) AS nilai,
+
+			// 		/* ================= LPJ ================= */
+			// 		CASE WHEN e.id IS NOT NULL THEN 1 ELSE 0 END AS lpj,
+
+			// 		/* ================= STANDAR NILAI ================= */
+			// 		CASE
+			// 			WHEN COUNT(c.id) = 0 THEN 'Belum Dinilai'
+			// 			WHEN CEIL(SUM(c.nilai) / COUNT(c.id)) < 60 THEN '--'
+			// 			WHEN CEIL(SUM(c.nilai) / COUNT(c.id)) BETWEEN 60 AND 70 THEN 'Cukup'
+			// 			WHEN CEIL(SUM(c.nilai) / COUNT(c.id)) BETWEEN 71 AND 80 THEN 'Cukup Baik'
+			// 			WHEN CEIL(SUM(c.nilai) / COUNT(c.id)) BETWEEN 81 AND 90 THEN 'Baik'
+			// 			WHEN CEIL(SUM(c.nilai) / COUNT(c.id)) >= 91 THEN 'Sangat Baik'
+			// 			ELSE 'Belum Dinilai'
+			// 		END AS standar_nilai,
+
+			// 		/* ================= INSENTIF ================= */
+			// 		CASE
+			// 			WHEN COUNT(c.id) = 0 THEN 'Rp. 0,00'
+			// 			WHEN CEIL(SUM(c.nilai) / COUNT(c.id)) < 60 THEN 'Rp. 0,00'
+			// 			WHEN CEIL(SUM(c.nilai) / COUNT(c.id)) BETWEEN 60 AND 70 THEN 'Rp. 300.000,00'
+			// 			WHEN CEIL(SUM(c.nilai) / COUNT(c.id)) BETWEEN 71 AND 80 THEN 'Rp. 600.000,00'
+			// 			WHEN CEIL(SUM(c.nilai) / COUNT(c.id)) BETWEEN 81 AND 90 THEN 'Rp. 900.000,00'
+			// 			WHEN CEIL(SUM(c.nilai) / COUNT(c.id)) >= 91 THEN 'Rp. 1.200.000,00'
+			// 			ELSE 'Rp. 0,00'
+			// 		END AS usulan_insentif,
+
+			// 		d.nama AS nama_kelurahan_desa,
+
+			// 		/* ================= JABATAN ================= */
+			// 		CASE 
+			// 			WHEN a.jab_rt_rw = 'Ketua RW' THEN CONCAT('Ketua RW ', LPAD(a.rw,3,'0'))
+			// 			WHEN a.jab_rt_rw = 'PJ RW' THEN CONCAT('PJ RW ', LPAD(a.rw,3,'0'))
+			// 			WHEN a.jab_rt_rw = 'Ketua RT' THEN CONCAT('Ketua RT ', LPAD(a.rt,3,'0'),'/',LPAD(a.rw,3,'0'))
+			// 			WHEN a.jab_rt_rw = 'PJ RT' THEN CONCAT('PJ RT ', LPAD(a.rt,3,'0'),'/',LPAD(a.rw,3,'0'))
+			// 			ELSE a.jab_rt_rw
+			// 		END AS jabatan_rt_rw
+
+			// 	FROM tbl_data_rt_rw a
+			// 	LEFT JOIN tbl_penilaian_rt_rw c
+			// 		ON c.tbl_data_rt_rw_id = a.id
+			// 		$on_penilaian
+			// 	LEFT JOIN cl_kelurahan_desa d
+			// 		ON a.cl_kelurahan_desa_id = d.id
+			// 		AND a.cl_kecamatan_id = d.kecamatan_id
+			// 	LEFT JOIN tbl_lpj_rtrw e
+			// 		ON a.nik = e.nik
+			// 	$where
+			// 	GROUP BY a.id
+			// 	ORDER BY CONCAT(a.rw,'.',IF(a.rt IS NULL OR a.rt='','000',a.rt))";
+
+			// break;
+
 			case "penilaian_rt_rw":
 
 				$tahun_login    = $this->auth['tahun'];
@@ -6272,32 +6378,34 @@ class Mbackend extends CI_Model
 				$where = " WHERE 1=1 ";
 
 				/* ================= FILTER DASAR ================= */
-				// Tahun login = tahun berjalan → filter aktif
-				if($tahun_login == $tahun_berjalan){
+				if ($tahun_login == $tahun_berjalan) {
 					$where .= "
 						AND a.pilih_tahun = '$tahun_login'
 						AND a.status = 'Aktif'
 					";
 				} else {
-					// Tahun login < tahun berjalan → tampilkan semua pejabat tahun itu, abaikan status
 					$where .= "
 						AND a.pilih_tahun = '$tahun_login'
 					";
 				}
 
 				/* ================= HAK AKSES ================= */
-				if (in_array($this->auth['cl_user_group_id'], [2, 4, 5])) {
-					$where .= " AND a.cl_kelurahan_desa_id = '".$this->auth['cl_kelurahan_desa_id']."' ";
+				if (in_array($this->auth['cl_user_group_id'], [2,4,5])) {
+					$where .= " 
+						AND a.cl_kelurahan_desa_id = '".$this->auth['cl_kelurahan_desa_id']."' 
+					";
 				}
 
 				if ($this->input->post('kelurahan')) {
-					$where .= " AND a.cl_kelurahan_desa_id = '".$this->input->post('kelurahan')."' ";
+					$where .= " 
+						AND a.cl_kelurahan_desa_id = '".$this->input->post('kelurahan')."' 
+					";
 				}
 
-				/* ================= FILTER PENILAIAN ================= */
-				$on_penilaian = " AND YEAR(c.tgl_surat) = '$tahun_login' ";
-				if ($this->input->post('bulan') != '') {
-					$on_penilaian .= " AND c.bulan = '".$this->input->post('bulan')."' ";
+				/* ================= FILTER BULAN ================= */
+				$bulan = $this->input->post('bulan');
+				if ($bulan == '') {
+					$bulan = date('n');
 				}
 
 				/* ================= QUERY FINAL ================= */
@@ -6306,17 +6414,13 @@ class Mbackend extends CI_Model
 					a.nik,
 					a.nama_lengkap,
 
-					/* ================= PENENTU WARNA ================= */
 					COUNT(c.id) AS total_penilaian,
 					CASE WHEN COUNT(c.id) > 0 THEN 1 ELSE 0 END AS is_dinilai,
 
-					/* ================= NILAI ================= */
-					(CEIL(SUM(c.nilai) / NULLIF(COUNT(c.id),0))) AS nilai,
+					CEIL(SUM(c.nilai) / NULLIF(COUNT(c.id),0)) AS nilai,
 
-					/* ================= LPJ ================= */
 					CASE WHEN e.id IS NOT NULL THEN 1 ELSE 0 END AS lpj,
 
-					/* ================= STANDAR NILAI ================= */
 					CASE
 						WHEN COUNT(c.id) = 0 THEN 'Belum Dinilai'
 						WHEN CEIL(SUM(c.nilai) / COUNT(c.id)) < 60 THEN '--'
@@ -6327,7 +6431,6 @@ class Mbackend extends CI_Model
 						ELSE 'Belum Dinilai'
 					END AS standar_nilai,
 
-					/* ================= INSENTIF ================= */
 					CASE
 						WHEN COUNT(c.id) = 0 THEN 'Rp. 0,00'
 						WHEN CEIL(SUM(c.nilai) / COUNT(c.id)) < 60 THEN 'Rp. 0,00'
@@ -6340,7 +6443,6 @@ class Mbackend extends CI_Model
 
 					d.nama AS nama_kelurahan_desa,
 
-					/* ================= JABATAN ================= */
 					CASE 
 						WHEN a.jab_rt_rw = 'Ketua RW' THEN CONCAT('Ketua RW ', LPAD(a.rw,3,'0'))
 						WHEN a.jab_rt_rw = 'PJ RW' THEN CONCAT('PJ RW ', LPAD(a.rw,3,'0'))
@@ -6350,14 +6452,19 @@ class Mbackend extends CI_Model
 					END AS jabatan_rt_rw
 
 				FROM tbl_data_rt_rw a
+
 				LEFT JOIN tbl_penilaian_rt_rw c
 					ON c.tbl_data_rt_rw_id = a.id
-					$on_penilaian
+					AND c.bulan = '$bulan'
+					AND YEAR(c.tgl_surat) = '$tahun_login'
+
 				LEFT JOIN cl_kelurahan_desa d
 					ON a.cl_kelurahan_desa_id = d.id
 					AND a.cl_kecamatan_id = d.kecamatan_id
+
 				LEFT JOIN tbl_lpj_rtrw e
 					ON a.nik = e.nik
+
 				$where
 				GROUP BY a.id
 				ORDER BY CONCAT(a.rw,'.',IF(a.rt IS NULL OR a.rt='','000',a.rt))";
@@ -9267,14 +9374,14 @@ class Mbackend extends CI_Model
 				";
 
 				break;
-				
+
 			case "data_penandatanganan_4":
 
 				$sql = "SELECT nip as id, nama as txt
 
 					FROM tbl_data_penandatanganan 
 
-					where  tingkat_jabatan = '1.1' AND status='Aktif'
+					where  tingkat_jabatan = '1.1'
 				";
 
 				break;
@@ -18747,6 +18854,8 @@ class Mbackend extends CI_Model
 					}
 					$sts_crud = "add";
 				}
+
+			
 				break;
 
 			case "data_kunjungan_rumah":
@@ -19356,10 +19465,18 @@ class Mbackend extends CI_Model
 						return '3';
 					}
 				} else if ($table == "tbl_penilaian_rt_rw") {
+						$rt_rw_id    = (int)$this->input->post('rt_rw_id');
+					$bulan       = (int)$this->input->post('bulan');
+					$tahun_login = (int)$this->auth['tahun'];
+					$this->db->where('tbl_data_rt_rw_id', $rt_rw_id);
+						$this->db->where('bulan', $bulan);
+						$this->db->where('YEAR(tgl_surat)', $tahun_login);
+
+						$this->db->delete('tbl_penilaian_rt_rw');
 					// Cek apakah data penilaian di tbl_penilaian_rt_rw ada
 
 					// $pen = $this->db->query("DELETE FROM tbl_penilaian_rt_rw WHERE id='$id'");
-					$this->db->delete($table, array('penilaian_id' => $id));
+					// $this->db->delete($table, array('penilaian_id' => $id));
 				} else if ($table == "laporan_hasil_kegiatan") {
 
 					$this->db->where('id', $id);
