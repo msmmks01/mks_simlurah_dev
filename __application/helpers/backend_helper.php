@@ -55,6 +55,73 @@ if (!function_exists('ttd_nip')) {
         return $html;
     }
 }
+//ASLI
+// if (!function_exists('ttd_1')) {
+//     function ttd_1($data, $setting)
+//     {
+//         $ttd_pengirim = '<br>';
+//         if (isset($data['surat']['info_tambahan']['ttd_srikandi']) && $data['surat']['info_tambahan']['ttd_srikandi'] != '') {
+//             $data['pemohon']['nama'] = '${nama_pengirim}';
+//             $ttd_pengirim = '<br><br><br>${ttd_pengirim}<br><br><br><br>';
+//         }
+//         $html = "<div id=\"ttd\" style=\"padding-right: 10.82mm;padding-left: 15.44mm; padding-bottom: 1mm; font-size: 16px;\">
+//                         <table style=\"border-collapse: collapse;width: 100%;\" border=\"0\" cellpadding=\"0\">
+//                             <tr>
+//                                 <td width=\"100%\" align=\"right\">";
+//         if ((count($data['ttd']) == 1 && strlen($data['ttd'][0]['center']) > 45) || (count($data['ttd']) == 2 && strlen($data['ttd'][1]['center']) > 45)) {
+//             $html .= "<table style=\"border-collapse: collapse;width: 350px;\" border=\"0\" cellpadding=\"0\">";
+//         } else {
+//             $html .= "<table style=\"border-collapse: collapse;width:auto;\" border=\"0\" cellpadding=\"0\">";
+//         }
+//         $html .= " <tr>
+//                         <td align=\"left\">
+//                             <table style=\"float: right;\" border=\"0\" cellspacing=\"0\">
+//                                         <tr>
+//                                             <td></td>
+//                                             <td>
+//                                                 " . ucwords(strtolower(str_replace('KOTA', '', $setting['nama_kab_kota']))) . ", " . $data['surat']['tanggal_surat'] . "
+//                                             </td>
+//                                         </tr>";
+
+//                                         for ($i = 0; $i < count($data['ttd']); $i++) {
+//                                             $html .= "                  <tr>
+//                                                 <td align=\"right\">" . $data['ttd'][$i]['start'] . "</td><td>" . $data['ttd'][$i]['center'] . $data['ttd'][$i]['end'] . "</td>
+//                                             </tr>";
+//                                         }
+//                                         $html .= "
+//                                         <tr>
+//                                             <td></td>
+//                                             <td valign=\"middle\" style=\"height:70px;padding-left:20px;padding-bottom:10px;\">$ttd_pengirim</td>
+//                                         </tr>
+//                                         <tr>
+//                                             <td></td>
+//                                             <td>
+//                                                 " . $data['pemohon']['nama'] . "
+//                                             </td>
+//                                         </tr>
+//                                         <tr> 
+//                                             <td></td>  
+//                                             <td>
+//                                                 Pangkat: " . $data['pemohon']['pangkat'] . "
+//                                             </td>
+//                                         </tr>
+//                                         <tr>
+//                                             <td></td>
+//                                             <td>
+//                                                 NIP: " . $data['pemohon']['nip'] . "
+//                                             </td>
+//                                         </tr>
+//                                     </table>
+//                                             </td>
+//                                         </tr>
+//                                     </table>
+//                                 </td>
+//                             </tr>
+//                         </table>
+//                     </div>";
+//         return $html;
+//     }
+// }
 
 if (!function_exists('ttd_1')) {
     function ttd_1($data, $setting)
@@ -84,10 +151,20 @@ if (!function_exists('ttd_1')) {
                                         </tr>";
 
                                         for ($i = 0; $i < count($data['ttd']); $i++) {
-                                            $html .= "                  <tr>
+                                            $html .= "                  
+                                            <tr>
                                                 <td align=\"right\">" . $data['ttd'][$i]['start'] . "</td><td>" . $data['ttd'][$i]['center'] . $data['ttd'][$i]['end'] . "</td>
                                             </tr>";
                                         }
+                                        $html .= "<tr>
+                                             <td></td>
+                                             <td></td>
+                                         </tr>";
+                                       
+                                            $html .= "<tr>
+                                                <td></td>
+                                                <td align=\"center\" style=\"padding-top:50px;\">&#945;</td>
+                                            </tr>";
                                         $html .= "
                                         <tr>
                                             <td></td>

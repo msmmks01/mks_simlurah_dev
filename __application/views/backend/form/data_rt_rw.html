@@ -66,9 +66,13 @@
                 <div class="col-md-3">
 									{include file="backend/template/input_form.html" required="true" label="Status" class_width="col-lg-12" type="select" name="status" id="status" option={$pilih_status|default:''} }
 								</div>
-                <div class="col-md-3">
+                <!-- <div class="col-md-3">
 									{include file="backend/template/input_form.html" required="true" label="Tahun Jabatan" class_width="col-lg-12" type="select" name="pilih_tahun" id="pilih_tahun" option={$pilih_tahun|default:''} }
-								</div>
+								</div> -->
+               <div class="col-md-3">
+                  {include file="backend/template/input_form.html" required="true" label="Tahun Jabatan" class_width="col-lg-12"
+                  type="baca_aja" name="pilih_tahun" id="pilih_tahun" value="{$tahun_login|default:''}"}
+                </div>
               </div>
               <div class="row">
 								<div class='col-md-12'>
@@ -166,12 +170,10 @@
     nama_lengkap: "required",
     tgl_mulai_jabat: "required",
     jab_rt_rw: "required",
-    nama_ibu_kandung: "required",
     no_hp: "required",
     status: "required",
     //no_sk_rt_rw: "required",
     //tgl_sk_rt_rw: "required",
-    pilih_tahun: "required",
     jab_rt_rw: "required",
 
   };
@@ -182,12 +184,10 @@
     nama_lengkap: "<i style='color:red'>Harus Diisi</i>",
     tgl_mulai_jabat: "<i style='color:red'>Harus Diisi</i>",
     jab_rt_rw: "<i style='color:red'>Harus Diisi</i>",
-    nama_ibu_kandung: "<i style='color:red'>Harus Diisi</i>",
     no_hp: "<i style='color:red'>Harus Diisi</i>",
     status: "<i style='color:red'>Harus Diisi</i>",
     //no_sk_rt_rw: "<i style='color:red'>Harus Diisi</i>",
     //tgl_sk_rt_rw: "<i style='color:red'>Harus Diisi</i>",
-    pilih_tahun: "<i style='color:red'>Harus Diisi</i>",
     jab_rt_rw: "<i style='color:red'>Harus Diisi</i>",
     rt: "<i style='color:red'>RT wajib diisi minimal 001</i>",
     rw: "<i style='color:red'>RW wajib diisi minimal 001</i>",
@@ -263,9 +263,13 @@
 
   $("#grid_data_rt_rw").datagrid("reload");
 
-$('#rt, #rw').on('input', function () { 
-  this.value = this.value.replace(/\D/g, '').substring(0, 3); 
-  });
+  $('#rt, #rw').on('input', function () { 
+    this.value = this.value.replace(/\D/g, '').substring(0, 3); 
+    });
+
+ 
 </script>
+
+
 
 

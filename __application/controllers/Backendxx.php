@@ -4142,7 +4142,22 @@ class Backendxx extends JINGGA_Controller
 
 				$this->nsmarty->assign("pilih_status", $this->lib->fillcombo("pilih_status", "return", ($sts == "edit" ? $data["status"] : "")));
 
-				$this->nsmarty->assign("pilih_tahun", $this->lib->fillcombo("pilih_tahun", "return", ($sts == "edit" ? $data["pilih_tahun"] : "")));
+				$tahun_login = trim($this->auth['tahun']);
+				$selected_tahun = ($sts == "edit" && !empty($data["pilih_tahun"])) 
+					? trim($data["pilih_tahun"]) 
+					: $tahun_login;
+
+				$this->nsmarty->assign("tahun_login", $tahun_login);
+
+				$this->nsmarty->assign(
+					"pilih_tahun",
+					$this->lib->fillcombo("pilih_tahun", "return", $selected_tahun)
+				);
+
+				$this->nsmarty->assign(
+					"pilih_tahun",
+					$this->lib->fillcombo("pilih_tahun", "return", $selected_tahun)
+				);
 
 				$this->nsmarty->assign("data_penduduk_id", $this->lib->fillcombo("data_penduduk_id", "return", ($sts == "edit" ? $data["nik"] : "")));
 

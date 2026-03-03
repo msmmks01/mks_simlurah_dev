@@ -18710,19 +18710,18 @@ class Mbackend extends CI_Model
 				if ($sts_crud == "add" || $sts_crud == "edit") {
 
 					$data['cl_provinsi_id'] = $this->auth['cl_provinsi_id'];
-
 					$data['cl_kab_kota_id'] = $this->auth['cl_kab_kota_id'];
-
 					$data['cl_kecamatan_id'] = $this->auth['cl_kecamatan_id'];
-
 					$data['cl_kelurahan_desa_id'] = $this->auth['cl_kelurahan_desa_id'];
+
+					$data['pilih_tahun'] = $this->auth['tahun'];
 
 					// Ambil nama kelurahan dari tabel cl_kelurahan_desa
 					$kelurahan = $this->db->get_where('cl_kelurahan_desa', array('id' => $data['cl_kelurahan_desa_id']))->row_array();
 					$data['kelurahan'] = $kelurahan['nama']; // sesuaikan field nama di tabel
 
 					$data['nik'] = $this->input->post('nik');
-					
+					$data['nama_lengkap'] = $this->input->post('nama_lengkap');
 					// ================= RT =================
 					$rt = trim($this->input->post('rt'));
 					if ($rt !== '' && (int)$rt > 0) {
@@ -18739,7 +18738,7 @@ class Mbackend extends CI_Model
 						$data['rw'] = '';
 					}
 
-					$data['nama_lengkap'] = $this->input->post('nama_lengkap');
+					
 				}
 
 				break;
