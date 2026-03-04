@@ -28,11 +28,34 @@ body {
     overflow-y: auto
 }
 
-.loading{
+/* .loading{
     background: url('../../../images/loader.gif') center center no-repeat!important;
     min-height:500px;
     min-width:500px;
+} */
+.loading{
+    background: url('../../../images/logo_left.png') center center no-repeat!important;
+    background-size: 14px auto;   /* lebih kecil lagi */
+    min-height:500px;
+    min-width:200px;
+    animation: floatFade 1.8s infinite ease-in-out;
 }
+
+@keyframes floatFade {
+    0% {
+        transform: translateY(0);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translateY(-6px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 0.6;
+    }
+}
+
 .info-empty {
     display: block; 
     margin: 100px auto 0px; 
