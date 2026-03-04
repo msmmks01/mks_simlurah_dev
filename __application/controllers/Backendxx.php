@@ -6791,6 +6791,8 @@ class Backendxx extends JINGGA_Controller
                         'created_by'           => $this->auth['nama_lengkap']
                     ]);
                 }
+
+
             
                 /* ================== RIWAYAT ================== */
                 $this->db->where('tbl_data_surat_id', $data['surat']['id'])->delete('tbl_riwayat_esign');
@@ -6807,14 +6809,79 @@ class Backendxx extends JINGGA_Controller
                 ]);
             
                 /* ================== UPDATE SURAT ================== */
-                $file_final = ($status_esign == 1) ? $file_approved_esign : $filename;
+                // $file_final = ($status_esign == 1) ? $file_approved_esign : $filename;
             
-                $this->db->where('id', $data['surat']['id'])->update('tbl_data_surat', [
-                    'status_esign'        => $status_esign,
-                    'file_src_esign'      => $filename,
-                    'stamp_esign'         => $stamp_esign,
-                    'file_approved_esign' => $file_approved_esign
-                ]);
+                // $this->db->where('id', $data['surat']['id'])->update('tbl_data_surat', [
+                //     'status_esign'        => $status_esign,
+                //     'file_src_esign'      => $filename,
+                //     'stamp_esign'         => $stamp_esign,
+                //     'file_approved_esign' => $file_approved_esign
+                // ]);
+
+				/* ================== Generate QR dan Update Surat ================== */
+				require_once APPPATH . 'third_party/phpqrcode/qrlib.php';
+				$qr_link = base_url() . '/Cek_dokumen/cek_tte';
+				$qr_filename = 'qr_' . time() . '.png';
+				$qr_path = dirname(FCPATH) . '/mobile/uploads/qrcode/' . $qr_filename;
+
+				// pastikan folder ada
+				if (!is_dir(dirname(FCPATH) . '/mobile/uploads/qrcode/')) {
+					mkdir(dirname(FCPATH) . '/mobile/uploads/qrcode/', 0755, true);
+				}
+
+				QRcode::png(
+					$qr_link,
+					$qr_path,
+					QR_ECLEVEL_H, // penting untuk logo nanti
+					10,           // size
+					2             // margin
+				);
+				$QR = imagecreatefrompng($qr_path);
+				$logo = imagecreatefrompng(FCPATH . '__assets/favicon-32x32.png');
+
+				$QR_width = imagesx($QR);
+				$QR_height = imagesy($QR);
+
+				$logo_width = imagesx($logo);
+				$logo_height = imagesy($logo);
+
+				// ukuran logo 20%
+				$logo_qr_width = $QR_width / 5;
+				$scale = $logo_width / $logo_qr_width;
+				$logo_qr_height = $logo_height / $scale;
+
+				$from_width = ($QR_width - $logo_qr_width) / 2;
+
+				imagecopyresampled(
+					$QR,
+					$logo,
+					$from_width,
+					$from_width,
+					0,
+					0,
+					$logo_qr_width,
+					$logo_qr_height,
+					$logo_width,
+					$logo_height
+				);
+
+				imagepng($QR, $qr_path);
+
+				imagedestroy($QR);
+				imagedestroy($logo);
+
+				/* ================== UPDATE SURAT ================== */
+				$file_final = ($status_esign == 1) ? $file_approved_esign : $filename;
+
+
+
+				$this->db->where('id', $data['surat']['id'])->update('tbl_data_surat', [
+					'status_esign'        => $status_esign,
+					'file_src_esign'      => $filename,
+					'stamp_esign'         => $stamp_esign,
+					'file_approved_esign' => $file_approved_esign,
+					'qr_code_src'		  => 'uploads/qrcode' . $qr_filename
+				]);
             
                 /* ================== COPY KE MOBILE ================== */
                 $file_asal = FCPATH . $file_final;
