@@ -156,6 +156,7 @@ if (!function_exists('ttd_1')) {
                                                 <td align=\"right\">" . $data['ttd'][$i]['start'] . "</td><td>" . $data['ttd'][$i]['center'] . $data['ttd'][$i]['end'] . "</td>
                                             </tr>";
                                         }
+                                        if (isset($data['is_pdf']) && $data['is_pdf'] === true) {
                                         $html .= "<tr>
                                              <td></td>
                                              <td></td>
@@ -165,6 +166,7 @@ if (!function_exists('ttd_1')) {
                                                 <td></td>
                                                 <td align=\"center\" style=\"padding-top:50px;\">&#945;</td>
                                             </tr>";
+                                        }
                                         $html .= "
                                         <tr>
                                             <td></td>

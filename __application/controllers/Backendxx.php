@@ -6736,6 +6736,7 @@ class Backendxx extends JINGGA_Controller
                 if ($status_esign != 2 && !empty($data['surat']['file_src_esign'])) {
                     $filename = $data['surat']['file_src_esign'];
                 } else {
+					$data['is_pdf'] = true;
                     $this->hasil_output('pdf', $mod, $data, $filename, $temp, [215,330], 'F', true, '');
                 }
             
