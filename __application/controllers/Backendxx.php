@@ -6837,7 +6837,7 @@ class Backendxx extends JINGGA_Controller
 					2             // margin
 				);
 				$QR = imagecreatefrompng($qr_path);
-				$logo = imagecreatefrompng(FCPATH . '__assets/favicon-32x32.png');
+				$logo = imagecreatefrompng(FCPATH . '__assets/images/favicon-32x32.png');
 
 				$QR_width = imagesx($QR);
 				$QR_height = imagesy($QR);
