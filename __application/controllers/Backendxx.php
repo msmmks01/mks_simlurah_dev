@@ -3929,7 +3929,9 @@ class Backendxx extends JINGGA_Controller
 					$data = [
 						'id'                   => $agenda['id'],
 						'perihal_hasil_agenda' => $agenda['id'],
-						'tgl_hasil_agenda'     => isset($agenda['tgl_hasil_agenda']) ? $agenda['tgl_hasil_agenda'] : '',
+						'tgl_hasil_agenda' => !empty($agenda['tgl_hasil_agenda']) 
+							? $agenda['tgl_hasil_agenda'] 
+							: (isset($agenda['tgl_kegiatan']) ? $agenda['tgl_kegiatan'] : ''),
 						'notulen_hasil_agenda' => isset($agenda['notulen_hasil_agenda']) ? $agenda['notulen_hasil_agenda'] : '',
 						'ket_hasil_agenda'     => isset($agenda['ket_hasil_agenda']) ? $agenda['ket_hasil_agenda'] : ''
 					];
@@ -6838,7 +6840,7 @@ class Backendxx extends JINGGA_Controller
 					2             // margin
 				);
 				$QR = imagecreatefrompng($qr_path);
-				$logo = imagecreatefrompng(FCPATH . '__assets/images/favicon-32x32.png');
+				$logo = imagecreatefrompng(FCPATH . '__assets/images/logo_tte.png');
 
 				$QR_width = imagesx($QR);
 				$QR_height = imagesy($QR);
