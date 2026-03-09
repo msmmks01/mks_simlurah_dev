@@ -202,8 +202,8 @@ if (!function_exists('ttd_1')) {
     }
 }
 
-// if (!function_exists('ttd_1muf')) {
-//     function ttd_1muf($data, $setting, $tgl_cetak)
+// if (!function_exists('ttd_1master')) {
+//     function ttd_1master($data, $setting, $tgl_cetak)
 //     {
 //         $html = "<div  id=\"ttd\" style=\"padding-right: 10.82mm;padding-left: 15.44mm; padding-bottom: 1mm; font-size: 14px;\">
 //                         <table style=\"border-collapse: collapse;width: 100%;\" border=\"0\" cellpadding=\"0\">
@@ -254,8 +254,8 @@ if (!function_exists('ttd_1')) {
 //     }
 // }
 
-if (!function_exists('ttd_1muf')) {
-    function ttd_1muf($data, $setting, $tgl_cetak)
+if (!function_exists('ttd_1master')) {
+    function ttd_1master($data, $setting, $tgl_cetak)
     {
         $html = "<div id=\"ttd\" style=\"padding-right:10.82mm;padding-left:15.44mm;padding-bottom:1mm;font-size:14px;\">
                     <table style=\"border-collapse:collapse;width:100%;\" border=\"0\" cellpadding=\"0\">

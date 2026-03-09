@@ -98,9 +98,9 @@
                 <tr>
                     <th width="5%" style="text-align: center"><b>NO</b></th>
                     <th width="10%" style="text-align: center"><b>HARI/TANGGAL</b></th>
-                    <th width="10%" style="text-align: center"><b>AGENDA</b></th>
-                    <th width="10%" style="text-align: center"><b>NOTULEN</b></th>
-                    <th width="10%" style="text-align: center"><b>KETERANGAN</b></th>
+                    <th width="25%" style="text-align: center"><b>AGENDA</b></th>
+                    <th width="40%" style="text-align: center"><b>NOTULEN</b></th>
+                    <th width="20%" style="text-align: center"><b>KETERANGAN</b></th>
                 </tr>
             </thead>
             <tbody>
@@ -108,17 +108,17 @@
                 {foreach from=$data item=rows}
                 <tr>
                     <td style="text-align: center">{$idx}</td>
-                    <td style="text-align: center">{$rows.tgl_hasil_agenda|hariindo}</td>
-                    <td tyle="text-align: left">{$rows.agenda|default:'-'}</td>
+                    <td style="text-align: left">{$rows.tgl_kegiatan|hariindo}</td>
+                    <td tyle="text-align: left">{$rows.perihal_kegiatan|default:'-'}</td>
                     <td tyle="text-align: left">{$rows.notulen_hasil_agenda|default:'-'}</td>
-                    <td style="text-align: left">{$rows.ket_kegiatan|default:'-'}</td>
+                    <td style="text-align: left">{$rows.ket_hasil_agenda|default:'-'}</td>
                 </tr>
     
                 {assign var=idx value=$idx+1}
                 {/foreach}
             </tbody>
         </table>
-        {ttd_1muf($data,$setting, $tgl_cetak)}
+        {ttd_1master($data,$setting, $tgl_cetak)}
     </div>
 </body>
 

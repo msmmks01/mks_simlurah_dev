@@ -2143,7 +2143,7 @@ class Mbackend extends CI_Model
 						ORDER BY a.id DESC";
 				break;
 
-			case "laporan_hasil_agenda":
+			case "laporan_hasil_kegiatan":
 
 				$where = " WHERE 1=1 ";
 
@@ -2164,13 +2164,9 @@ class Mbackend extends CI_Model
 					$where .= " AND a.cl_kelurahan_desa_id = '" . $this->auth['cl_kelurahan_desa_id'] . "' ";
 				}
 
-				$sql = "SELECT 
-							a.*, 
-							DATE_FORMAT(a.create_date, '%d-%m-%Y %H:%i') AS tanggal_buat,
-							b.perihal_kegiatan AS agenda
-						FROM tbl_data_hasil_agenda a
-						LEFT JOIN tbl_data_daftar_agenda b 
-							ON b.id = a.perihal_hasil_agenda
+				$sql = "SELECT a.*, 
+						DATE_FORMAT(a.create_date, '%d-%m-%Y %H:%i') AS tanggal_buat
+						FROM tbl_data_daftar_agenda a
 						$where
 						AND a.cl_provinsi_id = '" . $this->auth['cl_provinsi_id'] . "'
 						AND a.cl_kab_kota_id = '" . $this->auth['cl_kab_kota_id'] . "'

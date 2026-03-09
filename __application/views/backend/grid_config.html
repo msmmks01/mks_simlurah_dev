@@ -113,6 +113,9 @@ var=button_cetak_daftar_agenda value="true"}
 {assign
 var=button_cetak_hasil_agenda value="true"} 
 {/if}
+{if $mod eq 'laporan_hasil_kegiatan'} 
+  {assign var=button_laporan_hasil_kegiatan value="true"} 
+{/if}
 {if $mod eq 'data_kendaraan'} 
 {assign
 var=button_cetak_kendaraan value="true"} 
@@ -1092,10 +1095,18 @@ $mod eq 'data_surat'}
             {/if}
 
             &nbsp;
+            {if $button_laporan_hasil_kegiatan|default:'' eq 'true'}
+              <button class="btn btn-info btn-sm"
+                onclick="kumpulAction('export_laporan_hasil_kegiatan','{$acak}');">
+                <i class="fa fa-print"></i> Cetak Pdf
+              </button>
+            {/if}
+
+            <!-- &nbsp;
             <a href="javascript:void(0)" class="btn-flat btn-success btn-sm"
               onClick="kumpulAction('cetak_laporan_hasil_kegiatan','{$acak}');">
               <i class="fa fa-print"></i> Cetak
-            </a>
+            </a> -->
           </div>
           <!---Kolom Pencarian Daftar Agenda Kegiatan-->
           <div class="col-lg-4" style="margin-top: 3px;margin-bottom: 3px;">

@@ -6542,6 +6542,23 @@ async function kumpulAction(type, p1, p2, p3, p4, p5) {
 
       break;
 
+    case "export_laporan_hasil_kegiatan":
+      param["rt"] = $("#rt_" + p1).val();
+
+      param["rw"] = $("#rw_" + p1).val();
+
+      param["kelurahan_id"] = $("#kelurahan_" + p1).val();
+
+      param["bulan"] = $("#bulan").val();
+
+      param["nip"] = $("#nip").val();
+
+      var url = host + "backoffice-cetak/laporan_hasil_kegiatan?" + $.param(param);
+
+      window.open(url, "_blank");
+
+      break;
+
     case "export_laporan_dasawisma":
       param["rt"] = $("#rt_" + p1).val();
 
