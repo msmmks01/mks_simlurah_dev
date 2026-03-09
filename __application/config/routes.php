@@ -51,3 +51,5 @@ $route['get-data-penilaian-rt-rw-id'] = 'backendxx/get_data_penilaian_rt_rw_id';
 $route['salin-data-penilaian-rt-rw']['post'] = 'backendxx/salin_data_penilaian_rt_rw';
 $route['salin-data-rekap-bulanan']['post'] = 'backendxx/salin_data_rekap_bulanan';
 $route['get-data-penduduk']['post'] = 'backendxx/get_data_penduduk';
+
+$route['get-data-penilaian-rt-rw-id'] = 'simhonor/get_data_penilaian_rt_rw';
