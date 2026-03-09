@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Api extends CI_Model
+class Api_simhonor extends CI_Model
 {
 
 	public function get_penilaian_rtrw($kelurahan_id,$bulan,$status)

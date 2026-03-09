@@ -5,7 +5,7 @@ class Simhonor extends JINGGA_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Api');
+        $this->load->model('Api_simhonor');
     }
 
 	public function get_data_penilaian_rt_rw()
@@ -22,7 +22,7 @@ class Simhonor extends JINGGA_Controller
 			]);
 		}
 
-		$data = $this->Api->get_penilaian_rtrw($kelurahan_id,$bulan,$status);
+		$data = $this->Api_simhonor->get_penilaian_rtrw($kelurahan_id,$bulan,$status);
 
 		if (empty($data)) {
 			return $this->_json([
