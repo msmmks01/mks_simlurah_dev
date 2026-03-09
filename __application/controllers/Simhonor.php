@@ -5,7 +5,7 @@ class Simhonor extends JINGGA_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->models('Api');
+        $this->load->model('Api');
     }
 
 	public function get_data_penilaian_rt_rw()
