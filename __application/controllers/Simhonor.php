@@ -13,7 +13,7 @@ class Simhonor extends JINGGA_Controller
 		$apikey = $this->input->get_post('KEY');
 
 		// kode unik yang diizinkan
-		$valid_key = "SIMHONOR2026";
+		$valid_key = "8f3a9c7e1b5d4a6f2c9e";
 
 		if($apikey != $valid_key){
 			return $this->_json([
