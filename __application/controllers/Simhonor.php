@@ -10,9 +10,22 @@ class Simhonor extends JINGGA_Controller
 
 	public function get_data_penilaian_rt_rw()
 	{
+		$apikey = $this->input->get_post('KEY');
+
+		// kode unik yang diizinkan
+		$valid_key = "SIMHONOR2026";
+
+		if($apikey != $valid_key){
+			return $this->_json([
+				"status" => 0,
+				"message" => "Unauthorized access",
+				"data" => []
+			]);
+		}
+
 		$kelurahan_id = $this->input->get_post('KELURAHAN_ID');
 		$bulan        = $this->input->get_post('BULAN');
-		$status       = strtoupper($this->input->get_post('STATUS')); // RT / RW
+		$status       = strtoupper($this->input->get_post('STATUS'));
 
 		if (empty($kelurahan_id) || empty($bulan) || empty($status)) {
 			return $this->_json([
