@@ -27,6 +27,7 @@ class Api_simhonor extends CI_Model
 					a.no_rekening AS NOREK,
 
 					CEIL(SUM(b.nilai)/COUNT(b.id)) AS JUMLAH,
+					SUM(b.nilai) AS NILAI,
 
 					a.jab_rt_rw AS STATUS,
 					b.bulan AS BULAN,
