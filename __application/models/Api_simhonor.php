@@ -29,6 +29,15 @@ class Api_simhonor extends CI_Model
 					CEIL(SUM(b.nilai)/COUNT(b.id)) AS JUMLAH,
 					SUM(b.nilai) AS NILAI,
 
+					CASE
+						WHEN CEIL(SUM(b.nilai)/COUNT(b.id)) < 60 THEN 0
+						WHEN CEIL(SUM(b.nilai)/COUNT(b.id)) BETWEEN 60 AND 70 THEN 300000
+						WHEN CEIL(SUM(b.nilai)/COUNT(b.id)) BETWEEN 71 AND 80 THEN 600000
+						WHEN CEIL(SUM(b.nilai)/COUNT(b.id)) BETWEEN 81 AND 90 THEN 900000
+						WHEN CEIL(SUM(b.nilai)/COUNT(b.id)) >= 91 THEN 1200000
+						ELSE 0
+					END AS HONOR,
+
 					a.jab_rt_rw AS STATUS,
 					b.bulan AS BULAN,
 					a.cl_kelurahan_desa_id AS KELURAHAN_ID
