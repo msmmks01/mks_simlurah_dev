@@ -8,7 +8,7 @@ class Simhonor extends JINGGA_Controller
         $this->load->model('Api_simhonor');
     }
 
-	public function get_data_penilaian_rt_rw()
+	public function get_data_penilaian_rt_rw_api()
 	{
 		$apikey = $this->input->get_post('KEY');
 
