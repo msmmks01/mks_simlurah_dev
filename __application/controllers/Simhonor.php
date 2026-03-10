@@ -25,7 +25,15 @@ class Simhonor extends JINGGA_Controller
 
 		$kelurahan_id = $this->input->get_post('KELURAHAN_ID');
 		$bulan        = $this->input->get_post('BULAN');
-		$status       = strtoupper($this->input->get_post('STATUS'));
+		$status = strtoupper($this->input->get_post('STATUS'));
+		// STATUS hanya boleh RT atau RW
+		if(!in_array($status, ['RT','RW'])){
+			return $this->_json([
+				"status" => 0,
+				"message" => "STATUS hanya boleh RT atau RW",
+				"data" => []
+			]);
+		}
 
 		if (empty($kelurahan_id) || empty($bulan) || empty($status)) {
 			return $this->_json([

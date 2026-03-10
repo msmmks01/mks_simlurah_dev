@@ -12,10 +12,10 @@ class Api_simhonor extends CI_Model
 
 		if($status == "RT"){
 			$filter_status = "AND a.jab_rt_rw LIKE '%RT%'";
-		}
-
-		if($status == "RW"){
+		}elseif($status == "RW"){
 			$filter_status = "AND a.jab_rt_rw LIKE '%RW%'";
+		}else{
+			return [];
 		}
 
 		$sql = "SELECT 
