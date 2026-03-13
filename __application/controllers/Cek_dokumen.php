@@ -130,6 +130,27 @@ class Cek_dokumen extends JINGGA_Controller
         echo json_encode($data);
     }
 
+    function cek_tte()
+    {
+        $kode = $this->input->get('kode');
+        $decrypted_setting = '0';
+        $sql_sur = $this->db->query("SELECT a.no_surat, c.date_update, c.nama, c.jabatan  FROM tbl_data_surat a INNER JOIN tbl_riwayat_esign b on a.id = b.tbl_data_surat_id INNER JOIN tbl_data_penandatanganan c on a.nip = b.nip WHERE a.id = ? AND b.status_esign = 1", [$kode])->row();
+        $sql_kel = $this->db->query("SELECT * FROM tbl_setting_apps WHERE cl_kelurahan_desa_id = ?", [$decrypted_setting])->row();
+        $data['nama_kelurahan'] = $sql_kel->nama_desa;
+        $data['nama_kecamatan'] = $sql_kel->nama_kecamatan;
+        $data['cl_kelurahan_desa_id'] = $decrypted_setting;
+        $data['no_surat'] = $sql_sur->no_surat;
+        $data['date_update'] = $sql_sur->date_update;
+        $data['nama'] = $sql_sur->nama;
+        $data['jabatan'] = $sql_sur->jabatan;
+        $this->load->view('cek_validasi', $data);
+    }
+
+    function agenda()
+    {
+        $this->load->view('agenda_tv');
+    }
+
     function view_dokumen()
     {
         $encrypted_setting = $this->uri->segment(2);

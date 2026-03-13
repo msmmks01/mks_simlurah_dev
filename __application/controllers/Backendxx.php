@@ -6874,7 +6874,7 @@ class Backendxx extends JINGGA_Controller
 
 				/* ================== Generate QR dan Update Surat ================== */
 				require_once APPPATH . 'third_party/phpqrcode/qrlib.php';
-				$qr_link = base_url() . '/Cek_dokumen/cek_tte';
+				$qr_link = base_url() . '/Cek_dokumen/cek_tte?kode=' . $p3;
 				$qr_filename = 'qr_' . time() . '.png';
 				$qr_path = dirname(FCPATH) . '/mobile/uploads/qrcode/' . $qr_filename;
 
@@ -6934,7 +6934,7 @@ class Backendxx extends JINGGA_Controller
 					'file_src_esign'      => $filename,
 					'stamp_esign'         => $stamp_esign,
 					'file_approved_esign' => $file_approved_esign,
-					'qr_code_src'		  => 'uploads/qrcode' . $qr_filename
+					'qr_code_src'		  => 'uploads/qrcode/' . $qr_filename
 				]);
             
                 /* ================== COPY KE MOBILE ================== */
