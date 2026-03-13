@@ -7528,7 +7528,7 @@ function get_data_riwayat_esign() {
               html +=
                 "<p>" +
                 decodeURIComponent(v.catatan) +
-                ' <a href="https://mobile.kotamakassar.id/approve/' +
+                ' <a href="https://mobile.kotamakassar.id/' +
                 v.file_src_mobile +
                 '" target="_blank">Dokumen</a></p></div></div>';
               no++;
