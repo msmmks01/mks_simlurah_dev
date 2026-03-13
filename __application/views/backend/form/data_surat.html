@@ -6054,11 +6054,58 @@
 									<div class="col-md-12">
 										<legend style="font-size: 14px;color: red;">*Isi jika pasangan Pewaris meninggal dunia</legend>
 									</div>
-								
 									<div class="col-md-3">
 										{include file="backend/template/input_form.html" required="false" label="Tgl. Meninggal"
 										class_width="col-lg-12" type="date" placeholder="dd-mm-yyyy" name="tgl_meninggal_istri"
 										id="tgl_meninggal_istri" value="{$data.tgl_meninggal_istri|default:''}"}
+									</div>
+
+									<div class="col-md-12" style="padding-top: 20px;">
+										<legend style="font-size: 14px;color: green;"><b>*ISI DOKUMEN NIKAH</b></legend>
+									</div>
+									<div class="col-md-3">
+										{include file="backend/template/input_form.html" required="false" label="No. Akta Nikah" 
+										class_width="col-lg-12" type="text" name="no_akta_nikah"
+										id="no_akta_nikah" value="{$data.no_akta_nikah|default:''}"}
+									</div>
+									<div class="col-md-2">
+										{include file="backend/template/input_form.html" required="false" label="Tanggal" 
+										class_width="col-lg-12" type="date" placeholder="dd-mm-yyyy" name="tgl_akta_nikah"
+										id="tgl_akta_nikah" value="{$data.tgl_akta_nikah|default:''}"}
+									</div>
+									<div class="col-md-3">
+										{include file="backend/template/input_form.html" required="false" label="Dikeluarkan di" 
+										class_width="col-lg-12" type="text" name="di_keluarkan_akta_nikah"
+										id="di_keluarkan_akta_nikah" value="{$data.di_keluarkan_akta_nikah|default:''}"}
+									</div>
+									<div class="col-md-2">
+										{include file="backend/template/input_form.html" required="false" label="Tanggal dikeluarkan" 
+										class_width="col-lg-12" type="date" placeholder="dd-mm-yyyy" name="tgl_akta_dikelaurkan"
+										id="tgl_akta_dikelaurkan" value="{$data.tgl_akta_dikelaurkan|default:''}"}
+									</div>
+
+									<div class="col-md-12" style="padding-top: 20px;">
+										<legend style="font-size: 14px;color: blue;"><b>*ISI JIKA STATUS DENGAN PASANGAN BERCERAI ATAU ABAIKAN (TIDAK PERLU DIISI JIKA TIDAK BERCERAI)</b></legend>
+									</div>
+									<div class="col-md-3">
+										{include file="backend/template/input_form.html" required="false" label="No. Akta Cerai" 
+										class_width="col-lg-12" type="text" name="no_akta_cerai"
+										id="no_akta_cerai" value="{$data.no_akta_cerai|default:''}"}
+									</div>
+									<div class="col-md-2">
+										{include file="backend/template/input_form.html" required="false" label="Tanggal" 
+										class_width="col-lg-12" type="date" placeholder="dd-mm-yyyy" name="tgl_akta_cerai"
+										id="tgl_akta_cerai" value="{$data.tgl_akta_cerai|default:''}"}
+									</div>
+									<div class="col-md-3">
+										{include file="backend/template/input_form.html" required="false" label="Dikeluarkan di" 
+										class_width="col-lg-12" type="text" name="di_keluarkan_akta_cerai"
+										id="di_keluarkan_akta_cerai" value="{$data.di_keluarkan_akta_cerai|default:''}"}
+									</div>
+									<div class="col-md-2">
+										{include file="backend/template/input_form.html" required="false" label="Tanggal dikeluarkan" 
+										class_width="col-lg-12" type="date" placeholder="dd-mm-yyyy" name="tgl_akta_dikelaurkan"
+										id="tgl_akta_dikelaurkan" value="{$data.tgl_akta_dikelaurkan|default:''}"}
 									</div>
 								</div>
 								

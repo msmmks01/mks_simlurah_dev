@@ -15180,6 +15180,16 @@ class Mbackend extends CI_Model
 							$array['sk_ibu_waris'] = $data['sk_ibu_waris'];
 							$array['tgl_sk_ibu'] = $data['tgl_sk_ibu'];
 
+							$array['no_akta_nikah'] = $data['no_akta_nikah'];
+							$array['tgl_akta_nikah'] = $data['tgl_akta_nikah'];
+							$array['di_keluarkan_akta_nikah'] = $data['di_keluarkan_akta_nikah'];
+							$array['tgl_nikah_dikelaurkan'] = $data['tgl_nikah_dikelaurkan'];
+
+							$array['no_akta_cerai'] = $data['no_akta_cerai'];
+							$array['tgl_akta_cerai'] = $data['tgl_akta_cerai'];
+							$array['di_keluarkan_akta_cerai'] = $data['di_keluarkan_akta_cerai'];
+							$array['tgl_akta_cerai_dikelaurkan'] = $data['tgl_akta_cerai_dikelaurkan'];
+
 							$array['nama_camat'] = $data['nama_camat'];
 							$array['jabatan_camat'] = $data['jabatan_camat'];
 							$array['nip_camat'] = $data['nip_camat'];

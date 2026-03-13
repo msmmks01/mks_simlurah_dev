@@ -37,31 +37,17 @@
       {$nm_aw = $kawin.nama_ahli_waris} {$sw = $kawin.status_waris} {else} {/if}
       {/foreach}
       <p style="line-height: 1.6;text-align: justify;margin-left: 67px;margin-right: 10px;padding-top: -50px;font-size: 12px;">
-        Kami yang bertanda tangan di bawah ini, para ahli Waris dari
-        {$data.surat.info_tambahan.sebutan|default:'....'}
-        <b>{$data.surat.info_tambahan.nama_alm|default:'.....................'}</b>
-        Menerangkan dengan sesungguhnya dan sanggup diangkat sumpah bahwa
-        {$data.surat.info_tambahan.sebutan|default:'Almarhum/Almarhuma'}
-        <b>{$data.surat.info_tambahan.nama_alm|default:'.....................'}</b>,
-        yang bertempat tinggal terakhir di
-        {$data.surat.info_tambahan.alamat_alm|default:'.....................'},
-        ORT. {$data.surat.info_tambahan.rt_alm|default:'.....................'}
-        ORW. {$data.surat.info_tambahan.rw_alm|default:'.....................'}
+        Kami yang bertanda tangan di bawah ini, para ahli Waris dari {$data.surat.info_tambahan.sebutan|default:'....'} <b>{$data.surat.info_tambahan.nama_alm|default:'.....................'}</b>
+        Menerangkan dengan sesungguhnya dan sanggup diangkat sumpah bahwa {$data.surat.info_tambahan.sebutan|default:'Almarhum/Almarhuma'} <b>{$data.surat.info_tambahan.nama_alm|default:'.....................'}</b>,
+        yang bertempat tinggal terakhir di {$data.surat.info_tambahan.alamat_alm|default:'.....................'}, ORT. {$data.surat.info_tambahan.rt_alm|default:'.....................'} ORW. {$data.surat.info_tambahan.rw_alm|default:'.....................'}
         {$data.pemohon.nama_kelurahan|default:'........'} Kecamatan {ucwords(strtolower(str_replace('KOTA','',$data.pemohon.nama_kecamatan)))|default:''} Kota {ucwords(strtolower(str_replace('KOTA','',$data.pemohon.nama_kota)))|default:''},
-        pada tanggal {$data.surat.info_tambahan.tgl_meninggal|default:'.....................'}
-        telah meninggal dunia di {$data.surat.info_tambahan.tempat_meninggal|default:'.....................'}
-        {if $data.surat.info_tambahan.no_surat_kematian != ''} sesuai surat
-        Kematian Nomor : {$data.surat.info_tambahan.no_surat_kematian|default:'....'} Tanggal
-        {tgl_indo($data.surat.info_tambahan.tgl_surat_kematian)|default:'....'}
-        {else}{/if}.<br/>
-        Dari perkawinan dengan {$kw}nya <b>{$nm_aw}</b> {if $sw == 'HIDUP'} yang sampai
-        saat ini masih hidup{else} yang telah meninggal dunia pada tanggal
-        {tgl_indo($data.surat.info_tambahan.tgl_meninggal_istri)|default:'....'}
-        {/if}{if $data.surat.info_tambahan.jml_anak == '0'} dan tidak memiliki
-        anak. {else}, telah dilahirkan
-        {$data.surat.info_tambahan.jml_anak|default:'.....................'}
-        ({ubah_kata($data.surat.info_tambahan.jml_anak)|default:'.....................'|default:'.....................'})
-        orang anak, yaitu :{/if}
+        pada tanggal {$data.surat.info_tambahan.tgl_meninggal|default:'.....................'} telah meninggal dunia di {$data.surat.info_tambahan.tempat_meninggal|default:'.....................'} {if $data.surat.info_tambahan.no_surat_kematian != ''} sesuai surat
+        Kematian Nomor : {$data.surat.info_tambahan.no_surat_kematian|default:'....'} Tanggal {tgl_indo($data.surat.info_tambahan.tgl_surat_kematian)|default:'....'} {else}{/if}.<br/>
+        
+        Dari perkawinan dengan {$kw}nya <b>{$nm_aw}</b> {if $sw == 'HIDUP'} {if $data.surat.info_tambahan.no_akta_nikah !=''} dengan Nomor Akta Nikah {$data.surat.info_tambahan.no_akta_nikah|default:'....'} tanggal {$data.surat.info_tambahan.tgl_akta_nikah|default:'....'} dikeluarkan oleh {$data.surat.info_tambahan.di_keluarkan_akta_nikah|default:'....'} tanggal {$data.surat.info_tambahan.tgl_nikah_dikelaurkan|default:'....'} 
+        {else}{/if}.
+        yang sampai saat ini masih hidup {else} yang telah meninggal dunia pada tanggal {tgl_indo($data.surat.info_tambahan.tgl_meninggal_istri)|default:'....'} anak. {else}, 
+        telah dilahirkan {$data.surat.info_tambahan.jml_anak|default:'.....................'} ({ubah_kata($data.surat.info_tambahan.jml_anak)|default:'.....................'|default:'.....................'}) orang anak, yaitu :{/if}
       </p>
       <table width="100%" style="font-size: 12px; padding-left: 60px; padding-top: -10px;line-height: 1.2;" cellpadding="2">
         {$no=1} {foreach from=$data.surat.info_tambahan.data_ahli_waris
@@ -406,7 +392,7 @@
             
         {elseif $data.surat.info_tambahan.st_kawin == '2' || $data.surat.info_tambahan.st_kawin == '3' || $data.surat.info_tambahan.st_kawin == '4'} 
             Dari perkawinan dengan {$kw}nya <b>{$nm_aw}</b> {if $sw == 'HIDUP'} yang sampai
-            saat ini masih hidup{else} yang telah meninggal dunia pada tanggal
+            saat ini masih hidup {else} yang telah meninggal dunia pada tanggal
             {tgl_indo($data.surat.info_tambahan.tgl_meninggal_istri)|default:'....'}
             {/if}{if $data.surat.info_tambahan.jml_anak == '0'} dan tidak memiliki
             anak. {else}, telah dilahirkan
