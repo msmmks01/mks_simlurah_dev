@@ -754,7 +754,7 @@ function nm_client()
         'wajokec' => 'Wajo',
         'simlurahdev' => 'Biringkanaya',
     ];
-    return $data[$res];
+    return $data[$res] ?? "SIMLURAH DEV";
 }
 
 function hitungSelisihTanggal($tgl_awal, $tgl_akhir)
