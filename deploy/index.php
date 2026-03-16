@@ -155,7 +155,7 @@ function submenu($value, $keys, $dir)
 							<div class="collapse ms-5" id="dev1-collapse" style="">
 								<ul class="btn-toggle-nav list-unstyled pb-1">
 									<?php
-									$dir = '../simlurah_dev';
+									$dir = '../../simlurah_dev';
 									foreach (dirToArray($dir) as $key => $value) {
 										if ($key <> '.git') {
 											if (is_numeric($key) && strlen($key) <= 4) {
