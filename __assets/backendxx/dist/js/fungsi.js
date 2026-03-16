@@ -7515,14 +7515,24 @@ function get_data_riwayat_esign() {
                 status[v.status_esign] +
                 "</label>";
             }
-            html +=
-              "<p>" +
-              decodeURIComponent(v.catatan) +
-              ' <a href="' +
-              host +
-              v.file_src +
-              '" target="_blank">Dokumen</a></p></div></div>';
-            no++;
+            if (v.cl_user_group_id == 2) {
+              html +=
+                "<p>" +
+                decodeURIComponent(v.catatan) +
+                ' <a href="' +
+                host +
+                v.file_src +
+                '" target="_blank">Dokumen</a></p></div></div>';
+              no++;
+            } else {
+              html +=
+                "<p>" +
+                decodeURIComponent(v.catatan) +
+                ' <a href="https://mobile.kotamakassar.id/' +
+                v.file_src_mobile +
+                '" target="_blank">Dokumen</a></p></div></div>';
+              no++;
+            }
           });
         } else {
           html = '<span class="text-center">Tidak ada riwayat</span>';

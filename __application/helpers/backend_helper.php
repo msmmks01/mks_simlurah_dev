@@ -150,24 +150,24 @@ if (!function_exists('ttd_1')) {
                                             </td>
                                         </tr>";
 
-                                        for ($i = 0; $i < count($data['ttd']); $i++) {
-                                            $html .= "                  
+        for ($i = 0; $i < count($data['ttd']); $i++) {
+            $html .= "                  
                                             <tr>
                                                 <td align=\"right\">" . $data['ttd'][$i]['start'] . "</td><td>" . $data['ttd'][$i]['center'] . $data['ttd'][$i]['end'] . "</td>
                                             </tr>";
-                                        }
-                                        if (isset($data['is_pdf']) && $data['is_pdf'] === true) {
-                                        $html .= "<tr>
+        }
+        if (isset($data['is_pdf']) && $data['is_pdf'] === true) {
+            $html .= "<tr>
                                              <td></td>
                                              <td></td>
                                          </tr>";
-                                       
-                                            $html .= "<tr>
+
+            $html .= "<tr>
                                                 <td></td>
                                                 <td align=\"center\" style=\"padding-top:50px;\">&#945;</td>
                                             </tr>";
-                                        }
-                                        $html .= "
+        }
+        $html .= "
                                         <tr>
                                             <td></td>
                                             <td valign=\"middle\" style=\"height:70px;padding-left:20px;padding-bottom:10px;\">$ttd_pengirim</td>
@@ -264,7 +264,8 @@ if (!function_exists('ttd_1master')) {
 
         // atur lebar tabel jika teks panjang
         if ((count($data['ttd']) == 1 && strlen($data['ttd'][0]['center']) > 45) ||
-            (count($data['ttd']) == 2 && strlen($data['ttd'][1]['center']) > 45)) {
+            (count($data['ttd']) == 2 && strlen($data['ttd'][1]['center']) > 45)
+        ) {
             $html .= "<table style=\"border-collapse:collapse;width:350px;\" border=\"0\" cellpadding=\"0\">";
         } else {
             $html .= "<table style=\"border-collapse:collapse;\" border=\"0\" cellpadding=\"0\">";
@@ -278,9 +279,9 @@ if (!function_exists('ttd_1master')) {
                             <tr>
                                 <td></td>
                                 <td>" .
-                                    ucwords(strtolower(str_replace('KOTA', '', $setting['nama_kab_kota']))) .
-                                    ", " . tgl_indo($tgl_cetak) .
-                                "</td>
+            ucwords(strtolower(str_replace('KOTA', '', $setting['nama_kab_kota']))) .
+            ", " . tgl_indo($tgl_cetak) .
+            "</td>
                             </tr>";
 
         // ================== BLOK JABATAN ==================
@@ -474,7 +475,7 @@ if (!function_exists('ttd_fullkanan')) {
         <table style=\"border-collapse: collapse;width: 100%;\" border=\"0\" cellpadding=\"0\">
         <tr>
             <td width=\"100%\" align=\"right\">";
-        
+
         $html .= "<table style=\"border-collapse: collapse;width: auto;\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">";
         for ($i = 0; $i < count($data['ttd']); $i++) {
             $html .= "<tr><td align=\"left\" style=\"padding-right:0px\"><b>" . $data['ttd'][$i]['start'] . "</b></td><td align=\"left\"><b>" . $data['ttd'][$i]['center'] . $data['ttd'][$i]['end'] . "</b></td></tr>";
@@ -541,10 +542,10 @@ if (!function_exists('ttd_3')) {
                                                         </td>
                                                     </tr>";
 
-                                                for ($i = 0; $i < count($data['ttd']); $i++) {
-                                                    $html .= "<tr><td align=\"right\">" . $data['ttd'][$i]['start'] . "</td><td>" . $data['ttd'][$i]['center'] . $data['ttd'][$i]['end'] . "</td></tr>";
-                                                }
-                                                $html .= "
+        for ($i = 0; $i < count($data['ttd']); $i++) {
+            $html .= "<tr><td align=\"right\">" . $data['ttd'][$i]['start'] . "</td><td>" . $data['ttd'][$i]['center'] . $data['ttd'][$i]['end'] . "</td></tr>";
+        }
+        $html .= "
                                                     <tr>
                                                         <td></td>
                                                         <td valign=\"middle\" style=\"height:70px;padding-left:20px;padding-bottom:10px;\">$ttd_pengirim</td>
@@ -730,9 +731,9 @@ function nm_client()
 {
     $res = explode('.', $_SERVER['HTTP_HOST']);
     if ($res[0] == 'www') {
-        $res = $res[1];
+        $res = str_replace('simlurah-', '', $res[1]);
     } else {
-        $res = $res[0];
+        $res = str_replace('simlurah-', '', $res[0]);
     }
     $data = [
         'localhost' => 'Biringkanaya',
@@ -753,7 +754,7 @@ function nm_client()
         'wajokec' => 'Wajo',
         'simlurahdev' => 'Biringkanaya',
     ];
-    return $data[$res];
+    return $data[$res] ?? "SIMLURAH DEV";
 }
 
 function hitungSelisihTanggal($tgl_awal, $tgl_akhir)
