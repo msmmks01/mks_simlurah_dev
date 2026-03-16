@@ -157,7 +157,7 @@ function submenu($value, $keys, $dir)
 									<?php
 									$dir = '../../simlurah_dev';
 									foreach (dirToArray($dir) as $key => $value) {
-										if ($key <> '.git') {
+										if (!in_array($key, ['.git', 'deploy'])) {
 											if (is_numeric($key) && strlen($key) <= 4) {
 												echo "<li><a target=\"_blank\" href=\"upload.php?dir=$value\" class=\"confirmation link-dark rounded bg-info\">$value</a></li>";
 											} else {
