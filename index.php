@@ -1,7 +1,6 @@
 <?php
 ini_set('memory_limit', '256M');
 /**
- * SABRANG TEST COPY
  * CodeIgniter
  * An open source application development framework for PHP
  *
