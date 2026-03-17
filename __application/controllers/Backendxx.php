@@ -3892,8 +3892,6 @@ class Backendxx extends JINGGA_Controller
 					$this->nsmarty->assign('data', $data);
 				}
 
-				$this->nsmarty->assign("jenis_agenda", $this->lib->fillcombo("jenis_agenda", "return", ($sts == "edit" ? $data["jenis_agenda"] : "")));
-
 				break;
 
 			// case "laporan_hasil_kegiatan":

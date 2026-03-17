@@ -15183,7 +15183,7 @@ class Mbackend extends CI_Model
 							$array['no_akta_nikah'] = $data['no_akta_nikah'];
 							$array['tgl_akta_nikah'] = $data['tgl_akta_nikah'];
 							$array['di_keluarkan_akta_nikah'] = $data['di_keluarkan_akta_nikah'];
-							$array['tgl_akta_dikelaurkan'] = $data['tgl_akta_dikelaurkan']; 
+							$array['tgl_nikah_dikelaurkan'] = $data['tgl_nikah_dikelaurkan']; 
 
 							$array['no_akta_cerai'] = $data['no_akta_cerai'];
 							$array['tgl_akta_cerai'] = $data['tgl_akta_cerai'];
@@ -17739,8 +17739,17 @@ class Mbackend extends CI_Model
 				$this->load->library('upload', $config);
 				$this->upload->initialize($config);
 
-				if ($this->upload->do_upload('file')) {
-					$file = '__data/' . $dir . '/' . $this->upload->data()['file_name'];
+				// if ($this->upload->do_upload('file')) {
+				// 	$file = '__data/' . $dir . '/' . $this->upload->data()['file_name'];
+				// 	$data['file'] = $file;
+				// }
+				if (!$this->upload->do_upload('file')) {
+					$error = $this->upload->display_errors();
+					echo "Upload gagal : " . $error;
+					return;
+				} else {
+					$upload_data = $this->upload->data();
+					$file = '__data/' . $dir . '/' . $upload_data['file_name'];
 					$data['file'] = $file;
 				}
 
@@ -17776,9 +17785,9 @@ class Mbackend extends CI_Model
 
 				if (!empty($bagikan)) {
 
+					// $tags = json_decode($bagikan, true);
 					$tags = json_decode($bagikan, true);
-
-					if (is_array($tags)) {
+					if (!empty($tags) && is_array($tags)) {
 
 						foreach ($tags as $t) {
 
