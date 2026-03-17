@@ -119,7 +119,8 @@ class Pbb extends JINGGA_Controller
 			"merchant"    => "MSM"
 		];
 
-		$ch = curl_init("https://pakinta.makassarkota.go.id/api/data/check");
+		$ch = curl_init("https://simbakda.makassarkota.go.id/hub/api/detail_pj_aset?nip=19840622004121001");
+		// $ch = curl_init("https://pakinta.makassarkota.go.id/api/data/check");
 
 		curl_setopt_array($ch, [
 			CURLOPT_RETURNTRANSFER => true,
@@ -129,7 +130,7 @@ class Pbb extends JINGGA_Controller
 				'Content-Type: application/json',
 				'Authorization: Bearer 8f5f90ec1ba148d8cb39fc9749993f6b'
 			],
-			CURLOPT_SSL_VERIFYPEER => true,
+			CURLOPT_SSL_VERIFYPEER => false,
 			CURLOPT_SSL_VERIFYHOST => false
 		]);
 
