@@ -35,8 +35,9 @@ $config['sess_regenerate_destroy'] = FALSE;
 $config['cookie_prefix']    = '';
 $config['cookie_domain']    = '';
 $config['cookie_path']        = '/';
-$config['cookie_secure']    = FALSE;
-$config['cookie_httponly']     = FALSE;
+$config['cookie_secure']    = TRUE;
+$config['cookie_httponly']     = TRUE;
+$config['cookie_samesite']     = 'Lax';
 $config['standardize_newlines'] = FALSE;
 $config['global_xss_filtering'] = FALSE;
 
