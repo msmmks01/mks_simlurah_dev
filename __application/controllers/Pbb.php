@@ -129,8 +129,8 @@ class Pbb extends JINGGA_Controller
 				'Content-Type: application/json',
 				'Authorization: Bearer 8f5f90ec1ba148d8cb39fc9749993f6b'
 			],
-			CURLOPT_SSL_VERIFYPEER => false,
-			CURLOPT_SSL_VERIFYHOST => false
+			CURLOPT_SSL_VERIFYPEER => true,
+			CURLOPT_SSL_VERIFYHOST => true
 		]);
 
 		$response = curl_exec($ch);
