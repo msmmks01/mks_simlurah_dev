@@ -99,27 +99,30 @@ class Pbb extends JINGGA_Controller
 	public function get_data_pbb()
 	{
 		$nop   = preg_replace('/[^0-9]/', '', $this->input->get_post('nop'));
-		$tahun = $this->input->get_post('tahun'); // JANGAN default date('Y')
+		$tahun = $this->input->get_post('tahun');
 
-		if (empty($nop)) {
-			return $this->_json(['status' => 'error', 'message' => 'NOP harus diisi']);
+		if (!$nop) {
+			return $this->_json([
+				'status'  => 'error',
+				'message' => 'NOP harus diisi'
+			]);
 		}
 
-		if (empty($tahun)) {
+		if (!$tahun) {
 			return $this->_json([
-				'status' => 'error',
+				'status'  => 'error',
 				'message' => 'Tahun pajak wajib dipilih'
 			]);
 		}
 
 		$payload = [
-			"jenis_pajak" => "pbbp2",
-			"nop"         => $nop,
-			"tahun_pajak" => $tahun,
-			"merchant"    => "MSM"
+			'jenis_pajak' => 'pbbp2',
+			'nop'         => $nop,
+			'tahun_pajak' => $tahun,
+			'merchant'    => 'MSM'
 		];
 
-		$ch = curl_init("https://pakinta.makassarkota.go.id/api/data/check");
+		$ch = curl_init('https://pakinta.makassarkota.go.id/api/data/check');
 
 		curl_setopt_array($ch, [
 			CURLOPT_RETURNTRANSFER => true,
@@ -130,21 +133,32 @@ class Pbb extends JINGGA_Controller
 				'Authorization: Bearer 8f5f90ec1ba148d8cb39fc9749993f6b'
 			],
 			CURLOPT_SSL_VERIFYPEER => false,
-			CURLOPT_SSL_VERIFYHOST => false
+			CURLOPT_SSL_VERIFYHOST => false,
+			CURLOPT_TIMEOUT        => 30
 		]);
 
 		$response = curl_exec($ch);
 
-		if (curl_errno($ch)) {
+		if ($response === false) {
+			$error = curl_error($ch);
+			curl_close($ch);
+
 			return $this->_json([
-				'status' => 'error',
-				'msg' => curl_error($ch)
+				'status'  => 'error',
+				'message' => $error
 			]);
 		}
 
 		curl_close($ch);
 
 		$decoded = json_decode($response, true);
+
+		if (json_last_error() !== JSON_ERROR_NONE) {
+			return $this->_json([
+				'status'  => 'error',
+				'message' => 'Response tidak valid (bukan JSON)'
+			]);
+		}
 
 		return $this->_json([
 			'status' => 'success',
@@ -155,7 +169,7 @@ class Pbb extends JINGGA_Controller
 
 	private function _json($data)
 	{
-		header('Content-Type: application/json');
+		header('Content-Type: application/json; charset=utf-8');
 		echo json_encode($data);
 		exit;
 	}
