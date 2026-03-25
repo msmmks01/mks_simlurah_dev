@@ -121,7 +121,8 @@ class Pbb extends JINGGA_Controller
 			'merchant'    => 'MSM'
 		];
 
-		$ch = curl_init('https://pakinta.makassarkota.go.id/api/data/check');
+		// $ch = curl_init('https://pakinta.makassarkota.go.id/api/data/check');
+		$ch = curl_init('http://103.151.20.28/api/data/check');
 
 		curl_setopt_array($ch, [
 			CURLOPT_RETURNTRANSFER => true,
