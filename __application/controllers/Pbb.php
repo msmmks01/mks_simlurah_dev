@@ -116,13 +116,12 @@ class Pbb extends JINGGA_Controller
 
 		$payload = [
 			'jenis_pajak' => 'pbbp2',
-			'nop'         => $nop,
-			'tahun_pajak' => $tahun,
+			'nop'         => '737103000801603340',
+			'tahun_pajak' => 2025,
 			'merchant'    => 'MSM'
 		];
 
-		// $ch = curl_init('https://pakinta.makassarkota.go.id/api/data/check');
-		$ch = curl_init('http://103.151.20.28/api/data/check');
+		$ch = curl_init('https://pakinta.makassarkota.go.id/api/data/check');
 
 		curl_setopt_array($ch, [
 			CURLOPT_RETURNTRANSFER => true,
