@@ -103,7 +103,7 @@
             <tr class="row-hover">
               <td style="border:1px solid #000;text-align:center">
                 {$no}
-                <input type="hidden" name="kategori_penilaian_id[]" value="{$row.id}">
+                <input type="hidden" name="kategori_penilaian_id[]" value="{$row.id_utama}">
               </td>
               <td style="border:1px solid #000">
                 {$row.uraian}
@@ -112,17 +112,19 @@
                 {$row.satuan|default:'-'}
               </td>
               <td style="border:1px solid #000;text-align:center">
-                {if $row.file_path neq ''}
-                  <img src="{$host}{$row.file_path}" width="80">
+                {if !empty($row.file_path)}
+                    <a href="https://mobile.kotamakassar.id/{$row.file_path}" target="_blank">
+                        <img src="https://mobile.kotamakassar.id/{$row.file_path}" width="80" style="cursor:pointer">
+                    </a>
                 {else}
-                  <small style="color:red">Belum upload</small>
+                    <small style="color:red">Belum upload</small>
                 {/if}
               </td>
               <td style="border:1px solid #000;text-align:center">
                 <input type="checkbox"
                       class="cek-verifikasi"
                       name="verifikasi[]"
-                      value="{$row.id}"
+                      value="{$row.id_utama}"
                       {if empty($row.file_path)}disabled="disabled"{/if}>
               </td>
             </tr>

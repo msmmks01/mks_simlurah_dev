@@ -19173,6 +19173,20 @@ class Mbackend extends CI_Model
 				unset($data["pwd_baru"]);
 
 				break;
+			case "verifikasi_lpj_rt_rw":
+				$verifikasi = isset($data['verifikasi']) ? (array)$data['verifikasi'] : [];
+				unset($data['verifikasi']);
+
+				if (!empty($verifikasi)) {
+					$this->db->where_in('id', $verifikasi);
+					$this->db->update('tbl_lpj_rtrw', [
+					'status' => 1,
+					'update_date' => date('Y-m-d H:i:s')
+				]);
+				}
+				echo "berhasil anjay";
+
+				break;
 		}
 
 		switch ($sts_crud) {

@@ -4225,21 +4225,23 @@ class Backendxx extends JINGGA_Controller
 				$tahun_login = $this->auth['tahun'];
 				$nik = isset($rt_rw['nik']) ? $rt_rw['nik'] : '';
 
-				$file_lpj = $this->db->query("SELECT MAX(c.file_path) AS file_path
-					FROM tbl_lpj_rtrw b
-					LEFT JOIN tbl_dok_lpj_rtrw c ON b.id = c.id_lpj_rtrw
-					WHERE b.nik = '".$nik."'
-					AND MONTH(b.tgl_kegiatan) = '".$bulan."'
-					AND YEAR(b.tgl_kegiatan) = '".$tahun_login."'
-				")->row_array();
-
-				$kategori_penilaian = $this->db->query("SELECT id, uraian, satuan FROM tbl_kategori_penilaian_rt_rw
-					ORDER BY id
-				")->result_array();
-
-				foreach($kategori_penilaian as &$row){
-					$row['file_path'] = !empty($file_lpj['file_path']) ? $file_lpj['file_path'] : '';
-				}
+				$kategori_penilaian = $this->db->query("
+					SELECT 
+						b.id AS id_utama,
+						a.id,
+						a.uraian,
+						a.satuan,
+						c.file_path
+					FROM tbl_kategori_penilaian_rt_rw a
+					LEFT JOIN tbl_lpj_rtrw b 
+						ON b.id_indikator = a.id
+						AND b.nik = ?
+						AND MONTH(b.tgl_kegiatan) = ?
+						AND YEAR(b.tgl_kegiatan) = ?
+					LEFT JOIN tbl_dok_lpj_rtrw c 
+						ON c.id_lpj_rtrw = b.id
+					ORDER BY a.id
+				", [$nik, $bulan, $tahun_login])->result_array();
 
 				// ================== ASSIGN KE VIEW ==================
 				$this->nsmarty->assign('tbl_data_rt_rw_id', $rt_rw_id);
