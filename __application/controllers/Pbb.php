@@ -138,18 +138,21 @@ class Pbb extends JINGGA_Controller
 			CURLOPT_VERBOSE => true
 
 		]);
+		$verbose = fopen('php://temp', 'w+');
+		curl_setopt($ch, CURLOPT_STDERR, $verbose);
 
 		$response = curl_exec($ch);
 
 		if ($response === false) {
 			$error = curl_error($ch);
-			$info = curl_getinfo($ch);
+			rewind($verbose);
+			$debug = stream_get_contents($verbose);
 			curl_close($ch);
 
 			return $this->_json([
 				'status'  => 'error',
 				'message' => $error,
-				'info' => $info
+				'debug' => $debug
 			]);
 		}
 
