@@ -133,7 +133,10 @@ class Pbb extends JINGGA_Controller
 			],
 			CURLOPT_SSL_VERIFYPEER => false,
 			CURLOPT_SSL_VERIFYHOST => false,
-			CURLOPT_TIMEOUT        => 30
+			CURLOPT_TIMEOUT        => 30,
+			CURLOPT_CONNECTTIMEOUT => 10,
+			CURLOPT_VERBOSE => true
+
 		]);
 
 		$response = curl_exec($ch);
