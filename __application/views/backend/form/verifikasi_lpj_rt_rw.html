@@ -98,11 +98,15 @@
               <th style="border:1px solid #000;width:80px;text-align:center">ACTION</th>
             </tr>
 
+            {assign var=ada_id_null value=false}
             {assign var=no value=1}
             {foreach from=$kategori_penilaian item=row}
             <tr class="row-hover">
               <td style="border:1px solid #000;text-align:center">
                 {$no}
+                {if empty($row.id_utama)}
+                    {assign var=ada_id_null value=true}
+                {/if}
                 <input type="hidden" name="kategori_penilaian_id[]" value="{$row.id_utama}">
               </td>
               <td style="border:1px solid #000">
@@ -125,7 +129,8 @@
                       class="cek-verifikasi"
                       name="verifikasi[]"
                       value="{$row.id_utama}"
-                      {if empty($row.file_path)}disabled="disabled"{/if}>
+                      {if empty($row.file_path)}disabled="disabled"{/if}
+                      {if $row.status == 1}checked{/if}>
               </td>
             </tr>
             {assign var=no value=$no+1}
@@ -136,7 +141,8 @@
           <div class="row" style="margin-top:10px">
             <div class="col-md-12">
               <label style="font-weight:bold;cursor:pointer">
-                <input type="checkbox" id="cek_all_verifikasi">
+                <input type="checkbox" id="cek_all_verifikasi"
+                {if $ada_id_null}disabled{/if}>
                 All ceklis verifikasi
               </label>
             </div>
@@ -154,7 +160,8 @@
                 text="Kembali"
                 id_na="cancel"
                 style_btn="btn-danger"
-                click="$('#grid_nya_{$mod}').show();$('#detil_nya_{$mod}').hide();"}
+                click="$('#grid_nya_{$mod}').show();$('#detil_nya_{$mod}').hide();"
+                 btn_goyz="true"}
             </div>
           </div>
 
@@ -187,6 +194,7 @@
         if(r==1){
           $.messager.alert(nama_apps,"Data berhasil disimpan","info");
           $("#cancel_{$acak}").trigger("click");
+          $("#grid_verifikasi_lpj_rt_rw").datagrid("reload");
         }else{
           $.messager.alert(nama_apps,"Gagal menyimpan : "+r,"warning");
         }

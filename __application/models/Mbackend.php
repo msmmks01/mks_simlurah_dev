@@ -6191,6 +6191,13 @@ class Mbackend extends CI_Model
 				if ($this->input->post('kelurahan')) {
 					$where .= " AND a.cl_kelurahan_desa_id = '".$this->input->post('kelurahan')."' ";
 				}
+				$bulan = $this->input->post('bulan');
+				if ($bulan == '') {
+					$bulan = date('n');
+				} else {
+					$where .= " AND MONTH(b.tgl_kegiatan) = '$bulan' ";
+
+				}
 
 				$sql = "SELECT a.id AS rt_rw_id, a.nik, a.nama_lengkap, a.jab_rt_rw, a.rt, a.rw, d.nama AS nama_kelurahan_desa, MAX(c.file_path) AS file_path,
 
@@ -6216,12 +6223,12 @@ class Mbackend extends CI_Model
 
 							/* ================= STATUS VERIFIKASI ================= */
 							CASE
-								WHEN MAX(b.status) = 2 THEN 1
+								WHEN MIN(COALESCE(b.status, 0)) = 1 THEN 1
 								ELSE 0
 							END AS status_verifikasi,
 
 							CASE
-								WHEN MAX(b.status) = 2 THEN 'Sudah Diverifikasi ✓'
+								WHEN MIN(COALESCE(b.status, 0)) = 1 THEN 'Sudah Diverifikasi ✓'
 								ELSE 'Belum Terverifikasi'
 							END AS ket_status_verifikasi,
 
@@ -19184,7 +19191,6 @@ class Mbackend extends CI_Model
 					'update_date' => date('Y-m-d H:i:s')
 				]);
 				}
-				echo "berhasil anjay";
 
 				break;
 		}
