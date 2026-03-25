@@ -140,11 +140,13 @@ class Pbb extends JINGGA_Controller
 
 		if ($response === false) {
 			$error = curl_error($ch);
+			$info = curl_getinfo($ch);
 			curl_close($ch);
 
 			return $this->_json([
 				'status'  => 'error',
-				'message' => $error
+				'message' => $error,
+				'info' => $info
 			]);
 		}
 
