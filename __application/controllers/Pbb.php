@@ -98,9 +98,10 @@ class Pbb extends JINGGA_Controller
 
 	public function get_data_pbb()
 	{
-		$nop   = preg_replace('/[^0-9]/', '', $this->input->get_post('nop'));
-		$tahun = $this->input->get_post('tahun');
-
+		$nop   = preg_replace('/[^0-9]/', '', $this->input->post('nop'));
+		$tahun = $this->input->post('tahun');
+		echo json_encode($this->input->post());
+		return;
 		if (!$nop) {
 			return $this->_json([
 				'status'  => 'error',
