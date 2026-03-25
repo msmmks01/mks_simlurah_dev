@@ -100,18 +100,16 @@ class Pbb extends JINGGA_Controller
 	{
 		$nop   = preg_replace('/[^0-9]/', '', $this->input->post('nop'));
 		$tahun = $this->input->post('tahun');
-		echo json_encode($this->input->post());
-		return;
 		if (!$nop) {
 			return $this->_json([
-				'status'  => 'error',
+				'status'  => 'Peringatan!',
 				'message' => 'NOP harus diisi'
 			]);
 		}
 
 		if (!$tahun) {
 			return $this->_json([
-				'status'  => 'error',
+				'status'  => 'Peringatan!',
 				'message' => 'Tahun pajak wajib dipilih'
 			]);
 		}
