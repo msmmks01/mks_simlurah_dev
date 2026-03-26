@@ -200,6 +200,8 @@
 					$.ajaxSetup({
 						headers: { 'X-CSRF-TOKEN': data[csrfName] }
 					});
+					console.log(app.csrfHash);
+					
 				}
 			} catch (e) {
 				// Bukan format JSON atau respon kosong, abaikan saja
