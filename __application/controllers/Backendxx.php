@@ -7854,7 +7854,10 @@ class Backendxx extends JINGGA_Controller
 		$notif	= $this->input->get('id');
 		$notifx	= $this->db->query("select COUNT(id) as jumlah from tbl_data_broadcast")->row('jumlah');
 
-		echo json_encode($notifx);
+		echo json_encode([
+			'n_notif'=>$notifx,
+			get_csrf_token_name()=>get_csrf_hash()
+		]);
 	}
 
 	// public function get_data_riwayat_esign($id)

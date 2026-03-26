@@ -202,7 +202,7 @@
 				update_token(data[app.csrfName]);
 
 				// Jalankan lagi setelah 30 detik (lebih efisien)
-				setTimeout(checkSession, 5000); 
+				setTimeout(checkSession, 30000); 
 			}, 'json').fail(function() {
 				// Jika server error, coba lagi nanti
 				setTimeout(checkSession, 5000);
@@ -223,8 +223,12 @@
 				url: 'Backendxx/notif_broadcast',
 				type: "POST",
 				dataType: "json",
+				data:({
+					[app.csrfName]: app.csrfHash
+				}),
 				success: function(data) {
-					$('#notif').html(data);
+					update_token(data[app.csrfName]);
+					$('#notif').html(data.n_notif);
 				}
 			});
 		}
