@@ -4660,8 +4660,9 @@ class Backendxx extends JINGGA_Controller
 
 	function getdata($p1, $p2 = "", $p3 = "")
 	{
-
-		echo $this->mbackend->getdata($p1, 'json', $p3);
+		$response = $this->mbackend->getdata($p1, 'json', $p3);
+		$response[get_csrf_token_name()] = get_csrf_hash();
+		echo $response;
 	}
 
 
