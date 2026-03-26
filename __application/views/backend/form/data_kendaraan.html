@@ -273,6 +273,8 @@
 		submitHandler: function(form) {
 		$.LoadingOverlay("show");
 		submit_form('form_{$acak}',function(r){
+			console.log(r);
+			
 			if (r.status==true) {
 				update_token(r[app.csrfName]);
 				$.messager.alert(nama_apps,r.message,'info'); 
