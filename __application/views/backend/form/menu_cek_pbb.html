@@ -182,7 +182,7 @@ document.getElementById('formCekPBB').addEventListener('submit', function(e){
     return res.json();
   })
   .then(function(data){
-    console.log('{$this->security->get_csrf_token_name()}');
+    console.log('{get_csrf_token_name()}');
     
     document.getElementsByName('{$this->security->get_csrf_name()}').value=data['{$this->security->get_csrf_token_name()}'];
     if (!data) {
