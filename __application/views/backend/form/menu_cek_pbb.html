@@ -132,7 +132,8 @@ body {
 
   <h3>{$data.judul|default:'CEK MENU PBB'}</h3>
 
-  <form id="formCekPBB" class="form-inline">
+  <!-- <form id="formCekPBB" class="form-inline"> -->
+    {form_open(null,['id'=>'formCekPBB','class'=>'form-inline'])}
     <div>
       <label for="nop">NOP:</label>
       <input type="text" name="nop" id="nop" value="{$data.nop|default:''}" required />
@@ -150,7 +151,8 @@ body {
     </div>
 
     <button type="submit">🔍 Cek Data</button>
-  </form>
+    {form_close()}
+  <!-- </form> -->
 
   <div id="hasilPBB" style="margin-top:20px;"></div>
 </div>
