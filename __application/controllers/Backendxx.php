@@ -7233,9 +7233,9 @@ class Backendxx extends JINGGA_Controller
 
 				$spdf->curlAllowUnsafeSslRequests = true;
 
-				$spdf->showImageErrors = false;
+				$spdf->showImageErrors = true;
 
-				$this->showImageErrors = false;
+				$this->showImageErrors = true;
 
 				$spdf->ignore_invalid_utf8 = true;
 
