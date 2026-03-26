@@ -7739,7 +7739,7 @@ function submit_form(frm, func) {
     },
 
     success: function (data) {
-      console.log(JASON.parse(data));
+      console.log(JSON.parse(data));
       
       if (func == undefined) {
         if (data == "1") {
