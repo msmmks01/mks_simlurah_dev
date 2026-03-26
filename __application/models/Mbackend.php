@@ -6191,6 +6191,13 @@ class Mbackend extends CI_Model
 				if ($this->input->post('kelurahan')) {
 					$where .= " AND a.cl_kelurahan_desa_id = '".$this->input->post('kelurahan')."' ";
 				}
+				$bulan = $this->input->post('bulan');
+				if ($bulan == '') {
+					$bulan = date('n');
+				} else {
+					$where .= " AND MONTH(b.tgl_kegiatan) = '$bulan' ";
+
+				}
 
 				$sql = "SELECT a.id AS rt_rw_id, a.nik, a.nama_lengkap, a.jab_rt_rw, a.rt, a.rw, d.nama AS nama_kelurahan_desa, MAX(c.file_path) AS file_path,
 
@@ -6216,12 +6223,12 @@ class Mbackend extends CI_Model
 
 							/* ================= STATUS VERIFIKASI ================= */
 							CASE
-								WHEN MAX(b.status) = 2 THEN 1
+								WHEN MIN(COALESCE(b.status, 0)) = 1 THEN 1
 								ELSE 0
 							END AS status_verifikasi,
 
 							CASE
-								WHEN MAX(b.status) = 2 THEN 'Sudah Diverifikasi ✓'
+								WHEN MIN(COALESCE(b.status, 0)) = 1 THEN 'Sudah Diverifikasi ✓'
 								ELSE 'Belum Terverifikasi'
 							END AS ket_status_verifikasi,
 
@@ -7015,8 +7022,9 @@ class Mbackend extends CI_Model
 
 			return $this->lib->json_grid($sql, $type);
 		} elseif ($balikan == 'row_array') {
-
-			return $this->db->query($sql)->row_array();
+			$respon = $this->db->query($sql)->row_array();
+			$respon[get_csrf_token_name()] = get_csrf_hash();
+			return $respon;
 		} elseif ($balikan == 'result') {
 
 			return $this->db->query($sql)->result();
@@ -9620,7 +9628,6 @@ class Mbackend extends CI_Model
 
 	function simpandata($table, $data, $sts_crud, $table2, $data2)
 	{ //$sts_crud --> STATUS NYEE INSERT, UPDATE, DELETE
-
 		$this->db->trans_begin();
 
 		if (isset($data['id'])) {
@@ -19183,6 +19190,19 @@ class Mbackend extends CI_Model
 				unset($data["pwd_baru"]);
 
 				break;
+			case "verifikasi_lpj_rt_rw":
+				$verifikasi = isset($data['verifikasi']) ? (array)$data['verifikasi'] : [];
+				unset($data['verifikasi']);
+
+				if (!empty($verifikasi)) {
+					$this->db->where_in('id', $verifikasi);
+					$this->db->update('tbl_lpj_rtrw', [
+					'status' => 1,
+					'update_date' => date('Y-m-d H:i:s')
+				]);
+				}
+
+				break;
 		}
 
 		switch ($sts_crud) {
@@ -19536,7 +19556,11 @@ class Mbackend extends CI_Model
 
 			$this->db->trans_rollback();
 
-			return 'gagal';
+			return json_encode([
+				'status'=>false,
+				'message'=>'gagal',
+				get_csrf_token_name()=>get_csrf_hash(),
+			]);
 		} else {
 
 			$this->db->trans_commit();
@@ -19575,7 +19599,11 @@ class Mbackend extends CI_Model
 			}
 
 			// PROSES UTAMA TETAP BERHASIL
-			return 1;
+			return json_encode([
+				'status'=>false,
+				'message'=>1,
+				get_csrf_token_name()=>get_csrf_hash(),
+			]);
 		}
 	}
 

@@ -87,21 +87,20 @@ $config['cookie_prefix'] = '';
 $config['cookie_domain'] = '';
 $config['cookie_path'] = '/';
 
-$config['cookie_secure'] = TRUE;
-$config['cookie_httponly'] = TRUE;
-$config['cookie_samesite'] = 'Lax';
+$config['cookie_secure'] = FALSE;
+$config['cookie_httponly'] = FALSE;
+// $config['cookie_samesite'] = 'Lax';
 
 /* =========================================================
 | CSRF
 ========================================================= */
 
-$config['csrf_protection'] = FALSE;
-$config['csrf_token_name'] = 'csrf_test_name';
-$config['csrf_cookie_name'] = 'csrf_cookie_name';
-
-$config['csrf_expire'] = 1000000;
+$config['csrf_protection'] = TRUE;
+$config['csrf_token_name'] = 'csrf_token';
+$config['csrf_cookie_name'] = 'csrf_cookie';
+$config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = TRUE;
-$config['csrf_exclude_uris'] = array();
+$config['csrf_exclude_uris'] = array('backoffice-form/.*','backoffice-simpan/.*');
 
 /* =========================================================
 | NETWORK

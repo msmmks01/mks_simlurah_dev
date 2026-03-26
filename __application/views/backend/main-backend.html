@@ -172,6 +172,40 @@
 		<!-- END Modal -->
 		
 	<script>
+		window.app = {
+			csrfName: '{get_csrf_token_name()}',
+			csrfHash: '{get_csrf_hash()}'
+		};
+
+		$(document).ajaxComplete(function(event, xhr, settings) {
+			// Coba parsing data JSON dari setiap respon server
+			try {
+				let data = JSON.parse(xhr.responseText);
+
+				// 1. Cek Sesi secara Global
+				if (data.is_login === false) {
+					alert("Sesi berakhir!");
+					window.location.reload();
+					return;
+				}
+
+				let csrfName = window.app.csrfName;
+				if (data[csrfName]) {
+					window.app.csrfHash = data[csrfName];
+					
+					// Update semua input hidden di halaman otomatis
+					$('input[name="'+csrfName+'"]').val(data[csrfName]);
+					
+					// Update Ajax Setup agar request berikutnya pakai token baru
+					$.ajaxSetup({
+						headers: { 'X-CSRF-TOKEN': data[csrfName] }
+					});
+					
+				}
+			} catch (e) {
+				// Bukan format JSON atau respon kosong, abaikan saja
+			}
+		});
 
 		$( document ).ready(function() {
 			get_notif();
@@ -181,25 +215,51 @@
 				loadUrl(host+'backoffice-form/beranda_admin');		
 			{/if}
 
-			setInterval(function(){ 
-				$.post(host+'backoffice-display/ceksession', { }, function(resp){
-					if(resp == '2'){
-						window.location.reload();
-					}
-				});
-			}, 20000);
+			checkSession();
 			
-			
-
 		});
+
+		function checkSession() {
+			$.post(host + 'backoffice-display/ceksession', {
+				[app.csrfName]: app.csrfHash
+			}, function(data) {
+				if (data.is_login === false) {
+					// Sebaiknya arahkan ke login page atau kasih peringatan dulu
+					alert("Sesi berakhir, silakan login kembali.");
+					window.location.href = '/login'; 
+					return;
+				}
+
+				update_token(data[app.csrfName]);
+
+				// Jalankan lagi setelah 30 detik (lebih efisien)
+				setTimeout(checkSession, 30000); 
+			}, 'json').fail(function() {
+				// Jika server error, coba lagi nanti
+				setTimeout(checkSession, 5000);
+			});
+		}
+
+		function update_token(newToken) {
+			app.csrfHash = newToken;
+
+			// Update semua input hidden CSRF di form
+			document.querySelectorAll('input[name="'+app.csrfName+'"]').forEach(el => {
+				el.value = newToken;
+			});
+		}
 
 		function get_notif() {
 			$.ajax({
 				url: 'Backendxx/notif_broadcast',
 				type: "POST",
 				dataType: "json",
+				data:({
+					[app.csrfName]: app.csrfHash
+				}),
 				success: function(data) {
-					$('#notif').html(data);
+					update_token(data[app.csrfName]);
+					$('#notif').html(data.n_notif);
 				}
 			});
 		}

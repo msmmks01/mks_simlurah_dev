@@ -1,9 +1,14 @@
 <tr class="kop-surat">
     <td align="center" rowspan="4" valign="middle" style="width: 150px">
-        <img src="{$host}{$setting.logo_kab_kota|default:''}" 
+        <img src="{FCPATH}{$setting.logo_kab_kota|default:''}" 
         height="100px" 
-            alt="Logo"
+            alt="Logo Pemkab"
+            onerror="this.onerror=null;this.src='{$host}{$setting.logo_kab_kota}';"
         />
+        <!-- <img src="{$host}{$setting.logo_kab_kota|default:''}" 
+        height="100px" 
+            alt="Logo Pemkab"
+        /> -->
         <!-- <img src="{$host}{$setting.logo_kab_kota|default:''}" 
         height="100px" 
             alt="Logo" 
@@ -15,12 +20,12 @@
 </td>
 {if $setting.status_logo_lainnya eq '1'}
     <td align="center" rowspan="4" valign="middle" style="width: 150px">
-        <img src="{$host}{$setting.logo_desa|default:''}"
-        onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';" style="height: 100px"/>
+        <img src="{FCPATH}{$setting.logo_desa|default:''}"
+        onerror="this.onerror=null;this.src='{$host}{$setting.logo_desa}';" style="height: 100px"/>
     </td>
 {else} 
     <td align="center" rowspan=4 valign="middle"  style="width: 150px;">
-        <img src="./__assets/images/logo-blank.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';"  style="height:100px"/>
+        <img src="{FCPATH}__assets/images/logo-blank.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';"  style="height:100px"/>
     </td>
 {/if}
 </tr>

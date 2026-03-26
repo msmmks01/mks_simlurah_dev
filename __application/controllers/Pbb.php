@@ -98,28 +98,32 @@ class Pbb extends JINGGA_Controller
 
 	public function get_data_pbb()
 	{
-		$nop   = preg_replace('/[^0-9]/', '', $this->input->get_post('nop'));
-		$tahun = $this->input->get_post('tahun'); // JANGAN default date('Y')
-
-		if (empty($nop)) {
-			return $this->_json(['status' => 'error', 'message' => 'NOP harus diisi']);
+		$nop   = preg_replace('/[^0-9]/', '', $this->input->post('nop'));
+		$tahun = $this->input->post('tahun');
+		if (!$nop) {
+			return $this->_json([
+				'status'  => 'Peringatan!',
+				'message' => 'NOP harus diisi',
+				$this->security->get_csrf_token_name()=>$this->security->get_csrf_hash()
+			]);
 		}
 
-		if (empty($tahun)) {
+		if (!$tahun) {
 			return $this->_json([
-				'status' => 'error',
-				'message' => 'Tahun pajak wajib dipilih'
+				'status'  => 'Peringatan!',
+				'message' => 'Tahun pajak wajib dipilih',
+				$this->security->get_csrf_token_name()=>$this->security->get_csrf_hash()
 			]);
 		}
 
 		$payload = [
-			"jenis_pajak" => "pbbp2",
-			"nop"         => $nop,
-			"tahun_pajak" => $tahun,
-			"merchant"    => "MSM"
+			'jenis_pajak' => 'pbbp2',
+			'nop'         => '737103000801603340',
+			'tahun_pajak' => 2025,
+			'merchant'    => 'MSM'
 		];
 
-		$ch = curl_init("https://pakinta.makassarkota.go.id/api/data/check");
+		$ch = curl_init('https://pakinta.makassarkota.go.id/api/data/check');
 
 		curl_setopt_array($ch, [
 			CURLOPT_RETURNTRANSFER => true,
@@ -130,15 +134,28 @@ class Pbb extends JINGGA_Controller
 				'Authorization: Bearer 8f5f90ec1ba148d8cb39fc9749993f6b'
 			],
 			CURLOPT_SSL_VERIFYPEER => false,
-			CURLOPT_SSL_VERIFYHOST => false
+			CURLOPT_SSL_VERIFYHOST => false,
+			CURLOPT_TIMEOUT        => 30,
+			CURLOPT_CONNECTTIMEOUT => 10,
+			CURLOPT_VERBOSE => false
+
 		]);
+		$verbose = fopen('php://temp', 'w+');
+		curl_setopt($ch, CURLOPT_STDERR, $verbose);
 
 		$response = curl_exec($ch);
 
-		if (curl_errno($ch)) {
+		if ($response === false) {
+			$error = curl_error($ch);
+			rewind($verbose);
+			$debug = stream_get_contents($verbose);
+			curl_close($ch);
+
 			return $this->_json([
-				'status' => 'error',
-				'message' => curl_error($ch)
+				'status'  => 'error',
+				'message' => $error,
+				'debug' => $debug,
+				$this->security->get_csrf_token_name()=>$this->security->get_csrf_hash()
 			]);
 		}
 
@@ -146,19 +163,27 @@ class Pbb extends JINGGA_Controller
 
 		$decoded = json_decode($response, true);
 
+		if (json_last_error() !== JSON_ERROR_NONE) {
+			return $this->_json([
+				'status'  => 'error',
+				'message' => 'Response tidak valid (bukan JSON)',
+				$this->security->get_csrf_token_name()=>$this->security->get_csrf_hash()
+			]);
+		}
+
 		return $this->_json([
 			'status' => 'success',
 			'tahun'  => $tahun,
-			'data'   => $decoded
+			'data'   => $decoded,
+			$this->security->get_csrf_token_name()=>$this->security->get_csrf_hash()
 		]);
 	}
 
 	private function _json($data)
 	{
-		header('Content-Type: application/json');
+		header('Content-Type: application/json; charset=utf-8');
+		ob_clean();
 		echo json_encode($data);
 		exit;
 	}
-
-
 }

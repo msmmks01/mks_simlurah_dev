@@ -5223,6 +5223,10 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
 
   urlglobal = host + "backoffice-data/" + urlnya;
 
+  param[app.csrfName] = function() {
+    return app.csrfHash;
+  };
+
   grid_nya = $("#" + divnya).datagrid({
     title: judulnya,
 
@@ -5321,6 +5325,8 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
     },
 
     onLoadSuccess: function (data) {
+      
+      update_token(data[app.csrfName]);
       if (data.total == 0) {
         var $panel = $(this).datagrid("getPanel");
 
@@ -7733,6 +7739,10 @@ function submit_form(frm, func) {
     },
 
     success: function (data) {
+      var response = JSON.parse(data);
+      update_token(response[app.csrfName]);
+      data=response.message;
+      
       if (func == undefined) {
         if (data == "1") {
           pesan("Data Sudah Disimpan ", "Sukses");
@@ -7977,7 +7987,9 @@ function cariData(divnya, post_search, acaknya) {
       post_search["rw"] = $("#rw").val();
     }
   }
-
+  post_search[app.csrfName] = function() {
+    return app.csrfHash;
+  };
   $("#grid_" + divnya).datagrid("reload", post_search);
 }
 
