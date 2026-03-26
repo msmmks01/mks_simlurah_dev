@@ -19541,7 +19541,7 @@ class Mbackend extends CI_Model
 
 				break;
 		}
-		echo get_csrf_hash();
+
 		if ($this->db->trans_status() == false) {
 
 			$this->db->trans_rollback();
