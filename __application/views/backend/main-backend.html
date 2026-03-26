@@ -195,7 +195,7 @@
 						window.location.reload();
 						return;
 					}
-					console.log(data);
+					console.log(app.csrfName,data[app.csrfName]);
 					
 					document.getElementsByName(app.csrfName).forEach(function(el){
 						el.value = data[app.csrfName];
