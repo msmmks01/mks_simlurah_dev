@@ -160,7 +160,6 @@ body {
 <!-- set base URL ke JS (Smarty akan mengganti {$base_url} di sini) -->
 <script>
   var BASE_URL = '{$base_url}';
-  var get_csrf_token_name = '{get_csrf_token_name()}';
 </script>
 
 {literal}
@@ -183,9 +182,9 @@ document.getElementById('formCekPBB').addEventListener('submit', function(e){
     return res.json();
   })
   .then(function(data){
-    document.getElementsByName(get_csrf_token_name).forEach(function(el){
-        el.value = resp[get_csrf_token_name];
-				get_csrf_token_name = resp[get_csrf_token_name];
+    document.getElementsByName(app.csrfName).forEach(function(el){
+      el.value = data[app.csrfName];
+      app.csrfName = data[app.csrfName];
     });
     if (!data) {
       hasilBox.innerHTML = '<p style="color:red">Tidak ada data dari server.</p>';
