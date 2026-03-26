@@ -188,7 +188,7 @@ document.getElementById('formCekPBB').addEventListener('submit', function(e){
       return;
     }
 
-    if (data.status && data.status === 'success') {
+    if (data.status && data.status ==true) {
       // kadang API menaruh detail di data.data atau langsung di data
       var d = data.data;
       
