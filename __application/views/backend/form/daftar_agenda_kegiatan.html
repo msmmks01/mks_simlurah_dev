@@ -54,7 +54,7 @@
 								<div class="col-md-8">
 									<div class="form-group">
 										<label for="bagikan">Bagikan <span style="color:red">*</span></label>
-										<input name="bagikan" id="bagikan" class="form-control">
+										<input name="bagikan" id="bagikan" class="form-control" value='{$data.bagikan|default:""}'>
 									</div>
 								</div>
 							</div>
@@ -113,13 +113,19 @@
 			$.LoadingOverlay("show");
 			
 			submit_form('form_{$acak}', function(r){
-				if (r == 1) {
+
+				console.log("RESPONSE:", r); // 🔥 debug wajib dulu
+
+				r = r.toString().trim(); // 🔥 ini kunci biar gak jadi "11"
+
+				if (r === '1') {
 					$.messager.alert(nama_apps, 'Data Tersimpan', 'info');
 					$('#cancel_{$acak}').trigger('click');
 					$('#grid_daftar_agenda_kegiatan').datagrid('reload');
 				} else {
 					$.messager.alert(nama_apps, 'Proses Simpan Data Gagal: ' + r, 'error');
 				}
+
 				$.LoadingOverlay("hide", true);
 			});
 		},
@@ -127,24 +133,31 @@
 		errorPlacement: function(error, element) {
 			error.insertAfter(element);
 		}
-
-	});
+	}); 
 
 	//FUNGSI TAGING
-	$(document).ready(function(){
+	var input = document.querySelector('#bagikan');
 
-    var input = document.querySelector('#bagikan');
+	if(input){
+		var tagify = new Tagify(input, {
+			pattern: /^#\w+$/,
+			whitelist: ["#rt", "#rw", "#sekcam", "#lurah"],
+			dropdown: {
+				enabled: 1,
+				maxItems: 10
+			}
+		});
 
-		if(input){
-			var tagify = new Tagify(input, {
-				pattern: /^#\w+$/,
-				whitelist: ["#rt", "#rw", "#sekcam", "#lurah"],
-				dropdown: {
-					enabled: 1,
-					maxItems: 10
-				}
-			});
+		// 🔥 INI KUNCINYA
+		var existing = input.value;
+
+		if(existing){
+			try {
+				tagify.addTags(JSON.parse(existing));
+			} catch(e){
+				console.log("Format salah:", existing);
+			}
 		}
-	});
+	}
 
 </script>

@@ -14866,7 +14866,7 @@ class Mbackend extends CI_Model
 
 							$array['nama_pembuat_kapal'] = $data['nama_pembuat_kapal'];
 
-							$array['pekerjaan_pembuatan'] = $data['pekerjaan_pembuatan'];
+							$array['pekerjaan_pembuat'] = $data['pekerjaan_pembuat'];
 
 							$array['alamat_pembuat'] = $data['alamat_pembuat'];
 
@@ -17739,18 +17739,17 @@ class Mbackend extends CI_Model
 				$this->load->library('upload', $config);
 				$this->upload->initialize($config);
 
-				// if ($this->upload->do_upload('file')) {
-				// 	$file = '__data/' . $dir . '/' . $this->upload->data()['file_name'];
-				// 	$data['file'] = $file;
-				// }
-				if (!$this->upload->do_upload('file')) {
-					$error = $this->upload->display_errors();
-					echo "Upload gagal : " . $error;
-					return;
-				} else {
-					$upload_data = $this->upload->data();
-					$file = '__data/' . $dir . '/' . $upload_data['file_name'];
-					$data['file'] = $file;
+				if (!empty($_FILES['file']['name'])) {
+
+					if ($this->upload->do_upload('file')) {
+						$upload_data = $this->upload->data();
+						$file = '__data/' . $dir . '/' . $upload_data['file_name'];
+						$data['file'] = $file;
+					} else {
+						echo "Upload gagal : " . $this->upload->display_errors();
+						return;
+					}
+
 				}
 
 				if (isset($data['tgl_kegiatan'])) {
@@ -17776,6 +17775,11 @@ class Mbackend extends CI_Model
 				} elseif ($sts_crud == "edit") {
 
 					$agenda_id = $this->input->post('id');
+
+					if (empty($_FILES['file']['name'])) {
+						unset($data['file']); // biar file lama tidak ketimpa kosong
+					}
+
 					$this->db->where('id', $agenda_id);
 					$this->db->update($table, $data);
 				}
@@ -17811,21 +17815,27 @@ class Mbackend extends CI_Model
 
 								foreach ($users as $u) {
 
+									if (empty($u['id'])) continue;
+
 									$data_disposisi = array(
 										'agenda_id' => $agenda_id,
-										'user_id'   => $u['id'], // ini id user
+										'user_id'   => $u['id'],
 										'pesan'     => 'Anda menerima agenda kegiatan baru',
 										'created_at'=> date('Y-m-d H:i:s')
 									);
 
-									$this->db->insert('tbl_disposisi_online', $data_disposisi);
+									if (!$this->db->insert('tbl_disposisi_online', $data_disposisi)) {
+										$err = $this->db->error();
+										echo "ERROR DB: " . $err['message'];
+										exit;
+									}
 								}
 							}
 						}
 					}
 				}
-
 				echo 1;
+				exit;
 
 			break;
 
