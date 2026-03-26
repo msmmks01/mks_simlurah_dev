@@ -186,11 +186,11 @@
 			{/if}
 
 			setInterval(function(){ 
-				$.post(host+'backoffice-display/ceksession', {
-					[app.csrfName]:function(){
-						return app.csrfHash
+				$.post(host+'backoffice-display/ceksession', function(){
+					return {
+						[app.csrfName]:app.csrfHash
 					}
-				 }, function(data){
+				}, function(data){
 					if(data.is_login==false){
 						window.location.reload();
 						return;
