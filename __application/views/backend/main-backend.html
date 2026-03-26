@@ -185,29 +185,36 @@
 				loadUrl(host+'backoffice-form/beranda_admin');		
 			{/if}
 
-			setInterval(function(){ 
-				$.post(host+'backoffice-display/ceksession', function(){
-					return {
-						[app.csrfName]:app.csrfHash
-					}
-				}, function(data){
-					if(data.is_login==false){
-						window.location.reload();
-						return;
-					}
-					console.log(app.csrfName,data[app.csrfName]);
-					
-					document.getElementsByName(app.csrfName).forEach(function(el){
-						el.value = data[app.csrfName];
-						window.app.csrfHash = data[app.csrfName];
-					});
-					console.log(app.csrfName,data[app.csrfName]);
-				},'json');
-			}, 5000);
-			
-			
-
+			checkSession();
 		});
+
+		function checkSession() {
+			$.post(host + 'backoffice-display/ceksession', {
+				[app.csrfName]: app.csrfHash
+			}, function(data) {
+				if (data.is_login === false) {
+					// Sebaiknya arahkan ke login page atau kasih peringatan dulu
+					alert("Sesi berakhir, silakan login kembali.");
+					window.location.href = '/login'; 
+					return;
+				}
+
+				// Update Token
+				const newToken = data[app.csrfName];
+				app.csrfHash = newToken;
+
+				// Update semua input hidden CSRF di form
+				document.querySelectorAll(`input[name="${app.csrfName}"]`).forEach(el => {
+					el.value = newToken;
+				});
+
+				// Jalankan lagi setelah 30 detik (lebih efisien)
+				setTimeout(checkSession, 5000); 
+			}, 'json').fail(function() {
+				// Jika server error, coba lagi nanti
+				setTimeout(checkSession, 5000);
+			});
+		}
 
 		function get_notif() {
 			$.ajax({
