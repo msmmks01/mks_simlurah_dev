@@ -193,6 +193,7 @@
 					}
 					document.getElementsByName(get_csrf_token_name).forEach(function(el){
 						el.value = resp[get_csrf_token_name];
+						get_csrf_token_name = resp[get_csrf_token_name];
 					});
 				});
 			}, 20000);
