@@ -19546,7 +19546,11 @@ class Mbackend extends CI_Model
 
 			$this->db->trans_rollback();
 
-			return 'gagal';
+			return json_encode([
+				'status'=>false,
+				'message'=>'gagal',
+				get_csrf_token_name()=>get_csrf_hash(),
+			]);
 		} else {
 
 			$this->db->trans_commit();
@@ -19585,7 +19589,11 @@ class Mbackend extends CI_Model
 			}
 
 			// PROSES UTAMA TETAP BERHASIL
-			return 1;
+			return json_encode([
+				'status'=>false,
+				'message'=>1,
+				get_csrf_token_name()=>get_csrf_hash(),
+			]);
 		}
 	}
 
