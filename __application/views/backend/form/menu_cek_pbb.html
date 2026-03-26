@@ -183,9 +183,9 @@ document.getElementById('formCekPBB').addEventListener('submit', function(e){
     return res.json();
   })
   .then(function(data){
-    console.log(get_csrf_token_name);
-    
-    document.getElementsByName(get_csrf_token_name).value=data[get_csrf_token_name];
+    document.getElementsByName(csrfName).forEach(function(el){
+        el.value = data[csrfName];
+    });
     if (!data) {
       hasilBox.innerHTML = '<p style="color:red">Tidak ada data dari server.</p>';
       return;
