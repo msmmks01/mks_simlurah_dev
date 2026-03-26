@@ -282,7 +282,7 @@
 				update_token(r[app.csrfName]);
 				$.messager.alert(nama_apps,r.message,'error'); 
 			}
-			else if(r == 1 ){ 
+			/* else if(r == 1 ){ 
 				$.messager.alert(nama_apps,'Data Tersimpan','info'); 
 				$('#cancel_{$acak}').trigger('click');
 				$('#grid_data_kendaraan').datagrid('reload');
@@ -290,7 +290,7 @@
 				$.messager.alert(nama_apps,'Nomor Polisi sudah digunakan!','warning'); 
 			}else{ 
 				$.messager.alert(nama_apps,'Proses Simpan Data Gagal '+r,'error'); 
-			}
+			} */
 			$.LoadingOverlay("hide", true);
 		});
 			//*/
