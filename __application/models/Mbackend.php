@@ -9628,7 +9628,7 @@ class Mbackend extends CI_Model
 
 	function simpandata($table, $data, $sts_crud, $table2, $data2)
 	{ //$sts_crud --> STATUS NYEE INSERT, UPDATE, DELETE
-
+		echo get_csrf_hash();
 		$this->db->trans_begin();
 
 		if (isset($data['id'])) {
@@ -19543,19 +19543,11 @@ class Mbackend extends CI_Model
 				break;
 		}
 
-		if (ob_get_length() > 0) {
-        ob_clean();
-    }
-
 		if ($this->db->trans_status() == false) {
 
 			$this->db->trans_rollback();
 
-			return json_encode([
-				'status'=>false,
-				'message'=>'Gagal menyimpan data!',
-				get_csrf_token_name()=>get_csrf_hash()
-			]);
+			return 'gagal';
 		} else {
 
 			$this->db->trans_commit();
@@ -19594,11 +19586,7 @@ class Mbackend extends CI_Model
 			}
 
 			// PROSES UTAMA TETAP BERHASIL
-			return json_encode([
-				'status'=>true,
-				'message'=>'Data tersimpan!',
-				get_csrf_token_name()=>get_csrf_hash()
-			]);
+			return 1;
 		}
 	}
 
