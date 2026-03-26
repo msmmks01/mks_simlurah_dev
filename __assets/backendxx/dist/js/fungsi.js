@@ -7741,7 +7741,7 @@ function submit_form(frm, func) {
     success: function (data) {
       var response = JSON.parse(data);
       update_token(response[app.csrfName]);
-      data.response.message;
+      data=response.message;
       
       if (func == undefined) {
         if (data == "1") {
