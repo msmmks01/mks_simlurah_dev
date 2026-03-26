@@ -187,7 +187,9 @@
 
 			setInterval(function(){ 
 				$.post(host+'backoffice-display/ceksession', {
-					[app.csrfName]:app.csrfHash
+					[app.csrfName]:function(){
+						return app.csrfHash
+					}
 				 }, function(data){
 					if(data.is_login==false){
 						window.location.reload();
@@ -197,7 +199,7 @@
 					
 					document.getElementsByName(app.csrfName).forEach(function(el){
 						el.value = data[app.csrfName];
-						app.csrfHash = data[app.csrfName];
+						window.app.csrfHash = data[app.csrfName];
 					});
 					console.log(app.csrfName,data[app.csrfName]);
 				},'json');
