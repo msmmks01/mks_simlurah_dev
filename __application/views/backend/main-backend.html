@@ -187,7 +187,9 @@
 
 			setInterval(function(){ 
 				$.post(host+'backoffice-display/ceksession', {
-					[app.csrfName]:app.csrfHash
+					[app.csrfName]:function(){
+						return app.csrfHash;
+					}
 				 }, function(data){
 					if(data.is_login==false){
 						window.location.reload();
