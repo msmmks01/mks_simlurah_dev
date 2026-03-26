@@ -177,6 +177,12 @@
 			csrfHash: '{get_csrf_hash()}'
 		};
 
+		$.ajaxSetup({
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader('X-CSRF-TOKEN', app.csrfHash);
+			}
+		});
+
 		$( document ).ready(function() {
 			get_notif();
 			{if in_array($auth.cl_user_group_id,[2,4,5])}
