@@ -9628,7 +9628,6 @@ class Mbackend extends CI_Model
 
 	function simpandata($table, $data, $sts_crud, $table2, $data2)
 	{ //$sts_crud --> STATUS NYEE INSERT, UPDATE, DELETE
-		echo get_csrf_hash();
 		$this->db->trans_begin();
 
 		if (isset($data['id'])) {
@@ -19542,7 +19541,7 @@ class Mbackend extends CI_Model
 
 				break;
 		}
-
+		echo get_csrf_hash();
 		if ($this->db->trans_status() == false) {
 
 			$this->db->trans_rollback();
