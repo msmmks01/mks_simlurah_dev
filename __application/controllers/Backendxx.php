@@ -4702,7 +4702,7 @@ class Backendxx extends JINGGA_Controller
 			unset($post['editstatus']);
 		} else $editstatus = $p2;
 
-		echo $this->mbackend->simpandata($p1, $post, $editstatus, $tabel2 = "", $data2 = array());
+		echo trim($this->mbackend->simpandata($p1, $post, $editstatus, $tabel2 = "", $data2 = array()));
 	}
 
 
