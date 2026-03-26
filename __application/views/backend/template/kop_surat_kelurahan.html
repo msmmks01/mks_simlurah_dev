@@ -3,6 +3,7 @@
         <img src="{FCPATH}{$setting.logo_kab_kota|default:''}" 
         height="100px" 
             alt="Logo Pemkab"
+            onerror="this.onerror=null;this.src='{$host}{$setting.logo_kab_kota|default:}';"
         />
         <!-- <img src="{$host}{$setting.logo_kab_kota|default:''}" 
         height="100px" 
@@ -20,11 +21,11 @@
 {if $setting.status_logo_lainnya eq '1'}
     <td align="center" rowspan="4" valign="middle" style="width: 150px">
         <img src="{FCPATH}{$setting.logo_desa|default:''}"
-        onerror="this.onerror=null;this.src='{FCPATH}__assets/images/logo-blank.png';" style="height: 100px"/>
+        onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';" style="height: 100px"/>
     </td>
 {else} 
     <td align="center" rowspan=4 valign="middle"  style="width: 150px;">
-        <img src="{FCPATH}__assets/images/logo-blank.png" onerror="this.onerror=null;this.src='{FCPATH}__assets/images/logo-blank.png';"  style="height:100px"/>
+        <img src="{FCPATH}__assets/images/logo-blank.png" onerror="this.onerror=null;this.src='{$host}__assets/images/logo-blank.png';"  style="height:100px"/>
     </td>
 {/if}
 </tr>
