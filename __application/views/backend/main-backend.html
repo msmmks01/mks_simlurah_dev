@@ -177,11 +177,11 @@
 			csrfHash: '{get_csrf_hash()}'
 		};
 
-		$.ajaxSetup({
+		/* $.ajaxSetup({
 			beforeSend: function(xhr) {
 				xhr.setRequestHeader('X-CSRF-TOKEN', app.csrfHash);
 			}
-		});
+		}); */
 
 		$( document ).ready(function() {
 			get_notif();
@@ -195,7 +195,9 @@
 		});
 
 		function checkSession() {
-			$.post(host + 'backoffice-display/ceksession', {}, function(data) {
+			$.post(host + 'backoffice-display/ceksession', {
+				[app.csrfName]: app.csrfHash
+			}, function(data) {
 				if (data.is_login === false) {
 					// Sebaiknya arahkan ke login page atau kasih peringatan dulu
 					alert("Sesi berakhir, silakan login kembali.");
