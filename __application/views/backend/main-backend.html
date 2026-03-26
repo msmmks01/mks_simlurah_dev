@@ -204,7 +204,7 @@
 				app.csrfHash = newToken;
 
 				// Update semua input hidden CSRF di form
-				document.querySelectorAll(`input[name="${app.csrfName}"]`).forEach(el => {
+				document.querySelectorAll('input[name="'+app.csrfName+'"]').forEach(el => {
 					el.value = newToken;
 				});
 
