@@ -5325,7 +5325,6 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
     },
 
     onLoadSuccess: function (data) {
-      console.log(data,data[app.csrfName]);
       
       update_token(data[app.csrfName]);
       if (data.total == 0) {
@@ -7984,7 +7983,9 @@ function cariData(divnya, post_search, acaknya) {
       post_search["rw"] = $("#rw").val();
     }
   }
-
+  post_search[app.csrfName] = function() {
+    return app.csrfHash;
+  };
   $("#grid_" + divnya).datagrid("reload", post_search);
 }
 
