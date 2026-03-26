@@ -2,7 +2,7 @@
 
 $autoload['packages'] = array();
 $autoload['libraries'] = array('database', 'nsmarty', 'session', 'user_agent', 'lib');
-$autoload['helper'] = array('url', 'tanggal_indo','terbilang','backend');
+$autoload['helper'] = array('url', 'tanggal_indo','terbilang','backend','form');
 $autoload['drivers'] = array();
 $autoload['config'] = array();
 $autoload['language'] = array(); 
