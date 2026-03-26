@@ -177,6 +177,35 @@
 			csrfHash: '{get_csrf_hash()}'
 		};
 
+		$(document).ajaxComplete(function(event, xhr, settings) {
+			// Coba parsing data JSON dari setiap respon server
+			try {
+				let data = JSON.parse(xhr.responseText);
+
+				// 1. Cek Sesi secara Global
+				if (data.is_login === false) {
+					alert("Sesi berakhir!");
+					window.location.reload();
+					return;
+				}
+
+				let csrfName = window.app.csrfName;
+				if (data[csrfName]) {
+					window.app.csrfHash = data[csrfName];
+					
+					// Update semua input hidden di halaman otomatis
+					$(`input[name="${csrfName}"]`).val(data[csrfName]);
+					
+					// Update Ajax Setup agar request berikutnya pakai token baru
+					$.ajaxSetup({
+						headers: { 'X-CSRF-TOKEN': data[csrfName] }
+					});
+				}
+			} catch (e) {
+				// Bukan format JSON atau respon kosong, abaikan saja
+			}
+		});
+
 		$( document ).ready(function() {
 			get_notif();
 			{if in_array($auth.cl_user_group_id,[2,4,5])}
@@ -186,6 +215,7 @@
 			{/if}
 
 			checkSession();
+			
 		});
 
 		function checkSession() {
