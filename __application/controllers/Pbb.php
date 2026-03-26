@@ -104,7 +104,7 @@ class Pbb extends JINGGA_Controller
 			return $this->_json([
 				'status'  => 'Peringatan!',
 				'message' => 'NOP harus diisi',
-				$this->security->get_csrf_name()=>$this->security->get_csrf_hash()
+				$this->security->get_csrf_token_name()=>$this->security->get_csrf_hash()
 			]);
 		}
 
@@ -112,7 +112,7 @@ class Pbb extends JINGGA_Controller
 			return $this->_json([
 				'status'  => 'Peringatan!',
 				'message' => 'Tahun pajak wajib dipilih',
-				$this->security->get_csrf_name()=>$this->security->get_csrf_hash()
+				$this->security->get_csrf_token_name()=>$this->security->get_csrf_hash()
 			]);
 		}
 
@@ -155,7 +155,7 @@ class Pbb extends JINGGA_Controller
 				'status'  => 'error',
 				'message' => $error,
 				'debug' => $debug,
-				$this->security->get_csrf_name()=>$this->security->get_csrf_hash()
+				$this->security->get_csrf_token_name()=>$this->security->get_csrf_hash()
 			]);
 		}
 
@@ -167,7 +167,7 @@ class Pbb extends JINGGA_Controller
 			return $this->_json([
 				'status'  => 'error',
 				'message' => 'Response tidak valid (bukan JSON)',
-				$this->security->get_csrf_name()=>$this->security->get_csrf_hash()
+				$this->security->get_csrf_token_name()=>$this->security->get_csrf_hash()
 			]);
 		}
 
@@ -175,7 +175,7 @@ class Pbb extends JINGGA_Controller
 			'status' => 'success',
 			'tahun'  => $tahun,
 			'data'   => $decoded,
-			$this->security->get_csrf_name()=>$this->security->get_csrf_hash()
+			$this->security->get_csrf_token_name()=>$this->security->get_csrf_hash()
 		]);
 	}
 
