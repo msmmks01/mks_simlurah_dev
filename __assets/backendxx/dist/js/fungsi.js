@@ -5323,6 +5323,8 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
     },
 
     onLoadSuccess: function (data) {
+      console.log(data,data[app.csrfName]);
+      
       update_token(data[app.csrfName]);
       if (data.total == 0) {
         var $panel = $(this).datagrid("getPanel");
