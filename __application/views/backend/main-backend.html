@@ -172,6 +172,8 @@
 		<!-- END Modal -->
 		
 	<script>
+		var get_csrf_token_name = '{get_csrf_token_name()}';
+		var get_csrf_hash = '{get_csrf_hash()}';
 
 		$( document ).ready(function() {
 			get_notif();
@@ -182,10 +184,16 @@
 			{/if}
 
 			setInterval(function(){ 
-				$.post(host+'backoffice-display/ceksession', { }, function(resp){
-					if(resp == '2'){
+				$.post(host+'backoffice-display/ceksession', {
+					[get_csrf_token_name]:get_csrf_hash
+				 }, function(resp){
+					if(resp.is_login==false){
 						window.location.reload();
+						return;
 					}
+					document.getElementsByName(get_csrf_token_name).forEach(function(el){
+						el.value = resp[get_csrf_token_name];
+					});
 				});
 			}, 20000);
 			

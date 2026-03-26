@@ -4640,10 +4640,16 @@ class Backendxx extends JINGGA_Controller
 
 				if ($this->auth) {
 
-					echo 1;
+					echo json_encode([
+						'is_login'=>true,
+						get_csrf_token_name()=>get_csrf_hash()
+					]);
 				} else {
 
-					echo 2;
+					echo json_encode([
+						'is_login'=>false,
+						get_csrf_token_name()=>get_csrf_hash()
+					]);
 				}
 
 				break;
