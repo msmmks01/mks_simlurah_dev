@@ -171,6 +171,8 @@ class Pbb extends JINGGA_Controller
 			]);
 		}
 		$decoded[$this->security->get_csrf_token_name()] = $this->security->get_csrf_hash();
+		$decoded['status'] = $decoded['success']?true:false;
+		unset($decoded['success']);
 		return $this->_json($decoded);
 	}
 
