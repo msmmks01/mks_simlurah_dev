@@ -19543,6 +19543,10 @@ class Mbackend extends CI_Model
 				break;
 		}
 
+		if (ob_get_length() > 0) {
+        ob_clean();
+    }
+
 		if ($this->db->trans_status() == false) {
 
 			$this->db->trans_rollback();
