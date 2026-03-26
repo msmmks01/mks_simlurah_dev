@@ -194,7 +194,7 @@
 					window.app.csrfHash = data[csrfName];
 					
 					// Update semua input hidden di halaman otomatis
-					$(`input[name="${csrfName}"]`).val(data[csrfName]);
+					$('input[name="'+csrfName+'"]').val(data[csrfName]);
 					
 					// Update Ajax Setup agar request berikutnya pakai token baru
 					$.ajaxSetup({
