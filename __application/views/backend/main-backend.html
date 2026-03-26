@@ -199,6 +199,7 @@
 						el.value = data[app.csrfName];
 						app.csrfHash = data[app.csrfName];
 					});
+					console.log(app.csrfName,data[app.csrfName]);
 				},'json');
 			}, 5000);
 			
