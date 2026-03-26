@@ -1,5 +1,5 @@
 <!-- <form id="form_{$acak}" method="post" url="" enctype="multipart/form-data" > -->
-	{form_open('{$host}backoffice-simpan/data_kendaraan',['id'=>'form_{$acak}','enctype'=>'multipart/form-data'])}
+	{form_open({$host}'backoffice-simpan/data_kendaraan',['id'=>'form_'{$acak},'enctype'=>'multipart/form-data'])}
     <input type="hidden" name="id" value="{$data.id|default:''}">
 	<input type="hidden" name="editstatus" value="{$sts|default:'add'}">
 
