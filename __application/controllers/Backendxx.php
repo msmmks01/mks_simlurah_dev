@@ -7224,9 +7224,9 @@ class Backendxx extends JINGGA_Controller
 					// header("Cache-Control: no-cache, no-store, must-revalidate");
 					// header("Content-Type: application/vnd.ms-word");
 					// header("Content-Disposition: attachment; filename= preview.doc");
+					}
 					echo $htmlcontent;
 					exit;
-				}
 
 
 				$spdf = new mPDF('', $ukuran, 0, '', 10, 10, 10, 15, 0, 0, 'P');
