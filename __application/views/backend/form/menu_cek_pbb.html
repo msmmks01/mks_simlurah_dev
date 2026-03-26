@@ -190,8 +190,7 @@ document.getElementById('formCekPBB').addEventListener('submit', function(e){
 
     if (data.status && data.status === 'success') {
       // kadang API menaruh detail di data.data atau langsung di data
-      var d = data.data ? data.data : data;
-      console.log(d);
+      var d = data.data;
       
       var nama = d.nama_wp || d.NAMA_WP || '-';
       var rt = d.rt_op || d.RT_OP || '-';
