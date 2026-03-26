@@ -4701,7 +4701,7 @@ class Backendxx extends JINGGA_Controller
 			$editstatus = $post['editstatus'];
 			unset($post['editstatus']);
 		} else $editstatus = $p2;
-
+		unset($post[get_csrf_token_name()]);
 		echo $this->mbackend->simpandata($p1, $post, $editstatus, $tabel2 = "", $data2 = array());
 	}
 
