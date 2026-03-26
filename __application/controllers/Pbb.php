@@ -185,6 +185,4 @@ class Pbb extends JINGGA_Controller
 		echo json_encode($data);
 		exit;
 	}
-
-
 }
