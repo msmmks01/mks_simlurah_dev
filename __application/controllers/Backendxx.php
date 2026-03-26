@@ -7228,6 +7228,7 @@ class Backendxx extends JINGGA_Controller
 					echo $preview;
 					exit;
 				}
+				$htmlcontent = str_replace(base_url(),FCPATH,$htmlcontent);
 
 
 				$spdf = new mPDF('', $ukuran, 0, '', 10, 10, 10, 15, 0, 0, 'P');
