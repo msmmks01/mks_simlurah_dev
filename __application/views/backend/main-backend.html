@@ -177,12 +177,6 @@
 			csrfHash: '{get_csrf_hash()}'
 		};
 
-		/* $.ajaxSetup({
-			beforeSend: function(xhr) {
-				xhr.setRequestHeader('X-CSRF-TOKEN', app.csrfHash);
-			}
-		}); */
-
 		$( document ).ready(function() {
 			get_notif();
 			{if in_array($auth.cl_user_group_id,[2,4,5])}
@@ -205,20 +199,22 @@
 					return;
 				}
 
-				// Update Token
-				const newToken = data[app.csrfName];
-				app.csrfHash = newToken;
-
-				// Update semua input hidden CSRF di form
-				document.querySelectorAll('input[name="'+app.csrfName+'"]').forEach(el => {
-					el.value = newToken;
-				});
+				update_token(data[app.csrfName]);
 
 				// Jalankan lagi setelah 30 detik (lebih efisien)
 				setTimeout(checkSession, 5000); 
 			}, 'json').fail(function() {
 				// Jika server error, coba lagi nanti
 				setTimeout(checkSession, 5000);
+			});
+		}
+
+		function update_token(newToken) {
+			app.csrfHash = newToken;
+
+			// Update semua input hidden CSRF di form
+			document.querySelectorAll('input[name="'+app.csrfName+'"]').forEach(el => {
+				el.value = newToken;
 			});
 		}
 

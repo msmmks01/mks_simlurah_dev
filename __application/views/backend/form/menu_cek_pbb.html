@@ -182,10 +182,7 @@ document.getElementById('formCekPBB').addEventListener('submit', function(e){
     return res.json();
   })
   .then(function(data){
-    document.getElementsByName(app.csrfName).forEach(function(el){
-      el.value = data[app.csrfName];
-      app.csrfHash = data[app.csrfName];
-    });
+    update_token(data[app.csrfName]);
     if (!data) {
       hasilBox.innerHTML = '<p style="color:red">Tidak ada data dari server.</p>';
       return;
