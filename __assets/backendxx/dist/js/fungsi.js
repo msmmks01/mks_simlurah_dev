@@ -5223,7 +5223,9 @@ function genGrid(modnya, divnya, lebarnya, tingginya, par1) {
 
   urlglobal = host + "backoffice-data/" + urlnya;
 
-  param[app.csrfName] = app.csrfHash;
+  param[app.csrfName] = function() {
+    return app.csrfHash;
+  };
 
   grid_nya = $("#" + divnya).datagrid({
     title: judulnya,
