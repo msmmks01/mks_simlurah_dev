@@ -7022,8 +7022,9 @@ class Mbackend extends CI_Model
 
 			return $this->lib->json_grid($sql, $type);
 		} elseif ($balikan == 'row_array') {
-
-			return $this->db->query($sql)->row_array();
+			$respon = $this->db->query($sql)->row_array();
+			$respon[get_csrf_token_name()] = get_csrf_hash();
+			return $respon;
 		} elseif ($balikan == 'result') {
 
 			return $this->db->query($sql)->result();

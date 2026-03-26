@@ -1395,11 +1395,14 @@ class Lib
 				$responce->footer = $arr_foot;
 			}
 
+			$responce->{get_csrf_token_name()} = get_csrf_hash();
+
 			return json_encode($responce);
 		} else {
 			$responce = new stdClass();
 			$responce->rows = 0;
 			$responce->total = 0;
+			$responce->{get_csrf_token_name()} = get_csrf_hash();
 			return json_encode($responce);
 		}
 	}
