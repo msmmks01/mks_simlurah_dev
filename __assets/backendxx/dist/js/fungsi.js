@@ -7739,6 +7739,8 @@ function submit_form(frm, func) {
     },
 
     success: function (data) {
+      console.log(data);
+      
       if (func == undefined) {
         if (data == "1") {
           pesan("Data Sudah Disimpan ", "Sukses");
