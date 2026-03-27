@@ -14,10 +14,9 @@
     background: transparent;
   }
 </style>
-<form id="form_{$acak}" method="post"
-      url="{$host}backoffice-simpan/laporan_hasil_kegiatan"
-      enctype="multipart/form-data">
 
+<!-- <form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/laporan_hasil_kegiatan" enctype="multipart/form-data"> -->
+{form_open($host|cat:'backoffice-simpan/laporan_hasil_kegiatan', ['id' => 'form_'|cat:$acak, 'enctype' => 'multipart/form-data'])}
 	<!-- ID AGENDA (WAJIB) -->
     <input type="hidden" name="id_agenda" value="{$agenda.id}">
 	<input type="hidden" name="sts_crud" value="edit">
@@ -185,7 +184,8 @@
             </div>
         </div>
     </div>
-</form>
+<!-- </form> -->
+{form_close()}
 
 <script>
 	var rulesnya = {

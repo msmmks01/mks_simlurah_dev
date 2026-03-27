@@ -12,12 +12,8 @@
   }
 </style>
 
-<form
-  id="form_{$acak}"
-  method="post"
-  url="{$host}backoffice-simpan/verifikasi_lpj_rt_rw"
->
-
+<!-- <form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/verifikasi_lpj_rt_rw"> -->
+{form_open($host|cat:'backoffice-simpan/verifikasi_lpj_rt_rw', ['id' => 'form_'|cat:$acak, 'enctype' => 'multipart/form-data'])}
   <input type="hidden" name="button_verifikasi_lpj" value="{$sts|default:'add'}">
 
   <div class="row">
@@ -169,7 +165,8 @@
       </div>
     </div>
   </div>
-</form>
+<!-- </form> -->
+{form_close()}
 
 <script>
   // cek all

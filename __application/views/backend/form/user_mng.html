@@ -1,4 +1,5 @@
-<form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/user_mng" enctype="multipart/form-data" >
+<!-- <form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/user_mng" enctype="multipart/form-data" > -->
+{form_open($host|cat:'backoffice-simpan/user_mng', ['id' => 'form_'|cat:$acak, 'enctype' => 'multipart/form-data'])}
     <input type="hidden" name="id" value="{$data.id|default:''}">
 	<input type="hidden" name="editstatus" value="{$sts|default:'add'}">
 
@@ -52,8 +53,8 @@
 			</div>
 		</div>
 	</div>
-	
-</form>
+<!-- </form> -->
+{form_close()}
 
 <script type="text/javascript">
 	

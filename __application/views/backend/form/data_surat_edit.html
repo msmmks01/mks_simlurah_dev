@@ -7,7 +7,8 @@
 		color: red;
 	}
 </style>
-<form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/data_surat_edit" enctype="multipart/form-data">
+<!-- <form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/data_surat_edit" enctype="multipart/form-data"> -->
+{form_open($host|cat:'backoffice-simpan/data_surat_edit', ['id' => 'form_'|cat:$acak, 'enctype' => 'multipart/form-data'])}
 	<input type="hidden" name="id" value="{$id|default:''}" />
 	<input type="hidden" name="cl_jenis_surat_id" id="cl_jenis_surat_id" value="{$cl_jenis_surat_id|default:''}" />
 	<input type="hidden" name="editstatus" value="edit" />
@@ -36,8 +37,8 @@
 			style_btn="btn-danger" btn_goyz="true"}
 		</div>
 	</div>
-
-</form>
+<!-- </form> -->
+{form_close()}
 	
 	 <!-- <script src="https://cdn.tiny.cloud/1/c8pwztn9u4ye3e8a7gwons2nukbxxnc2kxnsw3cfi7i0ls51/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script> -->
 	  <script src="https://cdn.tiny.cloud/1/se36w0oql07zwnz5z8205ere0beauotog6rfj1km06hffby9/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script>

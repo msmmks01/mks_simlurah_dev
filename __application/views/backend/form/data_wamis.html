@@ -1,4 +1,5 @@
-<form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/data_wamis" enctype="multipart/form-data" >
+<!-- <form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/data_wamis" enctype="multipart/form-data" > -->
+{form_open($host|cat:'backoffice-simpan/data_wamis', ['id' => 'form_'|cat:$acak, 'enctype' => 'multipart/form-data'])}
     <input type="hidden" name="id" value="{$data.id|default:''}">
 	<input type="hidden" name="editstatus" value="{$sts|default:'add'}">
 
@@ -49,7 +50,8 @@
 		</div>
 	</div>
 
-</form>
+<!-- </form> -->
+{form_close()}
 
 <script>
 	var rulesnya = {

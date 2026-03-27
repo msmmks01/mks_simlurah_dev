@@ -1,7 +1,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css">
 <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
 
-<form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/daftar_agenda_kegiatan" enctype="multipart/form-data" >
+<!-- <form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/daftar_agenda_kegiatan" enctype="multipart/form-data" > -->
+{form_open($host|cat:'backoffice-simpan/daftar_agenda_kegiatan', ['id' => 'form_'|cat:$acak, 'enctype' => 'multipart/form-data'])}
     <input type="hidden" name="id" value="{$data.id|default:''}">
 	<input type="hidden" name="editstatus" value="{$sts|default:'add'}">
 
@@ -82,7 +83,8 @@
 			</div>
 		</div>
 	</div>
-</form>
+<!-- </form> -->
+ {form_close()}
 
 <script>
 	var rulesnya = {

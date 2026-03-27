@@ -83,10 +83,11 @@
 	.info-table td.value {
 	color: #333;
 	}
-
-
 </style>
-<form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/data_surat" enctype="multipart/form-data">
+
+
+<!-- <form id="form_{$acak}" method="post" url="{$host}backoffice-simpan/data_surat" enctype="multipart/form-data"> -->
+{form_open($host|cat:'backoffice-simpan/data_surat', ['id' => 'form_'|cat:$acak, 'enctype' => 'multipart/form-data'])}
 	<input type="hidden" name="id" value="{$data.id|default:''}"/>
 	<input type="hidden" name="editstatus" value="{$sts|default:'add'}" />
 	<input type="hidden" name="cl_jenis_surat_id" id="cl_jenis_surat_id" value="{$idx|default:''}" />
@@ -24401,7 +24402,8 @@
 			</div>
 		</div>
 	</div>
-</form>
+<!-- </form> -->
+{form_close()}
 
 <div class="modal fade" id="modal-kode-surat" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
