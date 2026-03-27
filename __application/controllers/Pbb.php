@@ -102,7 +102,7 @@ class Pbb extends JINGGA_Controller
 		$tahun = $this->input->post('tahun');
 		if (!$nop) {
 			return $this->_json([
-				'status'  => 'Peringatan!',
+				'status'  => false,
 				'message' => 'NOP harus diisi',
 				$this->security->get_csrf_token_name()=>$this->security->get_csrf_hash()
 			]);
@@ -110,7 +110,7 @@ class Pbb extends JINGGA_Controller
 
 		if (!$tahun) {
 			return $this->_json([
-				'status'  => 'Peringatan!',
+				'status'  => false,
 				'message' => 'Tahun pajak wajib dipilih',
 				$this->security->get_csrf_token_name()=>$this->security->get_csrf_hash()
 			]);
@@ -118,8 +118,8 @@ class Pbb extends JINGGA_Controller
 
 		$payload = [
 			'jenis_pajak' => 'pbbp2',
-			'nop'         => '737103000801603340',
-			'tahun_pajak' => 2025,
+			'nop'         => $nop,
+			'tahun_pajak' => $tahun,
 			'merchant'    => 'MSM'
 		];
 
@@ -152,7 +152,7 @@ class Pbb extends JINGGA_Controller
 			curl_close($ch);
 
 			return $this->_json([
-				'status'  => 'error',
+				'status'  => false,
 				'message' => $error,
 				'debug' => $debug,
 				$this->security->get_csrf_token_name()=>$this->security->get_csrf_hash()
@@ -165,18 +165,15 @@ class Pbb extends JINGGA_Controller
 
 		if (json_last_error() !== JSON_ERROR_NONE) {
 			return $this->_json([
-				'status'  => 'error',
+				'status'  => false,
 				'message' => 'Response tidak valid (bukan JSON)',
 				$this->security->get_csrf_token_name()=>$this->security->get_csrf_hash()
 			]);
 		}
-
-		return $this->_json([
-			'status' => 'success',
-			'tahun'  => $tahun,
-			'data'   => $decoded,
-			$this->security->get_csrf_token_name()=>$this->security->get_csrf_hash()
-		]);
+		$decoded[$this->security->get_csrf_token_name()] = $this->security->get_csrf_hash();
+		$decoded['status'] = $decoded['success']?true:false;
+		unset($decoded['success']);
+		return $this->_json($decoded);
 	}
 
 	private function _json($data)
